@@ -1,4 +1,4 @@
-Funktionsbibliothek Datenkatalog
+Funktionsbibliothek Datenkatalog [![Build Status](https://travis-ci.org/falkoschumann/datenverteiler-datenkatalog.svg?branch=master)](https://travis-ci.org/falkoschumann/datenverteiler-datenkatalog)
 ================================
 
 Die Funktionsbibliothek Datenkatalog soll die Arbeit mit dem Datenkatalog der
