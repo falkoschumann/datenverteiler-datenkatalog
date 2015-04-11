@@ -1,0 +1,52 @@
+ ------
+ Usage
+ ------
+ Falko Schumann
+ ------
+ 2015-04-11
+ ------
+
+
+Verwendung
+
+  Mit dem <<<Context>>> wird der <<<Marshaller>>> und der <<<Unmarsaller>>> erzeugt. Der <<<Marshaller>>> überführt ein
+  POJO (Plain old Java Object) in eine Attributgruppe (<<<Data>>>). Der <<<Unmarshaller>>> überführt umgekehrt eine
+  Attributgruppe (<<<Data>>>) in ein POJO.
+
+  Es können beliebige POJOs, also Klassenobjekte, als Datum einer Attributgruppen verwendet werden. Die Properties der
+  Klasse werden als Attribut der Attributgruppe interpretiert.
+
+  Die Typen der Properties werden wie folgt auf Attributtypen abgebildet:
+
+*--------------*----------------*-----------*
+| Java-Typ     |   Attributtyp  | Anmerkung |
+*--------------+----------------+-----------+
+| SystemObject | Objektreferenz |           |
+*--------------+----------------+-----------+
+Abbildung von Java-Typen auf Attributtypen
+
+  Ganzzahlattribute die als Aufzählungstyp verwendet werden, wenn also nur Zustände erlaubt sind, können als Java-Enum
+  notiert werden. Das Enum muss dafür mit der Annotation <<<@Zustand>>> gekennzeichnet werden und die Enum-Namen müssen
+  den Zustandsnamen entsprechen.
+
+Beispiel
+
+--------------------------------------------------------------------------------
+ClientDavInterface dav =...;
+DataModel model = dav.getDataModel();
+Context context = new Context();
+
+// Unmarshalling
+AttributeGroup atg = model.getAttributeGroup("atg.messQuerschnittAllgemein");
+Data data = model.getObject("mq.a10.0000").getConfigurationData(atg);
+Unmarshaller unmarshaller = context.createUnmarshaller();
+MessQuerschnittAllgemein datum = unmarshaller.unmarshal(data, MessQuerschnittAllgemein.class);
+
+// Marshalling
+data = dav.createData(atg);
+datum = new MessQuerschnittAllgemein();
+datum.setTyp(MessQuerschnittTyp.HauptFahrbahn);
+datum.setErsatzMessQuerschnitt(model.getObject("mq.a10.0000"));
+Marshaller marshaller = context.createMarshaller();
+marshaller.marshal(datum, data);
+--------------------------------------------------------------------------------

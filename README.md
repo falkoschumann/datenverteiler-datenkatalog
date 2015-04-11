@@ -11,21 +11,21 @@ http://falkoschumann.github.io/datenverteiler-datenkatalog/
 Enthaltene Funktionen
 ---------------------
 
-Noch keine :-)
+  - Nutzung von POJOs (Plain old Java Objects) anstelle der generischen API der
+    Datenverteiler-Applikationsfunktionen für den Zugriff auf die Attribute von
+    Attributgruppen.
 
 
 Geplante Funktionen
 -------------------
 
-  - Nutzung von POJOs (Plain old Java Objects) anstelle der generischen API der
-    Datenverteiler-Applikationsfunktionen für den Zugriff auf die Attribute von
-    Attributgruppen.
   - Erweiterung des POJO-Ansatzes auf die Nutzung Systemobjekte mit
     Zugriffsmethoden für Mengen und Konfigurationsdaten, Parameter und
     Onlinedaten.
   - Generator für einen HTML-Datenkatalog.
   - Generator für Diagramme mit den Beziehungen zwischen Objekten (Referenzen in
-    Mengen und Objektreferenzen in Attributgruppen). 
+    Mengen und Objektreferenzen in Attributgruppen).
+  - Generator für Abhängigkeitsdiagramm der Konfigurationsbereiche.
 
 
 ---

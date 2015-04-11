@@ -68,6 +68,9 @@
     <konfigurationsbereich pid="kb.metaModellGlobal" verzeichnis="">
         <version nr="16" zeitpunkt="09.08.2013 16:29:37,553"/>
     </konfigurationsbereich>
+    <konfigurationsbereich pid="kb.objekteTestUnterzentraleK2S_10_MessQuerschnitte" verzeichnis="">
+        <version nr="3" zeitpunkt="21.03.2007 03:47:28,017"/>
+    </konfigurationsbereich>
     <konfigurationsbereich pid="kb.systemModellAoe" verzeichnis="">
         <version nr="6" zeitpunkt="31.05.2011 23:37:37,353"/>
     </konfigurationsbereich>
@@ -120,9 +123,6 @@
     </konfigurationsbereich>
     <konfigurationsbereich pid="kb.tmLangZeitVerkehrsDaten" verzeichnis="">
         <version nr="3" zeitpunkt="21.03.2007 03:47:28,016" />
-    </konfigurationsbereich>
-    <konfigurationsbereich pid="kb.objekteTestUnterzentraleK2S_10_MessQuerschnitte" verzeichnis="">
-        <version nr="3" zeitpunkt="21.03.2007 03:47:28,017" />
     </konfigurationsbereich>
     <konfigurationsbereich pid="kb.objekteZugriffsrechteBasis" verzeichnis="">
         <version nr="3" zeitpunkt="07.01.2011 01:04:12,930" />
