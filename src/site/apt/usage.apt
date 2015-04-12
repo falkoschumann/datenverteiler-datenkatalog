@@ -16,13 +16,29 @@ Verwendung
   Es können beliebige POJOs, also Klassenobjekte, als Datum einer Attributgruppen verwendet werden. Die Properties der
   Klasse werden als Attribut der Attributgruppe interpretiert.
 
-  Die Typen der Properties werden wie folgt auf Attributtypen abgebildet:
+  Die Attributtypen werden wie folgt auf Typen der Properties abgebildet:
 
-*--------------*----------------*-----------*
-| Java-Typ     |   Attributtyp  | Anmerkung |
-*--------------+----------------+-----------+
-| SystemObject | Objektreferenz |           |
-*--------------+----------------+-----------+
+*-----------------*--------------*----------------------------*
+| <<Attributtyp>> | <<Java-Typ>> |        <<Anmerkung>>       |
+*-----------------+--------------+----------------------------+
+| Zeichenkette    | String       | <noch nicht implementiert> |
+*-----------------+--------------+----------------------------+
+| Ganzzahl        | byte\        | für Wertebereich 8 Bit\    |
+|                 | short\       | für Wertebereich 16 Bit\   |
+|                 | int\         | für Wertebereich 32 Bit\   |
+|                 | long\        | für Wertebereich 64 Bit\   |
+|                 | double\      | für Festkommazahlen\       |
+|                 |              | <noch nicht implementiert> |
+*-----------------+--------------+----------------------------+
+| Kommazahl       | float\       | für Wertebereich 32 Bit\   |
+|                 | double\      | für Wertebereich 64 Bit\   |
+*-----------------+--------------+----------------------------+
+| Zeitstempel     | Date\        | für absoluten Zeitstempel\ |
+|                 | long         | für relativen Zeitstempel\ |
+|                 |              | <noch nicht implementiert> |
+*-----------------+--------------+----------------------------+
+| Objektreferenz  | SystemObject |                            |
+*-----------------+--------------+----------------------------+
 Abbildung von Java-Typen auf Attributtypen
 
   Ganzzahlattribute die als Aufzählungstyp verwendet werden, wenn also nur Zustände erlaubt sind, können als Java-Enum

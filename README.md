@@ -22,6 +22,7 @@ Geplante Funktionen
   - Erweiterung des POJO-Ansatzes auf die Nutzung Systemobjekte mit
     Zugriffsmethoden für Mengen und Konfigurationsdaten, Parameter und
     Onlinedaten.
+  - Generator für die POJO-Klassen von Attributgruppen und Systemobjekten.
   - Generator für einen HTML-Datenkatalog.
   - Generator für Diagramme mit den Beziehungen zwischen Objekten (Referenzen in
     Mengen und Objektreferenzen in Attributgruppen).
