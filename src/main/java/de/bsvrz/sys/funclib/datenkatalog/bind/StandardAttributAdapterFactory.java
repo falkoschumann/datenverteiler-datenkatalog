@@ -5,16 +5,23 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.bind;
 
-import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
 import java.beans.PropertyDescriptor;
+import java.util.Date;
 
 class StandardAttributAdapterFactory {
 
     AttributAdapter createAdapter(PropertyDescriptor pd) {
         if (isZustand(pd)) return new ZustandAttributAdapter(pd.getPropertyType());
+        if (isZeitstempel(pd))
+            return new ZeitstempelAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(Zeitstempel.class));
         if (isObjektreferenz(pd)) return new ObjektreferenzAttributAdapter();
+        if (isAttributliste(pd)) return new AttributlistenAttributAdapter(pd.getPropertyType());
+        if (isDouble(pd)) return new DoubleAttributAdapter();
+        if (isLong(pd)) return new LongAttributAdapter();
+        if (isInteger(pd)) return new IntegerAttributAdapter();
+        if (isBoolean(pd)) return new BooleanAttributAdapter();
 
         throw new IllegalStateException("Kein AttributAdapter gefunden für " + pd + ".");
     }
@@ -23,48 +30,32 @@ class StandardAttributAdapterFactory {
         return pd.getPropertyType().getAnnotation(Zustand.class) != null;
     }
 
+    private boolean isZeitstempel(PropertyDescriptor pd) {
+        return pd.getReadMethod().getAnnotation(Zeitstempel.class) != null || pd.getPropertyType() == Date.class;
+    }
+
     private boolean isObjektreferenz(PropertyDescriptor pd) {
         return pd.getPropertyType().isAssignableFrom(SystemObject.class);
     }
 
-    private static class ZustandAttributAdapter implements AttributAdapter {
-
-        private final Class<?> enumType;
-
-        ZustandAttributAdapter(Class<?> enumType) {
-            this.enumType = enumType;
-        }
-
-        @Override
-        public void marshal(Object propertyValue, Data attribut) {
-            attribut.asUnscaledValue().setText(propertyValue.toString());
-        }
-
-        @Override
-        public Object unmarshal(Data attribut) {
-            final String name = attribut.asTextValue().getText();
-            for (final Object e : enumType.getEnumConstants()) {
-                if (name.equals(e.toString()))
-                    return e;
-            }
-
-            throw new IllegalStateException("Das Enum " + enumType + " kennt den Zustand " + name + " nicht.");
-        }
-
+    private boolean isAttributliste(PropertyDescriptor pd) {
+        return pd.getPropertyType().getAnnotation(AttributlistenDefinition.class) != null;
     }
 
-    private static final class ObjektreferenzAttributAdapter implements AttributAdapter {
+    private boolean isDouble(PropertyDescriptor pd) {
+        return pd.getPropertyType() == Double.class || pd.getPropertyType() == double.class;
+    }
 
-        @Override
-        public void marshal(final Object propertyValue, final Data attribut) {
-            attribut.asReferenceValue().setSystemObject((SystemObject) propertyValue);
-        }
+    private boolean isLong(PropertyDescriptor pd) {
+        return pd.getPropertyType() == Long.class || pd.getPropertyType() == long.class;
+    }
 
-        @Override
-        public Object unmarshal(final Data attribut) {
-            return attribut.asReferenceValue().getSystemObject();
-        }
+    private boolean isInteger(PropertyDescriptor pd) {
+        return pd.getPropertyType() == Integer.class || pd.getPropertyType() == int.class;
+    }
 
+    private boolean isBoolean(PropertyDescriptor pd) {
+        return pd.getPropertyType() == Boolean.class || pd.getPropertyType() == boolean.class;
     }
 
 }

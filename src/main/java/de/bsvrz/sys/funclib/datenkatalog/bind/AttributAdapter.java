@@ -21,7 +21,7 @@ public interface AttributAdapter {
      * @param propertyValue der Wert der Property.
      * @param attribut      das {@code Data} des Attributs, in das der Propertywert geschrieben werden soll.
      */
-    void marshal(Object propertyValue, Data attribut);
+    void marshal(Object propertyValue, Data attribut) throws Exception;
 
     /**
      * Überführt ein Attribut in eine Property.
@@ -29,6 +29,6 @@ public interface AttributAdapter {
      * @param data das {@code Data}, das den Attributwert enthält.
      * @return der dazugehörige Property-Wert.
      */
-    Object unmarshal(Data data);
+    Object unmarshal(Data data) throws Exception;
 
 }

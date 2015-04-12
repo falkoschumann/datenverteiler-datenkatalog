@@ -7,11 +7,6 @@ package de.bsvrz.sys.funclib.datenkatalog.bind;
 
 import de.bsvrz.dav.daf.main.Data;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.util.NoSuchElementException;
-
 /**
  * Der Kontext für das Binding und abstrakte Fabrik für {@link Marshaller} und {@link Unmarshaller}.
  *
@@ -21,14 +16,6 @@ import java.util.NoSuchElementException;
 public class Context {
 
     // TODO Exception-Handling verbessern: Exception durch DataBindingException ersetzen
-
-    static Data getAttribut(Data data, String name) {
-        try {
-            return data.getItem(name.substring(0, 1).toUpperCase() + name.substring(1));
-        } catch (NoSuchElementException ex) {
-            return data.getItem(name);
-        }
-    }
 
     /**
      * Erzeugt einen Marshaller.
@@ -52,14 +39,7 @@ public class Context {
 
         @Override
         public void marshal(Object datum, Data data) throws Exception {
-            BeanInfo beanInfo = Introspector.getBeanInfo(datum.getClass());
-            for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
-                if (pd.getName().equals("class")) continue;
-
-                AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
-                Data att = getAttribut(data, pd.getName());
-                adapter.marshal(pd.getReadMethod().invoke(datum), att);
-            }
+            new AttributlistenAttributAdapter(datum.getClass()).marshal(datum, data);
         }
 
     }
@@ -67,17 +47,9 @@ public class Context {
     private static class UnmarshallerImpl implements Unmarshaller {
 
         @Override
+        @SuppressWarnings("unchecked")
         public <T> T unmarshal(Data data, Class<T> datumClass) throws Exception {
-            T result = datumClass.newInstance();
-            BeanInfo beanInfo = Introspector.getBeanInfo(datumClass);
-            for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
-                if (pd.getName().equals("class")) continue;
-
-                AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
-                Data att = getAttribut(data, pd.getName());
-                pd.getWriteMethod().invoke(result, adapter.unmarshal(att));
-            }
-            return result;
+            return (T) new AttributlistenAttributAdapter(datumClass).unmarshal(data);
         }
 
     }

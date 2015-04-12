@@ -47,6 +47,9 @@
     <konfigurationsbereich pid="kb.tmTmcGlobal" verzeichnis="">
         <version nr="4" zeitpunkt="01.07.2007 01:58:14,172"/>
     </konfigurationsbereich>
+    <konfigurationsbereich pid="kb.tmUmfeldDatenGlobal" verzeichnis="">
+        <version nr="22" zeitpunkt="04.05.2012 12:37:23,214"/>
+    </konfigurationsbereich>
     <konfigurationsbereich pid="kb.tmVerkehrGlobal" verzeichnis="">
         <version nr="55" zeitpunkt="26.06.2013 08:35:18,519"/>
     </konfigurationsbereich>

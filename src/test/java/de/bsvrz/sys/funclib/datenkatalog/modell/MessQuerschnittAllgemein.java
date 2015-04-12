@@ -6,9 +6,11 @@
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.dav.daf.main.config.SystemObject;
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
 import java.util.Objects;
 
+@AttributgruppenDefinition
 public class MessQuerschnittAllgemein {
 
     private MessQuerschnittTyp typ;

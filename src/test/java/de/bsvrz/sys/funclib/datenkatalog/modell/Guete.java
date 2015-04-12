@@ -1,0 +1,56 @@
+/*
+ * Copyright (c) 2015 Falko Schumann
+ * Released under the terms of the MIT License.
+ */
+
+package de.bsvrz.sys.funclib.datenkatalog.modell;
+
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
+
+import java.util.Objects;
+
+@AttributlistenDefinition
+public class Guete {
+
+    private double index;
+    private GueteVerfahren verfahren;
+
+    public double getIndex() {
+        return index;
+    }
+
+    public void setIndex(double index) {
+        this.index = index;
+    }
+
+    public GueteVerfahren getVerfahren() {
+        return verfahren;
+    }
+
+    public void setVerfahren(GueteVerfahren verfahren) {
+        this.verfahren = verfahren;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Guete guete = (Guete) o;
+        return Objects.equals(index, guete.index) &&
+                Objects.equals(verfahren, guete.verfahren);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(index, verfahren);
+    }
+
+    @Override
+    public String toString() {
+        return "Guete{" +
+                "index=" + index +
+                ", verfahren=" + verfahren +
+                '}';
+    }
+
+}
