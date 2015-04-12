@@ -20,15 +20,17 @@ public interface AttributAdapter {
      *
      * @param propertyValue der Wert der Property.
      * @param attribut      das {@code Data} des Attributs, in das der Propertywert geschrieben werden soll.
+     * @throws DataBindingException bei einem unerwarteten Problem beim Marshalling.
      */
-    void marshal(Object propertyValue, Data attribut) throws Exception;
+    void marshal(Object propertyValue, Data attribut);
 
     /**
      * Überführt ein Attribut in eine Property.
      *
      * @param data das {@code Data}, das den Attributwert enthält.
      * @return der dazugehörige Property-Wert.
+     * @throws DataBindingException bei einem unerwarteten Problem beim Unmarshalling.
      */
-    Object unmarshal(Data data) throws Exception;
+    Object unmarshal(Data data);
 
 }

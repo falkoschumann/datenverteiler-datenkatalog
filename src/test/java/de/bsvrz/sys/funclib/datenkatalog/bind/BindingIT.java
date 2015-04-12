@@ -35,7 +35,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testAufzaehlungstypUndObjektreferenz() throws Exception {
+    public void testAufzaehlungstypUndObjektreferenz() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.messQuerschnittAllgemein");
         Data data = createData(atg);
         data.getUnscaledValue("Typ").setText("HauptFahrbahn");
@@ -54,7 +54,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testRelativerZeitstempelUndAttributlisteUndGanzzahl32BitUndJaNeinUndFestkommzahlUndAufzaehlungstyp() throws Exception {
+    public void testRelativerZeitstempelUndAttributlisteUndGanzzahl32BitUndJaNeinUndFestkommzahlUndAufzaehlungstyp() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.ufdsHelligkeit");
         Data data = createData(atg);
         data.getTimeValue("T").setSeconds(60);

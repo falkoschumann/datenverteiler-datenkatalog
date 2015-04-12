@@ -8,7 +8,6 @@ package de.bsvrz.sys.funclib.datenkatalog.bind;
 import de.bsvrz.dav.daf.main.Data;
 
 import java.beans.BeanInfo;
-import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.util.NoSuchElementException;
 
@@ -39,28 +38,28 @@ class AttributlistenAttributAdapter implements AttributAdapter {
     }
 
     @Override
-    public void marshal(Object propertyValue, Data attribut) throws Exception {
-        BeanInfo beanInfo = Introspector.getBeanInfo(propertyValue.getClass());
+    public void marshal(Object propertyValue, Data attribut) {
+        BeanInfo beanInfo = Pojo.getBeanInfo(propertyValue.getClass());
         for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
             if (pd.getName().equals("class")) continue;
 
             AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
             Data att = getAttribut(attribut, pd);
-            adapter.marshal(pd.getReadMethod().invoke(propertyValue), att);
+            adapter.marshal(Pojo.get(propertyValue, pd), att);
         }
     }
 
     @Override
-    public Object unmarshal(Data data) throws Exception {
-        Object result = datumClass.newInstance();
-        BeanInfo beanInfo = Introspector.getBeanInfo(datumClass);
+    public Object unmarshal(Data data) {
+        Object result = Pojo.create(datumClass);
+        BeanInfo beanInfo = Pojo.getBeanInfo(datumClass);
         for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
             if (pd.getName().equals("class")) continue;
 
             // TODO Attributliste auch ohne Setter umwandeln
             AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
             Data att = getAttribut(data, pd);
-            pd.getWriteMethod().invoke(result, adapter.unmarshal(att));
+            Pojo.set(result, pd, adapter.unmarshal(att));
         }
         return result;
     }

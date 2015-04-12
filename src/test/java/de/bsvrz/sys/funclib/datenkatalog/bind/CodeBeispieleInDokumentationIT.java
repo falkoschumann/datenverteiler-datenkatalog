@@ -16,7 +16,7 @@ import org.junit.Test;
 public class CodeBeispieleInDokumentationIT extends AbstractDatenkatalogIT {
 
     @Test
-    public void testUsage() throws Exception {
+    public void testUsage() {
         //ClientDavInterface dav =...;
         //DataModel model = dav.getDataModel();
         DataModel model = getModel();

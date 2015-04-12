@@ -3,7 +3,7 @@
  * Released under the terms of the MIT License.
  */
 
-package de.bsvrz.sys.funclib.datenkatalog.util;
+package de.bsvrz.sys.funclib.datenkatalog.bind;
 
 import org.junit.Test;
 

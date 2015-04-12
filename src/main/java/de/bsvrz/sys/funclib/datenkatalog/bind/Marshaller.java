@@ -20,7 +20,8 @@ public interface Marshaller {
      *
      * @param datum          das Datum als POJO.
      * @param attributgruppe das {@code Data} der dazugehörigen Attributgruppe.
+     * @throws DataBindingException bei einem unerwarteten Problem beim Marshalling.
      */
-    void marshal(Object datum, Data attributgruppe) throws Exception;
+    void marshal(Object datum, Data attributgruppe);
 
 }

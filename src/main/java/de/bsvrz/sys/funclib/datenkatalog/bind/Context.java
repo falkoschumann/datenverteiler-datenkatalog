@@ -15,7 +15,7 @@ import de.bsvrz.dav.daf.main.Data;
  */
 public class Context {
 
-    // TODO Exception-Handling verbessern: Exception durch DataBindingException ersetzen
+    // TODO Argumenten von Methoden prüfen
 
     /**
      * Erzeugt einen Marshaller.
@@ -38,7 +38,7 @@ public class Context {
     private static class MarshallerImpl implements Marshaller {
 
         @Override
-        public void marshal(Object datum, Data data) throws Exception {
+        public void marshal(Object datum, Data data) {
             new AttributlistenAttributAdapter(datum.getClass()).marshal(datum, data);
         }
 
@@ -48,7 +48,7 @@ public class Context {
 
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T unmarshal(Data data, Class<T> datumClass) throws Exception {
+        public <T> T unmarshal(Data data, Class<T> datumClass) {
             return (T) new AttributlistenAttributAdapter(datumClass).unmarshal(data);
         }
 

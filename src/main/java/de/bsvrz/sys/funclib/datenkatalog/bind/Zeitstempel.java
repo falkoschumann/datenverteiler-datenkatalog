@@ -21,8 +21,20 @@ import java.lang.annotation.*;
 @Documented
 public @interface Zeitstempel {
 
+    /**
+     * Die Genauigkeit des Zeitstempels. Wird der Zeitstempel als {@code long} deklariert, gibt die Genauigkeit die
+     * Maßeinheit des Zeitstempels an.
+     *
+     * @return die Zeitstempelgenauigkeit.
+     */
     Genauigkeit genauigkeit() default Genauigkeit.MILLISEKUNDEN;
 
+    /**
+     * Definiert die Genauigkeit des Zeitstempels.
+     *
+     * @author Falko Schumann
+     * @since 1.0
+     */
     enum Genauigkeit {
 
         SEKUNDEN,
