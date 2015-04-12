@@ -64,12 +64,12 @@
 
     <distributionManagement>
         <repository>
-            <id>repository</id>
+            <id>falkoschumann.releases</id>
             <name>Repository</name>
             <url>http://falkoschumann.github.io/maven-repository/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>snapshots</id>
+            <id>falkoschumann.snapshots</id>
             <name>Snapshot Repository</name>
             <url>http://falkoschumann.github.io/maven-repository/snapshots/</url>
         </snapshotRepository>
@@ -92,7 +92,8 @@
 
     <repositories>
         <repository>
-            <id>falkoschumann-releases</id>
+            <id>falkoschumann.releases</id>
+            <name>Repository</name>
             <url>http://falkoschumann.github.io/maven-repository/releases/</url>
         </repository>
     </repositories>

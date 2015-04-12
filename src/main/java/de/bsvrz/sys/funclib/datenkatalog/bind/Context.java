@@ -15,15 +15,22 @@ import de.bsvrz.dav.daf.main.Data;
  */
 public class Context {
 
-    // TODO Argumenten von Methoden prüfen
-
     /**
      * Erzeugt einen Marshaller.
      *
      * @return der Marshaller.
      */
     public Marshaller createMarshaller() {
-        return new MarshallerImpl();
+        return new Marshaller() {
+
+            @Override
+            public void marshal(Object datum, Data data) {
+                Assert.notNull("datum", datum);
+                Assert.notNull("data", data);
+                new AttributlistenAttributAdapter(datum.getClass()).marshal(datum, data);
+            }
+
+        };
     }
 
     /**
@@ -32,26 +39,17 @@ public class Context {
      * @return der Unmarshaller.
      */
     public Unmarshaller createUnmarshaller() {
-        return new UnmarshallerImpl();
-    }
+        return new Unmarshaller() {
 
-    private static class MarshallerImpl implements Marshaller {
+            @Override
+            @SuppressWarnings("unchecked")
+            public <T> T unmarshal(Data data, Class<T> datumClass) {
+                Assert.notNull("data", data);
+                Assert.notNull("datumClass", datumClass);
+                return (T) new AttributlistenAttributAdapter(datumClass).unmarshal(data);
+            }
 
-        @Override
-        public void marshal(Object datum, Data data) {
-            new AttributlistenAttributAdapter(datum.getClass()).marshal(datum, data);
-        }
-
-    }
-
-    private static class UnmarshallerImpl implements Unmarshaller {
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public <T> T unmarshal(Data data, Class<T> datumClass) {
-            return (T) new AttributlistenAttributAdapter(datumClass).unmarshal(data);
-        }
-
+        };
     }
 
 }
