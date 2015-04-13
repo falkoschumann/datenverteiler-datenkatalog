@@ -26,6 +26,7 @@ class AttributlistenAttributAdapter implements AttributAdapter {
         } else {
             try {
                 attributname = pd.getName().substring(0, 1).toUpperCase() + pd.getName().substring(1);
+                return data.getItem(attributname);
             } catch (NoSuchElementException ex) {
                 attributname = pd.getName();
             }

@@ -8,10 +8,7 @@ package de.bsvrz.sys.funclib.datenkatalog.bind;
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.config.AttributeGroup;
 import de.bsvrz.sys.funclib.datenkatalog.AbstractDatenkatalogIT;
-import de.bsvrz.sys.funclib.datenkatalog.modell.GueteVerfahren;
-import de.bsvrz.sys.funclib.datenkatalog.modell.MessQuerschnittAllgemein;
-import de.bsvrz.sys.funclib.datenkatalog.modell.MessQuerschnittTyp;
-import de.bsvrz.sys.funclib.datenkatalog.modell.UfdsHelligkeit;
+import de.bsvrz.sys.funclib.datenkatalog.modell.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +32,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testAufzaehlungstypUndObjektreferenz() {
+    public void testBinding_Aufzaehlungstyp_Objektreferenz() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.messQuerschnittAllgemein");
         Data data = createData(atg);
         data.getUnscaledValue("Typ").setText("HauptFahrbahn");
@@ -54,7 +51,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testRelativerZeitstempelUndAttributlisteUndGanzzahl32BitUndJaNeinUndFestkommzahlUndAufzaehlungstyp() {
+    public void testBinding_RelativerZeitstempel_Attributliste_Ganzzahl32Bit_JaNein_Festkommzahl_Aufzaehlungstyp() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.ufdsHelligkeit");
         Data data = createData(atg);
         data.getTimeValue("T").setSeconds(60);
@@ -83,6 +80,29 @@ public class BindingIT extends AbstractDatenkatalogIT {
         assertThat(actualData, is(dataEqualsTo(data)));
 
         UfdsHelligkeit actualDatum = unmarshaller.unmarshal(data, UfdsHelligkeit.class);
+        assertEquals(datum, actualDatum);
+    }
+
+    @Test
+    public void testBinding_Ganzzahl64Bit_Kommazahl_Zeichenkette() {
+        AttributeGroup atg = getModel().getAttributeGroup("atg.werteBereichsEigenschaften");
+        Data data = createData(atg);
+        data.getUnscaledValue("minimum").set(0);
+        data.getUnscaledValue("maximum").set(1000000);
+        data.getScaledValue("skalierung").set(0.001);
+        data.getTextValue("einheit").setText("km");
+
+        WerteBereichsEigenschaften datum = new WerteBereichsEigenschaften();
+        datum.setMinimum(0);
+        datum.setMaximum(1000000);
+        datum.setSkalierung(0.001);
+        datum.setEinheit("km");
+
+        Data actualData = createData(atg);
+        marshaller.marshal(datum, actualData);
+        assertThat(actualData, is(dataEqualsTo(data)));
+
+        WerteBereichsEigenschaften actualDatum = unmarshaller.unmarshal(data, WerteBereichsEigenschaften.class);
         assertEquals(datum, actualDatum);
     }
 
