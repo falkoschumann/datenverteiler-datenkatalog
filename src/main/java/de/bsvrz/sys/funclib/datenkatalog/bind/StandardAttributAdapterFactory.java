@@ -19,6 +19,7 @@ class StandardAttributAdapterFactory {
         if (isObjektreferenz(pd)) return new ObjektreferenzAttributAdapter();
         if (isAttributliste(pd)) return new AttributlistenAttributAdapter(pd.getPropertyType());
         if (isDouble(pd)) return new DoubleAttributAdapter();
+        if (isFloat(pd)) return new FloatAttributAdapter();
         if (isLong(pd)) return new LongAttributAdapter();
         if (isInteger(pd)) return new IntegerAttributAdapter();
         if (isShort(pd)) return new ShortAttributAdapter();
@@ -47,6 +48,10 @@ class StandardAttributAdapterFactory {
 
     private boolean isDouble(PropertyDescriptor pd) {
         return pd.getPropertyType() == Double.class || pd.getPropertyType() == double.class;
+    }
+
+    private boolean isFloat(PropertyDescriptor pd) {
+        return pd.getPropertyType() == Float.class || pd.getPropertyType() == float.class;
     }
 
     private boolean isLong(PropertyDescriptor pd) {

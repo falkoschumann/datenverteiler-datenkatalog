@@ -31,7 +31,7 @@ Verwendung
 |                 | boolean\     | für Attributtyp JaNein\                               |
 |                 | enum         | für Aufzählungstypen (Attributtyp hat nur Zustände)   |
 *-----------------+--------------+-------------------------------------------------------+
-| Kommazahl       | float\       | für Wertebereich 32 Bit <noch nicht implementiert>\   |
+| Kommazahl       | float\       | für Wertebereich 32 Bit\                              |
 |                 | double\      | für Wertebereich 64 Bit\                              |
 *-----------------+--------------+-------------------------------------------------------+
 | Zeitstempel     | Date\        | für absoluten Zeitstempel <noch nicht implementiert>\ |
