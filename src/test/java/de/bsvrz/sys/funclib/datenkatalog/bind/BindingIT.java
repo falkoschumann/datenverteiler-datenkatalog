@@ -106,4 +106,25 @@ public class BindingIT extends AbstractDatenkatalogIT {
         assertEquals(datum, actualDatum);
     }
 
+    @Test
+    public void testBinding_Ganzzahl8Bit_Ganzzahl32Bit_Ganzzahl64Bit() {
+        AttributeGroup atg = getModel().getAttributeGroup("atg.straßenTeilSegment");
+        Data data = createData(atg);
+        data.getUnscaledValue("Länge").set(5000);
+        data.getUnscaledValue("AnzahlFahrStreifen").set(3);
+        data.getUnscaledValue("SteigungGefälle").set(10);
+
+        StraßenTeilSegment datum = new StraßenTeilSegment();
+        datum.setLaenge(5000);
+        datum.setAnzahlFahrStreifen((byte) 3);
+        datum.setSteigungGefaelle((short) 10);
+
+        Data actualData = createData(atg);
+        marshaller.marshal(datum, actualData);
+        assertThat(actualData, is(dataEqualsTo(data)));
+
+        StraßenTeilSegment actualDatum = unmarshaller.unmarshal(data, StraßenTeilSegment.class);
+        assertEquals(datum, actualDatum);
+    }
+
 }

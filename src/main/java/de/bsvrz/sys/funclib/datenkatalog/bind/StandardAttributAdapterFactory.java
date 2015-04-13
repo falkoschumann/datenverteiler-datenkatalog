@@ -21,6 +21,8 @@ class StandardAttributAdapterFactory {
         if (isDouble(pd)) return new DoubleAttributAdapter();
         if (isLong(pd)) return new LongAttributAdapter();
         if (isInteger(pd)) return new IntegerAttributAdapter();
+        if (isShort(pd)) return new ShortAttributAdapter();
+        if (isByte(pd)) return new ByteAttributAdapter();
         if (isString(pd)) return new StringAttributAdapter();
         if (isBoolean(pd)) return new BooleanAttributAdapter();
 
@@ -53,6 +55,14 @@ class StandardAttributAdapterFactory {
 
     private boolean isInteger(PropertyDescriptor pd) {
         return pd.getPropertyType() == Integer.class || pd.getPropertyType() == int.class;
+    }
+
+    private boolean isShort(PropertyDescriptor pd) {
+        return pd.getPropertyType() == Short.class || pd.getPropertyType() == short.class;
+    }
+
+    private boolean isByte(PropertyDescriptor pd) {
+        return pd.getPropertyType() == Byte.class || pd.getPropertyType() == byte.class;
     }
 
     private boolean isString(PropertyDescriptor pd) {

@@ -23,8 +23,8 @@ Verwendung
 *-----------------+--------------+-------------------------------------------------------+
 | Zeichenkette    | String       |                                                       |
 *-----------------+--------------+-------------------------------------------------------+
-| Ganzzahl        | byte\        | für Wertebereich 8 Bit <noch nicht implementiert>\    |
-|                 | short\       | für Wertebereich 16 Bit <noch nicht implementiert>\   |
+| Ganzzahl        | byte\        | für Wertebereich 8 Bit\                               |
+|                 | short\       | für Wertebereich 16 Bit\                              |
 |                 | int\         | für Wertebereich 32 Bit\                              |
 |                 | long\        | für Wertebereich 64 Bit\                              |
 |                 | double\      | für Festkommazahlen\                                  |
@@ -38,6 +38,11 @@ Verwendung
 |                 | long         | für relativen Zeitstempel\                            |
 *-----------------+--------------+-------------------------------------------------------+
 | Objektreferenz  | SystemObject |                                                       |
+*-----------------+--------------+-------------------------------------------------------+
+| Attributliste   | Object       | POJO analog zur Attributgruppe                        |
+*-----------------+--------------+-------------------------------------------------------+
+| Attributfeld    | List\        | <noch nicht implementiert>\                           |
+|                 | Feld         | <noch nicht implementiert>                            |
 *-----------------+--------------+-------------------------------------------------------+
 Abbildung von Java-Typen auf Attributtypen
 
