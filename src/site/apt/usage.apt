@@ -1,0 +1,64 @@
+ ------
+ Usage
+ ------
+ Falko Schumann
+ ------
+ 2015-04-11
+ ------
+
+
+Verwendung
+
+  Mit dem <<<Context>>> wird der <<<Marshaller>>> und der <<<Unmarsaller>>> erzeugt. Der <<<Marshaller>>> überführt ein
+  POJO (Plain old Java Object) in eine Attributgruppe (<<<Data>>>). Der <<<Unmarshaller>>> überführt umgekehrt eine
+  Attributgruppe (<<<Data>>>) in ein POJO.
+
+  Es können beliebige POJOs, also Klassenobjekte, als Datum einer Attributgruppen verwendet werden. Die Properties der
+  Klasse werden als Attribut der Attributgruppe interpretiert.
+
+  Die Attributtypen werden wie folgt auf Typen der Properties abgebildet:
+
+*-----------------*--------------*-------------------------------------------------------*
+| <<Attributtyp>> | <<Java-Typ>> |        <<Anmerkung>>                                  |
+*-----------------+--------------+-------------------------------------------------------+
+| Zeichenkette    | String       |                                                       |
+*-----------------+--------------+-------------------------------------------------------+
+| Ganzzahl        | byte\        | für Wertebereich 8 Bit <noch nicht implementiert>\    |
+|                 | short\       | für Wertebereich 16 Bit <noch nicht implementiert>\   |
+|                 | int\         | für Wertebereich 32 Bit\                              |
+|                 | long\        | für Wertebereich 64 Bit\                              |
+|                 | double\      | für Festkommazahlen\                                  |
+|                 | boolean\     | für Attributtyp JaNein\                               |
+|                 | enum         | für Aufzählungstypen (Attributtyp hat nur Zustände)   |
+*-----------------+--------------+-------------------------------------------------------+
+| Kommazahl       | float\       | für Wertebereich 32 Bit <noch nicht implementiert>\   |
+|                 | double\      | für Wertebereich 64 Bit\                              |
+*-----------------+--------------+-------------------------------------------------------+
+| Zeitstempel     | Date\        | für absoluten Zeitstempel <noch nicht implementiert>\ |
+|                 | long         | für relativen Zeitstempel\                            |
+*-----------------+--------------+-------------------------------------------------------+
+| Objektreferenz  | SystemObject |                                                       |
+*-----------------+--------------+-------------------------------------------------------+
+Abbildung von Java-Typen auf Attributtypen
+
+Beispiel
+
+--------------------------------------------------------------------------------
+ClientDavInterface dav =...;
+DataModel model = dav.getDataModel();
+Context context = new Context();
+
+// Unmarshalling
+AttributeGroup atg = model.getAttributeGroup("atg.messQuerschnittAllgemein");
+Data data = model.getObject("mq.a10.0000").getConfigurationData(atg);
+Unmarshaller unmarshaller = context.createUnmarshaller();
+MessQuerschnittAllgemein datum = unmarshaller.unmarshal(data, MessQuerschnittAllgemein.class);
+
+// Marshalling
+data = dav.createData(atg);
+datum = new MessQuerschnittAllgemein();
+datum.setTyp(MessQuerschnittTyp.HauptFahrbahn);
+datum.setErsatzMessQuerschnitt(model.getObject("mq.a10.0000"));
+Marshaller marshaller = context.createMarshaller();
+marshaller.marshal(datum, data);
+--------------------------------------------------------------------------------

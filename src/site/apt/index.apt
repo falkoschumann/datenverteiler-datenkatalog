@@ -1,0 +1,19 @@
+ ------
+ Introduction
+ ------
+ Falko Schumann
+ ------
+ 2015-04-11
+ ------
+
+
+Funktionsbibliothek Datenkatalog
+
+
+  Die Funktionsbibliothek Datenkatalog soll die Arbeit mit dem Datenkatalog der BSVRZ-Software vereinfachen und
+  zusätzliche Werkzeuge dafür anbieten.
+
+* Funktionen
+
+  * Nutzung von POJOs (Plain old Java Objects) anstelle der generischen API der  Datenverteiler-Applikationsfunktionen
+    für den Zugriff auf die Attribute von Attributgruppen.

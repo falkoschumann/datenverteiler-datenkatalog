@@ -1,0 +1,78 @@
+/*
+ * Copyright (c) 2015 Falko Schumann
+ * Released under the terms of the MIT License.
+ */
+
+package de.bsvrz.sys.funclib.datenkatalog.modell;
+
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
+
+import java.util.Objects;
+
+@AttributgruppenDefinition
+public class WerteBereichsEigenschaften {
+
+    private long minimum;
+    private long maximum;
+    private double skalierung;
+    private String einheit;
+
+    public long getMinimum() {
+        return minimum;
+    }
+
+    public void setMinimum(long minimum) {
+        this.minimum = minimum;
+    }
+
+    public long getMaximum() {
+        return maximum;
+    }
+
+    public void setMaximum(long maximum) {
+        this.maximum = maximum;
+    }
+
+    public double getSkalierung() {
+        return skalierung;
+    }
+
+    public void setSkalierung(double skalierung) {
+        this.skalierung = skalierung;
+    }
+
+    public String getEinheit() {
+        return einheit;
+    }
+
+    public void setEinheit(String einheit) {
+        this.einheit = einheit;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WerteBereichsEigenschaften that = (WerteBereichsEigenschaften) o;
+        return Objects.equals(minimum, that.minimum) &&
+                Objects.equals(maximum, that.maximum) &&
+                Objects.equals(skalierung, that.skalierung) &&
+                Objects.equals(einheit, that.einheit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minimum, maximum, skalierung, einheit);
+    }
+
+    @Override
+    public String toString() {
+        return "WerteBereichsEigenschaften{" +
+                "minimum=" + minimum +
+                ", maximum=" + maximum +
+                ", skalierung=" + skalierung +
+                ", einheit='" + einheit + '\'' +
+                '}';
+    }
+
+}

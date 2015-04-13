@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 Falko Schumann
+  ~ Released under the terms of the MIT License.
+  -->
+
+<project xmlns="http://maven.apache.org/DECORATION/1.6.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.6.0 http://maven.apache.org/xsd/decoration-1.6.0.xsd">
+    <body>
+        <menu name="Overview">
+            <item name="Introduction" href="index.html"/>
+            <item name="Usage" href="usage.html"/>
+            <item name="FAQ" href="faq.html"/>
+        </menu>
+        <menu name="Examples">
+            <item name="description1" href="examples/example-one.html"/>
+            <item name="description2" href="examples/example-two.html"/>
+        </menu>
+        <menu ref="parent"/>
+        <menu ref="modules"/>
+        <menu ref="reports"/>
+    </body>
+</project>
