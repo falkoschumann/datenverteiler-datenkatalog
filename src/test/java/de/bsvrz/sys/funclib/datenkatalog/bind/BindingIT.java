@@ -12,6 +12,8 @@ import de.bsvrz.sys.funclib.datenkatalog.modell.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import static de.bsvrz.sys.funclib.datenkatalog.IsDataEqual.dataEqualsTo;
@@ -126,5 +128,92 @@ public class BindingIT extends AbstractDatenkatalogIT {
         StraßenTeilSegment actualDatum = unmarshaller.unmarshal(data, StraßenTeilSegment.class);
         assertEquals(datum, actualDatum);
     }
+
+    @Test
+    public void testBinding_Ganzzahl64Bit_Ganzzahl32Bit_Ganzzahl16Bit_RelativerZeitstempel_AbsoluterZeitstempel_Attributliste_Attributfeld() {
+        AttributeGroup atg = getModel().getAttributeGroup("atg.stauVerlauf");
+        Data data = createData(atg);
+        data.getTimeValue("Schrittweite").setMillis(TimeUnit.MINUTES.toMillis(20));
+        data.getTimeValue("Dauer").setMillis(TimeUnit.MINUTES.toMillis(60));
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 04, 14, 21, 20, 00);
+        Date aufloesungsZeit = cal.getTime();
+        data.getTimeValue("AuflösungsZeit").setMillis(aufloesungsZeit.getTime());
+        data.getUnscaledValue("MaxLänge").set(12000);
+        cal.set(2015, 04, 14, 21, 45, 30);
+        Date maxLaengeZeit = cal.getTime();
+        data.getTimeValue("MaxLängeZeit").setMillis(maxLaengeZeit.getTime());
+        data.getArray("Prognoseverlauf").setLength(3);
+        data.getArray("Prognoseverlauf").getItem(0).getUnscaledValue("Zufluss").set(1500);
+        data.getArray("Prognoseverlauf").getItem(0).getUnscaledValue("Kapazität").set(1000);
+        data.getArray("Prognoseverlauf").getItem(0).getUnscaledValue("Länge").set(4000);
+        data.getArray("Prognoseverlauf").getItem(0).getTimeValue("VerlustZeit").setMillis(TimeUnit.MINUTES.toMillis(20));
+        data.getArray("Prognoseverlauf").getItem(0).getUnscaledValue("vKfz").set(20);
+        data.getArray("Prognoseverlauf").getItem(1).getUnscaledValue("Zufluss").set(2000);
+        data.getArray("Prognoseverlauf").getItem(1).getUnscaledValue("Kapazität").set(1000);
+        data.getArray("Prognoseverlauf").getItem(1).getUnscaledValue("Länge").set(10000);
+        data.getArray("Prognoseverlauf").getItem(1).getTimeValue("VerlustZeit").setMillis(TimeUnit.MINUTES.toMillis(30));
+        data.getArray("Prognoseverlauf").getItem(1).getUnscaledValue("vKfz").set(15);
+        data.getArray("Prognoseverlauf").getItem(2).getUnscaledValue("Zufluss").set(1200);
+        data.getArray("Prognoseverlauf").getItem(2).getUnscaledValue("Kapazität").set(1000);
+        data.getArray("Prognoseverlauf").getItem(2).getUnscaledValue("Länge").set(8000);
+        data.getArray("Prognoseverlauf").getItem(2).getTimeValue("VerlustZeit").setMillis(TimeUnit.MINUTES.toMillis(10));
+        data.getArray("Prognoseverlauf").getItem(2).getUnscaledValue("vKfz").set(40);
+
+        StauVerlauf datum = new StauVerlauf();
+        datum.setSchrittweite(TimeUnit.MINUTES.toMillis(20));
+        datum.setDauer(TimeUnit.MINUTES.toMillis(60));
+        datum.setAufloesungsZeit(aufloesungsZeit);
+        datum.setMaxLaenge(12000);
+        datum.setMaxLaengeZeit(maxLaengeZeit);
+        StauVerlaufPrognoseSchritt schritt1 = new StauVerlaufPrognoseSchritt();
+        schritt1.setZufluss(1500);
+        schritt1.setKapazitaet(1000);
+        schritt1.setLaenge(4000);
+        schritt1.setVerlustZeit(TimeUnit.MINUTES.toMillis(20));
+        schritt1.setVKfz((short) 20);
+        datum.getPrognoseverlauf().add(schritt1);
+        StauVerlaufPrognoseSchritt schritt2 = new StauVerlaufPrognoseSchritt();
+        schritt2.setZufluss(2000);
+        schritt2.setKapazitaet(1000);
+        schritt2.setLaenge(10000);
+        schritt2.setVerlustZeit(TimeUnit.MINUTES.toMillis(30));
+        schritt2.setVKfz((short) 15);
+        datum.getPrognoseverlauf().add(schritt2);
+        StauVerlaufPrognoseSchritt schritt3 = new StauVerlaufPrognoseSchritt();
+        schritt3.setZufluss(1200);
+        schritt3.setKapazitaet(1000);
+        schritt3.setLaenge(8000);
+        schritt3.setVerlustZeit(TimeUnit.MINUTES.toMillis(10));
+        schritt3.setVKfz((short) 40);
+        datum.getPrognoseverlauf().add(schritt3);
+
+        Data actualData = createData(atg);
+        marshaller.marshal(datum, actualData);
+        assertThat(actualData, is(dataEqualsTo(data)));
+
+        StauVerlauf actualDatum = unmarshaller.unmarshal(data, StauVerlauf.class);
+        assertEquals(datum, actualDatum);
+    }
+
+//    @Test
+//    public void testBinding() {
+//        // XXX u.a. Attributfeld mit Attribut
+//        AttributeGroup atg = getModel().getAttributeGroup("atg.linienKoordinaten");
+//        Data data = createData(atg);
+//
+//        LinienKoordinaten datum = new LinienKoordinaten();
+//
+//        Data actualData = createData(atg);
+//        marshaller.marshal(datum, actualData);
+//        assertThat(actualData, is(dataEqualsTo(data)));
+//
+//        LinienKoordinaten actualDatum = unmarshaller.unmarshal(data, LinienKoordinaten.class);
+//        assertEquals(datum, actualDatum);
+//    }
+
+    // TODO Sonderfall: Objekte statt primitiven Datentypen (Integer vs. int)
+    // TODO Sonderfall: Nicht alle Attribut als Property abgebildet
+    // TODO Sonderfall: Nicht alle Properties als Attribut vorhanden
 
 }

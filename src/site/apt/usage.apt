@@ -41,7 +41,7 @@ Verwendung
 *-----------------+--------------+-------------------------------------------------------+
 | Attributliste   | Object       | POJO analog zur Attributgruppe                        |
 *-----------------+--------------+-------------------------------------------------------+
-| Attributfeld    | List\        | <noch nicht implementiert>\                           |
+| Attributfeld    | Collection\  | \                                                     |
 |                 | Feld         | <noch nicht implementiert>                            |
 *-----------------+--------------+-------------------------------------------------------+
 Abbildung von Java-Typen auf Attributtypen

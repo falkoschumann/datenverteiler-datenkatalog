@@ -25,13 +25,21 @@ class AttributlistenAttributAdapter implements AttributAdapter {
             attributname = pd.getReadMethod().getAnnotation(AttributDefinition.class).name();
         } else {
             try {
-                attributname = pd.getName().substring(0, 1).toUpperCase() + pd.getName().substring(1);
+                attributname = firstToUpper(pd);
                 return data.getItem(attributname);
             } catch (NoSuchElementException ex) {
-                attributname = pd.getName();
+                attributname = firstToLower(pd);
             }
         }
         return data.getItem(attributname);
+    }
+
+    private static String firstToUpper(PropertyDescriptor pd) {
+        return pd.getName().substring(0, 1).toUpperCase() + pd.getName().substring(1);
+    }
+
+    private static String firstToLower(PropertyDescriptor pd) {
+        return pd.getName().substring(0, 1).toLowerCase() + pd.getName().substring(1);
     }
 
     private static boolean attributDefinitionAngegeben(PropertyDescriptor pd) {

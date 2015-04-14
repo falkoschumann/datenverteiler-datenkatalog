@@ -18,6 +18,8 @@ class StandardAttributAdapterFactory {
             return new ZeitstempelAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(Zeitstempel.class));
         if (isObjektreferenz(pd)) return new ObjektreferenzAttributAdapter();
         if (isAttributliste(pd)) return new AttributlistenAttributAdapter(pd.getPropertyType());
+        if (isAttributfeld(pd))
+            return new AttributfeldAttributAdapter(pd.getReadMethod().getAnnotation(AttributfeldDefinition.class));
         if (isDouble(pd)) return new DoubleAttributAdapter();
         if (isFloat(pd)) return new FloatAttributAdapter();
         if (isLong(pd)) return new LongAttributAdapter();
@@ -44,6 +46,10 @@ class StandardAttributAdapterFactory {
 
     private boolean isAttributliste(PropertyDescriptor pd) {
         return pd.getPropertyType().getAnnotation(AttributlistenDefinition.class) != null;
+    }
+
+    private boolean isAttributfeld(PropertyDescriptor pd) {
+        return pd.getReadMethod().getAnnotation(AttributfeldDefinition.class) != null;
     }
 
     private boolean isDouble(PropertyDescriptor pd) {
