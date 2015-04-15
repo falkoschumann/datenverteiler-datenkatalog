@@ -53,7 +53,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testBinding_RelativerZeitstempel_Attributliste_Ganzzahl32Bit_JaNein_Festkommzahl_Aufzaehlungstyp() {
+    public void testBinding_RelativerZeitstempel_Attributliste_Ganzzahl32Bit_JaNein_Ganzzahl32BitAlsFestkommzahl_Aufzaehlungstyp() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.ufdsHelligkeit");
         Data data = createData(atg);
         data.getTimeValue("T").setSeconds(60);
@@ -196,21 +196,24 @@ public class BindingIT extends AbstractDatenkatalogIT {
         assertEquals(datum, actualDatum);
     }
 
-//    @Test
-//    public void testBinding() {
-//        // XXX u.a. Attributfeld mit Attribut
-//        AttributeGroup atg = getModel().getAttributeGroup("atg.linienKoordinaten");
-//        Data data = createData(atg);
-//
-//        LinienKoordinaten datum = new LinienKoordinaten();
-//
-//        Data actualData = createData(atg);
-//        marshaller.marshal(datum, actualData);
-//        assertThat(actualData, is(dataEqualsTo(data)));
-//
-//        LinienKoordinaten actualDatum = unmarshaller.unmarshal(data, LinienKoordinaten.class);
-//        assertEquals(datum, actualDatum);
-//    }
+    @Test
+    public void testBinding_Attributfeld_Ganzzahl32BitAlsFestkommazahl() {
+        AttributeGroup atg = getModel().getAttributeGroup("atg.linienKoordinaten");
+        Data data = createData(atg);
+        data.getScaledArray("x").set(new double[]{11.1, 22.2, 33.3});
+        data.getScaledArray("y").set(new double[]{4.4, 5.5, 6.6});
+
+        LinienKoordinaten datum = new LinienKoordinaten();
+        datum.setX(new double[]{11.1, 22.2, 33.3});
+        datum.setY(new double[]{4.4, 5.5, 6.6});
+
+        Data actualData = createData(atg);
+        marshaller.marshal(datum, actualData);
+        assertThat(actualData, is(dataEqualsTo(data)));
+
+        LinienKoordinaten actualDatum = unmarshaller.unmarshal(data, LinienKoordinaten.class);
+        assertEquals(datum, actualDatum);
+    }
 
     // TODO Sonderfall: Objekte statt primitiven Datentypen (Integer vs. int)
     // TODO Sonderfall: Nicht alle Attribut als Property abgebildet

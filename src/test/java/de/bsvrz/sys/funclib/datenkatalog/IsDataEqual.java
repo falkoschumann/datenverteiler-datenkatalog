@@ -34,6 +34,9 @@ import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 public final class IsDataEqual extends TypeSafeMatcher<Data> {
 
     private final Data expectedValue;
@@ -55,17 +58,30 @@ public final class IsDataEqual extends TypeSafeMatcher<Data> {
 
             final AttributeType type = expected.getAttributeType();
             if (type instanceof StringAttributeType) {
-                result = expected.asTextValue().getText().equals(actual.asTextValue().getText());
+                if (expected.isArray())
+                    result = Arrays.equals(expected.asTextArray().getTextArray(), actual.asTextArray().getTextArray());
+                else
+                    result = expected.asTextValue().getText().equals(actual.asTextValue().getText());
             } else if (type instanceof TimeAttributeType) {
-                result = expected.asTimeValue().getMillis() == actual.asTimeValue().getMillis();
+                if (expected.isArray())
+                    result = Arrays.equals(expected.asTimeArray().getMillisArray(), actual.asTimeArray().getMillisArray());
+                else
+                    result = expected.asTimeValue().getMillis() == actual.asTimeValue().getMillis();
             } else if (type instanceof IntegerAttributeType) {
-                result = expected.asUnscaledValue().longValue() == actual.asUnscaledValue().longValue();
+                if (expected.isArray())
+                    result = Arrays.equals(expected.asUnscaledArray().getLongArray(), actual.asUnscaledArray().getLongArray());
+                else
+                    result = expected.asUnscaledValue().longValue() == actual.asUnscaledValue().longValue();
             } else if (type instanceof DoubleAttributeType) {
-                result = expected.asScaledValue().doubleValue() == actual.asScaledValue().doubleValue();
+                if (expected.isArray())
+                    result = Arrays.equals(expected.asScaledArray().getDoubleArray(), actual.asScaledArray().getDoubleArray());
+                else
+                    result = expected.asScaledValue().doubleValue() == actual.asScaledValue().doubleValue();
             } else if (type instanceof ReferenceAttributeType) {
-                final SystemObject expectedObject = expected.asReferenceValue().getSystemObject();
-                final SystemObject actuaObject = actual.asReferenceValue().getSystemObject();
-                result = (expectedObject == actuaObject) || (expectedObject.equals(actuaObject));
+                if (expected.isArray())
+                    result = Arrays.equals(expected.asReferenceArray().getSystemObjectArray(), actual.asReferenceArray().getSystemObjectArray());
+                else
+                    result = Objects.equals(expected.asReferenceValue().getSystemObject(), actual.asReferenceValue().getSystemObject());
             } else if (type instanceof AttributeListDefinition) {
                 result = dataEqualsTo(expected).matches(actual);
             } else {
