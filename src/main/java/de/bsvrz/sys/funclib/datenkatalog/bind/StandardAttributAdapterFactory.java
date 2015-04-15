@@ -13,13 +13,14 @@ import java.util.Date;
 class StandardAttributAdapterFactory {
 
     AttributAdapter createAdapter(PropertyDescriptor pd) {
-        if (isZustand(pd)) return new ZustandAttributAdapter(pd.getPropertyType());
-        if (isZeitstempel(pd))
-            return new ZeitstempelAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(Zeitstempel.class));
-        if (isObjektreferenz(pd)) return new ObjektreferenzAttributAdapter();
+        // Struktur
         if (isAttributliste(pd)) return new AttributlistenAttributAdapter(pd.getPropertyType());
         if (isAttributfeld(pd))
-            return new AttributfeldAttributAdapter(pd.getReadMethod().getAnnotation(AttributfeldDefinition.class));
+            return new AttributfeldAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(AttributfeldDefinition.class));
+
+        // Attribute
+        if (isZeitstempel(pd))
+            return new ZeitstempelAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(Zeitstempel.class));
         if (isDouble(pd)) return new DoubleAttributAdapter();
         if (isFloat(pd)) return new FloatAttributAdapter();
         if (isLong(pd)) return new LongAttributAdapter();
@@ -27,6 +28,10 @@ class StandardAttributAdapterFactory {
         if (isShort(pd)) return new ShortAttributAdapter();
         if (isByte(pd)) return new ByteAttributAdapter();
         if (isString(pd)) return new StringAttributAdapter();
+        if (isObjektreferenz(pd)) return new ObjektreferenzAttributAdapter();
+
+        // Sonderfälle
+        if (isZustand(pd)) return new ZustandAttributAdapter(pd.getPropertyType());
         if (isBoolean(pd)) return new BooleanAttributAdapter();
 
         throw new IllegalStateException("Kein AttributAdapter gefunden für " + pd + ".");
@@ -49,7 +54,7 @@ class StandardAttributAdapterFactory {
     }
 
     private boolean isAttributfeld(PropertyDescriptor pd) {
-        return pd.getReadMethod().getAnnotation(AttributfeldDefinition.class) != null;
+        return pd.getReadMethod().getAnnotation(AttributfeldDefinition.class) != null || pd.getReadMethod().getReturnType().isArray();
     }
 
     private boolean isDouble(PropertyDescriptor pd) {

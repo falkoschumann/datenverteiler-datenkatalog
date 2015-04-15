@@ -18,32 +18,32 @@ Verwendung
 
   Die Attributtypen werden wie folgt auf Typen der Properties abgebildet:
 
-*-----------------*--------------*-------------------------------------------------------*
-| <<Attributtyp>> | <<Java-Typ>> |        <<Anmerkung>>                                  |
-*-----------------+--------------+-------------------------------------------------------+
-| Zeichenkette    | String       |                                                       |
-*-----------------+--------------+-------------------------------------------------------+
-| Ganzzahl        | byte\        | für Wertebereich 8 Bit\                               |
-|                 | short\       | für Wertebereich 16 Bit\                              |
-|                 | int\         | für Wertebereich 32 Bit\                              |
-|                 | long\        | für Wertebereich 64 Bit\                              |
-|                 | double\      | für Festkommazahlen\                                  |
-|                 | boolean\     | für Attributtyp JaNein\                               |
-|                 | enum         | für Aufzählungstypen (Attributtyp hat nur Zustände)   |
-*-----------------+--------------+-------------------------------------------------------+
-| Kommazahl       | float\       | für Wertebereich 32 Bit\                              |
-|                 | double\      | für Wertebereich 64 Bit\                              |
-*-----------------+--------------+-------------------------------------------------------+
-| Zeitstempel     | Date\        | für absoluten Zeitstempel <noch nicht implementiert>\ |
-|                 | long         | für relativen Zeitstempel\                            |
-*-----------------+--------------+-------------------------------------------------------+
-| Objektreferenz  | SystemObject |                                                       |
-*-----------------+--------------+-------------------------------------------------------+
-| Attributliste   | Object       | POJO analog zur Attributgruppe                        |
-*-----------------+--------------+-------------------------------------------------------+
-| Attributfeld    | Collection\  | \                                                     |
-|                 | Feld         | <noch nicht implementiert>                            |
-*-----------------+--------------+-------------------------------------------------------+
+*-----------------*--------------*-----------------------------------------------------*
+| <<Attributtyp>> | <<Java-Typ>> |        <<Anmerkung>>                                |
+*-----------------+--------------+-----------------------------------------------------+
+| Zeichenkette    | String       |                                                     |
+*-----------------+--------------+-----------------------------------------------------+
+| Ganzzahl        | byte\        | für Wertebereich 8 Bit\                             |
+|                 | short\       | für Wertebereich 16 Bit\                            |
+|                 | int\         | für Wertebereich 32 Bit\                            |
+|                 | long\        | für Wertebereich 64 Bit\                            |
+|                 | double\      | für Festkommazahlen\                                |
+|                 | boolean\     | für Attributtyp JaNein\                             |
+|                 | enum         | für Aufzählungstypen (Attributtyp hat nur Zustände) |
+*-----------------+--------------+-----------------------------------------------------+
+| Kommazahl       | float\       | für Wertebereich 32 Bit\                            |
+|                 | double\      | für Wertebereich 64 Bit\                            |
+*-----------------+--------------+-----------------------------------------------------+
+| Zeitstempel     | Date\        | für absoluten Zeitstempel\                          |
+|                 | long         | für relativen Zeitstempel\                          |
+*-----------------+--------------+-----------------------------------------------------+
+| Objektreferenz  | SystemObject |                                                     |
+*-----------------+--------------+-----------------------------------------------------+
+| Attributliste   | Object       | POJO analog zur Attributgruppe                      |
+*-----------------+--------------+-----------------------------------------------------+
+| Attributfeld    | Collection\  | \                                                   |
+|                 | Feld         |                                                     |
+*-----------------+--------------+-----------------------------------------------------+
 Abbildung von Java-Typen auf Attributtypen
 
 Beispiel
