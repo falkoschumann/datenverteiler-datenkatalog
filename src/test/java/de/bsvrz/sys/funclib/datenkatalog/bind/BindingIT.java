@@ -16,6 +16,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import static de.bsvrz.sys.funclib.datenkatalog.IsDataEqual.dataEqualsTo;
@@ -219,7 +220,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testBinding_Attributfeld_Ganzzahl32Bit_AbsoluterZeitstempel() throws ParseException {
-        DateFormat dateFormat = DateFormat.getInstance();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.GERMANY);
         AttributeGroup atg = getModel().getAttributeGroup("atg.verkehrsDatenLangZeitMSV");
         Data data = createData(atg);
         data.getUnscaledValue("01SpitzenStundeQKfzGesamt").set(3000);
