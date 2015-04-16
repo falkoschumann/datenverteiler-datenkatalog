@@ -7,9 +7,8 @@ package de.bsvrz.sys.funclib.datenkatalog.bind;
 
 import de.bsvrz.dav.daf.main.Data;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 class AttributfeldAttributAdapter implements AttributAdapter {
 
@@ -19,6 +18,14 @@ class AttributfeldAttributAdapter implements AttributAdapter {
     public AttributfeldAttributAdapter(Class<?> clazz, AttributfeldDefinition attributfeldDefinition) {
         this.clazz = clazz;
         this.attributfeldDefinition = attributfeldDefinition;
+    }
+
+    private static long[] dateArrayToLongArray(Date[] array) {
+        return Arrays.asList(array).stream().mapToLong(Date::getTime).toArray();
+    }
+
+    private static Date[] longArrayToDateArray(long[] array) {
+        return Arrays.stream(array).boxed().map(Date::new).collect(Collectors.toList()).toArray(new Date[array.length]);
     }
 
     private static boolean isDouble(Class<?> clazz) {
@@ -49,6 +56,10 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         return clazz == String.class;
     }
 
+    private static boolean isDate(Class<?> clazz) {
+        return clazz == Date.class;
+    }
+
     @Override
     public void marshal(final Object propertyValue, final Data attribut) {
         if (Collection.class.isAssignableFrom(clazz)) {
@@ -60,18 +71,16 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         }
     }
 
-    private void marshalCollection(Collection propertyValue, Data attribut) {
-        Collection<?> list = propertyValue;
-        attribut.asArray().setLength(list.size());
+    private void marshalCollection(Collection<?> propertyValue, Data attribut) {
+        attribut.asArray().setLength(propertyValue.size());
         int i = 0;
-        for (Object e : list) {
+        for (Object e : propertyValue) {
             AttributAdapter adapter = new AttributlistenAttributAdapter(e.getClass());
             adapter.marshal(e, attribut.asArray().getItem(i++));
         }
     }
 
     private void marshalArray(Object propertyValue, Data attribut) {
-        // TODO TimeArray mit Date und long berücksichtigen
         if (isDouble(clazz.getComponentType())) attribut.asScaledArray().set((double[]) propertyValue);
         else if (isFloat(clazz.getComponentType())) attribut.asScaledArray().set((float[]) propertyValue);
         else if (isLong(clazz.getComponentType())) attribut.asUnscaledArray().set((long[]) propertyValue);
@@ -79,6 +88,8 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         else if (isShort(clazz.getComponentType())) attribut.asUnscaledArray().set((short[]) propertyValue);
         else if (isByte(clazz.getComponentType())) attribut.asUnscaledArray().set((byte[]) propertyValue);
         else if (isString(clazz.getComponentType())) attribut.asTextArray().set((String[]) propertyValue);
+        else if (isDate(clazz.getComponentType()))
+            attribut.asTimeArray().setMillis(dateArrayToLongArray((Date[]) propertyValue));
         else throw new IllegalStateException("unreachable code");
     }
 
@@ -102,7 +113,6 @@ class AttributfeldAttributAdapter implements AttributAdapter {
     }
 
     private Object unmarshalArray(Data attribut) {
-        // TODO TimeArray mit Date und long berücksichtigen
         if (isDouble(clazz.getComponentType())) return attribut.asScaledArray().getDoubleArray();
         else if (isFloat(clazz.getComponentType())) return attribut.asScaledArray().getFloatArray();
         else if (isLong(clazz.getComponentType())) return attribut.asUnscaledArray().getLongArray();
@@ -110,6 +120,7 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         else if (isShort(clazz.getComponentType())) return attribut.asUnscaledArray().getShortArray();
         else if (isByte(clazz.getComponentType())) return attribut.asUnscaledArray().getByteArray();
         else if (isString(clazz.getComponentType())) return attribut.asTextArray().getTextArray();
+        else if (isDate(clazz.getComponentType())) return longArrayToDateArray(attribut.asTimeArray().getMillisArray());
         else throw new IllegalStateException("unreachable code");
     }
 

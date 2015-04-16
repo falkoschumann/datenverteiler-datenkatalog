@@ -13,10 +13,14 @@ import java.util.NoSuchElementException;
 
 class AttributlistenAttributAdapter implements AttributAdapter {
 
-    private final Class<?> datumClass;
+    private final Object datum;
 
     AttributlistenAttributAdapter(Class<?> datumClass) {
-        this.datumClass = datumClass;
+        datum = Pojo.create(datumClass);
+    }
+
+    public AttributlistenAttributAdapter(Object datum) {
+        this.datum = datum;
     }
 
     private static Data getAttribut(Data data, PropertyDescriptor pd) {
@@ -46,11 +50,15 @@ class AttributlistenAttributAdapter implements AttributAdapter {
         return pd.getReadMethod().getAnnotation(AttributDefinition.class) != null && !pd.getReadMethod().getAnnotation(AttributDefinition.class).name().isEmpty();
     }
 
+    private static boolean ignorieren(PropertyDescriptor pd) {
+        return pd.getName().equals("class") || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
+    }
+
     @Override
     public void marshal(Object propertyValue, Data attribut) {
         BeanInfo beanInfo = Pojo.getBeanInfo(propertyValue.getClass());
         for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
-            if (pd.getName().equals("class")) continue;
+            if (ignorieren(pd)) continue;
 
             AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
             Data att = getAttribut(attribut, pd);
@@ -60,17 +68,20 @@ class AttributlistenAttributAdapter implements AttributAdapter {
 
     @Override
     public Object unmarshal(Data data) {
-        Object result = Pojo.create(datumClass);
-        BeanInfo beanInfo = Pojo.getBeanInfo(datumClass);
+        BeanInfo beanInfo = Pojo.getBeanInfo(datum.getClass());
         for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
-            if (pd.getName().equals("class")) continue;
+            if (ignorieren(pd)) continue;
 
-            // TODO Attributliste auch ohne Setter umwandeln
             AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
             Data att = getAttribut(data, pd);
-            Pojo.set(result, pd, adapter.unmarshal(att));
+            if (Pojo.isAttributliste(pd) && !Pojo.isWritable(pd)) {
+                Object property = Pojo.get(datum, pd);
+                new AttributlistenAttributAdapter(property).unmarshal(att);
+            } else {
+                Pojo.set(datum, pd, adapter.unmarshal(att));
+            }
         }
-        return result;
+        return datum;
     }
 
 }
