@@ -11,8 +11,8 @@ import java.util.Date;
 
 class ZeitstempelAttributAdapter implements AttributAdapter {
 
-    private Class<?> clazz;
-    private Zeitstempel zeitstempel;
+    private final Class<?> clazz;
+    private final Zeitstempel zeitstempel;
 
     ZeitstempelAttributAdapter(Class<?> clazz, Zeitstempel zeitstempel) {
         this.clazz = clazz;

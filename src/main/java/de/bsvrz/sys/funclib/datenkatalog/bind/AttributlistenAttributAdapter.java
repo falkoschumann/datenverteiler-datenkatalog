@@ -13,8 +13,7 @@ import java.util.NoSuchElementException;
 
 class AttributlistenAttributAdapter implements AttributAdapter {
 
-    private Class<?> datumClass;
-    private Object datum;
+    private final Object datum;
 
     AttributlistenAttributAdapter(Class<?> datumClass) {
         datum = Pojo.create(datumClass);
@@ -51,6 +50,10 @@ class AttributlistenAttributAdapter implements AttributAdapter {
         return pd.getReadMethod().getAnnotation(AttributDefinition.class) != null && !pd.getReadMethod().getAnnotation(AttributDefinition.class).name().isEmpty();
     }
 
+    private static boolean ignorieren(PropertyDescriptor pd) {
+        return pd.getName().equals("class") || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
+    }
+
     @Override
     public void marshal(Object propertyValue, Data attribut) {
         BeanInfo beanInfo = Pojo.getBeanInfo(propertyValue.getClass());
@@ -61,10 +64,6 @@ class AttributlistenAttributAdapter implements AttributAdapter {
             Data att = getAttribut(attribut, pd);
             adapter.marshal(Pojo.get(propertyValue, pd), att);
         }
-    }
-
-    private static boolean ignorieren(PropertyDescriptor pd) {
-        return pd.getName().equals("class") || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
     }
 
     @Override

@@ -5,10 +5,7 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.bind;
 
-import de.bsvrz.dav.daf.main.config.SystemObject;
-
 import java.beans.PropertyDescriptor;
-import java.util.Date;
 
 class StandardAttributAdapterFactory {
 

@@ -14,7 +14,7 @@ import java.util.Objects;
 public class UfdsHelligkeit {
 
     private long t;
-    private Helligkeit helligkeit = new Helligkeit();
+    private final Helligkeit helligkeit = new Helligkeit();
 
     @Zeitstempel
     public long getT() {

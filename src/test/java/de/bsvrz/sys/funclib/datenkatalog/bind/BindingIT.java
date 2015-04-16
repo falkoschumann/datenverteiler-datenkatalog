@@ -139,11 +139,11 @@ public class BindingIT extends AbstractDatenkatalogIT {
         data.getTimeValue("Schrittweite").setMillis(TimeUnit.MINUTES.toMillis(20));
         data.getTimeValue("Dauer").setMillis(TimeUnit.MINUTES.toMillis(60));
         Calendar cal = Calendar.getInstance();
-        cal.set(2015, 04, 14, 21, 20, 00);
+        cal.set(2015, Calendar.APRIL, 14, 21, 20, 0);
         Date aufloesungsZeit = cal.getTime();
         data.getTimeValue("AuflösungsZeit").setMillis(aufloesungsZeit.getTime());
         data.getUnscaledValue("MaxLänge").set(12000);
-        cal.set(2015, 04, 14, 21, 45, 30);
+        cal.set(2015, Calendar.APRIL, 14, 21, 45, 30);
         Date maxLaengeZeit = cal.getTime();
         data.getTimeValue("MaxLängeZeit").setMillis(maxLaengeZeit.getTime());
         data.getArray("Prognoseverlauf").setLength(3);
@@ -203,8 +203,8 @@ public class BindingIT extends AbstractDatenkatalogIT {
     public void testBinding_Attributfeld_Ganzzahl32BitAlsFestkommazahl() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.linienKoordinaten");
         Data data = createData(atg);
-        data.getScaledArray("x").set(new double[]{11.1, 22.2, 33.3});
-        data.getScaledArray("y").set(new double[]{4.4, 5.5, 6.6});
+        data.getScaledArray("x").set(11.1, 22.2, 33.3);
+        data.getScaledArray("y").set(4.4, 5.5, 6.6);
 
         LinienKoordinaten datum = new LinienKoordinaten();
         datum.setX(new double[]{11.1, 22.2, 33.3});
