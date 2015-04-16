@@ -13,7 +13,7 @@ public class LinienKoordinaten {
     private double x[];
     private double y[];
 
-    public static boolean equals(double[] a, double[] a2) {
+    private static boolean equals(double[] a, double[] a2) {
         if (a == a2)
             return true;
         if (a == null || a2 == null)
