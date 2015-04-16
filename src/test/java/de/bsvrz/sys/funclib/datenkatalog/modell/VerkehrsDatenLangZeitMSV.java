@@ -5,10 +5,13 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
+
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
+@AttributgruppenDefinition
 public class VerkehrsDatenLangZeitMSV {
 
     private int _01spitzenStundeQKfzGesamt;

@@ -50,7 +50,7 @@ class AttributlistenAttributAdapter implements AttributAdapter {
     public void marshal(Object propertyValue, Data attribut) {
         BeanInfo beanInfo = Pojo.getBeanInfo(propertyValue.getClass());
         for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
-            if (pd.getName().equals("class")) continue;
+            if (ignorieren(pd)) continue;
 
             AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
             Data att = getAttribut(attribut, pd);
@@ -58,12 +58,16 @@ class AttributlistenAttributAdapter implements AttributAdapter {
         }
     }
 
+    private static boolean ignorieren(PropertyDescriptor pd) {
+        return pd.getName().equals("class") || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
+    }
+
     @Override
     public Object unmarshal(Data data) {
         Object result = Pojo.create(datumClass);
         BeanInfo beanInfo = Pojo.getBeanInfo(datumClass);
         for (PropertyDescriptor pd : beanInfo.getPropertyDescriptors()) {
-            if (pd.getName().equals("class")) continue;
+            if (ignorieren(pd)) continue;
 
             // TODO Attributliste auch ohne Setter umwandeln
             AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);

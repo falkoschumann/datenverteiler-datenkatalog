@@ -223,15 +223,15 @@ public class BindingIT extends AbstractDatenkatalogIT {
         AttributeGroup atg = getModel().getAttributeGroup("atg.verkehrsDatenLangZeitMSV");
         Data data = createData(atg);
         data.getUnscaledValue("01SpitzenStundeQKfzGesamt").set(3000);
-        data.getTimeArray("01SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("16.04.2015 20:00").getTime() , dateFormat.parse("16.04.2015 21:00").getTime());
+        data.getTimeArray("01SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("16.04.2015 20:00").getTime(), dateFormat.parse("16.04.2015 21:00").getTime());
         data.getUnscaledValue("30SpitzenStundeQKfzGesamt").set(4000);
-        data.getTimeArray("30SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("16.04.2015 22:00").getTime() , dateFormat.parse("16.04.2015 23:00").getTime());
+        data.getTimeArray("30SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("16.04.2015 22:00").getTime(), dateFormat.parse("16.04.2015 23:00").getTime());
         data.getUnscaledValue("50SpitzenStundeQKfzGesamt").set(5000);
-        data.getTimeArray("50SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("17.04.2015 00:00").getTime() , dateFormat.parse("17.04.2015 01:00").getTime());
+        data.getTimeArray("50SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("17.04.2015 00:00").getTime(), dateFormat.parse("17.04.2015 01:00").getTime());
 
         VerkehrsDatenLangZeitMSV datum = new VerkehrsDatenLangZeitMSV();
         datum.set01SpitzenStundeQKfzGesamt(3000);
-        datum.set01SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("16.04.2015 20:00") , dateFormat.parse("16.04.2015 21:00")});
+        datum.set01SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("16.04.2015 20:00"), dateFormat.parse("16.04.2015 21:00")});
         datum.set30SpitzenStundeQKfzGesamt(4000);
         datum.set30SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("16.04.2015 22:00"), dateFormat.parse("16.04.2015 23:00")});
         datum.set50SpitzenStundeQKfzGesamt(5000);
@@ -245,8 +245,45 @@ public class BindingIT extends AbstractDatenkatalogIT {
         assertEquals(datum, actualDatum);
     }
 
-    // TODO Sonderfall: Objekte statt primitiven Datentypen (Integer vs. int)
-    // TODO Sonderfall: Nicht alle Attribut als Property abgebildet
-    // TODO Sonderfall: Nicht alle Properties als Attribut vorhanden
+
+    @Test
+    public void testBinding_PropertyFuerAttributFehlt_KeinFehlerWennDefaultwerteGesetztSind() {
+        AttributeGroup atg = getModel().getAttributeGroup("atg.bilanzVerkehrsStärke");
+        Data data = createData(atg);
+        data.setToDefault();
+        data.getUnscaledValue("QLkw").set(1000);
+        data.getUnscaledValue("QPkw").set(2000);
+
+        BilanzVerkehrsStaerke datum = new BilanzVerkehrsStaerke();
+        datum.setQLkw(1000);
+        datum.setQPkw(2000);
+
+        Data actualData = createData(atg);
+        actualData.setToDefault();
+        marshaller.marshal(datum, actualData);
+        assertThat(actualData, is(dataEqualsTo(data)));
+
+        BilanzVerkehrsStaerke actualDatum = unmarshaller.unmarshal(data, BilanzVerkehrsStaerke.class);
+        assertEquals(datum, actualDatum);
+    }
+
+    @Test
+    public void testBinding_PropertyOhneDazugehoerigesAttribut_KeinFehlerPropertyWirdIgnoriert() {
+        AttributeGroup atg = getModel().getAttributeGroup("atg.achsLastMessStelle");
+        Data data = createData(atg);
+        data.getReferenceValue("AchsLastMessStellenQuelle").setSystemObjectPid("mq.a10.0000");
+        data.getReferenceValue("FahrStreifen").setSystemObjectPid("fs.mq.a10.0000");
+
+        AchsLastMessStelle datum = new AchsLastMessStelle();
+        datum.setAchsLastMessStellenQuelle(getModel().getObject("mq.a10.0000"));
+        datum.setFahrStreifen(getModel().getObject("fs.mq.a1.0000"));
+
+        Data actualData = createData(atg);
+        marshaller.marshal(datum, actualData);
+        assertThat(actualData, is(dataEqualsTo(data)));
+
+        AchsLastMessStelle actualDatum = unmarshaller.unmarshal(data, AchsLastMessStelle.class);
+        assertEquals(datum, actualDatum);
+    }
 
 }
