@@ -29,10 +29,6 @@ public class UfdsHelligkeit {
         return helligkeit;
     }
 
-    public void setHelligkeit(Helligkeit helligkeit) {
-        this.helligkeit = helligkeit;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
