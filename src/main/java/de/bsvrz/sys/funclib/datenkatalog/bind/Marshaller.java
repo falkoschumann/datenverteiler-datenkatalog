@@ -15,6 +15,8 @@ import de.bsvrz.dav.daf.main.Data;
  */
 public interface Marshaller {
 
+    // TODO Data als Rückgabewert
+
     /**
      * Überführt ein Datum in eine Attributgruppe.
      *

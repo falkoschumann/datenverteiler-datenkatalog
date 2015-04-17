@@ -26,6 +26,8 @@ import static org.junit.Assert.assertThat;
 
 public class BindingIT extends AbstractDatenkatalogIT {
 
+    // TODO Release vorbereiten: u.a. Projektseite um Beispiele ergänzen, Distributionspaket erstellen, deployen
+
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
 
