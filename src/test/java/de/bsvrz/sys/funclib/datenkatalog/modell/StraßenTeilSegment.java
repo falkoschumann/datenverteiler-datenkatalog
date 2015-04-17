@@ -6,9 +6,11 @@
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition;
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
 import java.util.Objects;
 
+@AttributgruppenDefinition(pid = "atg.straßenTeilSegment")
 public class StraßenTeilSegment {
 
     private long laenge;

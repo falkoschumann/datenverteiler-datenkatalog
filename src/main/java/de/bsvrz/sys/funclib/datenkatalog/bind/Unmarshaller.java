@@ -14,7 +14,7 @@ import de.bsvrz.dav.daf.main.Data;
  * @since 1.0
  */
 public interface Unmarshaller {
-    
+
     /**
      * Überführt eine Attributgruppe in ein Datum.
      *

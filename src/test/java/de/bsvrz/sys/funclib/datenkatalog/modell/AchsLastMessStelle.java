@@ -11,7 +11,7 @@ import de.bsvrz.sys.funclib.datenkatalog.bind.Ignorieren;
 
 import java.util.Objects;
 
-@AttributgruppenDefinition
+@AttributgruppenDefinition(pid = "atg.achsLastMessStelle")
 public class AchsLastMessStelle {
 
     private SystemObject achsLastMessStellenQuelle;

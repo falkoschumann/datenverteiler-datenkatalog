@@ -19,6 +19,11 @@ import java.lang.annotation.*;
 @Documented
 public @interface AttributgruppenDefinition {
 
-    // tagging only
+    /**
+     * Die PID der Attributgruppe.
+     *
+     * @return die Attributgruppen-PID.
+     */
+    String pid();
 
 }

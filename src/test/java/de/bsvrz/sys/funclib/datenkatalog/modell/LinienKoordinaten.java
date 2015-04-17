@@ -5,9 +5,12 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
+
 import java.util.Arrays;
 import java.util.Objects;
 
+@AttributgruppenDefinition(pid = "atg.linienKoordinaten")
 public class LinienKoordinaten {
 
     private double x[];

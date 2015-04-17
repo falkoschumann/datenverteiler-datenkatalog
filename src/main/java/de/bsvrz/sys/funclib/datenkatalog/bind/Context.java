@@ -5,7 +5,11 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.bind;
 
+import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeBaseValueDataFactory;
+import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeHelper;
 import de.bsvrz.dav.daf.main.Data;
+import de.bsvrz.dav.daf.main.config.AttributeGroup;
+import de.bsvrz.dav.daf.main.config.DataModel;
 
 /**
  * Der Kontext für das Binding und abstrakte Fabrik für {@link Marshaller} und {@link Unmarshaller}.
@@ -14,6 +18,19 @@ import de.bsvrz.dav.daf.main.Data;
  * @since 1.0
  */
 public class Context {
+
+    private final DataModel model;
+
+    public Context(DataModel model) {
+        Assert.notNull("model", model);
+        this.model = model;
+    }
+
+    static Data createData(AttributeGroup atg) {
+        Data result = AttributeBaseValueDataFactory.createAdapter(atg, AttributeHelper.getAttributesValues(atg));
+        result.setToDefault();
+        return result;
+    }
 
     /**
      * Erzeugt einen Marshaller.
@@ -24,10 +41,15 @@ public class Context {
         return new Marshaller() {
 
             @Override
-            public void marshal(Object datum, Data data) {
+            public Data marshal(Object datum) {
                 Assert.notNull("datum", datum);
-                Assert.notNull("data", data);
-                new AttributlistenAttributAdapter(datum.getClass()).marshal(datum, data);
+                Data result = createData(getAttributeGroup(datum));
+                new AttributlistenAttributAdapter(datum.getClass()).marshal(datum, result);
+                return result;
+            }
+
+            private AttributeGroup getAttributeGroup(Object datum) {
+                return model.getAttributeGroup(datum.getClass().getAnnotation(AttributgruppenDefinition.class).pid());
             }
 
         };

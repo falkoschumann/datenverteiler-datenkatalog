@@ -7,6 +7,7 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition;
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@AttributgruppenDefinition(pid = "atg.stauVerlauf")
 public class StauVerlauf {
 
     private long schrittweite;

@@ -10,7 +10,7 @@ import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
 import java.util.Objects;
 
-@AttributgruppenDefinition
+@AttributgruppenDefinition(pid = "atg.messQuerschnittAllgemein")
 public class MessQuerschnittAllgemein {
 
     private MessQuerschnittTyp typ;

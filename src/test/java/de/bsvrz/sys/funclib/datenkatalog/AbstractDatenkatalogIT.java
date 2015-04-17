@@ -5,10 +5,8 @@
 
 package de.bsvrz.sys.funclib.datenkatalog;
 
-import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeBaseValue;
 import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeBaseValueDataFactory;
 import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeHelper;
-import de.bsvrz.dav.daf.main.ClientDavConnection;
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.config.AttributeGroup;
 import de.bsvrz.dav.daf.main.config.DataModel;
@@ -17,7 +15,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import java.io.File;
-import java.util.List;
 
 public abstract class AbstractDatenkatalogIT {
 

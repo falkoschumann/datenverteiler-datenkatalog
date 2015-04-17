@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 
-@AttributgruppenDefinition
+@AttributgruppenDefinition(pid = "atg.verkehrsDatenLangZeitMSV")
 public class VerkehrsDatenLangZeitMSV {
 
     private int _01spitzenStundeQKfzGesamt;
