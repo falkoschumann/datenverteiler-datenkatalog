@@ -1,0 +1,62 @@
+ ------
+ Example atg.messQuerschnittAllgemein
+ ------
+ Falko Schumann
+ ------
+ 2015-04-17
+ ------
+
+
+Attributgruppe MessQuerschnittAllgemein
+
+  Dieses Beispiel zeigt die Definition der Attributgruppe <<<atg.messQuerschnittAllgemein>>>. Es wird ein Systemobjekt
+  referenziert und ein Ganzzahlattribut definiert, welches nur aus Zuständen besteht, also einen Aufzählungstyp
+  darstellt.
+
+  Die Attributgruppe wird als POJO mit Gettern und Settern für die Attribute deklariert und mit
+  <<<@AttributgruppenDefinition>>> ausgezeichnet. Die PID der Annotation sorgt für korrekte Zuordnung der Datumsklasse
+  zur Attributgruppe. Das Ganzzahlattribut wird als <<<enum>>> abgebildet.
+
++-------------------------------------------------------------------------------
+@AttributgruppenDefinition(pid = "atg.messQuerschnittAllgemein")
+public class MessQuerschnittAllgemein {
+
+    private MessQuerschnittTyp typ;
+    private SystemObject ersatzMessQuerschnitt;
+
+    public MessQuerschnittTyp getTyp() {
+        return typ;
+    }
+
+    public void setTyp(MessQuerschnittTyp typ) {
+        this.typ = typ;
+    }
+
+    public SystemObject getErsatzMessQuerschnitt() {
+        return ersatzMessQuerschnitt;
+    }
+
+    public void setErsatzMessQuerschnitt(SystemObject ersatzMessQuerschnitt) {
+        this.ersatzMessQuerschnitt = ersatzMessQuerschnitt;
+    }
+
+}
++-------------------------------------------------------------------------------
+
+  Die Enumeration muss mit <<<@Zustand>>> ausgezeichnet werden. Für die Zuordnung der Enum-Werte zu den Zuständen wird
+  die Methode <<<toString()>>> verwendet. Wenn die Namen der Zustände gültige Java-Bezeichner sind, so wie hier im
+  Beispiel, dann genügt es die Zustandsnamen als Enum-Werte zu notieren. Für abweichende Zustandsnamen muss die Methode
+  <<<toString()>>> der Enumeration überschrieben werden.
+
++-------------------------------------------------------------------------------
+@Zustand
+public enum MessQuerschnittTyp {
+
+    SonstigeFahrbahn,
+    HauptFahrbahn,
+    NebenFahrbahn,
+    Einfahrt,
+    Ausfahrt
+
+}
++-------------------------------------------------------------------------------

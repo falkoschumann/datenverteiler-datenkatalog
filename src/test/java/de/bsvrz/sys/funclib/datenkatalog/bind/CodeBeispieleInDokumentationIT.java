@@ -26,6 +26,7 @@ public class CodeBeispieleInDokumentationIT extends AbstractDatenkatalogIT {
         MessQuerschnittAllgemein datum = new MessQuerschnittAllgemein();
         datum.setTyp(MessQuerschnittTyp.HauptFahrbahn);
         datum.setErsatzMessQuerschnitt(model.getObject("mq.a10.0000"));
+
         Marshaller marshaller = context.createMarshaller();
         Data data = marshaller.marshal(datum);
 
@@ -40,6 +41,7 @@ public class CodeBeispieleInDokumentationIT extends AbstractDatenkatalogIT {
 
         AttributeGroup atg = model.getAttributeGroup("atg.messQuerschnittAllgemein");
         Data data = model.getObject("mq.a10.0000").getConfigurationData(atg);
+
         Unmarshaller unmarshaller = context.createUnmarshaller();
         MessQuerschnittAllgemein datum = unmarshaller.unmarshal(data, MessQuerschnittAllgemein.class);
 
