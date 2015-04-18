@@ -9,6 +9,7 @@ import de.bsvrz.dav.daf.main.Data;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 class AttributlistenAttributAdapter implements AttributAdapter {
@@ -39,11 +40,11 @@ class AttributlistenAttributAdapter implements AttributAdapter {
     }
 
     private static String firstToUpper(PropertyDescriptor pd) {
-        return pd.getName().substring(0, 1).toUpperCase() + pd.getName().substring(1);
+        return pd.getName().substring(0, 1).toUpperCase(Locale.GERMANY) + pd.getName().substring(1);
     }
 
     private static String firstToLower(PropertyDescriptor pd) {
-        return pd.getName().substring(0, 1).toLowerCase() + pd.getName().substring(1);
+        return pd.getName().substring(0, 1).toLowerCase(Locale.GERMANY) + pd.getName().substring(1);
     }
 
     private static boolean attributDefinitionAngegeben(PropertyDescriptor pd) {
