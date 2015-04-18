@@ -55,7 +55,7 @@ public class Context {
 
     private static class DatumCache {
 
-        private Map<AttributeGroup, Data> datumCache = new LinkedHashMap<>();
+        private final Map<AttributeGroup, Data> datumCache = new LinkedHashMap<>();
 
         synchronized Data getDatum(AttributeGroup atg) {
             if (datumNichtImCache(atg)) cacheDatum(atg);

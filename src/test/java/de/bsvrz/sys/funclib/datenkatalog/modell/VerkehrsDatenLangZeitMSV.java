@@ -33,7 +33,7 @@ public class VerkehrsDatenLangZeitMSV {
         return _01spitzenStundeQKfzGesamtZeitPunkte;
     }
 
-    public void set01SpitzenStundeQKfzGesamtZeitPunkte(Date[] _01spitzenStundeQKfzGesamtZeitPunkte) {
+    public void set01SpitzenStundeQKfzGesamtZeitPunkte(Date... _01spitzenStundeQKfzGesamtZeitPunkte) {
         this._01spitzenStundeQKfzGesamtZeitPunkte = _01spitzenStundeQKfzGesamtZeitPunkte;
     }
 
@@ -49,7 +49,7 @@ public class VerkehrsDatenLangZeitMSV {
         return _30SpitzenStundeQKfzGesamtZeitPunkte;
     }
 
-    public void set30SpitzenStundeQKfzGesamtZeitPunkte(Date[] _30SpitzenStundeQKfzGesamtZeitPunkte) {
+    public void set30SpitzenStundeQKfzGesamtZeitPunkte(Date... _30SpitzenStundeQKfzGesamtZeitPunkte) {
         this._30SpitzenStundeQKfzGesamtZeitPunkte = _30SpitzenStundeQKfzGesamtZeitPunkte;
     }
 
@@ -65,7 +65,7 @@ public class VerkehrsDatenLangZeitMSV {
         return _50SpitzenStundeQKfzGesamtZeitPunkte;
     }
 
-    public void set50SpitzenStundeQKfzGesamtZeitPunkte(Date[] _50SpitzenStundeQKfzGesamtZeitPunkte) {
+    public void set50SpitzenStundeQKfzGesamtZeitPunkte(Date... _50SpitzenStundeQKfzGesamtZeitPunkte) {
         this._50SpitzenStundeQKfzGesamtZeitPunkte = _50SpitzenStundeQKfzGesamtZeitPunkte;
     }
 

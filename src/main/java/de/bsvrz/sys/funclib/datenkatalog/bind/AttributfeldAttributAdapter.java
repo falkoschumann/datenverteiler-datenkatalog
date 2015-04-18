@@ -20,11 +20,11 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         this.attributfeldDefinition = attributfeldDefinition;
     }
 
-    private static long[] dateArrayToLongArray(Date[] array) {
+    private static long[] dateArrayToLongArray(Date... array) {
         return Arrays.asList(array).stream().mapToLong(Date::getTime).toArray();
     }
 
-    private static Date[] longArrayToDateArray(long[] array) {
+    private static Date[] longArrayToDateArray(long... array) {
         return Arrays.stream(array).boxed().map(Date::new).collect(Collectors.toList()).toArray(new Date[array.length]);
     }
 

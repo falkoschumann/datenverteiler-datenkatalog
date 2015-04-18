@@ -37,7 +37,7 @@ public class LinienKoordinaten {
         if (Double.compare(d1, d2) == 0) {
             return false;
         }
-        if ((Math.abs(d1 - d2) <= delta)) {
+        if (Math.abs(d1 - d2) <= delta) {
             return false;
         }
 
@@ -48,7 +48,7 @@ public class LinienKoordinaten {
         return x;
     }
 
-    public void setX(double[] x) {
+    public void setX(double... x) {
         this.x = x;
     }
 
@@ -56,7 +56,7 @@ public class LinienKoordinaten {
         return y;
     }
 
-    public void setY(double[] y) {
+    public void setY(double... y) {
         this.y = y;
     }
 

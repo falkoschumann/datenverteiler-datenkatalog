@@ -180,8 +180,8 @@
                 </configuration>
                 <executions>
                     <execution>
-                        <id>validate</id>
-                        <phase>validate</phase>
+                        <id>verify</id>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>
@@ -250,6 +250,27 @@
                 <configuration>
                     <configLocation>src/main/config/checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.4</version>
+                <configuration>
+                    <skipEmptyReport>false</skipEmptyReport>
+                    <includeTests>true</includeTests>
+                    <rulesets>
+                        <ruleset>/rulesets/java/basic.xml</ruleset>
+                        <ruleset>/rulesets/java/clone.xml</ruleset>
+                        <ruleset>/rulesets/java/codesize.xml</ruleset>
+                        <ruleset>/rulesets/java/empty.xml</ruleset>
+                        <ruleset>/rulesets/java/finalizers.xml</ruleset>
+                        <ruleset>/rulesets/java/imports.xml</ruleset>
+                        <ruleset>/rulesets/java/logging-java.xml</ruleset>
+                        <ruleset>/rulesets/java/migrating.xml</ruleset>
+                        <ruleset>/rulesets/java/unnecessary.xml</ruleset>
+                        <ruleset>/rulesets/java/unusedcode.xml</ruleset>
+                    </rulesets>
                 </configuration>
             </plugin>
             <plugin>
