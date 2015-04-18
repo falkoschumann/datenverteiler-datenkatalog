@@ -16,7 +16,7 @@ public class LinienKoordinaten {
     private double x[];
     private double y[];
 
-    private static boolean equals(double[] a, double[] a2) {
+    private static boolean isEquals(double[] a, double[] a2) {
         if (a == a2)
             return true;
         if (a == null || a2 == null)
@@ -33,7 +33,7 @@ public class LinienKoordinaten {
         return true;
     }
 
-    static private boolean doubleIsDifferent(double d1, double d2, double delta) {
+    private static boolean doubleIsDifferent(double d1, double d2, double delta) {
         if (Double.compare(d1, d2) == 0) {
             return false;
         }
@@ -65,7 +65,7 @@ public class LinienKoordinaten {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LinienKoordinaten that = (LinienKoordinaten) o;
-        return equals(x, that.x) && equals(y, that.y);
+        return isEquals(x, that.x) && isEquals(y, that.y);
     }
 
     @Override

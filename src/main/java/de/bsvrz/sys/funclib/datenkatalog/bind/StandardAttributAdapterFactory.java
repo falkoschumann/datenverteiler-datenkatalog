@@ -12,12 +12,10 @@ class StandardAttributAdapterFactory {
     AttributAdapter createAdapter(PropertyDescriptor pd) {
         // Struktur
         if (Pojo.isAttributliste(pd)) return new AttributlistenAttributAdapter(pd.getPropertyType());
-        if (Pojo.isAttributfeld(pd))
-            return new AttributfeldAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(AttributfeldDefinition.class));
+        if (Pojo.isAttributfeld(pd)) return new AttributfeldAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(AttributfeldDefinition.class));
 
         // Attribute
-        if (Pojo.isZeitstempel(pd))
-            return new ZeitstempelAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(Zeitstempel.class));
+        if (Pojo.isZeitstempel(pd)) return new ZeitstempelAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(Zeitstempel.class));
         if (Pojo.isDouble(pd)) return new DoubleAttributAdapter();
         if (Pojo.isFloat(pd)) return new FloatAttributAdapter();
         if (Pojo.isLong(pd)) return new LongAttributAdapter();

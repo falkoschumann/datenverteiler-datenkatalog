@@ -36,12 +36,14 @@ final class Pojo {
 
     public static Object get(Object obj, PropertyDescriptor pd) {
         if (!isReadable(pd))
-            throw new DataBindingException("Die Property " + pd.getName() + " der Klasse " + obj.getClass().getName() + " hat keinen Getter und kann somit nicht gelesen werden.");
+            throw new DataBindingException("Die Property " + pd.getName() + " der Klasse " + obj.getClass().getName()
+                    + " hat keinen Getter und kann somit nicht gelesen werden.");
 
         try {
             return pd.getReadMethod().invoke(obj);
         } catch (Exception ex) {
-            throw new DataBindingException("Fehler beim Lesen der Property " + pd.getName() + " eines Objekts der Klasse " + obj.getClass().getName() + ".", ex);
+            throw new DataBindingException("Fehler beim Lesen der Property " + pd.getName()
+                    + " eines Objekts der Klasse " + obj.getClass().getName() + ".", ex);
         }
     }
 
@@ -51,12 +53,14 @@ final class Pojo {
 
     public static void set(Object obj, PropertyDescriptor pd, Object value) {
         if (!isWritable(pd))
-            throw new DataBindingException("Die Property " + pd.getName() + " der Klasse " + obj.getClass().getName() + " hat keinen Setter und kann somit nicht geschrieben werden.");
+            throw new DataBindingException("Die Property " + pd.getName() + " der Klasse " + obj.getClass().getName()
+                    + " hat keinen Setter und kann somit nicht geschrieben werden.");
 
         try {
             pd.getWriteMethod().invoke(obj, value);
         } catch (Exception ex) {
-            throw new DataBindingException("Fehler beim Schreiben der Property " + pd.getName() + " eines Objekts der Klasse " + obj.getClass().getName() + ".", ex);
+            throw new DataBindingException("Fehler beim Schreiben der Property " + pd.getName()
+                    + " eines Objekts der Klasse " + obj.getClass().getName() + ".", ex);
         }
     }
 
@@ -81,7 +85,8 @@ final class Pojo {
     }
 
     public static boolean isAttributfeld(PropertyDescriptor pd) {
-        return pd.getReadMethod().getAnnotation(AttributfeldDefinition.class) != null || pd.getReadMethod().getReturnType().isArray();
+        AttributfeldDefinition definition = pd.getReadMethod().getAnnotation(AttributfeldDefinition.class);
+        return definition != null || pd.getReadMethod().getReturnType().isArray();
     }
 
     public static boolean isDouble(PropertyDescriptor pd) {

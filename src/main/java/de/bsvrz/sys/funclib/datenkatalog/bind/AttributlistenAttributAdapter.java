@@ -19,7 +19,7 @@ class AttributlistenAttributAdapter implements AttributAdapter {
         datum = Pojo.create(datumClass);
     }
 
-    public AttributlistenAttributAdapter(Object datum) {
+    AttributlistenAttributAdapter(Object datum) {
         this.datum = datum;
     }
 
@@ -47,11 +47,12 @@ class AttributlistenAttributAdapter implements AttributAdapter {
     }
 
     private static boolean attributDefinitionAngegeben(PropertyDescriptor pd) {
-        return pd.getReadMethod().getAnnotation(AttributDefinition.class) != null && !pd.getReadMethod().getAnnotation(AttributDefinition.class).name().isEmpty();
+        AttributDefinition definition = pd.getReadMethod().getAnnotation(AttributDefinition.class);
+        return definition != null && !definition.name().isEmpty();
     }
 
     private static boolean ignorieren(PropertyDescriptor pd) {
-        return pd.getName().equals("class") || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
+        return "class".equals(pd.getName()) || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
     }
 
     @Override

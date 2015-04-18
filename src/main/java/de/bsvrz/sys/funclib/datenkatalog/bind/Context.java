@@ -100,11 +100,13 @@ public class Context {
         private AttributeGroup getAttributeGroup(Object datum) {
             AttributgruppenDefinition definition = datum.getClass().getAnnotation(AttributgruppenDefinition.class);
             if (definition == null)
-                throw new DataBindingException("Der Klasse " + datum.getClass().getName() + " fehlt die Annotation @" + AttributgruppenDefinition.class.getSimpleName() + ".");
+                throw new DataBindingException("Der Klasse " + datum.getClass().getName()
+                        + " fehlt die Annotation @" + AttributgruppenDefinition.class.getSimpleName() + ".");
 
             AttributeGroup result = model.getAttributeGroup(definition.pid());
             if (result == null)
-                throw new DataBindingException("Eine Attributgruppe mit der PID " + definition.pid() + " existiert nicht.");
+                throw new DataBindingException("Eine Attributgruppe mit der PID " + definition.pid()
+                        + " existiert nicht.");
             return result;
         }
 

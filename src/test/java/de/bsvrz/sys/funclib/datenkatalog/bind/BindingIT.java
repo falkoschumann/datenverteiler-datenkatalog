@@ -20,8 +20,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static de.bsvrz.sys.funclib.datenkatalog.IsDataEqual.dataEqualsTo;
-import static org.hamcrest.core.Is.is;
+import static de.bsvrz.sys.funclib.datenkatalog.DatenkatalogMatchers.dataEqualsTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
