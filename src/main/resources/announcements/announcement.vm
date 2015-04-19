@@ -29,9 +29,9 @@ ${description}
 #set($action = $actionItem.getAction())
 #if ($actionItem.getIssue())
 #set($issue = $actionItem.getIssue())
-  - ${actionType}: ${action} (#$issue)
+  - [${actionType}] ${action} (#$issue)
 #else
-  - ${actionType}: ${action}
+  - [${actionType}] ${action}
 #end
 #end
 
