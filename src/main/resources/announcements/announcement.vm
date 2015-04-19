@@ -1,0 +1,38 @@
+********************************************************************************
+${project.name} - Änderungsprotokoll
+********************************************************************************
+
+${introduction}
+
+Webseite: ${url}
+
+#foreach($releaseItem in $releases)
+#set($version = $releaseItem.getVersion())
+#set($date = $releaseItem.getDateRelease())
+#set($description = $releaseItem.getDescription())
+
+Release ${version} - ${date}
+================================================================================
+
+${description}
+
+#foreach($actionItem in $releaseItem.getActions())
+#if ($actionItem.getType() == "add")
+#set($actionType = "NEU")
+#elseif ($actionItem.getType() == "fix")
+#set($actionType = "BUGFIX")
+#elseif ($actionItem.getType() == "update")
+#set($actionType = "AKTUALISIERT")
+#elseif ($actionItem.getType() == "remove")
+#set($actionType = "ENTFERNT")
+#end
+#set($action = $actionItem.getAction())
+#if ($actionItem.getIssue())
+#set($issue = $actionItem.getIssue())
+  - ${actionType}: ${action} (#$issue)
+#else
+  - ${actionType}: ${action}
+#end
+#end
+
+#end

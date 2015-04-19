@@ -33,10 +33,17 @@
     </dependencySets>
 
     <files>
+
+        <!-- Runtime Scope -->
         <file>
             <source>${project.basedir}/README.md</source>
             <outputDirectory>/</outputDirectory>
-            <destName>${project.artifactId}-Build-Report.txt</destName>
+            <destName>LIESMICH.txt</destName>
+        </file>
+        <file>
+            <source>${project.build.directory}/announcement/CHANGES.md</source>
+            <outputDirectory>/</outputDirectory>
+            <destName>AENDERUNGSPROTOKOLL.txt</destName>
         </file>
         <file>
             <source>${project.basedir}/LICENSE.txt</source>
@@ -49,6 +56,11 @@
             <destName>${project.artifactId}.jar</destName>
         </file>
         <file>
+            <source>${project.build.directory}/${project.build.finalName}-runtime.jar</source>
+            <outputDirectory>/</outputDirectory>
+            <destName>${project.artifactId}-runtime.jar</destName>
+        </file>
+        <file>
             <source>${project.build.directory}/${project.build.finalName}-javadoc.jar</source>
             <outputDirectory>/</outputDirectory>
             <destName>${project.artifactId}-doc-api.zip</destName>
@@ -58,6 +70,24 @@
             <outputDirectory>/</outputDirectory>
             <destName>${project.artifactId}-src.zip</destName>
         </file>
+
+        <!-- Test Scope -->
+        <file>
+            <source>${project.build.directory}/${project.build.finalName}-tests.jar</source>
+            <outputDirectory>/</outputDirectory>
+            <destName>${project.artifactId}-test.jar</destName>
+        </file>
+        <file>
+            <source>${project.build.directory}/${project.build.finalName}-test-javadoc.jar</source>
+            <outputDirectory>/</outputDirectory>
+            <destName>${project.artifactId}-test-doc-api.zip</destName>
+        </file>
+        <file>
+            <source>${project.build.directory}/${project.build.finalName}-test-sources.jar</source>
+            <outputDirectory>/</outputDirectory>
+            <destName>${project.artifactId}-test-src.zip</destName>
+        </file>
+
     </files>
 
 </assembly>

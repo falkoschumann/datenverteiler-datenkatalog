@@ -16,8 +16,9 @@
     <body>
         <release version="1.0.0" date="2015-04-19" description="Erste Veröffentlichung">
             <action dev="falkoschumann" type="add">
-                Nutzung von POJOs (Plain old Java Objects) anstelle der generischen API der
-                Datenverteiler-Applikationsfunktionen für den Zugriff auf die Attribute von Attributgruppen.
+        Nutzung von POJOs (Plain old Java Objects) anstelle der generischen API
+    der Datenverteiler-Applikationsfunktionen für den Zugriff auf die Attribute
+    von Attributgruppen.
             </action>
         </release>
     </body>

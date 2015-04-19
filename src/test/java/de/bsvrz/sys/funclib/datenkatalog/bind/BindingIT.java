@@ -27,9 +27,6 @@ import static org.junit.Assert.assertThat;
 
 public class BindingIT extends AbstractDatenkatalogIT {
 
-    // TODO README um Installationsanleitung ergänzen
-    // TODO ins Repository deployen
-
     private Context context;
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
