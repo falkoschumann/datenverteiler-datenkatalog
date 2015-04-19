@@ -18,10 +18,10 @@ public interface Marshaller {
     /**
      * Überführt ein Datum in eine Attributgruppe.
      *
-     * @param datum          das Datum als POJO.
-     * @param attributgruppe das {@code Data} der dazugehörigen Attributgruppe.
+     * @param datum das Datum als POJO.
+     * @return das {@code Data} der dazugehörigen Attributgruppe.
      * @throws DataBindingException bei einem unerwarteten Problem beim Marshalling.
      */
-    void marshal(Object datum, Data attributgruppe);
+    Data marshal(Object datum);
 
 }

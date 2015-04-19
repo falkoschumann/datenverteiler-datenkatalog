@@ -12,6 +12,7 @@ import de.bsvrz.sys.funclib.datenkatalog.modell.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Calendar;
@@ -19,19 +20,20 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import static de.bsvrz.sys.funclib.datenkatalog.IsDataEqual.dataEqualsTo;
-import static org.hamcrest.core.Is.is;
+import static de.bsvrz.sys.funclib.datenkatalog.DatenkatalogMatchers.dataEqualsTo;
+import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
 public class BindingIT extends AbstractDatenkatalogIT {
 
+    private Context context;
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
 
     @Before
     public void setUp() {
-        Context context = new Context();
+        context = new Context(getModel());
         marshaller = context.createMarshaller();
         unmarshaller = context.createUnmarshaller();
     }
@@ -39,7 +41,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_Aufzaehlungstyp_Objektreferenz() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.messQuerschnittAllgemein");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getUnscaledValue("Typ").setText("HauptFahrbahn");
         data.getReferenceValue("ErsatzMessQuerschnitt").setSystemObjectPid("mq.a10.0000");
 
@@ -47,8 +49,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.setTyp(MessQuerschnittTyp.HauptFahrbahn);
         datum.setErsatzMessQuerschnitt(getModel().getObject("mq.a10.0000"));
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         MessQuerschnittAllgemein actualDatum = unmarshaller.unmarshal(data, MessQuerschnittAllgemein.class);
@@ -58,7 +59,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_RelativerZeitstempel_Attributliste_Ganzzahl32Bit_JaNein_Ganzzahl32BitAlsFestkommzahl_Aufzaehlungstyp() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.ufdsHelligkeit");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getTimeValue("T").setSeconds(60);
         data.getItem("Helligkeit").getUnscaledValue("Wert").set(60000);
         data.getItem("Helligkeit").getItem("Status").getItem("Erfassung").getUnscaledValue("NichtErfasst").setText("Nein");
@@ -80,8 +81,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.getHelligkeit().getGuete().setIndex(0.618);
         datum.getHelligkeit().getGuete().setVerfahren(GueteVerfahren.Standard);
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         UfdsHelligkeit actualDatum = unmarshaller.unmarshal(data, UfdsHelligkeit.class);
@@ -91,7 +91,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_Ganzzahl64Bit_Kommazahl_Zeichenkette() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.werteBereichsEigenschaften");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getUnscaledValue("minimum").set(0);
         data.getUnscaledValue("maximum").set(1000000);
         data.getScaledValue("skalierung").set(0.001);
@@ -103,8 +103,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.setSkalierung(0.001);
         datum.setEinheit("km");
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         WerteBereichsEigenschaften actualDatum = unmarshaller.unmarshal(data, WerteBereichsEigenschaften.class);
@@ -114,7 +113,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_Ganzzahl8Bit_Ganzzahl32Bit_Ganzzahl64Bit() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.straßenTeilSegment");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getUnscaledValue("Länge").set(5000);
         data.getUnscaledValue("AnzahlFahrStreifen").set(3);
         data.getUnscaledValue("SteigungGefälle").set(10);
@@ -124,8 +123,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.setAnzahlFahrStreifen((byte) 3);
         datum.setSteigungGefaelle((short) 10);
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         StraßenTeilSegment actualDatum = unmarshaller.unmarshal(data, StraßenTeilSegment.class);
@@ -135,7 +133,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_Ganzzahl64Bit_Ganzzahl32Bit_Ganzzahl16Bit_RelativerZeitstempel_AbsoluterZeitstempel_Attributliste_Attributfeld() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.stauVerlauf");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getTimeValue("Schrittweite").setMillis(TimeUnit.MINUTES.toMillis(20));
         data.getTimeValue("Dauer").setMillis(TimeUnit.MINUTES.toMillis(60));
         Calendar cal = Calendar.getInstance();
@@ -191,8 +189,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         schritt3.setVKfz((short) 40);
         datum.getPrognoseverlauf().add(schritt3);
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         StauVerlauf actualDatum = unmarshaller.unmarshal(data, StauVerlauf.class);
@@ -202,7 +199,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_Attributfeld_Ganzzahl32BitAlsFestkommazahl() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.linienKoordinaten");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getScaledArray("x").set(11.1, 22.2, 33.3);
         data.getScaledArray("y").set(4.4, 5.5, 6.6);
 
@@ -210,8 +207,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.setX(new double[]{11.1, 22.2, 33.3});
         datum.setY(new double[]{4.4, 5.5, 6.6});
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         LinienKoordinaten actualDatum = unmarshaller.unmarshal(data, LinienKoordinaten.class);
@@ -222,7 +218,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     public void testBinding_Attributfeld_Ganzzahl32Bit_AbsoluterZeitstempel() throws ParseException {
         DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT, Locale.GERMANY);
         AttributeGroup atg = getModel().getAttributeGroup("atg.verkehrsDatenLangZeitMSV");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getUnscaledValue("01SpitzenStundeQKfzGesamt").set(3000);
         data.getTimeArray("01SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("16.04.2015 20:00").getTime(), dateFormat.parse("16.04.2015 21:00").getTime());
         data.getUnscaledValue("30SpitzenStundeQKfzGesamt").set(4000);
@@ -238,8 +234,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.set50SpitzenStundeQKfzGesamt(5000);
         datum.set50SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("17.04.2015 00:00"), dateFormat.parse("17.04.2015 01:00")});
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         VerkehrsDatenLangZeitMSV actualDatum = unmarshaller.unmarshal(data, VerkehrsDatenLangZeitMSV.class);
@@ -250,7 +245,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_PropertyFuerAttributFehlt_KeinFehlerWennDefaultwerteGesetztSind() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.bilanzVerkehrsStärke");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.setToDefault();
         data.getUnscaledValue("QLkw").set(1000);
         data.getUnscaledValue("QPkw").set(2000);
@@ -259,9 +254,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.setQLkw(1000);
         datum.setQPkw(2000);
 
-        Data actualData = createData(atg);
-        actualData.setToDefault();
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         BilanzVerkehrsStaerke actualDatum = unmarshaller.unmarshal(data, BilanzVerkehrsStaerke.class);
@@ -271,7 +264,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
     @Test
     public void testBinding_PropertyOhneDazugehoerigesAttribut_KeinFehlerPropertyWirdIgnoriert() {
         AttributeGroup atg = getModel().getAttributeGroup("atg.achsLastMessStelle");
-        Data data = createData(atg);
+        Data data = context.createData(atg);
         data.getReferenceValue("AchsLastMessStellenQuelle").setSystemObjectPid("mq.a10.0000");
         data.getReferenceValue("FahrStreifen").setSystemObjectPid("fs.mq.a10.0000");
 
@@ -279,12 +272,25 @@ public class BindingIT extends AbstractDatenkatalogIT {
         datum.setAchsLastMessStellenQuelle(getModel().getObject("mq.a10.0000"));
         datum.setFahrStreifen(getModel().getObject("fs.mq.a1.0000"));
 
-        Data actualData = createData(atg);
-        marshaller.marshal(datum, actualData);
+        Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
 
         AchsLastMessStelle actualDatum = unmarshaller.unmarshal(data, AchsLastMessStelle.class);
         assertEquals(datum, actualDatum);
+    }
+
+    @Test(expected = DataBindingException.class)
+    public void testBindung_AttributgruppePidFalsch_Fehler() {
+        Foobar foobar = new Foobar();
+        foobar.setFoo(43);
+        foobar.setBar("Foobar");
+        marshaller.marshal(foobar); // throws exception
+    }
+
+    @Test(expected = DataBindingException.class)
+    public void testBindung_AttributgruppenDefinitionNichtAngegeben_Fehler() {
+        JPanel panel = new JPanel();
+        marshaller.marshal(panel); // throws exception
     }
 
 }

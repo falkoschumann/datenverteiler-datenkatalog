@@ -15,16 +15,16 @@ class AttributfeldAttributAdapter implements AttributAdapter {
     private final Class<?> clazz;
     private final AttributfeldDefinition attributfeldDefinition;
 
-    public AttributfeldAttributAdapter(Class<?> clazz, AttributfeldDefinition attributfeldDefinition) {
+    AttributfeldAttributAdapter(Class<?> clazz, AttributfeldDefinition attributfeldDefinition) {
         this.clazz = clazz;
         this.attributfeldDefinition = attributfeldDefinition;
     }
 
-    private static long[] dateArrayToLongArray(Date[] array) {
+    private static long[] dateArrayToLongArray(Date... array) {
         return Arrays.asList(array).stream().mapToLong(Date::getTime).toArray();
     }
 
-    private static Date[] longArrayToDateArray(long[] array) {
+    private static Date[] longArrayToDateArray(long... array) {
         return Arrays.stream(array).boxed().map(Date::new).collect(Collectors.toList()).toArray(new Date[array.length]);
     }
 
@@ -107,7 +107,9 @@ class AttributfeldAttributAdapter implements AttributAdapter {
     private Collection<?> unmarshalCollection(Data attribut) {
         List<Object> result = new ArrayList<>();
         for (int i = 0; i < attribut.asArray().getLength(); i++) {
-            result.add(new AttributlistenAttributAdapter(attributfeldDefinition.elementtyp()).unmarshal(attribut.asArray().getItem(i)));
+            Data e = attribut.asArray().getItem(i);
+            AttributlistenAttributAdapter adapter = new AttributlistenAttributAdapter(attributfeldDefinition.elementtyp());
+            result.add(adapter.unmarshal(e));
         }
         return result;
     }

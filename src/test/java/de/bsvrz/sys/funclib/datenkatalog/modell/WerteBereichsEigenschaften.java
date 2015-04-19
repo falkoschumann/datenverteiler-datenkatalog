@@ -6,10 +6,11 @@
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
+import de.bsvrz.sys.funclib.datenkatalog.util.Doubles;
 
 import java.util.Objects;
 
-@AttributgruppenDefinition
+@AttributgruppenDefinition(pid = "atg.werteBereichsEigenschaften")
 public class WerteBereichsEigenschaften {
 
     private long minimum;
@@ -56,7 +57,7 @@ public class WerteBereichsEigenschaften {
         WerteBereichsEigenschaften that = (WerteBereichsEigenschaften) o;
         return Objects.equals(minimum, that.minimum) &&
                 Objects.equals(maximum, that.maximum) &&
-                Objects.equals(skalierung, that.skalierung) &&
+                Doubles.equals(skalierung, that.skalierung, 0.00001) &&
                 Objects.equals(einheit, that.einheit);
     }
 

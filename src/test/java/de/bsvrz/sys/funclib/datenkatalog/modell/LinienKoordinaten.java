@@ -5,47 +5,23 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
+import de.bsvrz.sys.funclib.datenkatalog.util.Doubles;
+
 import java.util.Arrays;
 import java.util.Objects;
 
+@AttributgruppenDefinition(pid = "atg.linienKoordinaten")
 public class LinienKoordinaten {
 
     private double x[];
     private double y[];
 
-    private static boolean equals(double[] a, double[] a2) {
-        if (a == a2)
-            return true;
-        if (a == null || a2 == null)
-            return false;
-
-        int length = a.length;
-        if (a2.length != length)
-            return false;
-
-        for (int i = 0; i < length; i++)
-            if (doubleIsDifferent(a[i], a2[i], 0.0001))
-                return false;
-
-        return true;
-    }
-
-    static private boolean doubleIsDifferent(double d1, double d2, double delta) {
-        if (Double.compare(d1, d2) == 0) {
-            return false;
-        }
-        if ((Math.abs(d1 - d2) <= delta)) {
-            return false;
-        }
-
-        return true;
-    }
-
     public double[] getX() {
         return x;
     }
 
-    public void setX(double[] x) {
+    public void setX(double... x) {
         this.x = x;
     }
 
@@ -53,7 +29,7 @@ public class LinienKoordinaten {
         return y;
     }
 
-    public void setY(double[] y) {
+    public void setY(double... y) {
         this.y = y;
     }
 
@@ -62,7 +38,7 @@ public class LinienKoordinaten {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LinienKoordinaten that = (LinienKoordinaten) o;
-        return equals(x, that.x) && equals(y, that.y);
+        return Doubles.equals(x, that.x, 0.0001) && Doubles.equals(y, that.y, 0.0001);
     }
 
     @Override

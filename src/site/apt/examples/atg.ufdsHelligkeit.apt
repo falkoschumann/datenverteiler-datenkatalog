@@ -1,0 +1,85 @@
+ ------
+ Example atg.ufdsHelligkeit
+ ------
+ Falko Schumann
+ ------
+ 2015-04-17
+ ------
+
+
+Attributgruppe UfdsHelligkeit
+
+  Dieses Beispiel zeigt die Definition der Attributgruppe <<<atg.ufdsHelligkeit>>>. Es werden ein Zeitstempel, eine
+  Ganzzahl und mehrere Attributlisten definiert.
+
+  Die Attributgruppe wird als POJO mit Gettern und Settern für das Attribut und die Attributliste deklariert und mit
+  <<<@AttributgruppenDefinition>>> ausgezeichnet. Die PID der Annotation sorgt für korrekte Zuordnung der Datumsklasse
+  zur Attributgruppe. Der Getter des Zeitstempelattributs muss mit <<<@Zeitstempel>>> ausgezeichet werden. Zeitstempel
+  können sowohl durch <<<long>>> als auch als <<<Date>>> dargestellt werden. Für die Attributliste genügt ein Getter,
+  wenn die Klassenvariable vorher initialisiert wird, der Setter ist optional.
+
++-------------------------------------------------------------------------------
+@AttributgruppenDefinition(pid = "atg.ufdsHelligkeit")
+public class UfdsHelligkeit {
+
+    private Helligkeit helligkeit = new Helligkeit();
+    private long t;
+
+    @Zeitstempel
+    public long getT() {
+        return t;
+    }
+
+    public void setT(long t) {
+        this.t = t;
+    }
+
+    public Helligkeit getHelligkeit() {
+        return helligkeit;
+    }
+
+}
++-------------------------------------------------------------------------------
+
+  Die Klasse der Attributliste wird mit <<<@AttributlistenDefinition>>> ausgezeichnet und kann weitere Attributlisten
+  enthalten. Attribute der Typen Ganzzahl, Kommazahl und Zeichenkette können mit primitiven Java-Typen (<<<long>>>,
+  <<<int>>>, <<<String>>> usw.) als Properties verwendet werden.
+
+  Umlaute und abweichende Schreibweisen von Attributnamen können bzw. müssen mit <<<@AttributDefinition>>> angegeben
+  werden.
+
++-------------------------------------------------------------------------------
+@AttributlistenDefinition
+public class Helligkeit {
+
+    private int wert;
+    private Status status = new Status();
+    private Guete guete = new Guete();
+
+    public int getWert() {
+        return wert;
+    }
+
+    public void setWert(int wert) {
+        this.wert = wert;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    @AttributDefinition(name = "Güte")
+    public Guete getGuete() {
+        return guete;
+    }
+
+    public void setGuete(Guete guete) {
+        this.guete = guete;
+    }
+
+}
++-------------------------------------------------------------------------------

@@ -5,7 +5,6 @@
 
 package de.bsvrz.sys.funclib.datenkatalog;
 
-import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeBaseValue;
 import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeBaseValueDataFactory;
 import de.bsvrz.dav.daf.communication.dataRepresentation.AttributeHelper;
 import de.bsvrz.dav.daf.main.Data;
@@ -16,7 +15,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import java.io.File;
-import java.util.List;
 
 public abstract class AbstractDatenkatalogIT {
 
@@ -33,8 +31,9 @@ public abstract class AbstractDatenkatalogIT {
     }
 
     protected static Data createData(AttributeGroup atg) {
-        List<AttributeBaseValue> attributesValues = AttributeHelper.getAttributesValues(atg);
-        return AttributeBaseValueDataFactory.createAdapter(atg, attributesValues);
+        Data result = AttributeBaseValueDataFactory.createAdapter(atg, AttributeHelper.getAttributesValues(atg));
+        result.setToDefault();
+        return result;
     }
 
     protected DataModel getModel() {

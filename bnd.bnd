@@ -1,0 +1,3 @@
+-exportcontents: \
+	de.bsvrz.sys.funclib.datenkatalog.bind
+-sources: true

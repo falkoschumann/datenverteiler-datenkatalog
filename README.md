@@ -4,6 +4,9 @@ Funktionsbibliothek Datenkatalog [![Build Status](https://travis-ci.org/falkosch
 Die Funktionsbibliothek Datenkatalog soll die Arbeit mit dem Datenkatalog der
 BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
 
+Die Projektseite befinden sich unter
+https://github.com/falkoschumann/datenverteiler-datenkatalog/.
+
 Die Projektdokumentation befindet sich unter
 http://falkoschumann.github.io/datenverteiler-datenkatalog/
 
@@ -31,6 +34,14 @@ Geplante Funktionen
   - Generator für Diagramme mit den Beziehungen zwischen Objekten (Referenzen in
     Mengen und Objektreferenzen in Attributgruppen).
   - Generator für Abhängigkeitsdiagramm der Konfigurationsbereiche.
+
+
+Installation
+------------
+
+Die ZIP-Datei muss im Distributionspaketeordner eines BSVRZ-Projekts entpackt
+werden. Applikationen, die die Funktionsbibliothek nutzen wollen, müssen um das
+enthaltene Runtime-JAR im Classpath ergänzt werden.
 
 
 ---

@@ -10,11 +10,11 @@ import de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel;
 
 import java.util.Objects;
 
-@AttributgruppenDefinition
+@AttributgruppenDefinition(pid = "atg.ufdsHelligkeit")
 public class UfdsHelligkeit {
 
-    private long t;
     private final Helligkeit helligkeit = new Helligkeit();
+    private long t;
 
     @Zeitstempel
     public long getT() {

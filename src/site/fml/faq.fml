@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2015 Falko Schumann
+  ~ Released under the terms of the MIT License.
+  -->
+
+<faqs xmlns="http://maven.apache.org/FML/1.0.1"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://maven.apache.org/FML/1.0.1 http://maven.apache.org/xsd/fml-1.0.1.xsd"
+      title="Frequently Asked Questions"
+      toplink="false">
+
+    <part id="allgemein">
+        <title>Allgemein</title>
+        <faq id="property-ignorieren">
+            <question>
+                Wie kann man eine Property ignorieren, wenn für sie kein Attribut existiert?
+            </question>
+            <answer>
+                <p>Der Getter der Property muss mit <code>@Ignorieren</code>ausgezeichnet werden.</p>
+            </answer>
+        </faq>
+        <faq id="zeitstempel-verwenden">
+            <question>
+                Wie können Zeitstempel abgebildet werden?
+            </question>
+            <answer>
+                <p>
+                    Ein Zeitstempel kann als Property sowohl als <code>long</code> wie auch als <code>Date</code>
+                    abgebildet werden. Ein <code>long</code> bietet sich für relative Zeitstempel und ein
+                    <code>Date</code> für absolute Zeitstempel an.
+                </p>
+                <p>
+                    Die Genauigkeit des Zeitstempels kann der Annotation als Sekunden oder Millisekunden mitgegeben
+                    werden. Wird keine Genauigkeit angegeben, wird die Genauigkeit in Millisekunden angenommen.
+                </p>
+            </answer>
+        </faq>
+    </part>
+
+</faqs>

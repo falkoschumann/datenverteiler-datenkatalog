@@ -9,6 +9,7 @@ import de.bsvrz.dav.daf.main.Data;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 class AttributlistenAttributAdapter implements AttributAdapter {
@@ -19,7 +20,7 @@ class AttributlistenAttributAdapter implements AttributAdapter {
         datum = Pojo.create(datumClass);
     }
 
-    public AttributlistenAttributAdapter(Object datum) {
+    AttributlistenAttributAdapter(Object datum) {
         this.datum = datum;
     }
 
@@ -39,19 +40,20 @@ class AttributlistenAttributAdapter implements AttributAdapter {
     }
 
     private static String firstToUpper(PropertyDescriptor pd) {
-        return pd.getName().substring(0, 1).toUpperCase() + pd.getName().substring(1);
+        return pd.getName().substring(0, 1).toUpperCase(Locale.GERMANY) + pd.getName().substring(1);
     }
 
     private static String firstToLower(PropertyDescriptor pd) {
-        return pd.getName().substring(0, 1).toLowerCase() + pd.getName().substring(1);
+        return pd.getName().substring(0, 1).toLowerCase(Locale.GERMANY) + pd.getName().substring(1);
     }
 
     private static boolean attributDefinitionAngegeben(PropertyDescriptor pd) {
-        return pd.getReadMethod().getAnnotation(AttributDefinition.class) != null && !pd.getReadMethod().getAnnotation(AttributDefinition.class).name().isEmpty();
+        AttributDefinition definition = pd.getReadMethod().getAnnotation(AttributDefinition.class);
+        return definition != null && !definition.name().isEmpty();
     }
 
     private static boolean ignorieren(PropertyDescriptor pd) {
-        return pd.getName().equals("class") || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
+        return "class".equals(pd.getName()) || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
     }
 
     @Override

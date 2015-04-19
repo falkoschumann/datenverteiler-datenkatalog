@@ -3,7 +3,7 @@
  ------
  Falko Schumann
  ------
- 2015-04-11
+ 2015-04-17
  ------
 
 
@@ -17,3 +17,18 @@ Funktionsbibliothek Datenkatalog
 
   * Nutzung von POJOs (Plain old Java Objects) anstelle der generischen API der  Datenverteiler-Applikationsfunktionen
     für den Zugriff auf die Attribute von Attributgruppen.
+
+
+* Verwendung
+
+  Allgemeine Hinweise zur Verwendung der Funktionsbibliothek Datenkatalog finden sich auf der
+  {{{./usage.html}Seite Verwendung}}. Einige spezifischere Anwendungsfälle sind in den unten aufgeführten Beispielen
+  beschrieben. Häufige Frage und die Antworten darauf sind auf der {{{./faq.html}Seite FAQ}} zusammengefasst.
+
+* Beispiele
+
+  Zum besseren Verständnis der Verwendung der Funktionsbibliothek Datenkatalog sollen die folgenden Beispiele beitragen:
+
+  * {{{./examples/atg.messQuerschnittAllgemein.html}Attributgruppe MessQuerschnittAllgemein}}
+
+  * {{{./examples/atg.ufdsHelligkeit.html}Attributgruppe UfdsHelligkeit}}
