@@ -6,6 +6,7 @@
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
+import de.bsvrz.sys.funclib.datenkatalog.util.Doubles;
 
 import java.util.Objects;
 
@@ -36,7 +37,7 @@ public class Guete {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Guete guete = (Guete) o;
-        return Objects.equals(index, guete.index) &&
+        return Doubles.equals(index, guete.index, 0.00001) &&
                 Objects.equals(verfahren, guete.verfahren);
     }
 

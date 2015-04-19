@@ -7,6 +7,7 @@ package de.bsvrz.sys.funclib.datenkatalog;
 
 import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.config.*;
+import de.bsvrz.sys.funclib.datenkatalog.util.Doubles;
 import org.hamcrest.Description;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
@@ -52,9 +53,9 @@ public final class IsDataEqual extends TypeSafeMatcher<Data> {
                     result = expected.asUnscaledValue().longValue() == actual.asUnscaledValue().longValue();
             } else if (type instanceof DoubleAttributeType) {
                 if (expected.isArray())
-                    result = Arrays.equals(expected.asScaledArray().getDoubleArray(), actual.asScaledArray().getDoubleArray());
+                    result = Doubles.equals(expected.asScaledArray().getDoubleArray(), actual.asScaledArray().getDoubleArray(), 0.00001);
                 else
-                    result = expected.asScaledValue().doubleValue() == actual.asScaledValue().doubleValue();
+                    result = Doubles.equals(expected.asScaledValue().doubleValue(), actual.asScaledValue().doubleValue(), 0.00001);
             } else if (type instanceof ReferenceAttributeType) {
                 if (expected.isArray())
                     result = Arrays.equals(expected.asReferenceArray().getSystemObjectArray(), actual.asReferenceArray().getSystemObjectArray());
