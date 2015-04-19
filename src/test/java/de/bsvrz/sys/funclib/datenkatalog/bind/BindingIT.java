@@ -27,7 +27,6 @@ import static org.junit.Assert.assertThat;
 
 public class BindingIT extends AbstractDatenkatalogIT {
 
-    // TODO Changelog
     // TODO Distributionspaket mit Assembly erstellen
     // TODO ins Repository deployen
 
