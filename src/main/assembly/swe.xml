@@ -13,6 +13,25 @@
         <format>zip</format>
     </formats>
 
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>/lib</outputDirectory>
+            <scope>runtime</scope>
+            <useProjectArtifact>false</useProjectArtifact>
+            <excludes>
+                <exclude>de.bsvrz.*:*</exclude>
+            </excludes>
+        </dependencySet>
+        <dependencySet>
+            <outputDirectory>/lib</outputDirectory>
+            <scope>test</scope>
+            <useProjectArtifact>false</useProjectArtifact>
+            <excludes>
+                <exclude>de.bsvrz.*:*</exclude>
+            </excludes>
+        </dependencySet>
+    </dependencySets>
+
     <files>
         <file>
             <source>${project.basedir}/README.md</source>
