@@ -1,0 +1,824 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>Funktionsbibliothek Datenkatalog - Checkstyle report</title>
+    <link>https://github.com/falkoschumann/datenverteiler-datenkatalog</link>
+    <description>Funktionsbibliothek Datenkatalog - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2015</copyright>
+    <item>
+      <title>File: 55,
+             Errors: 0,
+             Warnings: 10,
+             Infos: 52
+      </title>
+            <link>https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.VerkehrsDatenLangZeitMSV.java">de/bsvrz/sys/funclib/datenkatalog/modell/VerkehrsDatenLangZeitMSV.java</a>
+                </td>
+                <td>
+                  13
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributDefinition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Unmarshaller.java">de/bsvrz/sys/funclib/datenkatalog/bind/Unmarshaller.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Status.java">de/bsvrz/sys/funclib/datenkatalog/modell/Status.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.IsDataEqual.java">de/bsvrz/sys/funclib/datenkatalog/IsDataEqual.java</a>
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StatusMessWertErsetzung.java">de/bsvrz/sys/funclib/datenkatalog/modell/StatusMessWertErsetzung.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.FloatAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/FloatAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.LongAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/LongAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.util.Doubles.java">de/bsvrz/sys/funclib/datenkatalog/util/Doubles.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AssertTest.java">de/bsvrz/sys/funclib/datenkatalog/bind/AssertTest.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.AchsLastMessStelle.java">de/bsvrz/sys/funclib/datenkatalog/modell/AchsLastMessStelle.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributfeldAttributAdapter.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.UfdsHelligkeit.java">de/bsvrz/sys/funclib/datenkatalog/modell/UfdsHelligkeit.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StauVerlauf.java">de/bsvrz/sys/funclib/datenkatalog/modell/StauVerlauf.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StraßenTeilSegment.java">de/bsvrz/sys/funclib/datenkatalog/modell/StraßenTeilSegment.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.CodeBeispieleInDokumentationIT.java">de/bsvrz/sys/funclib/datenkatalog/bind/CodeBeispieleInDokumentationIT.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Foobar.java">de/bsvrz/sys/funclib/datenkatalog/modell/Foobar.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributfeldDefinition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Context.java">de/bsvrz/sys/funclib/datenkatalog/bind/Context.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.StandardAttributAdapterFactory.java">de/bsvrz/sys/funclib/datenkatalog/bind/StandardAttributAdapterFactory.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ObjektreferenzAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ObjektreferenzAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.StringAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/StringAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.DoubleAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/DoubleAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Ignorieren.java">de/bsvrz/sys/funclib/datenkatalog/bind/Ignorieren.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ZustandAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ZustandAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.DataBindingException.java">de/bsvrz/sys/funclib/datenkatalog/bind/DataBindingException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributlistenAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StatusPlausibilitaetsPruefungFormal.java">de/bsvrz/sys/funclib/datenkatalog/modell/StatusPlausibilitaetsPruefungFormal.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.MessQuerschnittAllgemein.java">de/bsvrz/sys/funclib/datenkatalog/modell/MessQuerschnittAllgemein.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ByteAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ByteAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ZeitstempelAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ZeitstempelAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.BooleanAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/BooleanAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ShortAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ShortAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.IntegerAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/IntegerAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.MessQuerschnittTyp.java">de/bsvrz/sys/funclib/datenkatalog/modell/MessQuerschnittTyp.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.DatenkatalogMatchers.java">de/bsvrz/sys/funclib/datenkatalog/DatenkatalogMatchers.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.AbstractDatenkatalogIT.java">de/bsvrz/sys/funclib/datenkatalog/AbstractDatenkatalogIT.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.GueteVerfahren.java">de/bsvrz/sys/funclib/datenkatalog/modell/GueteVerfahren.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StatusExterneErfassung.java">de/bsvrz/sys/funclib/datenkatalog/modell/StatusExterneErfassung.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.BindingIT.java">de/bsvrz/sys/funclib/datenkatalog/bind/BindingIT.java</a>
+                </td>
+                <td>
+                  26
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Helligkeit.java">de/bsvrz/sys/funclib/datenkatalog/modell/Helligkeit.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributlistenDefinition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Guete.java">de/bsvrz/sys/funclib/datenkatalog/modell/Guete.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.package-info.java">de/bsvrz/sys/funclib/datenkatalog/bind/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Zustand.java">de/bsvrz/sys/funclib/datenkatalog/bind/Zustand.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.BilanzVerkehrsStaerke.java">de/bsvrz/sys/funclib/datenkatalog/modell/BilanzVerkehrsStaerke.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel.java">de/bsvrz/sys/funclib/datenkatalog/bind/Zeitstempel.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Marshaller.java">de/bsvrz/sys/funclib/datenkatalog/bind/Marshaller.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributgruppenDefinition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Assert.java">de/bsvrz/sys/funclib/datenkatalog/bind/Assert.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.WerteBereichsEigenschaften.java">de/bsvrz/sys/funclib/datenkatalog/modell/WerteBereichsEigenschaften.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.LinienKoordinaten.java">de/bsvrz/sys/funclib/datenkatalog/modell/LinienKoordinaten.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StauVerlaufPrognoseSchritt.java">de/bsvrz/sys/funclib/datenkatalog/modell/StauVerlaufPrognoseSchritt.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Pojo.java">de/bsvrz/sys/funclib/datenkatalog/bind/Pojo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
