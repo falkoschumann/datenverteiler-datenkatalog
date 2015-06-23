@@ -15,6 +15,8 @@ import org.junit.Test;
 import javax.swing.*;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -138,6 +140,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         data.getTimeValue("Dauer").setMillis(TimeUnit.MINUTES.toMillis(60));
         Calendar cal = Calendar.getInstance();
         cal.set(2015, Calendar.APRIL, 14, 21, 20, 0);
+        cal.set(Calendar.MILLISECOND, 0);
         Date aufloesungsZeit = cal.getTime();
         data.getTimeValue("AuflösungsZeit").setMillis(aufloesungsZeit.getTime());
         data.getUnscaledValue("MaxLänge").set(12000);
@@ -164,9 +167,9 @@ public class BindingIT extends AbstractDatenkatalogIT {
         StauVerlauf datum = new StauVerlauf();
         datum.setSchrittweite(TimeUnit.MINUTES.toMillis(20));
         datum.setDauer(TimeUnit.MINUTES.toMillis(60));
-        datum.setAufloesungsZeit(aufloesungsZeit);
+        datum.setAufloesungsZeit(LocalDateTime.of(2015, Month.APRIL, 14, 21, 20, 0));
         datum.setMaxLaenge(12000);
-        datum.setMaxLaengeZeit(maxLaengeZeit);
+        datum.setMaxLaengeZeit(LocalDateTime.of(2015, Month.APRIL, 14, 21, 45, 30));
         StauVerlaufPrognoseSchritt schritt1 = new StauVerlaufPrognoseSchritt();
         schritt1.setZufluss(1500);
         schritt1.setKapazitaet(1000);

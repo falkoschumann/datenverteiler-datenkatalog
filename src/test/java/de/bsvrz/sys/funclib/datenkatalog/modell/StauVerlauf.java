@@ -10,8 +10,8 @@ import de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,9 +20,9 @@ public class StauVerlauf {
 
     private long schrittweite;
     private long dauer;
-    private Date aufloesungsZeit;
+    private LocalDateTime aufloesungsZeit;
     private long maxLaenge;
-    private Date maxLaengeZeit;
+    private LocalDateTime maxLaengeZeit;
     private List<StauVerlaufPrognoseSchritt> prognoseverlauf = new ArrayList<>();
 
     @Zeitstempel
@@ -44,11 +44,11 @@ public class StauVerlauf {
     }
 
     @AttributDefinition(name = "AuflösungsZeit")
-    public Date getAufloesungsZeit() {
+    public LocalDateTime getAufloesungsZeit() {
         return aufloesungsZeit;
     }
 
-    public void setAufloesungsZeit(Date aufloesungsZeit) {
+    public void setAufloesungsZeit(LocalDateTime aufloesungsZeit) {
         this.aufloesungsZeit = aufloesungsZeit;
     }
 
@@ -62,11 +62,11 @@ public class StauVerlauf {
     }
 
     @AttributDefinition(name = "MaxLängeZeit")
-    public Date getMaxLaengeZeit() {
+    public LocalDateTime getMaxLaengeZeit() {
         return maxLaengeZeit;
     }
 
-    public void setMaxLaengeZeit(Date maxLaengeZeit) {
+    public void setMaxLaengeZeit(LocalDateTime maxLaengeZeit) {
         this.maxLaengeZeit = maxLaengeZeit;
     }
 
