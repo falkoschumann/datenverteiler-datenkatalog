@@ -18,6 +18,9 @@
         </release>
 
         <release version="1.1.0" date="2015-06-23" description="Unterstützung weiterer Klassen">
+            <action dev="falkoschumann" type="fix" issue="6">
+        Ordner der SW-Einheit fehlte beim Entpacken.
+            </action>
             <action dev="falkoschumann" type="add" issue="5">
         Neue Time-API von Java 8 wird unterstützt. LocalDateTime kann jetzt
     alternativ zu Date und long als absoluter Zeitstempel verwendet werden.
