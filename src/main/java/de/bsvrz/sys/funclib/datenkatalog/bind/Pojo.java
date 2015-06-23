@@ -53,8 +53,12 @@ final class Pojo {
         return pd.getReadMethod() != null;
     }
 
+    public static boolean isReadOnly(PropertyDescriptor pd) {
+        return !isWritable(pd);
+    }
+
     public static void set(Object obj, PropertyDescriptor pd, Object value) {
-        if (!isWritable(pd))
+        if (isReadOnly(pd))
             throw new DataBindingException("Die Property " + pd.getName() + " der Klasse " + obj.getClass().getName()
                     + " hat keinen Setter und kann somit nicht geschrieben werden.");
 

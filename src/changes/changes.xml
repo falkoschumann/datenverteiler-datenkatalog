@@ -18,6 +18,10 @@
             <action dev="falkoschumann" type="add">
         LocalDateTime kann nun auch als Java-Feld verwendet werden.
             </action>
+            <action dev="falkoschumann" type="fix" issue="10">
+        Ein Attributfeld braucht keinen Setter mehr. Ein Getter für eine
+    Collection (oder Set, oder SortedSet oder List) genügt.
+            </action>
         </release>
 
         <release version="1.1.0" date="2015-06-23" description="Unterstützung weiterer Klassen">
