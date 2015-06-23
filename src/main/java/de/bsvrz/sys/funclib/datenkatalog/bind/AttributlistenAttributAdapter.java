@@ -33,7 +33,7 @@ class AttributlistenAttributAdapter implements AttributAdapter {
             try {
                 attributname = firstToUpper(pd);
                 return data.getItem(attributname);
-            } catch (NoSuchElementException ex) {
+            } catch (NoSuchElementException | IllegalArgumentException ex) {
                 attributname = firstToLower(pd);
             }
         }
