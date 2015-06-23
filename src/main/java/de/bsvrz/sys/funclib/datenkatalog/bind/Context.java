@@ -27,7 +27,7 @@ public class Context {
     private final DataModel model;
 
     public Context(DataModel model) {
-        Assert.notNull("model", model);
+        Objects.requireNonNull(model, "model");
         this.model = model;
     }
 
@@ -81,7 +81,7 @@ public class Context {
         @Override
         @SuppressWarnings("unchecked")
         public <T> T unmarshal(Data data, Class<T> datumClass) {
-            Assert.notNull("datumClass", datumClass);
+            Objects.requireNonNull(datumClass, "datumClass");
 
             if (data == null) return null;
 
