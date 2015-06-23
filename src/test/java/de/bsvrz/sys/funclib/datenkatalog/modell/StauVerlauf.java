@@ -75,10 +75,6 @@ public class StauVerlauf {
         return prognoseverlauf;
     }
 
-    public void setPrognoseverlauf(List<StauVerlaufPrognoseSchritt> prognoseverlauf) {
-        this.prognoseverlauf = prognoseverlauf;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

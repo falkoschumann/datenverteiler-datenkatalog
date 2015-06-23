@@ -9,6 +9,7 @@ import de.bsvrz.dav.daf.main.Data;
 
 import java.beans.BeanInfo;
 import java.beans.PropertyDescriptor;
+import java.util.Collection;
 import java.util.Locale;
 import java.util.NoSuchElementException;
 
@@ -32,7 +33,7 @@ class AttributlistenAttributAdapter implements AttributAdapter {
             try {
                 attributname = firstToUpper(pd);
                 return data.getItem(attributname);
-            } catch (NoSuchElementException ex) {
+            } catch (NoSuchElementException | IllegalArgumentException ex) {
                 attributname = firstToLower(pd);
             }
         }
@@ -76,9 +77,12 @@ class AttributlistenAttributAdapter implements AttributAdapter {
 
             AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(pd);
             Data att = getAttribut(data, pd);
-            if (Pojo.isAttributliste(pd) && !Pojo.isWritable(pd)) {
+            if (Pojo.isAttributliste(pd)) {
                 Object property = Pojo.get(datum, pd);
                 new AttributlistenAttributAdapter(property).unmarshal(att);
+            } else if (Pojo.isAttributfeld(pd) && Pojo.isReadOnly(pd) && Collection.class.isAssignableFrom(pd.getPropertyType())) {
+                Collection property = (Collection<?>) Pojo.get(datum, pd);
+                property.addAll((Collection) new AttributfeldAttributAdapter(property.getClass(), pd.getReadMethod().getAnnotation(AttributfeldDefinition.class)).unmarshal(att));
             } else {
                 Pojo.set(datum, pd, adapter.unmarshal(att));
             }

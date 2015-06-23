@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import static de.bsvrz.sys.funclib.datenkatalog.DatenkatalogMatchers.dataEqualsTo;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class BindingIT extends AbstractDatenkatalogIT {
@@ -39,6 +40,12 @@ public class BindingIT extends AbstractDatenkatalogIT {
         context = new Context(getModel());
         marshaller = context.createMarshaller();
         unmarshaller = context.createUnmarshaller();
+    }
+
+    @Test
+    public void testBinding_NullIstNull() {
+        assertNull(marshaller.marshal(null));
+        assertNull(unmarshaller.unmarshal(null, UfdsHelligkeit.class));
     }
 
     @Test
@@ -208,8 +215,8 @@ public class BindingIT extends AbstractDatenkatalogIT {
         data.getScaledArray("y").set(4.4, 5.5, 6.6);
 
         LinienKoordinaten datum = new LinienKoordinaten();
-        datum.setX(new double[]{11.1, 22.2, 33.3});
-        datum.setY(new double[]{4.4, 5.5, 6.6});
+        datum.setX(11.1, 22.2, 33.3);
+        datum.setY(4.4, 5.5, 6.6);
 
         Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
@@ -230,14 +237,13 @@ public class BindingIT extends AbstractDatenkatalogIT {
         data.getUnscaledValue("50SpitzenStundeQKfzGesamt").set(5000);
         data.getTimeArray("50SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("17.04.2015 00:00").getTime(), dateFormat.parse("17.04.2015 01:00").getTime());
 
-        // TODO Feld von LocalDateTime testen!!
         VerkehrsDatenLangZeitMSV datum = new VerkehrsDatenLangZeitMSV();
         datum.set01SpitzenStundeQKfzGesamt(3000);
         datum.set01SpitzenStundeQKfzGesamtZeitPunkte(Arrays.asList(dateFormat.parse("16.04.2015 20:00"), dateFormat.parse("16.04.2015 21:00")));
         datum.set30SpitzenStundeQKfzGesamt(4000);
-        datum.set30SpitzenStundeQKfzGesamtZeitPunkte(Arrays.asList(dateFormat.parse("16.04.2015 22:00"), dateFormat.parse("16.04.2015 23:00")));
+        datum.set30SpitzenStundeQKfzGesamtZeitPunkte(LocalDateTime.of(2015, 4, 16, 22, 0), LocalDateTime.of(2015, 4, 16, 23, 0));
         datum.set50SpitzenStundeQKfzGesamt(5000);
-        datum.set50SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("17.04.2015 00:00"), dateFormat.parse("17.04.2015 01:00")});
+        datum.set50SpitzenStundeQKfzGesamtZeitPunkte(dateFormat.parse("17.04.2015 00:00"), dateFormat.parse("17.04.2015 01:00"));
 
         Data actualData = marshaller.marshal(datum);
         assertThat(actualData, is(dataEqualsTo(data)));
