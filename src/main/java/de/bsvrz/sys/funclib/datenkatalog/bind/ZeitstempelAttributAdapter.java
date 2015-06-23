@@ -7,12 +7,17 @@ package de.bsvrz.sys.funclib.datenkatalog.bind;
 
 import de.bsvrz.dav.daf.main.Data;
 
+import java.time.*;
 import java.util.Date;
 
 class ZeitstempelAttributAdapter implements AttributAdapter {
 
     private final Class<?> clazz;
     private final Zeitstempel zeitstempel;
+
+    ZeitstempelAttributAdapter(Class<?> clazz) {
+        this(clazz, null);
+    }
 
     ZeitstempelAttributAdapter(Class<?> clazz, Zeitstempel zeitstempel) {
         this.clazz = clazz;
@@ -21,7 +26,9 @@ class ZeitstempelAttributAdapter implements AttributAdapter {
 
     @Override
     public void marshal(final Object propertyValue, final Data attribut) {
-        if (clazz == Date.class) {
+        if (clazz == LocalDateTime.class) {
+            attribut.asTimeValue().setMillis(((LocalDateTime) propertyValue).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        } else if (clazz == Date.class) {
             attribut.asTimeValue().setMillis(((Date) propertyValue).getTime());
         } else {
             switch (zeitstempel.genauigkeit()) {
@@ -39,7 +46,9 @@ class ZeitstempelAttributAdapter implements AttributAdapter {
 
     @Override
     public Object unmarshal(final Data attribut) {
-        if (clazz == Date.class) {
+        if (clazz == LocalDateTime.class) {
+            return LocalDateTime.ofInstant(Instant.ofEpochMilli(attribut.asTimeValue().getMillis()), ZoneId.systemDefault());
+        } else if (clazz == Date.class) {
             return new Date(attribut.asTimeValue().getMillis());
         } else {
             switch (zeitstempel.genauigkeit()) {

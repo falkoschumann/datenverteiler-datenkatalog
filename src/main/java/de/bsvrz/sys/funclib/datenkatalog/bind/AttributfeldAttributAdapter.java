@@ -28,34 +28,6 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         return Arrays.stream(array).boxed().map(Date::new).collect(Collectors.toList()).toArray(new Date[array.length]);
     }
 
-    private static boolean isDouble(Class<?> clazz) {
-        return clazz == Double.class || clazz == double.class;
-    }
-
-    private static boolean isFloat(Class<?> clazz) {
-        return clazz == Float.class || clazz == float.class;
-    }
-
-    private static boolean isLong(Class<?> clazz) {
-        return clazz == Long.class || clazz == long.class;
-    }
-
-    private static boolean isInteger(Class<?> clazz) {
-        return clazz == Integer.class || clazz == int.class;
-    }
-
-    private static boolean isShort(Class<?> clazz) {
-        return clazz == Short.class || clazz == short.class;
-    }
-
-    private static boolean isByte(Class<?> clazz) {
-        return clazz == Byte.class || clazz == byte.class;
-    }
-
-    private static boolean isString(Class<?> clazz) {
-        return clazz == String.class;
-    }
-
     private static boolean isDate(Class<?> clazz) {
         return clazz == Date.class;
     }
@@ -75,19 +47,19 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         attribut.asArray().setLength(propertyValue.size());
         int i = 0;
         for (Object e : propertyValue) {
-            AttributAdapter adapter = new AttributlistenAttributAdapter(e.getClass());
+            AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(attributfeldDefinition.elementtyp());
             adapter.marshal(e, attribut.asArray().getItem(i++));
         }
     }
 
     private void marshalArray(Object propertyValue, Data attribut) {
-        if (isDouble(clazz.getComponentType())) attribut.asScaledArray().set((double[]) propertyValue);
-        else if (isFloat(clazz.getComponentType())) attribut.asScaledArray().set((float[]) propertyValue);
-        else if (isLong(clazz.getComponentType())) attribut.asUnscaledArray().set((long[]) propertyValue);
-        else if (isInteger(clazz.getComponentType())) attribut.asUnscaledArray().set((int[]) propertyValue);
-        else if (isShort(clazz.getComponentType())) attribut.asUnscaledArray().set((short[]) propertyValue);
-        else if (isByte(clazz.getComponentType())) attribut.asUnscaledArray().set((byte[]) propertyValue);
-        else if (isString(clazz.getComponentType())) attribut.asTextArray().set((String[]) propertyValue);
+        if (Pojo.isDouble(clazz.getComponentType())) attribut.asScaledArray().set((double[]) propertyValue);
+        else if (Pojo.isFloat(clazz.getComponentType())) attribut.asScaledArray().set((float[]) propertyValue);
+        else if (Pojo.isLong(clazz.getComponentType())) attribut.asUnscaledArray().set((long[]) propertyValue);
+        else if (Pojo.isInteger(clazz.getComponentType())) attribut.asUnscaledArray().set((int[]) propertyValue);
+        else if (Pojo.isShort(clazz.getComponentType())) attribut.asUnscaledArray().set((short[]) propertyValue);
+        else if (Pojo.isByte(clazz.getComponentType())) attribut.asUnscaledArray().set((byte[]) propertyValue);
+        else if (Pojo.isString(clazz.getComponentType())) attribut.asTextArray().set((String[]) propertyValue);
         else if (isDate(clazz.getComponentType()))
             attribut.asTimeArray().setMillis(dateArrayToLongArray((Date[]) propertyValue));
         else throw new IllegalStateException("unreachable code");
@@ -105,23 +77,29 @@ class AttributfeldAttributAdapter implements AttributAdapter {
     }
 
     private Collection<?> unmarshalCollection(Data attribut) {
-        List<Object> result = new ArrayList<>();
+        Collection<Object> result = createCollection();
         for (int i = 0; i < attribut.asArray().getLength(); i++) {
             Data e = attribut.asArray().getItem(i);
-            AttributlistenAttributAdapter adapter = new AttributlistenAttributAdapter(attributfeldDefinition.elementtyp());
+            AttributAdapter adapter = new StandardAttributAdapterFactory().createAdapter(attributfeldDefinition.elementtyp());
             result.add(adapter.unmarshal(e));
         }
         return result;
     }
 
+    private Collection<Object> createCollection() {
+        if (Set.class.isAssignableFrom(clazz)) return new LinkedHashSet<>();
+        if (SortedSet.class.isAssignableFrom(clazz)) return new TreeSet<>();
+        return new ArrayList<>();
+    }
+
     private Object unmarshalArray(Data attribut) {
-        if (isDouble(clazz.getComponentType())) return attribut.asScaledArray().getDoubleArray();
-        else if (isFloat(clazz.getComponentType())) return attribut.asScaledArray().getFloatArray();
-        else if (isLong(clazz.getComponentType())) return attribut.asUnscaledArray().getLongArray();
-        else if (isInteger(clazz.getComponentType())) return attribut.asUnscaledArray().getIntArray();
-        else if (isShort(clazz.getComponentType())) return attribut.asUnscaledArray().getShortArray();
-        else if (isByte(clazz.getComponentType())) return attribut.asUnscaledArray().getByteArray();
-        else if (isString(clazz.getComponentType())) return attribut.asTextArray().getTextArray();
+        if (Pojo.isDouble(clazz.getComponentType())) return attribut.asScaledArray().getDoubleArray();
+        else if (Pojo.isFloat(clazz.getComponentType())) return attribut.asScaledArray().getFloatArray();
+        else if (Pojo.isLong(clazz.getComponentType())) return attribut.asUnscaledArray().getLongArray();
+        else if (Pojo.isInteger(clazz.getComponentType())) return attribut.asUnscaledArray().getIntArray();
+        else if (Pojo.isShort(clazz.getComponentType())) return attribut.asUnscaledArray().getShortArray();
+        else if (Pojo.isByte(clazz.getComponentType())) return attribut.asUnscaledArray().getByteArray();
+        else if (Pojo.isString(clazz.getComponentType())) return attribut.asTextArray().getTextArray();
         else if (isDate(clazz.getComponentType())) return longArrayToDateArray(attribut.asTimeArray().getMillisArray());
         else throw new IllegalStateException("unreachable code");
     }
