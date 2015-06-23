@@ -7,8 +7,10 @@ package de.bsvrz.sys.funclib.datenkatalog.bind;
 
 import de.bsvrz.dav.daf.main.Data;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
-import java.util.stream.Collectors;
 
 class AttributfeldAttributAdapter implements AttributAdapter {
 
@@ -18,18 +20,6 @@ class AttributfeldAttributAdapter implements AttributAdapter {
     AttributfeldAttributAdapter(Class<?> clazz, AttributfeldDefinition attributfeldDefinition) {
         this.clazz = clazz;
         this.attributfeldDefinition = attributfeldDefinition;
-    }
-
-    private static long[] dateArrayToLongArray(Date... array) {
-        return Arrays.asList(array).stream().mapToLong(Date::getTime).toArray();
-    }
-
-    private static Date[] longArrayToDateArray(long... array) {
-        return Arrays.stream(array).boxed().map(Date::new).collect(Collectors.toList()).toArray(new Date[array.length]);
-    }
-
-    private static boolean isDate(Class<?> clazz) {
-        return clazz == Date.class;
     }
 
     @Override
@@ -60,10 +50,28 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         else if (Pojo.isShort(clazz.getComponentType())) attribut.asUnscaledArray().set((short[]) propertyValue);
         else if (Pojo.isByte(clazz.getComponentType())) attribut.asUnscaledArray().set((byte[]) propertyValue);
         else if (Pojo.isString(clazz.getComponentType())) attribut.asTextArray().set((String[]) propertyValue);
-        else if (isDate(clazz.getComponentType()))
-            attribut.asTimeArray().setMillis(dateArrayToLongArray((Date[]) propertyValue));
+        else if (isDate(clazz.getComponentType())) attribut.asTimeArray().setMillis(dateArrayToLongArray((Date[]) propertyValue));
+        else if (isLocalDateTime(clazz.getComponentType())) attribut.asTimeArray().setMillis(localDateTimeArrayToLongArray((LocalDateTime[]) propertyValue));
         else throw new IllegalStateException("unreachable code");
     }
+
+    private static boolean isDate(Class<?> clazz) {
+        return clazz == Date.class;
+    }
+
+    private static long[] dateArrayToLongArray(Date... array) {
+        return Arrays.asList(array).stream().mapToLong(Date::getTime).toArray();
+    }
+
+
+    private static boolean isLocalDateTime(Class<?> clazz) {
+        return clazz == LocalDateTime.class;
+    }
+
+    private static long[] localDateTimeArrayToLongArray(LocalDateTime... array) {
+        return Arrays.asList(array).stream().mapToLong(t -> t.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()).toArray();
+    }
+
 
     @Override
     public Object unmarshal(final Data attribut) {
@@ -101,7 +109,17 @@ class AttributfeldAttributAdapter implements AttributAdapter {
         else if (Pojo.isByte(clazz.getComponentType())) return attribut.asUnscaledArray().getByteArray();
         else if (Pojo.isString(clazz.getComponentType())) return attribut.asTextArray().getTextArray();
         else if (isDate(clazz.getComponentType())) return longArrayToDateArray(attribut.asTimeArray().getMillisArray());
+        else if (isLocalDateTime(clazz.getComponentType())) return longArrayToLocalDateTimeArray(attribut.asTimeArray().getMillisArray());
         else throw new IllegalStateException("unreachable code");
     }
+
+    private static Date[] longArrayToDateArray(long... array) {
+        return Arrays.stream(array).boxed().map(Date::new).toArray(Date[]::new);
+    }
+
+    private static LocalDateTime[] longArrayToLocalDateTimeArray(long... array) {
+        return Arrays.stream(array).boxed().map(t -> LocalDateTime.ofInstant(Instant.ofEpochMilli(t), ZoneId.systemDefault())).toArray(LocalDateTime[]::new);
+    }
+
 
 }
