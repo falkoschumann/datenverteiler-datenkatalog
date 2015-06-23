@@ -26,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 import static de.bsvrz.sys.funclib.datenkatalog.DatenkatalogMatchers.dataEqualsTo;
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class BindingIT extends AbstractDatenkatalogIT {
@@ -39,6 +40,12 @@ public class BindingIT extends AbstractDatenkatalogIT {
         context = new Context(getModel());
         marshaller = context.createMarshaller();
         unmarshaller = context.createUnmarshaller();
+    }
+
+    @Test
+    public void testBinding_NullIstNull() {
+        assertNull(marshaller.marshal(null));
+        assertNull(unmarshaller.unmarshal(null, UfdsHelligkeit.class));
     }
 
     @Test

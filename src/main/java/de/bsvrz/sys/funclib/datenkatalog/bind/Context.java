@@ -13,6 +13,7 @@ import de.bsvrz.dav.daf.main.config.DataModel;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Der Kontext für das Binding und abstrakte Fabrik für {@link Marshaller} und {@link Unmarshaller}.
@@ -80,8 +81,10 @@ public class Context {
         @Override
         @SuppressWarnings("unchecked")
         public <T> T unmarshal(Data data, Class<T> datumClass) {
-            Assert.notNull("data", data);
             Assert.notNull("datumClass", datumClass);
+
+            if (data == null) return null;
+
             return (T) new AttributlistenAttributAdapter(datumClass).unmarshal(data);
         }
 
@@ -91,7 +94,8 @@ public class Context {
 
         @Override
         public Data marshal(Object datum) {
-            Assert.notNull("datum", datum);
+            if (datum == null) return null;
+
             Data result = createData(getAttributeGroup(datum));
             new AttributlistenAttributAdapter(datum.getClass()).marshal(datum, result);
             return result;

@@ -18,6 +18,11 @@
             <action dev="falkoschumann" type="add">
         LocalDateTime kann nun auch als Java-Feld verwendet werden.
             </action>
+            <action dev="falkoschumann" type="add" issue="11">
+        Marshaller und Unmarshaller geben jetzt null zurück, wenn null übergeben
+    wird. Damit kann die Prüfung auf Daten am Datensatz entfallen, bevor das
+    Datum an den Marshaller oder Unmarshaller übergeben wird.
+            </action>
             <action dev="falkoschumann" type="fix" issue="10">
         Ein Attributfeld braucht keinen Setter mehr. Ein Getter für eine
     Collection (oder Set, oder SortedSet oder List) genügt.
