@@ -14,7 +14,13 @@
     </properties>
 
     <body>
-        <release version="1.1.1" date="2015-06-23" description="Fehlerbehebung und kleine Verbesserungen">
+        <release version="1.2.0" date="2015-06-24" description="Neue Datenverteiler-API">
+            <action dev="falkoschumann" type="add">
+        Mit der Schnittstelle Datenverteiler können die am häufigsten
+    verwendeten Operationen der Datenverteiler-Applikationsfunktionen einfacher
+    genutzt werden. Die Klasse Empfaenger erleichtert den Empfang von Datensatz
+    durch das intgerierte Unmarshalling der Datensätze.
+            </action>
             <action dev="falkoschumann" type="add">
         LocalDateTime kann nun auch als Java-Feld verwendet werden.
             </action>

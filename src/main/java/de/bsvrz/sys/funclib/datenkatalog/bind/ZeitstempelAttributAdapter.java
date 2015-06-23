@@ -12,6 +12,8 @@ import java.util.Date;
 
 class ZeitstempelAttributAdapter implements AttributAdapter {
 
+    // TODO Die Zeitstempel werden in mehreren Klassen hin- und hergerechnet -> Refaktorieren
+
     private final Class<?> clazz;
     private final Zeitstempel zeitstempel;
 
