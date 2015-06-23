@@ -14,7 +14,7 @@
     </properties>
 
     <body>
-        <release version="1.2.0" date="2015-06-23" description="Neue Datenverteiler-API">
+        <release version="1.2.0" date="2015-06-24" description="Neue Datenverteiler-API">
             <action dev="falkoschumann" type="add">
         Mit der Schnittstelle Datenverteiler können die am häufigsten
     verwendeten Operationen der Datenverteiler-Applikationsfunktionen einfacher
