@@ -32,4 +32,25 @@ class StandardAttributAdapterFactory {
         throw new IllegalStateException("Kein AttributAdapter gefunden für " + pd + ".");
     }
 
+    AttributAdapter createAdapter(Class<?> propertyType) {
+        // Struktur
+        if (Pojo.isAttributliste(propertyType)) return new AttributlistenAttributAdapter(propertyType);
+
+        // Attribute
+        if (Pojo.isZeitstempel(propertyType)) return new ZeitstempelAttributAdapter(propertyType);
+        if (Pojo.isDouble(propertyType)) return new DoubleAttributAdapter();
+        if (Pojo.isFloat(propertyType)) return new FloatAttributAdapter();
+        if (Pojo.isLong(propertyType)) return new LongAttributAdapter();
+        if (Pojo.isInteger(propertyType)) return new IntegerAttributAdapter();
+        if (Pojo.isShort(propertyType)) return new ShortAttributAdapter();
+        if (Pojo.isByte(propertyType)) return new ByteAttributAdapter();
+        if (Pojo.isString(propertyType)) return new StringAttributAdapter();
+        if (Pojo.isObjektreferenz(propertyType)) return new ObjektreferenzAttributAdapter();
+
+        // Sonderfälle
+        if (Pojo.isBoolean(propertyType)) return new BooleanAttributAdapter();
+
+        throw new IllegalStateException("Kein AttributAdapter gefunden für " + propertyType + ".");
+    }
+
 }

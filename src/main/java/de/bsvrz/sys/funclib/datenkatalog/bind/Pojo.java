@@ -11,6 +11,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 
 final class Pojo {
@@ -74,52 +75,96 @@ final class Pojo {
     }
 
     public static boolean isZeitstempel(PropertyDescriptor pd) {
-        return pd.getReadMethod().getAnnotation(Zeitstempel.class) != null || pd.getPropertyType() == Date.class || pd.getPropertyType() == LocalDateTime.class;
+        return pd.getReadMethod().getAnnotation(Zeitstempel.class) != null || isZeitstempel(pd.getPropertyType());
+    }
+
+    public static boolean isZeitstempel(Class<?> propertyType) {
+        return propertyType == Date.class || propertyType == LocalDateTime.class;
     }
 
     public static boolean isObjektreferenz(PropertyDescriptor pd) {
-        return pd.getPropertyType().isAssignableFrom(SystemObject.class);
+        return isObjektreferenz(pd.getPropertyType());
+    }
+
+    public static boolean isObjektreferenz(Class<?> propertyType) {
+        return propertyType.isAssignableFrom(SystemObject.class);
     }
 
     public static boolean isAttributliste(PropertyDescriptor pd) {
-        return pd.getPropertyType().getAnnotation(AttributlistenDefinition.class) != null;
+        return isAttributliste(pd.getPropertyType());
+    }
+
+    public static boolean isAttributliste(Class<?> propertyType) {
+        return propertyType.getAnnotation(AttributlistenDefinition.class) != null;
     }
 
     public static boolean isAttributfeld(PropertyDescriptor pd) {
         AttributfeldDefinition definition = pd.getReadMethod().getAnnotation(AttributfeldDefinition.class);
-        return definition != null || pd.getReadMethod().getReturnType().isArray();
+        return (definition != null && Collection.class.isAssignableFrom(pd.getPropertyType())) || pd.getPropertyType().isArray();
     }
 
     public static boolean isDouble(PropertyDescriptor pd) {
-        return pd.getPropertyType() == Double.class || pd.getPropertyType() == double.class;
+        return isDouble(pd.getPropertyType());
+    }
+
+    public static boolean isDouble(Class<?> propertyType) {
+        return propertyType == Double.class || propertyType == double.class;
     }
 
     public static boolean isFloat(PropertyDescriptor pd) {
-        return pd.getPropertyType() == Float.class || pd.getPropertyType() == float.class;
+        return isFloat(pd.getPropertyType());
+    }
+
+    public static boolean isFloat(Class<?> propertyType) {
+        return propertyType == Float.class || propertyType == float.class;
     }
 
     public static boolean isLong(PropertyDescriptor pd) {
-        return pd.getPropertyType() == Long.class || pd.getPropertyType() == long.class;
+        return isLong(pd.getPropertyType());
+    }
+
+    public static boolean isLong(Class<?> propertyType) {
+        return propertyType == Long.class || propertyType == long.class;
     }
 
     public static boolean isInteger(PropertyDescriptor pd) {
-        return pd.getPropertyType() == Integer.class || pd.getPropertyType() == int.class;
+        return isInteger(pd.getPropertyType());
+    }
+
+    public static boolean isInteger(Class<?> propertyType) {
+        return propertyType == Integer.class || propertyType == int.class;
     }
 
     public static boolean isShort(PropertyDescriptor pd) {
-        return pd.getPropertyType() == Short.class || pd.getPropertyType() == short.class;
+        return isShort(pd.getPropertyType());
+    }
+
+    public static boolean isShort(Class<?> propertyType) {
+        return propertyType == Short.class || propertyType == short.class;
     }
 
     public static boolean isByte(PropertyDescriptor pd) {
-        return pd.getPropertyType() == Byte.class || pd.getPropertyType() == byte.class;
+        return isByte(pd.getPropertyType());
+    }
+
+    public static boolean isByte(Class<?> propertyType) {
+        return propertyType == Byte.class || propertyType == byte.class;
     }
 
     public static boolean isString(PropertyDescriptor pd) {
-        return pd.getPropertyType() == String.class;
+        return isString(pd.getPropertyType());
+    }
+
+    public static boolean isString(Class<?> propertyType) {
+        return propertyType == String.class;
     }
 
     public static boolean isBoolean(PropertyDescriptor pd) {
-        return pd.getPropertyType() == Boolean.class || pd.getPropertyType() == boolean.class;
+        return isBoolean(pd.getPropertyType());
+    }
+
+    public static boolean isBoolean(Class<?> propertyType) {
+        return propertyType == Boolean.class || propertyType == boolean.class;
     }
 
 }

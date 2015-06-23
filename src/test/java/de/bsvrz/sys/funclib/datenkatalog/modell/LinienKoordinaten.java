@@ -14,8 +14,8 @@ import java.util.Objects;
 @AttributgruppenDefinition(pid = "atg.linienKoordinaten")
 public class LinienKoordinaten {
 
-    private double x[];
-    private double y[];
+    private double[] x;
+    private double[] y;
 
     public double[] getX() {
         return x;

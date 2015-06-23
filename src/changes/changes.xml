@@ -14,10 +14,14 @@
     </properties>
 
     <body>
-        <release version="1.1.0" date="2015-06-23" description="">
+        <release version="1.1.0" date="2015-06-23" description="Unterstützung weiterer Klassen">
             <action dev="falkoschumann" type="add" issue="5">
         Neue Time-API von Java 8 wird unterstützt. LocalDateTime kann jetzt
     alternativ zu Date und long als absoluter Zeitstempel verwendet werden.
+            </action>
+            <action dev="falkoschumann" type="add" issue="3">
+        Für Attributfelder kann jetzt neben Array und List auch Collection, Set
+    oder SortedSet verwendet werden.
             </action>
         </release>
         <release version="1.0.0" date="2015-04-19" description="Erste Veröffentlichung">

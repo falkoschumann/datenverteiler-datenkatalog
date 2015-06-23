@@ -5,21 +5,20 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @AttributgruppenDefinition(pid = "atg.verkehrsDatenLangZeitMSV")
 public class VerkehrsDatenLangZeitMSV {
 
     private int _01spitzenStundeQKfzGesamt;
-    private Date _01spitzenStundeQKfzGesamtZeitPunkte[];
+    private List<Date> _01spitzenStundeQKfzGesamtZeitPunkte;
     private int _30SpitzenStundeQKfzGesamt;
-    private Date _30SpitzenStundeQKfzGesamtZeitPunkte[];
+    private Collection<Date> _30SpitzenStundeQKfzGesamtZeitPunkte;
     private int _50SpitzenStundeQKfzGesamt;
-    private Date _50SpitzenStundeQKfzGesamtZeitPunkte[];
+    private Date[] _50SpitzenStundeQKfzGesamtZeitPunkte;
 
     public int get01SpitzenStundeQKfzGesamt() {
         return _01spitzenStundeQKfzGesamt;
@@ -29,11 +28,12 @@ public class VerkehrsDatenLangZeitMSV {
         this._01spitzenStundeQKfzGesamt = _01spitzenStundeQKfzGesamt;
     }
 
-    public Date[] get01SpitzenStundeQKfzGesamtZeitPunkte() {
+    @AttributfeldDefinition(elementtyp = Date.class)
+    public List<Date> get01SpitzenStundeQKfzGesamtZeitPunkte() {
         return _01spitzenStundeQKfzGesamtZeitPunkte;
     }
 
-    public void set01SpitzenStundeQKfzGesamtZeitPunkte(Date... _01spitzenStundeQKfzGesamtZeitPunkte) {
+    public void set01SpitzenStundeQKfzGesamtZeitPunkte(List<Date> _01spitzenStundeQKfzGesamtZeitPunkte) {
         this._01spitzenStundeQKfzGesamtZeitPunkte = _01spitzenStundeQKfzGesamtZeitPunkte;
     }
 
@@ -45,11 +45,12 @@ public class VerkehrsDatenLangZeitMSV {
         this._30SpitzenStundeQKfzGesamt = _30SpitzenStundeQKfzGesamt;
     }
 
-    public Date[] get30SpitzenStundeQKfzGesamtZeitPunkte() {
+    @AttributfeldDefinition(elementtyp = Date.class)
+    public Collection<Date> get30SpitzenStundeQKfzGesamtZeitPunkte() {
         return _30SpitzenStundeQKfzGesamtZeitPunkte;
     }
 
-    public void set30SpitzenStundeQKfzGesamtZeitPunkte(Date... _30SpitzenStundeQKfzGesamtZeitPunkte) {
+    public void set30SpitzenStundeQKfzGesamtZeitPunkte(Collection<Date> _30SpitzenStundeQKfzGesamtZeitPunkte) {
         this._30SpitzenStundeQKfzGesamtZeitPunkte = _30SpitzenStundeQKfzGesamtZeitPunkte;
     }
 
@@ -77,8 +78,8 @@ public class VerkehrsDatenLangZeitMSV {
         return Objects.equals(_01spitzenStundeQKfzGesamt, that._01spitzenStundeQKfzGesamt) &&
                 Objects.equals(_30SpitzenStundeQKfzGesamt, that._30SpitzenStundeQKfzGesamt) &&
                 Objects.equals(_50SpitzenStundeQKfzGesamt, that._50SpitzenStundeQKfzGesamt) &&
-                Arrays.equals(_01spitzenStundeQKfzGesamtZeitPunkte, that._01spitzenStundeQKfzGesamtZeitPunkte) &&
-                Arrays.equals(_30SpitzenStundeQKfzGesamtZeitPunkte, that._30SpitzenStundeQKfzGesamtZeitPunkte) &&
+                Objects.equals(_01spitzenStundeQKfzGesamtZeitPunkte, that._01spitzenStundeQKfzGesamtZeitPunkte) &&
+                Objects.equals(_30SpitzenStundeQKfzGesamtZeitPunkte, that._30SpitzenStundeQKfzGesamtZeitPunkte) &&
                 Arrays.equals(_50SpitzenStundeQKfzGesamtZeitPunkte, that._50SpitzenStundeQKfzGesamtZeitPunkte);
     }
 
@@ -91,9 +92,9 @@ public class VerkehrsDatenLangZeitMSV {
     public String toString() {
         return "VerkehrsDatenLangZeitMSV{" +
                 "01spitzenStundeQKfzGesamt=" + _01spitzenStundeQKfzGesamt +
-                ", 01spitzenStundeQKfzGesamtZeitPunkte=" + Arrays.toString(_01spitzenStundeQKfzGesamtZeitPunkte) +
+                ", 01spitzenStundeQKfzGesamtZeitPunkte=" + _01spitzenStundeQKfzGesamtZeitPunkte +
                 ", 30SpitzenStundeQKfzGesamt=" + _30SpitzenStundeQKfzGesamt +
-                ", 30SpitzenStundeQKfzGesamtZeitPunkte=" + Arrays.toString(_30SpitzenStundeQKfzGesamtZeitPunkte) +
+                ", 30SpitzenStundeQKfzGesamtZeitPunkte=" + _30SpitzenStundeQKfzGesamtZeitPunkte +
                 ", 50SpitzenStundeQKfzGesamt=" + _50SpitzenStundeQKfzGesamt +
                 ", 50SpitzenStundeQKfzGesamtZeitPunkte=" + Arrays.toString(_50SpitzenStundeQKfzGesamtZeitPunkte) +
                 '}';

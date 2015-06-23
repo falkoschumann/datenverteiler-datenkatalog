@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -229,11 +230,12 @@ public class BindingIT extends AbstractDatenkatalogIT {
         data.getUnscaledValue("50SpitzenStundeQKfzGesamt").set(5000);
         data.getTimeArray("50SpitzenStundeQKfzGesamtZeitPunkte").setMillis(dateFormat.parse("17.04.2015 00:00").getTime(), dateFormat.parse("17.04.2015 01:00").getTime());
 
+        // TODO Feld von LocalDateTime testen!!
         VerkehrsDatenLangZeitMSV datum = new VerkehrsDatenLangZeitMSV();
         datum.set01SpitzenStundeQKfzGesamt(3000);
-        datum.set01SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("16.04.2015 20:00"), dateFormat.parse("16.04.2015 21:00")});
+        datum.set01SpitzenStundeQKfzGesamtZeitPunkte(Arrays.asList(dateFormat.parse("16.04.2015 20:00"), dateFormat.parse("16.04.2015 21:00")));
         datum.set30SpitzenStundeQKfzGesamt(4000);
-        datum.set30SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("16.04.2015 22:00"), dateFormat.parse("16.04.2015 23:00")});
+        datum.set30SpitzenStundeQKfzGesamtZeitPunkte(Arrays.asList(dateFormat.parse("16.04.2015 22:00"), dateFormat.parse("16.04.2015 23:00")));
         datum.set50SpitzenStundeQKfzGesamt(5000);
         datum.set50SpitzenStundeQKfzGesamtZeitPunkte(new Date[]{dateFormat.parse("17.04.2015 00:00"), dateFormat.parse("17.04.2015 01:00")});
 

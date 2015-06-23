@@ -15,6 +15,10 @@ class ZeitstempelAttributAdapter implements AttributAdapter {
     private final Class<?> clazz;
     private final Zeitstempel zeitstempel;
 
+    ZeitstempelAttributAdapter(Class<?> clazz) {
+        this(clazz, null);
+    }
+
     ZeitstempelAttributAdapter(Class<?> clazz, Zeitstempel zeitstempel) {
         this.clazz = clazz;
         this.zeitstempel = zeitstempel;
