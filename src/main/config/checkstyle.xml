@@ -33,8 +33,10 @@
         <module name="SuppressWarnings"/>
 
         <!-- Block Checks -->
-        <module name="EmptyBlock"/>
-        <!-- <module name="EmptyCatchBlock"/> -->
+        <module name="EmptyBlock">
+            <property name="option" value="text"/>
+        </module>
+        <!--<module name="EmptyCatchBlock"/>-->
         <module name="AvoidNestedBlocks"/>
 
         <!-- Class Design -->
