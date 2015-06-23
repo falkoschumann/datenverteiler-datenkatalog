@@ -14,6 +14,9 @@
     </properties>
 
     <body>
+        <release version="1.2.0" date="????-??-??" description="Platzhalter für das nächste Release">
+        </release>
+
         <release version="1.1.1" date="2015-06-23" description="Fehlerbehebung und kleine Verbesserungen">
             <action dev="falkoschumann" type="add">
         LocalDateTime kann nun auch als Java-Feld verwendet werden.
