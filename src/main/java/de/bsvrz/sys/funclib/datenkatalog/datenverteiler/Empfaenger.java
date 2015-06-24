@@ -58,10 +58,8 @@ public class Empfaenger<T> implements ClientReceiverInterface {
 
     @Override
     public void update(ResultData[] results) {
-        for (ResultData e : results) {
-            warteschlange.addAll(Arrays.asList(results));
-            warteschlange.notify();
-        }
+        warteschlange.addAll(Arrays.asList(results));
+        warteschlange.notify();
     }
 
     private void veroeffentlicheNeueDatensaetze() {
