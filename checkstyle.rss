@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015</copyright>
     <item>
-      <title>File: 55,
+      <title>File: 60,
              Errors: 0,
-             Warnings: 10,
-             Infos: 52
+             Warnings: 14,
+             Infos: 76
       </title>
             <link>https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html</link>
       <description>
@@ -88,6 +88,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Datenverteiler.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Datenverteiler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Status.java">de/bsvrz/sys/funclib/datenkatalog/modell/Status.java</a>
                 </td>
                 <td>
@@ -109,6 +123,20 @@ under the License.
                 </td>
                 <td>
                   1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.package-info.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -172,20 +200,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AssertTest.java">de/bsvrz/sys/funclib/datenkatalog/bind/AssertTest.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.AchsLastMessStelle.java">de/bsvrz/sys/funclib/datenkatalog/modell/AchsLastMessStelle.java</a>
                 </td>
                 <td>
@@ -203,10 +217,10 @@ under the License.
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributfeldAttributAdapter.java</a>
                 </td>
                 <td>
-                  1
+                  7
                 </td>
                 <td>
-                  1
+                  2
                 </td>
                 <td>
                   0
@@ -318,7 +332,21 @@ under the License.
                   2
                 </td>
                 <td>
+                  7
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.CodeBeispieleInDokumentationIT.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/CodeBeispieleInDokumentationIT.java</a>
+                </td>
+                <td>
                   4
+                </td>
+                <td>
+                  0
                 </td>
                 <td>
                   0
@@ -413,7 +441,7 @@ under the License.
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributlistenAttributAdapter.java</a>
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   0
@@ -469,7 +497,7 @@ under the License.
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ZeitstempelAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ZeitstempelAttributAdapter.java</a>
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   1
@@ -512,6 +540,48 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Datensatz.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Datensatz.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Empfaenger.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Empfaenger.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.DatenverteilerImpl.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/DatenverteilerImpl.java</a>
+                </td>
+                <td>
+                  8
                 </td>
                 <td>
                   0
@@ -606,10 +676,24 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.DatenverteilerException.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/DatenverteilerException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.BindingIT.java">de/bsvrz/sys/funclib/datenkatalog/bind/BindingIT.java</a>
                 </td>
                 <td>
-                  26
+                  27
                 </td>
                 <td>
                   3
@@ -746,20 +830,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Assert.java">de/bsvrz/sys/funclib/datenkatalog/bind/Assert.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.WerteBereichsEigenschaften.java">de/bsvrz/sys/funclib/datenkatalog/modell/WerteBereichsEigenschaften.java</a>
                 </td>
                 <td>
@@ -805,7 +875,7 @@ under the License.
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Pojo.java">de/bsvrz/sys/funclib/datenkatalog/bind/Pojo.java</a>
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
