@@ -22,11 +22,19 @@ public interface Datenverteiler {
 
     void abmeldenAlsQuelle(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte);
 
-    <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<?> datumTyp, Aspect aspekt, SystemObject... objekte);
+    <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
 
-    <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<?> datumTyp, Aspect aspekt, SystemObject... objekte);
+    <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
+
+    <T> void anmeldenAufParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte);
+
+    <T> void abmeldenVonParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte);
+
+    <T> T parameter(Class<T> datumTyp, SystemObject objekt);
 
     void sendeDatensatz(Datensatz<?>... datensaetze) throws DatenverteilerException;
+
+    SystemObject objekt(String pid);
 
     Aspect aspekt(String pid);
 

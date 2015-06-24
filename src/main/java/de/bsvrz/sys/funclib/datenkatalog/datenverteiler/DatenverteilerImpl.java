@@ -26,7 +26,7 @@ import java.util.function.Consumer;
  */
 public class DatenverteilerImpl implements Datenverteiler {
 
-    private final Map<Class<?>, Empfaenger<?>> empfaengerliste = new LinkedHashMap<>();
+    private final Map<Consumer<?>, Empfaenger<?>> empfaengerliste = new LinkedHashMap<>();
     private final ClientSenderInterface sender = new Sender();
 
     private final ClientDavInterface dav;
@@ -57,16 +57,40 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<?> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        if (!empfaengerliste.containsKey(datumTyp))
-            empfaengerliste.put(datumTyp, new Empfaenger<>(context, datumTyp));
-        dav.subscribeReceiver(empfaengerliste.get(datumTyp), objekte, dataDescription(datumTyp, aspekt), ReceiveOptions.normal(), ReceiverRole.receiver());
+    public <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
+        if (!empfaengerliste.containsKey(empfaenger)) {
+            Empfaenger<T> e = new Empfaenger<>(context, datumTyp);
+            dav.subscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt), ReceiveOptions.normal(), ReceiverRole.receiver());
+            empfaengerliste.put(empfaenger, e);
+        }
     }
 
     @Override
-    public <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<?> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        if (empfaengerliste.containsKey(datumTyp))
-            dav.unsubscribeReceiver(empfaengerliste.get(datumTyp), objekte, dataDescription(datumTyp, aspekt));
+    public <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
+        if (empfaengerliste.containsKey(empfaenger)) {
+            empfaengerliste.remove(empfaenger);
+            dav.unsubscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt));
+        }
+    }
+
+    @Override
+    public <T> void anmeldenAufParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
+        anmeldenAlsEmpfaenger(empfaenger, datumTyp, parameterSoll(), objekte);
+    }
+
+    private Aspect parameterSoll() {
+        return aspekt("asp.parameterSoll");
+    }
+
+    @Override
+    public <T> void abmeldenVonParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
+        abmeldenAlsEmpfaenger(empfaenger, datumTyp, parameterSoll(), objekte);
+    }
+
+    @Override
+    public <T> T parameter(Class<T> datumTyp, SystemObject objekt) {
+        ResultData rd = dav.getData(objekt, dataDescription(datumTyp, parameterSoll()), 0);
+        return context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
     }
 
     @Override
@@ -82,6 +106,11 @@ public class DatenverteilerImpl implements Datenverteiler {
         Data data = context.createMarshaller().marshal(datensatz.getDatum());
         long zeitstempel = datensatz.getZeitstempel().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         return new ResultData(datensatz.getObjekt(), dataDescription(datensatz.getDatum().getClass(), datensatz.getAspekt()), zeitstempel, data);
+    }
+
+    @Override
+    public SystemObject objekt(String pid) {
+        return dav.getDataModel().getObject(pid);
     }
 
     @Override
