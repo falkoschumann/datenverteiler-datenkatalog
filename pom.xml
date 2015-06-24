@@ -11,7 +11,7 @@
 
     <groupId>de.bsvrz.sys</groupId>
     <artifactId>de.bsvrz.sys.funclib.datenkatalog</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 
     <name>Funktionsbibliothek Datenkatalog</name>
     <description>
@@ -45,6 +45,12 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

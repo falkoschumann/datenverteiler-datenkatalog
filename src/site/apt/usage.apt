@@ -74,3 +74,67 @@ Data data = model.getObject("mq.a10.0000").getConfigurationData(atg);
 Unmarshaller unmarshaller = context.createUnmarshaller();
 MessQuerschnittAllgemein datum = unmarshaller.unmarshal(data, MessQuerschnittAllgemein.class);
 +-------------------------------------------------------------------------------
+
+
+* Datensätze abrufen und senden
+
+  Die Schnittstelle <<<Datenverteiler>>> bietet die am häufigsten verwendeten Operationen mit dem Datenverteiler:
+
+  * Sendeanmeldung als Quelle oder Sender für Datensätze
+
+  * Empfangsanmeldung als Senke oder Empfänger für Datensätze
+
+  * Senden von Datensätzen
+
+  * Abruf von Parametern
+
+  * Lesen von Konfigurationsdaten
+
+  []
+
+  Der Empfang von Datensätzen erfolgt über die Klasse <<<Datensatz>>> die ein Datum für ein Objekt als POJO wie oben
+  beschrieben kapselt. Die Klasse <<<DatenverteilerImpl>>> stellt eine Standardimplementierung der Schnittstelle bereit.
+
+
+** Anmelden als Empfänger für Datensätze
+
++-------------------------------------------------------------------------------
+Datenverteiler dav = ...
+Aspect aspekt = dav.aspekt("asp.messWertErsetzung");
+SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
+dav.anmeldenAlsEmpfaenger(d -> System.out.println(d), UfdsHelligkeit.class, aspekt, umfelddatensensor);
++-------------------------------------------------------------------------------
+
+
+** Anmelden für den Empfang von Parametern und Direktabruf
+
++-------------------------------------------------------------------------------
+Datenverteiler dav = ...
+SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
+dav.anmeldenAufParameter(d -> System.out.println(d), UfdsHelligkeitFuzzy.class, umfelddatensensor);
+// ... oder ...
+Datensatz<UfdsHelligkeitFuzzy> datensatz = dav.parameter(UfdsHelligkeitFuzzy.class, umfelddatensensor);
++-------------------------------------------------------------------------------
+
+
+** Konfigurationsdaten lesen
+
++-------------------------------------------------------------------------------
+Datenverteiler dav = ...
+SystemObject messquerschnitt = dav.objekt("mq.a10.1");
+MessQuerschnittAllgemein datum = dav.konfiguration(MessQuerschnittAllgemein.class, messquerschnitt);
++-------------------------------------------------------------------------------
+
+
+** Datensätze senden
+
++-------------------------------------------------------------------------------
+Datenverteiler dav = ...
+SystemObject stau = dav.objekt("stau.1");
+StauVerlauf datum = new StauVerlauf();
+datum.setDauer(TimeUnit.MINUTES.toMillis(30));
+// datum.set...
+Aspect aspekt = dav.aspekt("asp.prognoseNormal");
+dav.anmeldenAlsQuelle(StauVerlauf.class, aspekt, stau);
+dav.sendeDatensatz(Datensatz.of(stau, datum, aspekt));
++-------------------------------------------------------------------------------

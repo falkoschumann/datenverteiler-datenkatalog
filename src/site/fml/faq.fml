@@ -26,9 +26,10 @@
             </question>
             <answer>
                 <p>
-                    Ein Zeitstempel kann als Property sowohl als <code>long</code> wie auch als <code>Date</code>
-                    abgebildet werden. Ein <code>long</code> bietet sich für relative Zeitstempel und ein
-                    <code>Date</code> für absolute Zeitstempel an.
+                    Ein Zeitstempel kann als Property sowohl als <code>long</code> wie auch als
+                    <code>LocalDateTime</code> oder <code>Date</code> abgebildet werden. Ein <code>long</code> bietet
+                    sich für relative Zeitstempel und ein <code>LocalDateTime</code> oder <code>Date</code> für absolute
+                    Zeitstempel an.
                 </p>
                 <p>
                     Die Genauigkeit des Zeitstempels kann der Annotation als Sekunden oder Millisekunden mitgegeben

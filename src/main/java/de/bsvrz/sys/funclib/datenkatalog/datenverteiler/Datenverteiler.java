@@ -18,16 +18,72 @@ import java.util.function.Consumer;
  */
 public interface Datenverteiler {
 
+    /**
+     * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Senden als Quelle an.
+     */
     void anmeldenAlsQuelle(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte) throws DatenverteilerException;
 
-    void abmeldenAlsQuelle(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte);
+    /**
+     * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Senden als Sender an.
+     */
+    void anmeldenAlsSender(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte) throws DatenverteilerException;
 
-    <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<?> datumTyp, Aspect aspekt, SystemObject... objekte);
+    /**
+     * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt als Quelle oder Sender wieder ab.
+     */
+    void abmeldenAlsSender(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte);
 
-    <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<?> datumTyp, Aspect aspekt, SystemObject... objekte);
+    /**
+     * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Empfang als Senke an.
+     */
+    <T> void anmeldenAlsSenke(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
 
+    /**
+     * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Empfang als Empfänger an.
+     */
+    <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
+
+    /**
+     * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Empfang als Senke oder Empfänger wieder ab.
+     */
+    <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
+
+    /**
+     * Meldet ein Parameterdatum für ein oder mehrere Objekt zum Empfang an.
+     */
+    <T> void anmeldenAufParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte);
+
+    /**
+     * Meldet ein Parameterdatum für ein oder mehrere Objekt zum Empfang wieder ab.
+     */
+    <T> void abmeldenVonParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte);
+
+    /**
+     * Ruft einen Parameter eines Objekts synchron ab. Gibt nie {@code null} zurück.
+     */
+    <T> T parameter(Class<T> datumTyp, SystemObject objekt);
+
+    /**
+     * Liest ein Konfigurationdatum für Objekt ab. Gibt das Konfigurationsdatum oder {@code null} zurück, wenn es nicht
+     * versorgt ist.
+     */
+    <T> T konfiguration(Class<T> datumTyp, SystemObject objekt);
+
+    /**
+     * Sendet einen oder mehrere Datensätze.
+     */
     void sendeDatensatz(Datensatz<?>... datensaetze) throws DatenverteilerException;
 
+    /**
+     * Gibt das Objekt zu einer PID zurück. Gibt das Objekt oder {@code null} zurück, wenn kein Objekt zu der
+     * angegebenen PID existiert.
+     */
+    SystemObject objekt(String pid);
+
+    /**
+     * Gibt den Aspekt zu einer PID zurück. Gibt den Aspekt oder {@code null} zurück, wenn kein Aspekt zu der
+     * angegebenen PID existiert.
+     */
     Aspect aspekt(String pid);
 
 }
