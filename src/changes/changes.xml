@@ -14,6 +14,9 @@
     </properties>
 
     <body>
+        <release version="1.3.0" date="????-??-??" description="Platzhalter für das nächste Release">
+        </release>
+
         <release version="1.2.0" date="2015-06-24" description="Neue Datenverteiler-API">
             <action dev="falkoschumann" type="add">
         Mit der Schnittstelle Datenverteiler können die am häufigsten
