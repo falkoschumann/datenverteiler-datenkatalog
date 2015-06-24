@@ -37,6 +37,9 @@ public class Empfaenger<T> implements ClientReceiverInterface {
     private final Context context;
     private final Class<T> clazz;
 
+    /**
+     * Initialisiert den Empfänger mit dem Kontext des Databindings und des Typs der Daten.
+     */
     public Empfaenger(Context context, Class<T> clazz) {
         this.context = context;
         this.clazz = clazz;
@@ -47,10 +50,16 @@ public class Empfaenger<T> implements ClientReceiverInterface {
         t.start();
     }
 
+    /**
+     * Meldet einen Verbraucher für empfangene Datensätze an.
+     */
     public void connectConsumer(Consumer<Datensatz<T>> c) {
         consumer.add(c);
     }
 
+    /**
+     * Meldet einen Verbraucher für empfangene Datensätze wieder ab.
+     */
     public void disconnectConsumer(Consumer<Datensatz<T>> c) {
         consumer.remove(c);
     }

@@ -54,22 +54,37 @@ public final class Datensatz<T> {
         return result;
     }
 
+    /**
+     * Gibt das Objekt zu dem das Datum gehört zurück.
+     */
     public SystemObject getObjekt() {
         return objekt;
     }
 
+    /**
+     * Fragt, ob der Datensatz Daten enthält.
+     */
     public boolean enthaeltDaten() {
         return getDatum() != null;
     }
 
+    /**
+     * Gibt das Datum des Datensatzes zurück.
+     */
     public T getDatum() {
         return datum;
     }
 
+    /**
+     * Gibt Aspekt des Datensatzes zurück.
+     */
     public Aspect getAspekt() {
         return aspekt;
     }
 
+    /**
+     * Gibt den Zeitstempel des Datensatzes zurück.
+     */
     public LocalDateTime getZeitstempel() {
         return zeitstempel;
     }

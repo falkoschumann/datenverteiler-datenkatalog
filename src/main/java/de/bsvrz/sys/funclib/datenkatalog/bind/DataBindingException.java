@@ -17,20 +17,20 @@ public class DataBindingException extends RuntimeException {
     /**
      * Erzeugt eine Ausnahme mit der dazugehörigen Fehlermeldung.
      *
-     * @param message die Fehlermeldung zur Ausnahme.
+     * @param nachricht die Fehlermeldung zur Ausnahme.
      */
-    public DataBindingException(String message) {
-        super(message);
+    public DataBindingException(String nachricht) {
+        super(nachricht);
     }
 
     /**
      * Erzeugt eine Ausnahme mit der dazugehörigen Fehlermeldung und dem Fehlergrund.
      *
-     * @param message die Fehlermeldung zur Ausnahme.
-     * @param cause   der Grund der Ausnahme.
+     * @param nachricht die Fehlermeldung zur Ausnahme.
+     * @param ursaache  der Grund der Ausnahme.
      */
-    public DataBindingException(String message, Throwable cause) {
-        super(message, cause);
+    public DataBindingException(String nachricht, Throwable ursaache) {
+        super(nachricht, ursaache);
     }
 
 }
