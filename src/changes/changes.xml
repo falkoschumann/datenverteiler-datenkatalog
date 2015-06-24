@@ -15,7 +15,10 @@
 
     <body>
         <release version="1.3.0" date="????-??-??" description="Platzhalter für das nächste Release">
-            <action dev="falkoschumann" type="fix" issue="14">
+            <action dev="falkoschumann" type="add">
+        Konfigurationsdaten können jetzt auch gelesen werden.
+            </action>
+            <action dev="falkoschumann" type="add" issue="14">
         Parameter können jetzt einfacher gelesen werden durch zusätzliche
     anmelden/abmelden-Methode ohne Aspekt. Zusätzlich kann ein Parameter auch
     direkt synchron gelesen werden.

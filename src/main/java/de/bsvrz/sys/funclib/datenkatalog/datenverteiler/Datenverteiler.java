@@ -32,6 +32,8 @@ public interface Datenverteiler {
 
     <T> T parameter(Class<T> datumTyp, SystemObject objekt);
 
+    <T> T konfiguration(Class<T> datumTyp, SystemObject objekt);
+
     void sendeDatensatz(Datensatz<?>... datensaetze) throws DatenverteilerException;
 
     SystemObject objekt(String pid);

@@ -8,6 +8,7 @@ package de.bsvrz.sys.funclib.datenkatalog.datenverteiler;
 import de.bsvrz.dav.daf.main.*;
 import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.AttributeGroup;
+import de.bsvrz.dav.daf.main.config.ConfigurationObject;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Context;
@@ -47,8 +48,11 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     private DataDescription dataDescription(Class<?> datumTyp, Aspect asp) {
-        AttributeGroup atg = dav.getDataModel().getAttributeGroup(datumTyp.getAnnotation(AttributgruppenDefinition.class).pid());
-        return new DataDescription(atg, asp);
+        return new DataDescription(attributgruppe(datumTyp), asp);
+    }
+
+    private AttributeGroup attributgruppe(Class<?> datumTyp) {
+        return dav.getDataModel().getAttributeGroup(datumTyp.getAnnotation(AttributgruppenDefinition.class).pid());
     }
 
     @Override
@@ -91,6 +95,12 @@ public class DatenverteilerImpl implements Datenverteiler {
     public <T> T parameter(Class<T> datumTyp, SystemObject objekt) {
         ResultData rd = dav.getData(objekt, dataDescription(datumTyp, parameterSoll()), 0);
         return context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
+    }
+
+    @Override
+    public <T> T konfiguration(Class<T> datumTyp, SystemObject objekt) {
+        Data data = ((ConfigurationObject) objekt).getConfigurationData(attributgruppe(datumTyp));
+        return context.createUnmarshaller().unmarshal(data, datumTyp);
     }
 
     @Override
