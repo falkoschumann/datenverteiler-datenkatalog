@@ -14,10 +14,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Consumer;
 
 /**
@@ -33,7 +32,7 @@ import java.util.function.Consumer;
 public class Empfaenger<T> implements ClientReceiverInterface {
 
     private final List<Consumer<Datensatz<T>>> consumer = new CopyOnWriteArrayList<>();
-    private final Queue<ResultData> warteschlange = new ConcurrentLinkedQueue<>();
+    private final BlockingQueue<ResultData> warteschlange = new LinkedBlockingQueue<>();
 
     private final Context context;
     private final Class<T> clazz;
@@ -59,21 +58,16 @@ public class Empfaenger<T> implements ClientReceiverInterface {
     @Override
     public void update(ResultData[] results) {
         warteschlange.addAll(Arrays.asList(results));
-        warteschlange.notify();
     }
 
     private void veroeffentlicheNeueDatensaetze() {
         while (true) {
-            ResultData rd = warteschlange.poll();
-            if (rd == null) {
-                try {
-                    warteschlange.wait(TimeUnit.MINUTES.toMillis(1));
-                } catch (InterruptedException ex) {
-                    // Kann ignoriert werden, weil der Thread ein Dämon ist.
-                }
-                continue;
+            try {
+                ResultData rd = warteschlange.take();
+                consumer.stream().forEach(c -> veroeffentlicheDatensatz(c, rd));
+            } catch (InterruptedException ex) {
+                break;
             }
-            consumer.stream().forEach(c -> veroeffentlicheDatensatz(c, rd));
         }
     }
 
