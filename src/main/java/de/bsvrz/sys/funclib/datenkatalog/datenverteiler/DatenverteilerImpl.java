@@ -13,6 +13,8 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Context;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -83,43 +85,42 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> void anmeldenAlsSenke(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
+    public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
         anmeldenAlsEmpfaenger(empfaenger, datumTyp, aspekt, objekte, ReceiverRole.drain());
     }
 
-    private <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject[] objekte, ReceiverRole role) {
+    private <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject[] objekte, ReceiverRole role) {
         Objects.requireNonNull(empfaenger, "empfaenger");
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
         Objects.requireNonNull(objekte, "objekte");
 
         if (!empfaengerliste.containsKey(empfaenger)) {
-            Empfaenger<T> e = new Empfaenger<>(context, datumTyp);
+            empfaengerliste.put(empfaenger, new Empfaenger<>(context, datumTyp));
             dav.subscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt), ReceiveOptions.normal(), role);
-            empfaengerliste.put(empfaenger, e);
         }
     }
 
     @Override
-    public <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
+    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
         anmeldenAlsEmpfaenger(empfaenger, datumTyp, aspekt, objekte, ReceiverRole.receiver());
     }
 
     @Override
-    public <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
+    public <T> void abmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
         Objects.requireNonNull(empfaenger, "empfaenger");
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
         Objects.requireNonNull(objekte, "objekte");
 
         if (empfaengerliste.containsKey(empfaenger)) {
-            empfaengerliste.remove(empfaenger);
             dav.unsubscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt));
+            empfaengerliste.remove(empfaenger);
         }
     }
 
     @Override
-    public <T> void anmeldenAufParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
+    public <T> void anmeldenAufParameter(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
         Objects.requireNonNull(empfaenger, "empfaenger");
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(objekte, "objekte");
@@ -132,7 +133,7 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> void abmeldenVonParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
+    public <T> void abmeldenVonParameter(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
         Objects.requireNonNull(empfaenger, "empfaenger");
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(objekte, "objekte");
@@ -141,12 +142,18 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> T parameter(Class<T> datumTyp, SystemObject objekt) {
+    public <T> Datensatz<T> parameter(Class<T> datumTyp, SystemObject objekt) {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(objekt, "objekt");
 
         ResultData rd = dav.getData(objekt, dataDescription(datumTyp, parameterSoll()), 0);
-        return context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
+        return unmarshal(rd, datumTyp);
+    }
+
+    private <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp) {
+        T datum = context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
+        LocalDateTime zeitstempel = LocalDateTime.ofInstant(Instant.ofEpochMilli(rd.getDataTime()), ZoneId.systemDefault());
+        return Datensatz.of(rd.getObject(), datum, parameterSoll(), zeitstempel);
     }
 
     @Override

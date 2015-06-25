@@ -14,6 +14,17 @@
     </properties>
 
     <body>
+        <release version="1.3.1" date="2015-06-25" description="Bugfixes">
+            <action dev="falkoschumann" type="fix">
+        Fehlerhafte Angabe der Generic-Parameter in Datenverteiler-Schnittstelle
+    behoben.
+            </action>
+            <action dev="falkoschumann" type="fix">
+        Fehlerhafte Anmeldung am Datenverteiler mit null als ClientDavReceiver
+    behoben.
+            </action>
+        </release>
+
         <release version="1.3.0" date="2015-06-24" description="Erweiterung Datenverteiler">
             <action dev="falkoschumann" type="add">
         Konfigurationsdaten können jetzt auch gelesen werden.
