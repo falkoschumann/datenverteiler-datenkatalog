@@ -24,16 +24,20 @@ public class CodeBeispieleInDokumentationIT extends AbstractDatenkatalogIT {
         Datenverteiler dav = mock(Datenverteiler.class);
         Aspect aspekt = dav.aspekt("asp.messWertErsetzung");
         SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
-        dav.anmeldenAlsEmpfaenger(d -> System.out.println(d), UfdsHelligkeit.class, aspekt, umfelddatensensor);
+        dav.anmeldenAlsEmpfaenger(this::verarbeiteDatensatz, UfdsHelligkeit.class, aspekt, umfelddatensensor);
+    }
+
+    private void verarbeiteDatensatz(Datensatz<UfdsHelligkeit> datensatz) {
+        // ...
     }
 
     @Test
     public void testUsage_Parameter() {
         Datenverteiler dav = mock(Datenverteiler.class);
         SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
-        // TODO dav.anmeldenAufParameter(d -> System.out.println(d), UfdsHelligkeitFuzzy.class, umfelddatensensor);
-        // ... oder ...
-        // TODO Datensatz<UfdsHelligkeitFuzzy> datensatz = dav.parameter(UfdsHelligkeitFuzzy.class, umfelddatensensor);
+        dav.anmeldenAufParameter(d -> System.out.println(d), UfdsHelligkeitFuzzy.class, umfelddatensensor);
+        // ... oder den Parameter direkt abrufen mit ...
+        Datensatz<UfdsHelligkeitFuzzy> datensatz = dav.parameter(UfdsHelligkeitFuzzy.class, umfelddatensensor);
     }
 
     @Test
@@ -53,6 +57,12 @@ public class CodeBeispieleInDokumentationIT extends AbstractDatenkatalogIT {
         Aspect aspekt = dav.aspekt("asp.prognoseNormal");
         dav.anmeldenAlsQuelle(StauVerlauf.class, aspekt, stau);
         dav.sendeDatensatz(Datensatz.of(stau, datum, aspekt));
+    }
+
+    private class UfdsHelligkeitFuzzy {
+
+        // Stub
+
     }
 
 }

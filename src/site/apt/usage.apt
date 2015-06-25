@@ -102,7 +102,15 @@ MessQuerschnittAllgemein datum = unmarshaller.unmarshal(data, MessQuerschnittAll
 Datenverteiler dav = ...
 Aspect aspekt = dav.aspekt("asp.messWertErsetzung");
 SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
-dav.anmeldenAlsEmpfaenger(d -> System.out.println(d), UfdsHelligkeit.class, aspekt, umfelddatensensor);
+dav.anmeldenAlsEmpfaenger(this::verarbeiteDatensatz, UfdsHelligkeit.class, aspekt, umfelddatensensor);
++-------------------------------------------------------------------------------
+
+  Mit einer Methode in der selben Klasse:
+
++-------------------------------------------------------------------------------
+private void verarbeiteDatensatz(Datensatz<UfdsHelligkeit> datensatz) {
+    // ...
+}
 +-------------------------------------------------------------------------------
 
 
@@ -112,7 +120,7 @@ dav.anmeldenAlsEmpfaenger(d -> System.out.println(d), UfdsHelligkeit.class, aspe
 Datenverteiler dav = ...
 SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
 dav.anmeldenAufParameter(d -> System.out.println(d), UfdsHelligkeitFuzzy.class, umfelddatensensor);
-// ... oder ...
+// ... oder den Parameter direkt abrufen mit ...
 Datensatz<UfdsHelligkeitFuzzy> datensatz = dav.parameter(UfdsHelligkeitFuzzy.class, umfelddatensensor);
 +-------------------------------------------------------------------------------
 
@@ -129,7 +137,7 @@ MessQuerschnittAllgemein datum = dav.konfiguration(MessQuerschnittAllgemein.clas
 ** Datensätze senden
 
 +-------------------------------------------------------------------------------
-Datenverteiler dav = ...
+Datenverteiler dav ...
 SystemObject stau = dav.objekt("stau.1");
 StauVerlauf datum = new StauVerlauf();
 datum.setDauer(TimeUnit.MINUTES.toMillis(30));

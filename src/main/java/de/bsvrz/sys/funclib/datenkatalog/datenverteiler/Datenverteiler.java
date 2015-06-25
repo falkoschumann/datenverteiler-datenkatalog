@@ -36,32 +36,32 @@ public interface Datenverteiler {
     /**
      * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Empfang als Senke an.
      */
-    <T> void anmeldenAlsSenke(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
+    <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
 
     /**
      * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Empfang als Empfänger an.
      */
-    <T> void anmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
+    <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
 
     /**
      * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Empfang als Senke oder Empfänger wieder ab.
      */
-    <T> void abmeldenAlsEmpfaenger(Consumer<T> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
+    <T> void abmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte);
 
     /**
      * Meldet ein Parameterdatum für ein oder mehrere Objekt zum Empfang an.
      */
-    <T> void anmeldenAufParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte);
+    <T> void anmeldenAufParameter(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, SystemObject... objekte);
 
     /**
      * Meldet ein Parameterdatum für ein oder mehrere Objekt zum Empfang wieder ab.
      */
-    <T> void abmeldenVonParameter(Consumer<T> empfaenger, Class<T> datumTyp, SystemObject... objekte);
+    <T> void abmeldenVonParameter(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, SystemObject... objekte);
 
     /**
      * Ruft einen Parameter eines Objekts synchron ab. Gibt nie {@code null} zurück.
      */
-    <T> T parameter(Class<T> datumTyp, SystemObject objekt);
+    <T> Datensatz<T> parameter(Class<T> datumTyp, SystemObject objekt);
 
     /**
      * Liest ein Konfigurationdatum für Objekt ab. Gibt das Konfigurationsdatum oder {@code null} zurück, wenn es nicht
