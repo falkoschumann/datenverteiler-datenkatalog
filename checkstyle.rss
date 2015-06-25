@@ -27,8 +27,8 @@ under the License.
     <item>
       <title>File: 60,
              Errors: 0,
-             Warnings: 14,
-             Infos: 76
+             Warnings: 15,
+             Infos: 82
       </title>
             <link>https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html</link>
       <description>
@@ -91,7 +91,7 @@ under the License.
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Datenverteiler.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Datenverteiler.java</a>
                 </td>
                 <td>
-                  0
+                  3
                 </td>
                 <td>
                   0
@@ -581,10 +581,10 @@ under the License.
                   <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.DatenverteilerImpl.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/DatenverteilerImpl.java</a>
                 </td>
                 <td>
-                  8
+                  11
                 </td>
                 <td>
-                  0
+                  1
                 </td>
                 <td>
                   0
