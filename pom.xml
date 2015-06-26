@@ -22,8 +22,8 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
     <inceptionYear>2015</inceptionYear>
 
     <properties>
+        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <project.status>BETA</project.status>
-        <project.stand>2015-06-25</project.stand>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <source.version>8</source.version>
@@ -280,7 +280,7 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5.5</version>
                 <configuration>
-                    <finalName>SWE_${project.artifactId}-${project.status}-V${project.version}-D${project.stand}</finalName>
+                    <finalName>SWE_${project.artifactId}_${project.status}_V${project.version}_D${maven.build.timestamp}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>src/main/assembly/swe.xml</descriptor>
