@@ -30,7 +30,7 @@ import java.util.function.Consumer;
  */
 public class DatenverteilerImpl implements Datenverteiler {
 
-    private final Map<Consumer<?>, Empfaenger<?>> empfaengerliste = new LinkedHashMap<>();
+    private final Map<Consumer, Empfaenger> empfaengerliste = new LinkedHashMap<>();
     private final ClientSenderInterface sender = new Sender();
 
     private final ClientDavInterface dav;
@@ -97,6 +97,7 @@ public class DatenverteilerImpl implements Datenverteiler {
 
         if (!empfaengerliste.containsKey(empfaenger)) {
             empfaengerliste.put(empfaenger, new Empfaenger<>(context, datumTyp));
+            empfaengerliste.get(empfaenger).connectConsumer(empfaenger);
             dav.subscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt), ReceiveOptions.normal(), role);
         }
     }
@@ -114,6 +115,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekte, "objekte");
 
         if (empfaengerliste.containsKey(empfaenger)) {
+            empfaengerliste.get(empfaenger).disconnectConsumer(empfaenger);
             dav.unsubscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt));
             empfaengerliste.remove(empfaenger);
         }
