@@ -46,7 +46,6 @@ public class VerkehrsDatenLangZeitMSV {
         this._30SpitzenStundeQKfzGesamt = _30SpitzenStundeQKfzGesamt;
     }
 
-    // TODO @AttributfeldDefinition(elementtyp = LocalDateTime.class)
     public LocalDateTime[] get30SpitzenStundeQKfzGesamtZeitPunkte() {
         return _30SpitzenStundeQKfzGesamtZeitPunkte;
     }

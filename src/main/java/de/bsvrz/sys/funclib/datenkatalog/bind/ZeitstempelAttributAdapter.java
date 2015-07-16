@@ -30,6 +30,8 @@ class ZeitstempelAttributAdapter implements AttributAdapter {
     public void marshal(final Object propertyValue, final Data attribut) {
         if (clazz == LocalDateTime.class) {
             attribut.asTimeValue().setMillis(((LocalDateTime) propertyValue).atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+        } else if (clazz == Duration.class) {
+            attribut.asTimeValue().setMillis(((Duration) propertyValue).toMillis());
         } else if (clazz == Date.class) {
             attribut.asTimeValue().setMillis(((Date) propertyValue).getTime());
         } else {
@@ -50,6 +52,8 @@ class ZeitstempelAttributAdapter implements AttributAdapter {
     public Object unmarshal(final Data attribut) {
         if (clazz == LocalDateTime.class) {
             return LocalDateTime.ofInstant(Instant.ofEpochMilli(attribut.asTimeValue().getMillis()), ZoneId.systemDefault());
+        } else         if (clazz == Duration.class) {
+            return Duration.ofMillis(attribut.asTimeValue().getMillis());
         } else if (clazz == Date.class) {
             return new Date(attribut.asTimeValue().getMillis());
         } else {

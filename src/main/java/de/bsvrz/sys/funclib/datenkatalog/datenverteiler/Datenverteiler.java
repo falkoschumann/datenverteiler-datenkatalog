@@ -18,6 +18,8 @@ import java.util.function.Consumer;
  */
 public interface Datenverteiler {
 
+    // TODO Felder auf Collection umstellen; Objektparameter nach vorn
+
     /**
      * Meldet ein Datum unter einem Aspekt für ein oder mehrere Objekt zum Senden als Quelle an.
      */

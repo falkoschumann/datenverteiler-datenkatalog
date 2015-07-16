@@ -14,6 +14,22 @@
     </properties>
 
     <body>
+        <release version="1.4.0" date="2015-07-16" description="Neue Funktionen">
+            <action dev="falkoschumann" type="add" issue="18">
+        Duration kann nun auch als Java-Feld für relative Zeitstempel verwendet
+    werden.
+            </action>
+            <action dev="falkoschumann" type="add" issue="21">
+        Neue Hilfsklasse zur Bestimmung eines einzigen Objekts eines konkreten
+    Typs.
+            </action>
+            <action dev="falkoschumann" type="add" issue="20">
+        Neue Applikation `FlowApplikation` als Alternative zu
+    `StandardApplication` eingeführt. Damit kann eine Applikation auf Basis von
+    Flow-Design realisiert werden.
+            </action>
+        </release>
+
         <release version="1.3.2" date="2015-06-26" description="Bugfixes">
             <action dev="falkoschumann" type="fix">
         ZIP-Datei des Distributionspakets enthält kein Zwischenordner beim
