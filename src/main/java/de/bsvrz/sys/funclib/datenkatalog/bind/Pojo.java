@@ -10,6 +10,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
@@ -83,7 +84,7 @@ final class Pojo {
     }
 
     public static boolean isZeitstempel(Class<?> propertyType) {
-        return propertyType == Date.class || propertyType == LocalDateTime.class;
+        return propertyType == Date.class || propertyType == LocalDateTime.class || propertyType == Duration.class;
     }
 
     public static boolean isObjektreferenz(PropertyDescriptor pd) {

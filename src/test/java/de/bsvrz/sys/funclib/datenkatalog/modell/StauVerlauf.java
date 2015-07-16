@@ -10,6 +10,7 @@ import de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Objects;
 public class StauVerlauf {
 
     private long schrittweite;
-    private long dauer;
+    private Duration dauer;
     private LocalDateTime aufloesungsZeit;
     private long maxLaenge;
     private LocalDateTime maxLaengeZeit;
@@ -34,12 +35,11 @@ public class StauVerlauf {
         this.schrittweite = schrittweite;
     }
 
-    @Zeitstempel
-    public long getDauer() {
+    public Duration getDauer() {
         return dauer;
     }
 
-    public void setDauer(long dauer) {
+    public void setDauer(Duration dauer) {
         this.dauer = dauer;
     }
 

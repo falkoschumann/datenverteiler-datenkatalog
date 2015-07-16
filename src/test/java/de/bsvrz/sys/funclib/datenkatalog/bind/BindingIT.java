@@ -15,6 +15,7 @@ import org.junit.Test;
 import javax.swing.*;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
@@ -174,7 +175,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
 
         StauVerlauf datum = new StauVerlauf();
         datum.setSchrittweite(TimeUnit.MINUTES.toMillis(20));
-        datum.setDauer(TimeUnit.MINUTES.toMillis(60));
+        datum.setDauer(Duration.ofMinutes(60));
         datum.setAufloesungsZeit(LocalDateTime.of(2015, Month.APRIL, 14, 21, 20, 0));
         datum.setMaxLaenge(12000);
         datum.setMaxLaengeZeit(LocalDateTime.of(2015, Month.APRIL, 14, 21, 45, 30));

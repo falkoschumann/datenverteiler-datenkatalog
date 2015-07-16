@@ -13,7 +13,7 @@ import de.bsvrz.sys.funclib.datenkatalog.modell.StauVerlauf;
 import de.bsvrz.sys.funclib.datenkatalog.modell.UfdsHelligkeit;
 import org.junit.Test;
 
-import java.util.concurrent.TimeUnit;
+import java.time.Duration;
 
 import static org.mockito.Mockito.mock;
 
@@ -52,7 +52,7 @@ public class CodeBeispieleInDokumentationIT extends AbstractDatenkatalogIT {
         Datenverteiler dav = mock(Datenverteiler.class);
         SystemObject stau = dav.objekt("stau.1");
         StauVerlauf datum = new StauVerlauf();
-        datum.setDauer(TimeUnit.MINUTES.toMillis(30));
+        datum.setDauer(Duration.ofMinutes(30));
         // datum.set...
         Aspect aspekt = dav.aspekt("asp.prognoseNormal");
         dav.anmeldenAlsQuelle(StauVerlauf.class, aspekt, stau);
