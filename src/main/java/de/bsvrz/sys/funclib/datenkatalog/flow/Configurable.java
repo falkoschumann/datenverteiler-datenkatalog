@@ -13,7 +13,8 @@ import de.bsvrz.sys.funclib.commandLineArgs.ArgumentList;
  * <p>Diese Schnittstelle ersetzt die gleichnamige aus der Flow-Bibliothek, damit statt eines String-Feldes die Klasse
  * {@code ArgumentList} der Datenverteiler-Applikationsfunktionen für die Aufrufparameter verwendet werden kann.</p>
  *
- * @author Falko Schumann &lt;falko.schumann@muspellheim.de&gt;
+ * @author Falko Schumann
+ * @since 1.4
  */
 public interface Configurable {
 

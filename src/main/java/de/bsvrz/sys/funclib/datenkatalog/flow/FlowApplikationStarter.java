@@ -5,7 +5,9 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.flow;
 
-import de.bsvrz.dav.daf.main.*;
+import de.bsvrz.dav.daf.main.ClientDavConnection;
+import de.bsvrz.dav.daf.main.ClientDavInterface;
+import de.bsvrz.dav.daf.main.ClientDavParameters;
 import de.bsvrz.sys.funclib.commandLineArgs.ArgumentList;
 import de.bsvrz.sys.funclib.debug.Debug;
 import de.bsvrz.sys.funclib.operatingMessage.MessageSender;
@@ -18,11 +20,15 @@ import java.lang.Thread.UncaughtExceptionHandler;
  * @author Falko Schumann
  * @since 1.4
  */
-public class FlowApplikationStarter {
+public final class FlowApplikationStarter {
 
     private static Debug logger;
     private static StringBuilder applikationsbeschreibung;
     private static String applikationsname = "";
+
+    private FlowApplikationStarter() {
+        // utility class
+    }
 
     /**
      * Startet die Applikation.
@@ -92,14 +98,14 @@ public class FlowApplikationStarter {
         logger = Debug.getLogger();
     }
 
-    private static ClientDavInterface erzeugeVerbindung(String applikationstypPid, ArgumentList aufrufparameter) throws MissingParameterException {
+    private static ClientDavInterface erzeugeVerbindung(String applikationstypPid, ArgumentList aufrufparameter) throws Exception {
         final ClientDavParameters verbindungsparameter = new ClientDavParameters(aufrufparameter);
         verbindungsparameter.setApplicationTypePid(applikationstypPid);
         verbindungsparameter.setApplicationName(applikationsname);
         return new ClientDavConnection(verbindungsparameter);
     }
 
-    private static void stelleVerbindungHer(final ClientDavInterface verbindung) throws CommunicationError, ConnectionException, InconsistentLoginException {
+    private static void stelleVerbindungHer(final ClientDavInterface verbindung) throws Exception {
         verbindung.enableExplicitApplicationReadyMessage();
         verbindung.connect();
         verbindung.login();

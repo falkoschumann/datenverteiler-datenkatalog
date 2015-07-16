@@ -66,7 +66,7 @@ public interface FlowApplikation {
     /**
      * Diese Methode startet den Flow durch den Start der Functional-Units die den Entry-Point des Flows darstellt. Der
      * Entry-Point bekommt die restlichen Aufrufparameter der Applikation übergeben, die noch nicht im Schritt
-     * {@@link #configure(ArgumentList)} konsumiert wurden.
+     * {@link #configure(ArgumentList)} konsumiert wurden.
      *
      * @param aufrufparameter die Aufrufparameter der Applikation, die noch nicht von {@link #configure(ArgumentList)}
      *                        konsumiert wurden.
