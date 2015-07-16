@@ -19,6 +19,10 @@
         Duration kann nun auch als Java-Feld für relative Zeitstempel verwendet
     werden.
             </action>
+            <action dev="falkoschumann" type="add" issue="21">
+        Neue Hilfsklasse zur Bestimmung eines einzigen Objekts eines konkreten
+    Typs.
+            </action>
         </release>
 
         <release version="1.3.2" date="2015-06-26" description="Bugfixes">
