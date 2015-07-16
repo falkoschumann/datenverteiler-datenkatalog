@@ -36,6 +36,8 @@ public class SingleObjektFabrik {
 
     /**
      * Initialisiert die Fabrik mit dem Datenmodell.
+     *
+     * @param model das Datenmodell.
      */
     public SingleObjektFabrik(final DataModel model) {
         this.model = model;
@@ -43,6 +45,15 @@ public class SingleObjektFabrik {
 
     /**
      * Bestimmt ein Objekt zum angegebenen Typ. Entspricht {@code bestimmeObjekt(objekttypPid, ""; aufrufparameter}.
+     *
+     * @param objekttypPid    die PID des Typs des gesuchten Objekts.
+     * @param aufrufparameter der Aufrufparameter mit dem die PID des gesuchten Objekts der Applikation übergeben wird.
+     *                        Der Aufrufparameter wird für eine mögliche Fehlermeldung benötigt.
+     * @return das gefundene Objekt, nie {@code null}.
+     * @throws IllegalArgumentException der Objekttyp nicht existiert, kein Objekt zur Objekt-PID existiert oder Objekt
+     *                                  und Objekttyp nicht zueinander passen.
+     * @throws IllegalStateException    wenn keine ObjektPID angegeben ist und kein oder mehr als ein Objekt zum Typ
+     *                                  existiert.
      */
     public SystemObject bestimmeObjekt(final String objekttypPid,
                                        @SuppressWarnings("hiding") final String aufrufparameter) {
