@@ -14,6 +14,12 @@
     </properties>
 
     <body>
+        <release version="1.5.0" date="2015-07-17" description="Neue Funktionen">
+            <action dev="falkoschumann" type="add" issue="22">
+        EntryPoint mit ArgumentList angelegt.
+            </action>
+        </release>
+
         <release version="1.4.0" date="2015-07-16" description="Neue Funktionen">
             <action dev="falkoschumann" type="add" issue="18">
         Duration kann nun auch als Java-Feld für relative Zeitstempel verwendet
