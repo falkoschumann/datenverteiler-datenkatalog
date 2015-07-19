@@ -9,6 +9,7 @@ import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * Ein Datensatz ist ein Datum einer Attributgruppe, das für ein  Systemobjekt gesendet oder empfangen wird.
@@ -97,6 +98,22 @@ public final class Datensatz<T> {
                 ", aspekt=" + aspekt +
                 ", zeitstempel=" + zeitstempel +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Datensatz<?> datensatz = (Datensatz<?>) o;
+        return Objects.equals(objekt, datensatz.objekt) &&
+                Objects.equals(datum, datensatz.datum) &&
+                Objects.equals(aspekt, datensatz.aspekt) &&
+                Objects.equals(zeitstempel, datensatz.zeitstempel);
+    }
+
+    @Override
+    public int hashCode() {
+        throw new UnsupportedOperationException();
     }
 
 }
