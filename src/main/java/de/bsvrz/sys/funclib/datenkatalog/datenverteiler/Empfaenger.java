@@ -31,7 +31,7 @@ import java.util.function.Consumer;
  */
 public class Empfaenger<T> implements ClientReceiverInterface {
 
-    private final List<Consumer<Datensatz<T>>> consumer = new CopyOnWriteArrayList<>();
+    private final List<Consumer<Datensatz<T>>> consumers = new CopyOnWriteArrayList<>();
     private final BlockingQueue<ResultData> warteschlange = new LinkedBlockingQueue<>();
 
     private final Context context;
@@ -54,14 +54,14 @@ public class Empfaenger<T> implements ClientReceiverInterface {
      * Meldet einen Verbraucher für empfangene Datensätze an.
      */
     public void connectConsumer(Consumer<Datensatz<T>> c) {
-        consumer.add(c);
+        consumers.add(c);
     }
 
     /**
      * Meldet einen Verbraucher für empfangene Datensätze wieder ab.
      */
     public void disconnectConsumer(Consumer<Datensatz<T>> c) {
-        consumer.remove(c);
+        consumers.remove(c);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class Empfaenger<T> implements ClientReceiverInterface {
         while (true) {
             try {
                 ResultData rd = warteschlange.take();
-                consumer.stream().forEach(c -> veroeffentlicheDatensatz(c, rd));
+                consumers.stream().forEach(c -> veroeffentlicheDatensatz(c, rd));
             } catch (InterruptedException ex) {
                 break;
             }
