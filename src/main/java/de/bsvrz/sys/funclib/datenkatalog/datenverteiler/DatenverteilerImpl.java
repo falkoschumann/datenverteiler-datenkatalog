@@ -44,7 +44,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(aspekt, "aspekt");
 
         try {
-            dav.subscribeSender(sender, objekte, dataDescription(datumTyp, aspekt), SenderRole.source());
+            dav.subscribeSender(sender, objekte, getDataDescription(datumTyp, aspekt), SenderRole.source());
         } catch (OneSubscriptionPerSendData ex) {
             throw new DatenverteilerException("Doppelte Anmeldung als Quelle.", ex);
         }
@@ -55,11 +55,11 @@ public class DatenverteilerImpl implements Datenverteiler {
         anmeldenAlsQuelle(Arrays.asList(objekte), datumTyp, aspekt);
     }
 
-    private DataDescription dataDescription(Class<?> datumTyp, Aspect asp) {
-        return new DataDescription(attributgruppe(datumTyp), asp);
+    private DataDescription getDataDescription(Class<?> datumTyp, Aspect asp) {
+        return new DataDescription(getAttributgruppe(datumTyp), asp);
     }
 
-    private AttributeGroup attributgruppe(Class<?> datumTyp) {
+    private AttributeGroup getAttributgruppe(Class<?> datumTyp) {
         return dav.getDataModel().getAttributeGroup(datumTyp.getAnnotation(AttributgruppenDefinition.class).pid());
     }
 
@@ -70,7 +70,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(aspekt, "aspekt");
 
         try {
-            dav.subscribeSender(sender, objekte, dataDescription(datumTyp, aspekt), SenderRole.sender());
+            dav.subscribeSender(sender, objekte, getDataDescription(datumTyp, aspekt), SenderRole.sender());
         } catch (OneSubscriptionPerSendData ex) {
             throw new DatenverteilerException("Doppelte Anmeldung als Sender.", ex);
         }
@@ -87,7 +87,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        dav.unsubscribeSender(sender, objekte, dataDescription(datumTyp, aspekt));
+        dav.unsubscribeSender(sender, objekte, getDataDescription(datumTyp, aspekt));
     }
 
     @Override
@@ -96,16 +96,16 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt) {
-        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.drain());
+    public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
+        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.drain(), option);
     }
 
     @Override
     public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        anmeldenAlsSenke(empfaenger, Arrays.asList(objekte), datumTyp, aspekt);
+        anmeldenAlsSenke(empfaenger, Arrays.asList(objekte), datumTyp, aspekt, Empfaengeroption.NORMAL);
     }
 
-    private <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, ReceiverRole role) {
+    private <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, ReceiverRole role, Empfaengeroption option) {
         Objects.requireNonNull(empfaenger, "empfaenger");
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
@@ -114,18 +114,31 @@ public class DatenverteilerImpl implements Datenverteiler {
         if (!empfaengerliste.containsKey(empfaenger)) {
             empfaengerliste.put(empfaenger, new Empfaenger<>(context, datumTyp));
             empfaengerliste.get(empfaenger).connectConsumer(empfaenger);
-            dav.subscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt), ReceiveOptions.normal(), role);
+            dav.subscribeReceiver(empfaengerliste.get(empfaenger), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
         }
     }
 
     @Override
-    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt) {
-        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.receiver());
+    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
+        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.receiver(), option);
     }
 
     @Override
     public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        anmeldenAlsEmpfaenger(empfaenger, Arrays.asList(objekte), datumTyp, aspekt);
+        anmeldenAlsEmpfaenger(empfaenger, Arrays.asList(objekte), datumTyp, aspekt, Empfaengeroption.NORMAL);
+    }
+
+    private ReceiveOptions getReceiverOptions(Empfaengeroption option) {
+        switch (option) {
+            case NORMAL:
+                return ReceiveOptions.normal();
+            case DELTA:
+                return ReceiveOptions.delta();
+            case NACHGELIEFERT:
+                return ReceiveOptions.delayed();
+            default:
+                throw new IllegalStateException("Unbekannte Empfängeroption: " + option);
+        }
     }
 
     @Override
@@ -137,7 +150,7 @@ public class DatenverteilerImpl implements Datenverteiler {
 
         if (empfaengerliste.containsKey(empfaenger)) {
             empfaengerliste.get(empfaenger).disconnectConsumer(empfaenger);
-            dav.unsubscribeReceiver(empfaengerliste.get(empfaenger), objekte, dataDescription(datumTyp, aspekt));
+            dav.unsubscribeReceiver(empfaengerliste.get(empfaenger), objekte, getDataDescription(datumTyp, aspekt));
             empfaengerliste.remove(empfaenger);
         }
     }
@@ -153,7 +166,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, parameterSoll());
+        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, getParameterSoll(), Empfaengeroption.NORMAL);
     }
 
     @Override
@@ -161,7 +174,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         anmeldenAufParameter(empfaenger, Arrays.asList(objekte), datumTyp);
     }
 
-    private Aspect parameterSoll() {
+    private Aspect getParameterSoll() {
         return aspekt("asp.parameterSoll");
     }
 
@@ -171,7 +184,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        abmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, parameterSoll());
+        abmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, getParameterSoll());
     }
 
     @Override
@@ -184,7 +197,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekt, "objekt");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        ResultData rd = dav.getData(objekt, dataDescription(datumTyp, parameterSoll()), 0);
+        ResultData rd = dav.getData(objekt, getDataDescription(datumTyp, getParameterSoll()), 0);
         return unmarshal(rd, datumTyp);
     }
 
@@ -196,7 +209,7 @@ public class DatenverteilerImpl implements Datenverteiler {
     private <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp) {
         T datum = context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
         LocalDateTime zeitstempel = LocalDateTime.ofInstant(Instant.ofEpochMilli(rd.getDataTime()), ZoneId.systemDefault());
-        return Datensatz.of(rd.getObject(), datum, parameterSoll(), zeitstempel);
+        return Datensatz.of(rd.getObject(), datum, getParameterSoll(), zeitstempel);
     }
 
     @Override
@@ -204,7 +217,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekt, "objekt");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        Data data = objekt.getConfigurationData(attributgruppe(datumTyp));
+        Data data = objekt.getConfigurationData(getAttributgruppe(datumTyp));
         return context.createUnmarshaller().unmarshal(data, datumTyp);
     }
 
@@ -232,19 +245,29 @@ public class DatenverteilerImpl implements Datenverteiler {
     private ResultData marshall(Datensatz<?> datensatz) {
         Data data = context.createMarshaller().marshal(datensatz.getDatum());
         long zeitstempel = datensatz.getZeitstempel().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
-        return new ResultData(datensatz.getObjekt(), dataDescription(datensatz.getDatum().getClass(), datensatz.getAspekt()), zeitstempel, data);
+        return new ResultData(datensatz.getObjekt(), getDataDescription(datensatz.getDatum().getClass(), datensatz.getAspekt()), zeitstempel, data);
     }
 
     @Override
-    public SystemObject objekt(String pid) {
+    public SystemObject getObjekt(String pid) throws DatenverteilerException {
         Objects.requireNonNull(pid, "pid");
         return dav.getDataModel().getObject(pid);
     }
 
     @Override
-    public Aspect aspekt(String pid) {
+    public SystemObject objekt(String pid) {
+        return getObjekt(pid);
+    }
+
+    @Override
+    public Aspect getAspekt(String pid) throws DatenverteilerException {
         Objects.requireNonNull(pid, "pid");
         return dav.getDataModel().getAspect(pid);
+    }
+
+    @Override
+    public Aspect aspekt(String pid) {
+        return getAspekt(pid);
     }
 
     private static class Sender implements ClientSenderInterface {

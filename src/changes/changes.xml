@@ -18,6 +18,15 @@
             <action dev="falkoschumann" type="add" issue="22">
         EntryPoint mit ArgumentList angelegt.
             </action>
+            <action dev="falkoschumann" type="add" issue="19">
+        Das Anmelden als Empfänger nur für Änderungen und für nachgelieferte
+    Datensätze ist jetzt möglich.
+            </action>
+            <action dev="falkoschumann" type="update">
+        API der Datenverteiler-Fassade modernisiert. Arrays durch Collections
+    ersetzt. Einheitliches Parameterformat eingeführt: Objekt, Attributgruppe,
+    Aspekt.
+            </action>
         </release>
 
         <release version="1.4.0" date="2015-07-16" description="Neue Funktionen">
