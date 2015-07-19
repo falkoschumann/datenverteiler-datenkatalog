@@ -102,9 +102,9 @@ MessQuerschnittAllgemein datum = unmarshaller.unmarshal(data, MessQuerschnittAll
 
 +-------------------------------------------------------------------------------
 Datenverteiler dav = ...
-Aspect aspekt = dav.aspekt("asp.messWertErsetzung");
-SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
-dav.anmeldenAlsEmpfaenger(this::verarbeiteDatensatz, UfdsHelligkeit.class, aspekt, umfelddatensensor);
+Aspect aspekt = dav.getAspekt("asp.messWertErsetzung");
+SystemObject umfelddatensensor = dav.getObjekt("ufds.helligkeit");
+dav.anmeldenAlsEmpfaenger(this::verarbeiteDatensatz, Collections.singleton(umfelddatensensor), UfdsHelligkeit.class, aspekt, Empfaengeroption.NORMAL);
 +-------------------------------------------------------------------------------
 
   Mit einer Methode in der selben Klasse:
@@ -120,10 +120,10 @@ private void verarbeiteDatensatz(Datensatz<UfdsHelligkeit> datensatz) {
 
 +-------------------------------------------------------------------------------
 Datenverteiler dav = ...
-SystemObject umfelddatensensor = dav.objekt("ufds.helligkeit");
-dav.anmeldenAufParameter(d -> System.out.println(d), UfdsHelligkeitFuzzy.class, umfelddatensensor);
+SystemObject umfelddatensensor = dav.getObjekt("ufds.helligkeit");
+dav.anmeldenAufParameter(d -> System.out.println(d), Collections.singleton(umfelddatensensor), UfdsHelligkeitFuzzy.class);
 // ... oder den Parameter direkt abrufen mit ...
-Datensatz<UfdsHelligkeitFuzzy> datensatz = dav.parameter(UfdsHelligkeitFuzzy.class, umfelddatensensor);
+Datensatz<UfdsHelligkeitFuzzy> datensatz = dav.getParameter(umfelddatensensor, UfdsHelligkeitFuzzy.class);
 +-------------------------------------------------------------------------------
 
 
@@ -131,20 +131,23 @@ Datensatz<UfdsHelligkeitFuzzy> datensatz = dav.parameter(UfdsHelligkeitFuzzy.cla
 
 +-------------------------------------------------------------------------------
 Datenverteiler dav = ...
-SystemObject messquerschnitt = dav.objekt("mq.a10.1");
-MessQuerschnittAllgemein datum = dav.konfiguration(MessQuerschnittAllgemein.class, messquerschnitt);
+SystemObject messquerschnitt = dav.getObjekt("mq.a10.1");
+MessQuerschnittAllgemein datum = dav.getKonfiguration(messquerschnitt, MessQuerschnittAllgemein.class);
 +-------------------------------------------------------------------------------
 
 
 ** Datensätze senden
 
 +-------------------------------------------------------------------------------
-Datenverteiler dav ...
-SystemObject stau = dav.objekt("stau.1");
+Datenverteiler dav = ...
+SystemObject stau = dav.getObjekt("stau.1");
 StauVerlauf datum = new StauVerlauf();
-datum.setDauer(TimeUnit.MINUTES.toMillis(30));
+datum.setDauer(Duration.ofMinutes(30));
 // datum.set...
-Aspect aspekt = dav.aspekt("asp.prognoseNormal");
-dav.anmeldenAlsQuelle(StauVerlauf.class, aspekt, stau);
+Aspect aspekt = dav.getAspekt("asp.prognoseNormal");
+dav.anmeldenAlsQuelle(Collections.singleton(stau), StauVerlauf.class, aspekt);
 dav.sendeDatensatz(Datensatz.of(stau, datum, aspekt));
+// ... oder als Collection ...
+Set<Datensatz<?>> datensaetze = Collections.singleton(Datensatz.of(stau, datum, aspekt));
+dav.sendeDatensaetze(datensaetze);
 +-------------------------------------------------------------------------------

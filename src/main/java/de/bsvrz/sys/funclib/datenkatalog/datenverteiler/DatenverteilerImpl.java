@@ -16,6 +16,10 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
 /**
@@ -50,11 +54,6 @@ public class DatenverteilerImpl implements Datenverteiler {
         }
     }
 
-    @Override
-    public void anmeldenAlsQuelle(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte) throws DatenverteilerException {
-        anmeldenAlsQuelle(Arrays.asList(objekte), datumTyp, aspekt);
-    }
-
     private DataDescription getDataDescription(Class<?> datumTyp, Aspect asp) {
         return new DataDescription(getAttributgruppe(datumTyp), asp);
     }
@@ -77,11 +76,6 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public void anmeldenAlsSender(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte) throws DatenverteilerException {
-        anmeldenAlsSender(Arrays.asList(objekte), datumTyp, aspekt);
-    }
-
-    @Override
     public void abmeldenAlsSender(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt) {
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
@@ -91,18 +85,8 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public void abmeldenAlsSender(Class<?> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        abmeldenAlsSender(Arrays.asList(objekte), datumTyp, aspekt);
-    }
-
-    @Override
     public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
         anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.drain(), option);
-    }
-
-    @Override
-    public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        anmeldenAlsSenke(empfaenger, Arrays.asList(objekte), datumTyp, aspekt, Empfaengeroption.NORMAL);
     }
 
     private <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, ReceiverRole role, Empfaengeroption option) {
@@ -121,11 +105,6 @@ public class DatenverteilerImpl implements Datenverteiler {
     @Override
     public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
         anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.receiver(), option);
-    }
-
-    @Override
-    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        anmeldenAlsEmpfaenger(empfaenger, Arrays.asList(objekte), datumTyp, aspekt, Empfaengeroption.NORMAL);
     }
 
     private ReceiveOptions getReceiverOptions(Empfaengeroption option) {
@@ -156,26 +135,25 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> void abmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, Aspect aspekt, SystemObject... objekte) {
-        abmeldenAlsEmpfaenger(empfaenger, Arrays.asList(objekte), datumTyp, aspekt);
-    }
-
-    @Override
     public <T> void anmeldenAufParameter(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp) {
         Objects.requireNonNull(empfaenger, "empfaenger");
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, getParameterSoll(), Empfaengeroption.NORMAL);
-    }
-
-    @Override
-    public <T> void anmeldenAufParameter(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
-        anmeldenAufParameter(empfaenger, Arrays.asList(objekte), datumTyp);
+        ParameterEmpfaenger<T> parameterEmpfaenger = new ParameterEmpfaenger<>(empfaenger);
+        anmeldenAlsEmpfaenger(parameterEmpfaenger, objekte, datumTyp, getParameterSoll(), Empfaengeroption.NORMAL);
+        parameterEmpfaenger.mutex.lock();
+        try {
+            parameterEmpfaenger.ersterDatensatzEmpfangen.await(30, TimeUnit.SECONDS);
+        } catch (InterruptedException ignored) {
+            // nothing to do
+        } finally {
+            parameterEmpfaenger.mutex.unlock();
+        }
     }
 
     private Aspect getParameterSoll() {
-        return aspekt("asp.parameterSoll");
+        return getAspekt("asp.parameterSoll");
     }
 
     @Override
@@ -188,22 +166,12 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> void abmeldenVonParameter(Consumer<Datensatz<T>> empfaenger, Class<T> datumTyp, SystemObject... objekte) {
-        abmeldenVonParameter(empfaenger, Arrays.asList(objekte), datumTyp);
-    }
-
-    @Override
     public <T> Datensatz<T> getParameter(SystemObject objekt, Class<T> datumTyp) {
         Objects.requireNonNull(objekt, "objekt");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
         ResultData rd = dav.getData(objekt, getDataDescription(datumTyp, getParameterSoll()), 0);
         return unmarshal(rd, datumTyp);
-    }
-
-    @Override
-    public <T> Datensatz<T> parameter(Class<T> datumTyp, SystemObject objekt) {
-        return getParameter(objekt, datumTyp);
     }
 
     private <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp) {
@@ -222,12 +190,12 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public <T> T konfiguration(Class<T> datumTyp, SystemObject objekt) {
-        return getKonfiguration(objekt, datumTyp);
+    public void sendeDatensatz(Datensatz<?> datensatz) throws DatenverteilerException {
+        sendeDatensaetze(Collections.singleton(datensatz));
     }
 
     @Override
-    public void sendeDatensatz(Collection<Datensatz<?>> datensaetze) throws DatenverteilerException {
+    public void sendeDatensaetze(Collection<Datensatz<?>> datensaetze) throws DatenverteilerException {
         Objects.requireNonNull(datensaetze, "datensaetze");
 
         try {
@@ -235,11 +203,6 @@ public class DatenverteilerImpl implements Datenverteiler {
         } catch (SendSubscriptionNotConfirmed ex) {
             throw new DatenverteilerException("Datensatz ist nicht zum Senden angemeldet.", ex);
         }
-    }
-
-    @Override
-    public void sendeDatensatz(Datensatz<?>... datensaetze) throws DatenverteilerException {
-        sendeDatensatz(Arrays.asList(datensaetze));
     }
 
     private ResultData marshall(Datensatz<?> datensatz) {
@@ -255,19 +218,9 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public SystemObject objekt(String pid) {
-        return getObjekt(pid);
-    }
-
-    @Override
     public Aspect getAspekt(String pid) throws DatenverteilerException {
         Objects.requireNonNull(pid, "pid");
         return dav.getDataModel().getAspect(pid);
-    }
-
-    @Override
-    public Aspect aspekt(String pid) {
-        return getAspekt(pid);
     }
 
     private static class Sender implements ClientSenderInterface {
@@ -280,6 +233,28 @@ public class DatenverteilerImpl implements Datenverteiler {
         @Override
         public boolean isRequestSupported(SystemObject object, DataDescription dataDescription) {
             return false;
+        }
+
+    }
+
+    private static class ParameterEmpfaenger<T> implements Consumer<Datensatz<T>> {
+
+        private final Lock mutex = new ReentrantLock();
+        private final Condition ersterDatensatzEmpfangen = mutex.newCondition();
+
+        private final Consumer<Datensatz<T>> empfaenger;
+
+        ParameterEmpfaenger(Consumer<Datensatz<T>> empfaenger) {
+            this.empfaenger = empfaenger;
+        }
+
+        @Override
+        public void accept(Datensatz<T> datensatz) {
+            empfaenger.accept(datensatz);
+
+            mutex.lock();
+            ersterDatensatzEmpfangen.signal();
+            mutex.unlock();
         }
 
     }

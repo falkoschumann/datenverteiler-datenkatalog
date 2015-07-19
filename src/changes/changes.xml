@@ -14,7 +14,7 @@
     </properties>
 
     <body>
-        <release version="1.5.0" date="2015-07-17" description="Neue Funktionen">
+        <release version="2.0.0" date="2015-07-19" description="Neue Funktionen">
             <action dev="falkoschumann" type="add" issue="22">
         EntryPoint mit ArgumentList angelegt.
             </action>
@@ -26,6 +26,10 @@
         API der Datenverteiler-Fassade modernisiert. Arrays durch Collections
     ersetzt. Einheitliches Parameterformat eingeführt: Objekt, Attributgruppe,
     Aspekt.
+            </action>
+            <action dev="falkoschumann" type="update">
+        Datenverteiler::anmeldenAufParameter ruft jetzt synchron den ersten
+    Parameterdatensatz ab.
             </action>
         </release>
 
