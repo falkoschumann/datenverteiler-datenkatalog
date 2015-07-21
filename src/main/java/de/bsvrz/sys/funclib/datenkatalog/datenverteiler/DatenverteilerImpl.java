@@ -140,15 +140,15 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        ParameterEmpfaenger<T> parameterEmpfaenger = new ParameterEmpfaenger<>(empfaenger);
-        anmeldenAlsEmpfaenger(parameterEmpfaenger, objekte, datumTyp, getParameterSoll(), Empfaengeroption.NORMAL);
-        parameterEmpfaenger.mutex.lock();
+        ParameterEmpfaenger<T> parameterEmpfaenger = new ParameterEmpfaenger<>(empfaenger, objekte);
+        parameterEmpfaenger.getLock().lock();
         try {
-            parameterEmpfaenger.ersterDatensatzEmpfangen.await(30, TimeUnit.SECONDS);
+            anmeldenAlsEmpfaenger(parameterEmpfaenger, objekte, datumTyp, getParameterSoll(), Empfaengeroption.NORMAL);
+            parameterEmpfaenger.getErsterDatensatzEmpfangen().await(1, TimeUnit.MINUTES);
         } catch (InterruptedException ignored) {
             // nothing to do
         } finally {
-            parameterEmpfaenger.mutex.unlock();
+            parameterEmpfaenger.getLock().unlock();
         }
     }
 
@@ -239,22 +239,43 @@ public class DatenverteilerImpl implements Datenverteiler {
 
     private static class ParameterEmpfaenger<T> implements Consumer<Datensatz<T>> {
 
-        private final Lock mutex = new ReentrantLock();
-        private final Condition ersterDatensatzEmpfangen = mutex.newCondition();
+        private final Lock lock = new ReentrantLock();
+        private final Condition ersterDatensatzEmpfangen = lock.newCondition();
 
         private final Consumer<Datensatz<T>> empfaenger;
+        private final Set<SystemObject> objekte;
 
-        ParameterEmpfaenger(Consumer<Datensatz<T>> empfaenger) {
+        ParameterEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte) {
             this.empfaenger = empfaenger;
+            this.objekte = new LinkedHashSet<>(objekte);
+        }
+
+        Lock getLock() {
+            return lock;
+        }
+
+        Condition getErsterDatensatzEmpfangen() {
+            return ersterDatensatzEmpfangen;
         }
 
         @Override
         public void accept(Datensatz<T> datensatz) {
             empfaenger.accept(datensatz);
+            benachrichteWennAlleParameterEinmalEmpfangenWurden(datensatz);
+        }
 
-            mutex.lock();
-            ersterDatensatzEmpfangen.signal();
-            mutex.unlock();
+        private void benachrichteWennAlleParameterEinmalEmpfangenWurden(Datensatz<T> datensatz) {
+            lock.lock();
+            try {
+                if (objekte.isEmpty())
+                    return;
+
+                objekte.remove(datensatz.getObjekt());
+                if (objekte.isEmpty())
+                    ersterDatensatzEmpfangen.signal();
+            } finally {
+                lock.unlock();
+            }
         }
 
     }

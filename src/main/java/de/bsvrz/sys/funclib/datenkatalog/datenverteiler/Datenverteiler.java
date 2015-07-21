@@ -51,7 +51,7 @@ public interface Datenverteiler {
 
     /**
      * Meldet ein Parameterdatum für ein oder mehrere Objekte zum Empfang an. Die Methode blockiert, bis der Parameter
-     * einmalig empfangen wurde, maximal aber 30 Sekunden.
+     * einmalig empfangen wurde, maximal aber eine Minute.
      */
     <T> void anmeldenAufParameter(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp) throws DatenverteilerException;
 
