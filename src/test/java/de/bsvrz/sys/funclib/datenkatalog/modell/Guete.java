@@ -8,6 +8,7 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.util.Doubles;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributlistenDefinition
@@ -48,10 +49,7 @@ public class Guete {
 
     @Override
     public String toString() {
-        return "Guete{" +
-                "index=" + index +
-                ", verfahren=" + verfahren +
-                '}';
+        return MessageFormat.format("Guete'{'index={0}, verfahren={1}'}'", index, verfahren);
     }
 
 }

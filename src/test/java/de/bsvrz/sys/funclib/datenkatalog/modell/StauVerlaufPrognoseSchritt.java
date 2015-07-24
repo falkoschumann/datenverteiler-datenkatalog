@@ -9,6 +9,7 @@ import de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributlistenDefinition
@@ -82,13 +83,8 @@ public class StauVerlaufPrognoseSchritt {
 
     @Override
     public String toString() {
-        return "StauVerlaufPrognoseSchritt{" +
-                "zufluss=" + zufluss +
-                ", kapazitaet=" + kapazitaet +
-                ", laenge=" + laenge +
-                ", verlustZeit=" + verlustZeit +
-                ", vKfz=" + vKfz +
-                '}';
+        return MessageFormat.format("StauVerlaufPrognoseSchritt'{'zufluss={0}, kapazitaet={1}, laenge={2}, verlustZeit={3}, vKfz={4}'}'",
+                zufluss, kapazitaet, laenge, verlustZeit, vKfz);
     }
 
 }

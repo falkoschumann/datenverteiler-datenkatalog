@@ -8,6 +8,7 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributgruppenDefinition(pid = "atg.straßenTeilSegment")
@@ -60,11 +61,8 @@ public class StraßenTeilSegment {
 
     @Override
     public String toString() {
-        return "StraßenTeilSegment{" +
-                "laenge=" + laenge +
-                ", anzahlFahrStreifen=" + anzahlFahrStreifen +
-                ", steigungGefaelle=" + steigungGefaelle +
-                '}';
+        return MessageFormat.format("StraßenTeilSegment'{'laenge={0}, anzahlFahrStreifen={1}, steigungGefaelle={2}'}'",
+                laenge, anzahlFahrStreifen, steigungGefaelle);
     }
 
 }

@@ -7,6 +7,7 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributlistenDefinition
@@ -37,9 +38,7 @@ public class StatusExterneErfassung {
 
     @Override
     public String toString() {
-        return "StatusExterneErfassung{" +
-                "nichtErfasst=" + nichtErfasst +
-                '}';
+        return MessageFormat.format("StatusExterneErfassung'{'nichtErfasst={0}'}'", nichtErfasst);
     }
 
 }

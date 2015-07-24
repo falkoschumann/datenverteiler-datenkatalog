@@ -7,6 +7,7 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributgruppenDefinition(pid = "atg.bilanzVerkehrsStärke")
@@ -47,10 +48,7 @@ public class BilanzVerkehrsStaerke {
 
     @Override
     public String toString() {
-        return "BilanzVerkehrsStaerke{" +
-                "qLkw=" + qLkw +
-                ", qPkw=" + qPkw +
-                '}';
+        return MessageFormat.format("BilanzVerkehrsStaerke'{'qLkw={0}, qPkw={1}'}'", qLkw, qPkw);
     }
 
 }
