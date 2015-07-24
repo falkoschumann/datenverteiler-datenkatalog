@@ -79,7 +79,7 @@ public interface Datenverteiler {
     /**
      * Sendet mehrere Datensätze.
      */
-    void sendeDatensaetze(Collection<Datensatz<?>> datensaetze) throws DatenverteilerException;
+    void sendeDatensaetze(Collection<? extends Datensatz<?>> datensaetze) throws DatenverteilerException;
 
     /**
      * Gibt das Objekt zu einer PID zurück. Gibt das Objekt oder {@code null} zurück, wenn kein Objekt zu der

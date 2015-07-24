@@ -60,7 +60,7 @@ public class CodeBeispieleInDokumentationIT extends AbstractDatenkatalogIT {
         dav.anmeldenAlsQuelle(Collections.singleton(stau), StauVerlauf.class, aspekt);
         dav.sendeDatensatz(Datensatz.of(stau, datum, aspekt));
         // ... oder als Collection ...
-        Set<Datensatz<?>> datensaetze = Collections.singleton(Datensatz.of(stau, datum, aspekt));
+        Set<Datensatz<StauVerlauf>> datensaetze = Collections.singleton(Datensatz.of(stau, datum, aspekt));
         dav.sendeDatensaetze(datensaetze);
     }
 

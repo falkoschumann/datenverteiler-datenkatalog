@@ -195,7 +195,7 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     @Override
-    public void sendeDatensaetze(Collection<Datensatz<?>> datensaetze) throws DatenverteilerException {
+    public void sendeDatensaetze(Collection<? extends Datensatz<?>> datensaetze) throws DatenverteilerException {
         Objects.requireNonNull(datensaetze, "datensaetze");
 
         try {
