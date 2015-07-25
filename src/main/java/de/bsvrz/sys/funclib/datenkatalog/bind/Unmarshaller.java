@@ -19,11 +19,11 @@ public interface Unmarshaller {
      * Überführt eine Attributgruppe in ein Datum.
      *
      * @param attributgruppe das {@code Data} der Attributgruppe.
-     * @param datumClass     die Klasse des Datums.
+     * @param datumTyp       die Klasse des Datums.
      * @param <T>            der Typ des Datums.
      * @return das Datum der Attributgruppe als POJO.
      * @throws DataBindingException bei einem unerwarteten Problem beim Unmarshalling.
      */
-    <T> T unmarshal(Data attributgruppe, Class<T> datumClass);
+    <T> T unmarshal(Data attributgruppe, Class<T> datumTyp);
 
 }

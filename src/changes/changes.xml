@@ -15,7 +15,17 @@
 
     <body>
         <release version="2.1.0" date="2015-??-??" description="???">
-            <action dev="falkoschumann" type="add" issue="">
+            <action dev="falkoschumann" type="add" issue="26">
+        Die Schnittstelle `Datenverteiler` erlaubt nun Marshalling und
+    Unmarshalling mit `Datensatz` und `ResultData`.
+            </action>
+            <action dev="falkoschumann" type="change" issue="27">
+        Die Methode `toString` wird nun mit `MessageFormat` implementiert
+    anstelle mit String-Verkettung.
+            </action>
+            <action dev="falkoschumann" type="add" issue="28">
+        Die Generics der Methode `Datenverteiler::sendeDatensaetze` wurden
+    verbessert.
             </action>
         </release>
 

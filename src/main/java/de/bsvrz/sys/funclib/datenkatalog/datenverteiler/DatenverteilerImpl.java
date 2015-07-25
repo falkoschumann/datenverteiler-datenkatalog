@@ -174,7 +174,8 @@ public class DatenverteilerImpl implements Datenverteiler {
         return unmarshal(rd, datumTyp);
     }
 
-    private <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp) {
+    @Override
+    public <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp) {
         T datum = context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
         LocalDateTime zeitstempel = LocalDateTime.ofInstant(Instant.ofEpochMilli(rd.getDataTime()), ZoneId.systemDefault());
         return Datensatz.of(rd.getObject(), datum, getParameterSoll(), zeitstempel);
@@ -199,13 +200,14 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datensaetze, "datensaetze");
 
         try {
-            dav.sendData(datensaetze.stream().map(this::marshall).toArray(ResultData[]::new));
+            dav.sendData(datensaetze.stream().map(this::marshal).toArray(ResultData[]::new));
         } catch (SendSubscriptionNotConfirmed ex) {
             throw new DatenverteilerException("Datensatz ist nicht zum Senden angemeldet.", ex);
         }
     }
 
-    private ResultData marshall(Datensatz<?> datensatz) {
+    @Override
+    public ResultData marshal(Datensatz<?> datensatz) {
         Data data = context.createMarshaller().marshal(datensatz.getDatum());
         long zeitstempel = datensatz.getZeitstempel().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
         return new ResultData(datensatz.getObjekt(), getDataDescription(datensatz.getDatum().getClass(), datensatz.getAspekt()), zeitstempel, data);
