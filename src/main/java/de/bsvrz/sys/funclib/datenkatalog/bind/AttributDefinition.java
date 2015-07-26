@@ -28,6 +28,11 @@ public @interface AttributDefinition {
      */
     String name() default "";
 
+    /**
+     * Ist diese Eigenschaft angegeben wird der hier angegebene Attributadapter anstelle des Standardadapters verwendet.
+     *
+     * @return der Attributadapter.
+     */
     Class<? extends AttributAdapter> adapter() default AttributAdapter.class;
 
 }
