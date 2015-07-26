@@ -9,6 +9,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Ignorieren;
 
+import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributgruppenDefinition(pid = "atg.achsLastMessStelle")
@@ -60,11 +61,8 @@ public class AchsLastMessStelle {
 
     @Override
     public String toString() {
-        return "AchsLastMessStelle{" +
-                "achsLastMessStellenQuelle=" + achsLastMessStellenQuelle +
-                ", fahrStreifen=" + fahrStreifen +
-                ", zusatzProperty='" + zusatzProperty + '\'' +
-                '}';
+        return MessageFormat.format("AchsLastMessStelle'{'achsLastMessStellenQuelle={0}, fahrStreifen={1}, zusatzProperty='{2}''}'",
+                achsLastMessStellenQuelle, fahrStreifen, zusatzProperty);
     }
 
 }

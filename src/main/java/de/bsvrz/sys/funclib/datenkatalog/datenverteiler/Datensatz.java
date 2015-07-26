@@ -8,14 +8,15 @@ package de.bsvrz.sys.funclib.datenkatalog.datenverteiler;
 import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * Ein Datensatz ist ein Datum einer Attributgruppe, das für ein  Systemobjekt gesendet oder empfangen wird.
  *
- * @author Falko Schumann
  * @param <T> der Typ des Datums dieses Datensatzes.
+ * @author Falko Schumann
  * @since 1.2
  */
 public final class Datensatz<T> {
@@ -92,12 +93,8 @@ public final class Datensatz<T> {
 
     @Override
     public String toString() {
-        return "Datensatz{" +
-                "objekt=" + objekt +
-                ", datum=" + datum +
-                ", aspekt=" + aspekt +
-                ", zeitstempel=" + zeitstempel +
-                '}';
+        return MessageFormat.format("Datensatz'{'objekt={0}, datum={1}, aspekt={2}, zeitstempel={3}'}'",
+                objekt, datum, aspekt, zeitstempel);
     }
 
     @Override

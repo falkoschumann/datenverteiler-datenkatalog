@@ -263,7 +263,7 @@ public class BindingIT extends AbstractDatenkatalogIT {
         data.getUnscaledValue("QPkw").set(2000);
 
         BilanzVerkehrsStaerke datum = new BilanzVerkehrsStaerke();
-        datum.setQLkw(1000);
+        datum.setQLkw(3000);
         datum.setQPkw(2000);
 
         Data actualData = marshaller.marshal(datum);

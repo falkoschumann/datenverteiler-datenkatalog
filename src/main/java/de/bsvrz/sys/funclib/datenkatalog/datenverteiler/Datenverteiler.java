@@ -5,6 +5,7 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.datenverteiler;
 
+import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
@@ -79,7 +80,7 @@ public interface Datenverteiler {
     /**
      * Sendet mehrere Datensätze.
      */
-    void sendeDatensaetze(Collection<Datensatz<?>> datensaetze) throws DatenverteilerException;
+    void sendeDatensaetze(Collection<? extends Datensatz<?>> datensaetze) throws DatenverteilerException;
 
     /**
      * Gibt das Objekt zu einer PID zurück. Gibt das Objekt oder {@code null} zurück, wenn kein Objekt zu der
@@ -92,5 +93,25 @@ public interface Datenverteiler {
      * angegebenen PID existiert.
      */
     Aspect getAspekt(String pid) throws DatenverteilerException;
+
+    /**
+     * Überführt einen Datensatz von POJO nach DAV-API.
+     *
+     * @param datensatz mit dem Datum als POJO.
+     * @return das {@code ResultData} des dazugehörigen Datensatzes.
+     * @throws de.bsvrz.sys.funclib.datenkatalog.bind.DataBindingException bei einem unerwarteten Problem beim Marshalling.
+     */
+    ResultData marshal(Datensatz<?> datensatz);
+
+    /**
+     * Überführt einen Datensatz von DAV-API nach POJO.
+     *
+     * @param rd       das {@code ResultData} eines Datensatzes.
+     * @param datumTyp die Klasse des Datums.
+     * @param <T>      der Typ des Datums.
+     * @return der Datensatz als POJO.
+     * @throws de.bsvrz.sys.funclib.datenkatalog.bind.DataBindingException bei einem unerwarteten Problem beim Unmarshalling.
+     */
+    <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp);
 
 }

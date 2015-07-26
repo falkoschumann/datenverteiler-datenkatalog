@@ -10,6 +10,10 @@ import java.beans.PropertyDescriptor;
 class StandardAttributAdapterFactory {
 
     AttributAdapter createAdapter(PropertyDescriptor pd) {
+        if (isEigenerAdapterAngegeben(pd)) {
+            return getEigenenAdapter(pd);
+        }
+
         // Struktur
         if (Pojo.isAttributliste(pd)) return new AttributlistenAttributAdapter(pd.getPropertyType());
         if (Pojo.isAttributfeld(pd)) return new AttributfeldAttributAdapter(pd.getPropertyType(), pd.getReadMethod().getAnnotation(AttributfeldDefinition.class));
@@ -51,6 +55,14 @@ class StandardAttributAdapterFactory {
         if (Pojo.isBoolean(propertyType)) return new BooleanAttributAdapter();
 
         throw new IllegalStateException("Kein AttributAdapter gefunden für " + propertyType + ".");
+    }
+
+    private boolean isEigenerAdapterAngegeben(PropertyDescriptor pd) {
+        return pd.getReadMethod().getDeclaredAnnotation(AttributDefinition.class) != null && pd.getReadMethod().getDeclaredAnnotation(AttributDefinition.class).adapter() != AttributAdapter.class;
+    }
+
+    private AttributAdapter getEigenenAdapter(PropertyDescriptor pd) {
+        return Pojo.create(pd.getReadMethod().getDeclaredAnnotation(AttributDefinition.class).adapter());
     }
 
 }

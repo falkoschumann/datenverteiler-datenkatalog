@@ -29,7 +29,7 @@ final class Pojo {
         }
     }
 
-    public static Object create(Class<?> clazz) {
+    public static <T> T create(Class<T> clazz) {
         try {
             return clazz.newInstance();
         } catch (Exception ex) {

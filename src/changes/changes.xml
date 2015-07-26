@@ -14,7 +14,27 @@
     </properties>
 
     <body>
-        <release version="2.0.1" date="2015-??-??" description="Bugfixes">
+        <release version="2.1.0" date="2015-07-26" description="Erweiterungen zum (Un)Marshalling">
+            <action dev="falkoschumann" type="add" issue="1">
+        Mit der Annotation `@AttributDefinition` kann jetzt eine alternative
+    Klasse als Attributadapter definiert werden. Damit kann das Marshalling und
+    Unmarshalling eines Attributs angepasst bzw. um neue Typen erweitert werden.
+            </action>
+            <action dev="falkoschumann" type="add" issue="26">
+        Die Schnittstelle `Datenverteiler` erlaubt nun Marshalling und
+    Unmarshalling mit `Datensatz` und `ResultData`.
+            </action>
+            <action dev="falkoschumann" type="change" issue="27">
+        Die Methode `toString` wird nun mit `MessageFormat` implementiert
+    anstelle mit String-Verkettung.
+            </action>
+            <action dev="falkoschumann" type="add" issue="28">
+        Die Generics der Methode `Datenverteiler::sendeDatensaetze` wurden
+    verbessert.
+            </action>
+        </release>
+
+        <release version="2.0.1" date="2015-07-21" description="Bugfixes">
             <action dev="falkoschumann" type="fix" issue="25">
         Abruf des ersten Datensatzes eines Parameters funktionierte nicht
     zuverlässig.

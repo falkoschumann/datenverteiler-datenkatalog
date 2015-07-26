@@ -94,7 +94,6 @@
         <module name="JavadocStyle"/>
         <module name="NonEmptyAtclauseDescription"/>
         <module name="SummaryJavadocCheck"/>
-        <module name="AtclauseOrder"/>
         <module name="JavadocParagraph"/>
         <module name="SingleLineJavadoc"/>
 

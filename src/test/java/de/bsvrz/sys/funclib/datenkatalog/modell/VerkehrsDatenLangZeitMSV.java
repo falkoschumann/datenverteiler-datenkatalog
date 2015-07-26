@@ -8,8 +8,12 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @AttributgruppenDefinition(pid = "atg.verkehrsDatenLangZeitMSV")
 public class VerkehrsDatenLangZeitMSV {
@@ -90,14 +94,8 @@ public class VerkehrsDatenLangZeitMSV {
 
     @Override
     public String toString() {
-        return "VerkehrsDatenLangZeitMSV{" +
-                "01spitzenStundeQKfzGesamt=" + _01spitzenStundeQKfzGesamt +
-                ", 01spitzenStundeQKfzGesamtZeitPunkte=" + _01spitzenStundeQKfzGesamtZeitPunkte +
-                ", 30SpitzenStundeQKfzGesamt=" + _30SpitzenStundeQKfzGesamt +
-                ", 30SpitzenStundeQKfzGesamtZeitPunkte=" + Arrays.toString(_30SpitzenStundeQKfzGesamtZeitPunkte) +
-                ", 50SpitzenStundeQKfzGesamt=" + _50SpitzenStundeQKfzGesamt +
-                ", 50SpitzenStundeQKfzGesamtZeitPunkte=" + Arrays.toString(_50SpitzenStundeQKfzGesamtZeitPunkte) +
-                '}';
+        return MessageFormat.format("VerkehrsDatenLangZeitMSV'{'01spitzenStundeQKfzGesamt={0}, 01spitzenStundeQKfzGesamtZeitPunkte={1}, 30SpitzenStundeQKfzGesamt={2}, 30SpitzenStundeQKfzGesamtZeitPunkte={3}, 50SpitzenStundeQKfzGesamt={4}, 50SpitzenStundeQKfzGesamtZeitPunkte={5}'}'",
+                _01spitzenStundeQKfzGesamt, _01spitzenStundeQKfzGesamtZeitPunkte, _30SpitzenStundeQKfzGesamt, Arrays.toString(_30SpitzenStundeQKfzGesamtZeitPunkte), _50SpitzenStundeQKfzGesamt, Arrays.toString(_50SpitzenStundeQKfzGesamtZeitPunkte));
     }
 
 }

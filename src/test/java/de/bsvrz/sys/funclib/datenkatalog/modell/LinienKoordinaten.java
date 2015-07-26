@@ -8,6 +8,7 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.util.Doubles;
 
+import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -48,10 +49,7 @@ public class LinienKoordinaten {
 
     @Override
     public String toString() {
-        return "LinienKoordinaten{" +
-                "x=" + Arrays.toString(x) +
-                ", y=" + Arrays.toString(y) +
-                '}';
+        return MessageFormat.format("LinienKoordinaten'{'x={0}, y={1}'}'", Arrays.toString(x), Arrays.toString(y));
     }
 
 }

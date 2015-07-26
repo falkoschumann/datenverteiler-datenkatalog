@@ -11,7 +11,7 @@
 
     <groupId>de.bsvrz.sys</groupId>
     <artifactId>de.bsvrz.sys.funclib.datenkatalog</artifactId>
-    <version>2.0.1</version>
+    <version>2.1.0-SNAPSHOT</version>
 
     <name>Funktionsbibliothek Datenkatalog</name>
     <description>
@@ -22,10 +22,11 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
     <inceptionYear>2015</inceptionYear>
 
     <properties>
-        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-        <project.status>BETA</project.status>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <swe.status>BETA</swe.status>
+        <kernsoftware.version>3.6.5</kernsoftware.version>
+        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
         <source.version>8</source.version>
         <github.global.server>github</github.global.server>
     </properties>
@@ -34,12 +35,12 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
         <dependency>
             <groupId>de.bsvrz.dav</groupId>
             <artifactId>de.bsvrz.dav.daf</artifactId>
-            <version>3.6.2</version>
+            <version>${kernsoftware.version}</version>
         </dependency>
         <dependency>
             <groupId>de.bsvrz.puk</groupId>
             <artifactId>de.bsvrz.puk.config</artifactId>
-            <version>3.6.2</version>
+            <version>${kernsoftware.version}</version>
         </dependency>
         <dependency>
             <groupId>de.muspellheim</groupId>
@@ -288,7 +289,7 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.5.5</version>
                 <configuration>
-                    <finalName>SWE_${project.artifactId}_${project.status}_V${project.version}_D${maven.build.timestamp}</finalName>
+                    <finalName>SWE_${project.artifactId}_${swe.status}_V${project.version}_D${maven.build.timestamp}</finalName>
                     <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>src/assembly/swe.xml</descriptor>
