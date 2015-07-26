@@ -28,4 +28,6 @@ public @interface AttributDefinition {
      */
     String name() default "";
 
+    Class<? extends AttributAdapter> adapter() default AttributAdapter.class;
+
 }

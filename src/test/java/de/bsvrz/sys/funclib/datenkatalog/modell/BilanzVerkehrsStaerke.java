@@ -5,6 +5,7 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.modell;
 
+import de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
 import java.text.MessageFormat;
@@ -16,6 +17,7 @@ public class BilanzVerkehrsStaerke {
     private int qLkw;
     private int qPkw;
 
+    @AttributDefinition(adapter = MultiplikatorAdapter.class)
     public int getQLkw() {
         return qLkw;
     }

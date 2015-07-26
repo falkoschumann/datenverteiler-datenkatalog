@@ -14,7 +14,12 @@
     </properties>
 
     <body>
-        <release version="2.1.0" date="2015-??-??" description="???">
+        <release version="2.1.0" date="2015-07-26" description="Erweiterungen zum (Un)Marshalling">
+            <action dev="falkoschumann" type="add" issue="1">
+        Mit der Annotation `@AttributDefinition` kann jetzt eine alternative
+    Klasse als Attributadapter definiert werden. Damit kann das Marshalling und
+    Unmarshalling eines Attributs angepasst bzw. um neue Typen erweitert werden.
+            </action>
             <action dev="falkoschumann" type="add" issue="26">
         Die Schnittstelle `Datenverteiler` erlaubt nun Marshalling und
     Unmarshalling mit `Datensatz` und `ResultData`.
