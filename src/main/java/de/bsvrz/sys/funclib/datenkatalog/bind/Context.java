@@ -80,12 +80,12 @@ public class Context {
 
         @Override
         @SuppressWarnings("unchecked")
-        public <T> T unmarshal(Data data, Class<T> datumClass) {
-            Objects.requireNonNull(datumClass, "datumClass");
+        public <T> T unmarshal(Data data, Class<T> datumTyp) {
+            Objects.requireNonNull(datumTyp, "datumTyp");
 
             if (data == null) return null;
 
-            return (T) new AttributlistenAttributAdapter(datumClass).unmarshal(data);
+            return (T) new AttributlistenAttributAdapter(datumTyp).unmarshal(data);
         }
 
     }

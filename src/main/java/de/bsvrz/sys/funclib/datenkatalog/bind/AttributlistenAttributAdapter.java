@@ -18,43 +18,11 @@ class AttributlistenAttributAdapter implements AttributAdapter {
     private final Object datum;
 
     AttributlistenAttributAdapter(Class<?> datumClass) {
-        datum = Pojo.create(datumClass);
+        this(Pojo.create(datumClass));
     }
 
     AttributlistenAttributAdapter(Object datum) {
         this.datum = datum;
-    }
-
-    private static Data getAttribut(Data data, PropertyDescriptor pd) {
-        String attributname;
-        if (attributDefinitionAngegeben(pd)) {
-            attributname = pd.getReadMethod().getAnnotation(AttributDefinition.class).name();
-        } else {
-            try {
-                attributname = firstToUpper(pd);
-                return data.getItem(attributname);
-            } catch (NoSuchElementException | IllegalArgumentException ex) {
-                attributname = firstToLower(pd);
-            }
-        }
-        return data.getItem(attributname);
-    }
-
-    private static String firstToUpper(PropertyDescriptor pd) {
-        return pd.getName().substring(0, 1).toUpperCase(Locale.GERMANY) + pd.getName().substring(1);
-    }
-
-    private static String firstToLower(PropertyDescriptor pd) {
-        return pd.getName().substring(0, 1).toLowerCase(Locale.GERMANY) + pd.getName().substring(1);
-    }
-
-    private static boolean attributDefinitionAngegeben(PropertyDescriptor pd) {
-        AttributDefinition definition = pd.getReadMethod().getAnnotation(AttributDefinition.class);
-        return definition != null && !definition.name().isEmpty();
-    }
-
-    private static boolean ignorieren(PropertyDescriptor pd) {
-        return "class".equals(pd.getName()) || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
     }
 
     @Override
@@ -88,6 +56,38 @@ class AttributlistenAttributAdapter implements AttributAdapter {
             }
         }
         return datum;
+    }
+
+    private static boolean ignorieren(PropertyDescriptor pd) {
+        return "class".equals(pd.getName()) || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
+    }
+
+    private static Data getAttribut(Data data, PropertyDescriptor pd) {
+        String attributname;
+        if (attributDefinitionAngegeben(pd)) {
+            attributname = pd.getReadMethod().getAnnotation(AttributDefinition.class).name();
+        } else {
+            try {
+                attributname = firstToUpper(pd);
+                return data.getItem(attributname);
+            } catch (NoSuchElementException | IllegalArgumentException ex) {
+                attributname = firstToLower(pd);
+            }
+        }
+        return data.getItem(attributname);
+    }
+
+    private static boolean attributDefinitionAngegeben(PropertyDescriptor pd) {
+        AttributDefinition definition = pd.getReadMethod().getAnnotation(AttributDefinition.class);
+        return definition != null && !definition.name().isEmpty();
+    }
+
+    private static String firstToUpper(PropertyDescriptor pd) {
+        return pd.getName().substring(0, 1).toUpperCase(Locale.GERMANY) + pd.getName().substring(1);
+    }
+
+    private static String firstToLower(PropertyDescriptor pd) {
+        return pd.getName().substring(0, 1).toLowerCase(Locale.GERMANY) + pd.getName().substring(1);
     }
 
 }
