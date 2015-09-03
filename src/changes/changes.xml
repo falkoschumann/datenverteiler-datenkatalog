@@ -14,6 +14,11 @@
     </properties>
 
     <body>
+        <release version="2.2.1" date="2015-09-03" description="Platzhalter für nächstes Release">
+            <action dev="falkoschumann" type="add">
+        Lorem ipsum.
+            </action>
+        </release>
         <release version="2.2.0" date="2015-09-03" description="Erweiterungen zum Datenverteiler">
             <action dev="falkoschumann" type="add" issue="32">
         Die Schnittstelle `Datenverteiler` erlaubt nun auch die Abfrage des
