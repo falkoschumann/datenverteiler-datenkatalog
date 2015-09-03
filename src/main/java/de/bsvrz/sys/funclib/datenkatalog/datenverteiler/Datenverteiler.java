@@ -9,6 +9,7 @@ import de.bsvrz.dav.daf.main.ResultData;
 import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.function.Consumer;
 
@@ -113,5 +114,12 @@ public interface Datenverteiler {
      * @throws de.bsvrz.sys.funclib.datenkatalog.bind.DataBindingException bei einem unerwarteten Problem beim Unmarshalling.
      */
     <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp);
+
+    /**
+     * Gibt den aktuellen Zeitstempel der Zeit im Datenverteiler zurück.
+     *
+     * @return der aktuelle Zeitstempel des Datenverteiler.
+     */
+    LocalDateTime getAktuellenZeitstempel();
 
 }

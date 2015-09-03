@@ -177,8 +177,8 @@ public class DatenverteilerImpl implements Datenverteiler {
     @Override
     public <T> Datensatz<T> unmarshal(ResultData rd, Class<T> datumTyp) {
         T datum = context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
-        LocalDateTime zeitstempel = LocalDateTime.ofInstant(Instant.ofEpochMilli(rd.getDataTime()), ZoneId.systemDefault());
-        return Datensatz.of(rd.getObject(), datum, getParameterSoll(), zeitstempel);
+        LocalDateTime zeitstempel = konvertiereZeitstempelVomDatenverteilerZeitstempel(rd.getDataTime());
+        return Datensatz.of(rd.getObject(), datum, rd.getDataDescription().getAspect(), zeitstempel);
     }
 
     @Override
@@ -209,7 +209,7 @@ public class DatenverteilerImpl implements Datenverteiler {
     @Override
     public ResultData marshal(Datensatz<?> datensatz) {
         Data data = context.createMarshaller().marshal(datensatz.getDatum());
-        long zeitstempel = datensatz.getZeitstempel().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        long zeitstempel = konvertiereZeitstempelNachDatenverteiler(datensatz.getZeitstempel());
         return new ResultData(datensatz.getObjekt(), getDataDescription(datensatz.getDatum().getClass(), datensatz.getAspekt()), zeitstempel, data);
     }
 
@@ -223,6 +223,25 @@ public class DatenverteilerImpl implements Datenverteiler {
     public Aspect getAspekt(String pid) throws DatenverteilerException {
         Objects.requireNonNull(pid, "pid");
         return dav.getDataModel().getAspect(pid);
+    }
+
+    @Override
+    public LocalDateTime getAktuellenZeitstempel() {
+        return konvertiereZeitstempelVomDatenverteilerZeitstempel(dav.getTime());
+    }
+
+    /**
+     * Testseam.
+     */
+    static LocalDateTime konvertiereZeitstempelVomDatenverteilerZeitstempel(long zeitstempel) {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(zeitstempel), ZoneId.systemDefault());
+    }
+
+    /**
+     * Testseam.
+     */
+    static long konvertiereZeitstempelNachDatenverteiler(LocalDateTime zeitstempel) {
+        return zeitstempel.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
     private static class Sender implements ClientSenderInterface {

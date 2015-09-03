@@ -14,6 +14,13 @@
     </properties>
 
     <body>
+        <release version="2.2.0" date="2015-09-03" description="Erweiterungen zum Datenverteiler">
+            <action dev="falkoschumann" type="add" issue="32">
+        Die Schnittstelle `Datenverteiler` erlaubt nun auch die Abfrage des
+    aktuellen Zeitstempel des Datenverteilers.
+            </action>
+        </release>
+
         <release version="2.1.0" date="2015-07-26" description="Erweiterungen zum (Un)Marshalling">
             <action dev="falkoschumann" type="add" issue="1">
         Mit der Annotation `@AttributDefinition` kann jetzt eine alternative
