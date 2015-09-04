@@ -134,23 +134,8 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <user.timezone>Europe/Berlin</user.timezone>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.18.1</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <user.timezone>Europe/Berlin</user.timezone>
-                    </systemPropertyVariables>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>

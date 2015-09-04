@@ -5,13 +5,20 @@
 
 package de.bsvrz.sys.funclib.datenkatalog.datenverteiler;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
+import java.util.TimeZone;
 
 import static org.junit.Assert.assertEquals;
 
 public class DatenverteilerTest {
+
+    @Before
+    public void setUp() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Berlin"));
+    }
 
     @Test
     public void testKonvertiereZeitstempelDatenverteiler() {
