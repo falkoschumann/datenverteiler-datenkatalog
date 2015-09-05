@@ -8,7 +8,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributlistenDefinition
@@ -60,7 +59,12 @@ public class Helligkeit {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Helligkeit'{'wert={0}, status={1}, guete={2}'}'", wert, status, guete);
+        final StringBuilder sb = new StringBuilder("Helligkeit{");
+        sb.append("wert=").append(wert);
+        sb.append(", status=").append(status);
+        sb.append(", guete=").append(guete);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

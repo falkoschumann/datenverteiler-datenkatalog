@@ -7,7 +7,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributlistenDefinition
@@ -48,8 +47,11 @@ public class StatusPlausibilitaetsPruefungFormal {
 
     @Override
     public String toString() {
-        return MessageFormat.format("StatusPlausibilitaetsPruefungFormal'{'wertMax={0}, wertMin={1}'}'",
-                wertMax, wertMin);
+        final StringBuilder sb = new StringBuilder("StatusPlausibilitaetsPruefungFormal{");
+        sb.append("wertMax=").append(wertMax);
+        sb.append(", wertMin=").append(wertMin);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

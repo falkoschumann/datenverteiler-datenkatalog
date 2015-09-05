@@ -7,7 +7,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributlistenDefinition
@@ -58,8 +57,12 @@ public class Status {
 
     @Override
     public String toString() {
-        return MessageFormat.format("Status'{'erfassung={0}, plFormal={1}, messWertErsetzung={2}'}'",
-                erfassung, plFormal, messWertErsetzung);
+        final StringBuilder sb = new StringBuilder("Status{");
+        sb.append("erfassung=").append(erfassung);
+        sb.append(", plFormal=").append(plFormal);
+        sb.append(", messWertErsetzung=").append(messWertErsetzung);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

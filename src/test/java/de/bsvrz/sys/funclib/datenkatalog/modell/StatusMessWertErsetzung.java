@@ -7,7 +7,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributlistenDefinition
@@ -48,8 +47,11 @@ public class StatusMessWertErsetzung {
 
     @Override
     public String toString() {
-        return MessageFormat.format("StatusMessWertErsetzung'{'implausibel={0}, interpoliert={1}'}'",
-                implausibel, interpoliert);
+        final StringBuilder sb = new StringBuilder("StatusMessWertErsetzung{");
+        sb.append("implausibel=").append(implausibel);
+        sb.append(", interpoliert=").append(interpoliert);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

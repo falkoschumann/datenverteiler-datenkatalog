@@ -10,7 +10,6 @@ import de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel;
 
-import java.text.MessageFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -96,8 +95,15 @@ public class StauVerlauf {
 
     @Override
     public String toString() {
-        return MessageFormat.format("StauVerlauf'{'schrittweite={0}, dauer={1}, aufloesungsZeit={2}, maxLaenge={3}, maxLaengeZeit={4}, prognoseverlauf={5}'}'",
-                schrittweite, dauer, aufloesungsZeit, maxLaenge, maxLaengeZeit, prognoseverlauf);
+        final StringBuilder sb = new StringBuilder("StauVerlauf{");
+        sb.append("schrittweite=").append(schrittweite);
+        sb.append(", dauer=").append(dauer);
+        sb.append(", aufloesungsZeit=").append(aufloesungsZeit);
+        sb.append(", maxLaenge=").append(maxLaenge);
+        sb.append(", maxLaengeZeit=").append(maxLaengeZeit);
+        sb.append(", prognoseverlauf=").append(prognoseverlauf);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

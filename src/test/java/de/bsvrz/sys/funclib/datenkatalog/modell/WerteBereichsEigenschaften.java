@@ -8,7 +8,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.util.Doubles;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributgruppenDefinition(pid = "atg.werteBereichsEigenschaften")
@@ -69,8 +68,13 @@ public class WerteBereichsEigenschaften {
 
     @Override
     public String toString() {
-        return MessageFormat.format("WerteBereichsEigenschaften'{'minimum={0}, maximum={1}, skalierung={2}, einheit='{3}''}'",
-                minimum, maximum, skalierung, einheit);
+        final StringBuilder sb = new StringBuilder("WerteBereichsEigenschaften{");
+        sb.append("minimum=").append(minimum);
+        sb.append(", maximum=").append(maximum);
+        sb.append(", skalierung=").append(skalierung);
+        sb.append(", einheit='").append(einheit).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 
 }
