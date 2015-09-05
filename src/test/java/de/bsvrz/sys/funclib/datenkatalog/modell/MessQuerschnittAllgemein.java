@@ -8,7 +8,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributgruppenDefinition(pid = "atg.messQuerschnittAllgemein")
@@ -49,8 +48,11 @@ public class MessQuerschnittAllgemein {
 
     @Override
     public String toString() {
-        return MessageFormat.format("MessQuerschnittAllgemein'{'typ={0}, ersatzMessQuerschnitt={1}'}'",
-                typ, ersatzMessQuerschnitt);
+        final StringBuilder sb = new StringBuilder("MessQuerschnittAllgemein{");
+        sb.append("typ=").append(typ);
+        sb.append(", ersatzMessQuerschnitt=").append(ersatzMessQuerschnitt);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

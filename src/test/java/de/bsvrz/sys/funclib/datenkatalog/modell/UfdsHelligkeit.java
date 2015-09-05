@@ -8,7 +8,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel;
 
-import java.text.MessageFormat;
 import java.util.Objects;
 
 @AttributgruppenDefinition(pid = "atg.ufdsHelligkeit")
@@ -46,7 +45,11 @@ public class UfdsHelligkeit {
 
     @Override
     public String toString() {
-        return MessageFormat.format("UfdsHelligkeit'{'t={0}, helligkeit={1}'}'", t, helligkeit);
+        final StringBuilder sb = new StringBuilder("UfdsHelligkeit{");
+        sb.append("helligkeit=").append(helligkeit);
+        sb.append(", t=").append(t);
+        sb.append('}');
+        return sb.toString();
     }
 
 }

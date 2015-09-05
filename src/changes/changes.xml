@@ -4,6 +4,8 @@
   ~ Released under the terms of the MIT License.
   -->
 
+<!-- action types: add, fix, update, remove -->
+
 <document xmlns="http://maven.apache.org/changes/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/changes/1.0.0 http://maven.apache.org/xsd/changes-1.0.0.xsd">
@@ -14,11 +16,12 @@
     </properties>
 
     <body>
-        <release version="2.2.1" date="2015-09-03" description="Platzhalter für nächstes Release">
-            <action dev="falkoschumann" type="add">
-        Lorem ipsum.
+        <release version="2.2.1" date="2015-09-05" description="Kleine Verbesserungen und Fehlerbehebung">
+            <action dev="falkoschumann" type="update" issue="31">
+        Die Methode `toString`wird jetzt mit `StringBuilder` implementiert.
             </action>
         </release>
+
         <release version="2.2.0" date="2015-09-03" description="Erweiterungen zum Datenverteiler">
             <action dev="falkoschumann" type="add" issue="32">
         Die Schnittstelle `Datenverteiler` erlaubt nun auch die Abfrage des

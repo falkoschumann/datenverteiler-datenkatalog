@@ -8,7 +8,6 @@ package de.bsvrz.sys.funclib.datenkatalog.modell;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition;
 import de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition;
 
-import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
@@ -94,8 +93,15 @@ public class VerkehrsDatenLangZeitMSV {
 
     @Override
     public String toString() {
-        return MessageFormat.format("VerkehrsDatenLangZeitMSV'{'01spitzenStundeQKfzGesamt={0}, 01spitzenStundeQKfzGesamtZeitPunkte={1}, 30SpitzenStundeQKfzGesamt={2}, 30SpitzenStundeQKfzGesamtZeitPunkte={3}, 50SpitzenStundeQKfzGesamt={4}, 50SpitzenStundeQKfzGesamtZeitPunkte={5}'}'",
-                _01spitzenStundeQKfzGesamt, _01spitzenStundeQKfzGesamtZeitPunkte, _30SpitzenStundeQKfzGesamt, Arrays.toString(_30SpitzenStundeQKfzGesamtZeitPunkte), _50SpitzenStundeQKfzGesamt, Arrays.toString(_50SpitzenStundeQKfzGesamtZeitPunkte));
+        final StringBuilder sb = new StringBuilder("VerkehrsDatenLangZeitMSV{");
+        sb.append("_01spitzenStundeQKfzGesamt=").append(_01spitzenStundeQKfzGesamt);
+        sb.append(", _01spitzenStundeQKfzGesamtZeitPunkte=").append(_01spitzenStundeQKfzGesamtZeitPunkte);
+        sb.append(", _30SpitzenStundeQKfzGesamt=").append(_30SpitzenStundeQKfzGesamt);
+        sb.append(", _30SpitzenStundeQKfzGesamtZeitPunkte=").append(Arrays.toString(_30SpitzenStundeQKfzGesamtZeitPunkte));
+        sb.append(", _50SpitzenStundeQKfzGesamt=").append(_50SpitzenStundeQKfzGesamt);
+        sb.append(", _50SpitzenStundeQKfzGesamtZeitPunkte=").append(Arrays.toString(_50SpitzenStundeQKfzGesamtZeitPunkte));
+        sb.append('}');
+        return sb.toString();
     }
 
 }
