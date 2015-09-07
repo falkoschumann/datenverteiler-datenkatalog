@@ -16,12 +16,16 @@
     </properties>
 
     <body>
-        <release version="3.0.0" date="2015-09-05" description="Kleine Verbesserungen und Fehlerbehebung">
+        <release version="3.0.0" date="2015-09-05" description="Neuer Namensraum für Pakete">
             <action dev="falkoschumann" type="update" issue="31">
         Die Methode `toString`wird jetzt mit `StringBuilder` implementiert.
             </action>
             <action dev="falkoschumann" type="update">
         Package-Präfix umbenannt, NERZ-Namensraum ersetzt durch `de.muspellheim.*`.
+            </action>
+            <action dev="falkoschumann" type="remove" issue="23">
+        Flow als eigenständige funclib herausziehen. Die Flow-Design-Klassen
+    befinden sich jetzt in der eigenständigen Funktionsbibliothek Flow-Design.
             </action>
         </release>
 

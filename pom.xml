@@ -43,12 +43,6 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
             <version>${kernsoftware.version}</version>
         </dependency>
         <dependency>
-            <groupId>de.muspellheim</groupId>
-            <artifactId>flowdesign</artifactId>
-            <version>3.0.0</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
