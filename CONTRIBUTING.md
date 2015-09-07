@@ -40,16 +40,16 @@ festlegen (mindestens das `SNAPSHOT` entfernen). Das Änderungsprotokoll
 ausführen sowie das Distributionspaket und die Projektseite prüfen:
 
     mvn install
-    mvn assembly:single
     mvn site
+    mvn assembly:single
 
 Wenn alles in Ordnung ist, den Branch in den `master`-Branch mergen und mit
 GitHub synchronisieren. Aus dem `master`-Branch heraus das Distributionspaket
 und die Projektseite erzeugen:
 
     mvn install
-    mvn assembly:single
     mvn site
+    mvn assembly:single
 
 In GitHub ein neues Release anlegen und den `master`-Branch zu Tagen auswählen.
 Als Tag wird die Version mit dem Präfix "v" genommen, also zum Beispiel v1.2.3.

@@ -43,11 +43,6 @@
             <destName>LIESMICH.txt</destName>
         </file>
         <file>
-            <source>${project.build.directory}/announcement/CHANGES.md</source>
-            <outputDirectory>${project.artifactId}/</outputDirectory>
-            <destName>AENDERUNGSPROTOKOLL.txt</destName>
-        </file>
-        <file>
             <source>${project.basedir}/LICENSE.txt</source>
             <outputDirectory>${project.artifactId}/</outputDirectory>
             <destName>${project.artifactId}-MIT-Lizenz.txt</destName>
@@ -91,5 +86,12 @@
         </file>
 
     </files>
+
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/site</directory>
+            <outputDirectory>${project.artifactId}/docs</outputDirectory>
+        </fileSet>
+    </fileSets>
 
 </assembly>
