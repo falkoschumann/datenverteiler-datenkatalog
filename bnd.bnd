@@ -1,3 +1,9 @@
 -exportcontents: \
-	de.bsvrz.sys.funclib.datenkatalog.bind
+    de.muspell.datenverteiler.datenkatalog.bind, \
+    de.muspell.datenverteiler.datenkatalog.datenverteiler, \
+    de.muspell.datenverteiler.datenkatalog.flow, \
+    de.muspell.datenverteiler.datenkatalog.util
 -sources: true
+
+Bundle-Name: Funktionsbibliothek Datenkatalog
+Bundle-SymbolicName: de.muspellheim.datenverteiler.datenkatalog

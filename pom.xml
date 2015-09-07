@@ -9,9 +9,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.bsvrz.sys</groupId>
-    <artifactId>de.bsvrz.sys.funclib.datenkatalog</artifactId>
-    <version>2.2.1-SNAPSHOT</version>
+    <groupId>de.muspellheim</groupId>
+    <artifactId>datenverteiler-datenkatalog</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
 
     <name>Funktionsbibliothek Datenkatalog</name>
     <description>
@@ -41,12 +41,6 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
             <groupId>de.bsvrz.puk</groupId>
             <artifactId>de.bsvrz.puk.config</artifactId>
             <version>${kernsoftware.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>de.muspellheim</groupId>
-            <artifactId>flowdesign</artifactId>
-            <version>3.0.0</version>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -239,34 +233,8 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>2.11</version>
-                <configuration>
-                    <template>announcement.vm</template>
-                    <templateDirectory>announcements</templateDirectory>
-                    <announcementFile>CHANGES.md</announcementFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>announcement-generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>2.8.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
                 <version>3.4</version>
-                <configuration>
-                    <skipDeploy>true</skipDeploy>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -313,22 +281,6 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>0.11</version>
-                <configuration>
-                    <message>Projektseite für Version ${project.version} erzeugt</message>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>site-deploy</phase>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 
@@ -338,13 +290,6 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>2.8</version>
-                <configuration>
-                    <!--
-                        Ohne die folgende Option, wird beim Erstellen der Projektseite eine Warnung ausgegeben, dass die
-                        URL http://falkoschumann.github.io/maven-repository/releases/ als Repository ungültig sei.
-                      -->
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
