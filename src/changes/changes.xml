@@ -16,6 +16,12 @@
     </properties>
 
     <body>
+        <release version="3.0.1" date="2015-09-08" description="Platzhalter für nächste Veröffentlichung">
+            <action dev="falkoschumann" type="fix">
+        Lorem ipsum.
+            </action>
+        </release>
+
         <release version="3.0.0" date="2015-09-08" description="Neuer Namensraum für Pakete">
             <action dev="falkoschumann" type="update" issue="31">
         Die Methode `toString`wird jetzt mit `StringBuilder` implementiert.
