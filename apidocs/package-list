@@ -1,4 +1,3 @@
-de.bsvrz.sys.funclib.datenkatalog.bind
-de.bsvrz.sys.funclib.datenkatalog.datenverteiler
-de.bsvrz.sys.funclib.datenkatalog.flow
-de.bsvrz.sys.funclib.datenkatalog.util
+de.muspellheim.datenverteiler.datenkatalog.bind
+de.muspellheim.datenverteiler.datenkatalog.datenverteiler
+de.muspellheim.datenverteiler.datenkatalog.util

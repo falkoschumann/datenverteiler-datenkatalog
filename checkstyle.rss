@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015</copyright>
     <item>
-      <title>File: 71,
+      <title>File: 66,
              Errors: 0,
              Warnings: 17,
-             Infos: 108
+             Infos: 100
       </title>
             <link>https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html</link>
       <description>
@@ -46,7 +46,119 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.VerkehrsDatenLangZeitMSV.java">de/bsvrz/sys/funclib/datenkatalog/modell/VerkehrsDatenLangZeitMSV.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.FloatAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/FloatAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.UfdsHelligkeit.java">de/muspellheim/datenverteiler/datenkatalog/modell/UfdsHelligkeit.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.DataBindingException.java">de/muspellheim/datenverteiler/datenkatalog/bind/DataBindingException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.AttributgruppenDefinition.java">de/muspellheim/datenverteiler/datenkatalog/bind/AttributgruppenDefinition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.AttributfeldDefinition.java">de/muspellheim/datenverteiler/datenkatalog/bind/AttributfeldDefinition.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.StatusExterneErfassung.java">de/muspellheim/datenverteiler/datenkatalog/modell/StatusExterneErfassung.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.Guete.java">de/muspellheim/datenverteiler/datenkatalog/modell/Guete.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.Ignorieren.java">de/muspellheim/datenverteiler/datenkatalog/bind/Ignorieren.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.VerkehrsDatenLangZeitMSV.java">de/muspellheim/datenverteiler/datenkatalog/modell/VerkehrsDatenLangZeitMSV.java</a>
                 </td>
                 <td>
                   15
@@ -60,7 +172,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributDefinition.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.Zeitstempel.java">de/muspellheim/datenverteiler/datenkatalog/bind/Zeitstempel.java</a>
                 </td>
                 <td>
                   0
@@ -74,7 +186,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Unmarshaller.java">de/bsvrz/sys/funclib/datenkatalog/bind/Unmarshaller.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.BooleanAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/BooleanAttributAdapter.java</a>
                 </td>
                 <td>
                   0
@@ -88,7 +200,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.MultiplikatorAdapter.java">de/bsvrz/sys/funclib/datenkatalog/modell/MultiplikatorAdapter.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.WerteBereichsEigenschaften.java">de/muspellheim/datenverteiler/datenkatalog/modell/WerteBereichsEigenschaften.java</a>
                 </td>
                 <td>
                   0
@@ -102,12 +214,166 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Datenverteiler.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Datenverteiler.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.Marshaller.java">de/muspellheim/datenverteiler/datenkatalog/bind/Marshaller.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.CodeBeispieleInDokumentationIT.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/CodeBeispieleInDokumentationIT.java</a>
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.IntegerAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/IntegerAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.AttributlistenAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/AttributlistenAttributAdapter.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.ZustandAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/ZustandAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.DatenverteilerTest.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/DatenverteilerTest.java</a>
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.AchsLastMessStelle.java">de/muspellheim/datenverteiler/datenkatalog/modell/AchsLastMessStelle.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.LongAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/LongAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.util.package-info.java">de/muspellheim/datenverteiler/datenkatalog/util/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.ObjektreferenzAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/ObjektreferenzAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.DatenverteilerImpl.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/DatenverteilerImpl.java</a>
                 </td>
                 <td>
                   10
                 </td>
                 <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.ByteAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/ByteAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
                   0
                 </td>
                 <td>
@@ -116,7 +382,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Status.java">de/bsvrz/sys/funclib/datenkatalog/modell/Status.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.AbstractDatenkatalogIT.java">de/muspellheim/datenverteiler/datenkatalog/AbstractDatenkatalogIT.java</a>
                 </td>
                 <td>
                   0
@@ -130,10 +396,10 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.IsDataEqual.java">de/bsvrz/sys/funclib/datenkatalog/IsDataEqual.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.ZeitstempelAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/ZeitstempelAttributAdapter.java</a>
                 </td>
                 <td>
-                  6
+                  2
                 </td>
                 <td>
                   1
@@ -144,91 +410,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.package-info.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StatusMessWertErsetzung.java">de/bsvrz/sys/funclib/datenkatalog/modell/StatusMessWertErsetzung.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.FloatAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/FloatAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.LongAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/LongAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.util.Doubles.java">de/bsvrz/sys/funclib/datenkatalog/util/Doubles.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.AchsLastMessStelle.java">de/bsvrz/sys/funclib/datenkatalog/modell/AchsLastMessStelle.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributfeldAttributAdapter.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.AttributfeldAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/AttributfeldAttributAdapter.java</a>
                 </td>
                 <td>
                   7
@@ -242,7 +424,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.UfdsHelligkeit.java">de/bsvrz/sys/funclib/datenkatalog/modell/UfdsHelligkeit.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.Context.java">de/muspellheim/datenverteiler/datenkatalog/bind/Context.java</a>
                 </td>
                 <td>
                   0
@@ -256,49 +438,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StauVerlauf.java">de/bsvrz/sys/funclib/datenkatalog/modell/StauVerlauf.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StraßenTeilSegment.java">de/bsvrz/sys/funclib/datenkatalog/modell/StraßenTeilSegment.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.CodeBeispieleInDokumentationIT.java">de/bsvrz/sys/funclib/datenkatalog/bind/CodeBeispieleInDokumentationIT.java</a>
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Foobar.java">de/bsvrz/sys/funclib/datenkatalog/modell/Foobar.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.Helligkeit.java">de/muspellheim/datenverteiler/datenkatalog/modell/Helligkeit.java</a>
                 </td>
                 <td>
                   0
@@ -312,7 +452,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributfeldDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributfeldDefinition.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.StauVerlauf.java">de/muspellheim/datenverteiler/datenkatalog/modell/StauVerlauf.java</a>
                 </td>
                 <td>
                   0
@@ -326,7 +466,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Context.java">de/bsvrz/sys/funclib/datenkatalog/bind/Context.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.AttributDefinition.java">de/muspellheim/datenverteiler/datenkatalog/bind/AttributDefinition.java</a>
                 </td>
                 <td>
                   0
@@ -340,35 +480,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.StandardAttributAdapterFactory.java">de/bsvrz/sys/funclib/datenkatalog/bind/StandardAttributAdapterFactory.java</a>
-                </td>
-                <td>
-                  3
-                </td>
-                <td>
-                  7
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.CodeBeispieleInDokumentationIT.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/CodeBeispieleInDokumentationIT.java</a>
-                </td>
-                <td>
-                  6
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ObjektreferenzAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ObjektreferenzAttributAdapter.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.MessQuerschnittTyp.java">de/muspellheim/datenverteiler/datenkatalog/modell/MessQuerschnittTyp.java</a>
                 </td>
                 <td>
                   0
@@ -382,133 +494,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.StringAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/StringAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.DoubleAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/DoubleAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Ignorieren.java">de/bsvrz/sys/funclib/datenkatalog/bind/Ignorieren.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ZustandAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ZustandAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.flow.FlowApplikationStarter.java">de/bsvrz/sys/funclib/datenkatalog/flow/FlowApplikationStarter.java</a>
-                </td>
-                <td>
-                  3
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.DataBindingException.java">de/bsvrz/sys/funclib/datenkatalog/bind/DataBindingException.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.flow.package-info.java">de/bsvrz/sys/funclib/datenkatalog/flow/package-info.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributlistenAttributAdapter.java</a>
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StatusPlausibilitaetsPruefungFormal.java">de/bsvrz/sys/funclib/datenkatalog/modell/StatusPlausibilitaetsPruefungFormal.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.util.SingleObjektFabrikTest.java">de/bsvrz/sys/funclib/datenkatalog/util/SingleObjektFabrikTest.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.util.SingleObjektFabrikTest.java">de/muspellheim/datenverteiler/datenkatalog/util/SingleObjektFabrikTest.java</a>
                 </td>
                 <td>
                   5
@@ -522,7 +508,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.MessQuerschnittAllgemein.java">de/bsvrz/sys/funclib/datenkatalog/modell/MessQuerschnittAllgemein.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.AttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/AttributAdapter.java</a>
                 </td>
                 <td>
                   0
@@ -536,153 +522,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ByteAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ByteAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.flow.Configurable.java">de/bsvrz/sys/funclib/datenkatalog/flow/Configurable.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.flow.EntryPoint.java">de/bsvrz/sys/funclib/datenkatalog/flow/EntryPoint.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ZeitstempelAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ZeitstempelAttributAdapter.java</a>
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.BooleanAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/BooleanAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.ShortAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/ShortAttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributAdapter.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Datensatz.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Datensatz.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Empfaenger.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Empfaenger.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.DatenverteilerImpl.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/DatenverteilerImpl.java</a>
-                </td>
-                <td>
-                  10
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.StandardAttributAdapterFactory.java">de/muspellheim/datenverteiler/datenkatalog/bind/StandardAttributAdapterFactory.java</a>
                 </td>
                 <td>
                   3
                 </td>
                 <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.Empfaengeroption.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/Empfaengeroption.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  7
                 </td>
                 <td>
                   0
@@ -690,7 +536,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.IntegerAttributAdapter.java">de/bsvrz/sys/funclib/datenkatalog/bind/IntegerAttributAdapter.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.MessQuerschnittAllgemein.java">de/muspellheim/datenverteiler/datenkatalog/modell/MessQuerschnittAllgemein.java</a>
                 </td>
                 <td>
                   0
@@ -704,7 +550,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.MessQuerschnittTyp.java">de/bsvrz/sys/funclib/datenkatalog/modell/MessQuerschnittTyp.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.Unmarshaller.java">de/muspellheim/datenverteiler/datenkatalog/bind/Unmarshaller.java</a>
                 </td>
                 <td>
                   0
@@ -718,7 +564,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.DatenkatalogMatchers.java">de/bsvrz/sys/funclib/datenkatalog/DatenkatalogMatchers.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.Status.java">de/muspellheim/datenverteiler/datenkatalog/modell/Status.java</a>
                 </td>
                 <td>
                   0
@@ -732,7 +578,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.AbstractDatenkatalogIT.java">de/bsvrz/sys/funclib/datenkatalog/AbstractDatenkatalogIT.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.BilanzVerkehrsStaerke.java">de/muspellheim/datenverteiler/datenkatalog/modell/BilanzVerkehrsStaerke.java</a>
                 </td>
                 <td>
                   0
@@ -746,49 +592,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.GueteVerfahren.java">de/bsvrz/sys/funclib/datenkatalog/modell/GueteVerfahren.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StatusExterneErfassung.java">de/bsvrz/sys/funclib/datenkatalog/modell/StatusExterneErfassung.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.DatenverteilerException.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/DatenverteilerException.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.BindingIT.java">de/bsvrz/sys/funclib/datenkatalog/bind/BindingIT.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.BindingIT.java">de/muspellheim/datenverteiler/datenkatalog/bind/BindingIT.java</a>
                 </td>
                 <td>
                   27
@@ -802,7 +606,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Helligkeit.java">de/bsvrz/sys/funclib/datenkatalog/modell/Helligkeit.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.Datenverteiler.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/Datenverteiler.java</a>
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.ShortAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/ShortAttributAdapter.java</a>
                 </td>
                 <td>
                   0
@@ -816,7 +634,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributlistenDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributlistenDefinition.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.AttributlistenDefinition.java">de/muspellheim/datenverteiler/datenkatalog/bind/AttributlistenDefinition.java</a>
                 </td>
                 <td>
                   0
@@ -830,7 +648,63 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.datenverteiler.DatenverteilerTest.java">de/bsvrz/sys/funclib/datenkatalog/datenverteiler/DatenverteilerTest.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.Zustand.java">de/muspellheim/datenverteiler/datenkatalog/bind/Zustand.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.Empfaengeroption.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/Empfaengeroption.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.DatenkatalogMatchers.java">de/muspellheim/datenverteiler/datenkatalog/DatenkatalogMatchers.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.Empfaenger.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/Empfaenger.java</a>
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.CodeBeispieleInDokumentationIT.java">de/muspellheim/datenverteiler/datenkatalog/bind/CodeBeispieleInDokumentationIT.java</a>
                 </td>
                 <td>
                   2
@@ -844,7 +718,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.Guete.java">de/bsvrz/sys/funclib/datenkatalog/modell/Guete.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.util.Doubles.java">de/muspellheim/datenverteiler/datenkatalog/util/Doubles.java</a>
                 </td>
                 <td>
                   0
@@ -858,7 +732,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.util.SingleObjektFabrik.java">de/bsvrz/sys/funclib/datenkatalog/util/SingleObjektFabrik.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.Foobar.java">de/muspellheim/datenverteiler/datenkatalog/modell/Foobar.java</a>
                 </td>
                 <td>
                   0
@@ -872,7 +746,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.package-info.java">de/bsvrz/sys/funclib/datenkatalog/bind/package-info.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.StatusPlausibilitaetsPruefungFormal.java">de/muspellheim/datenverteiler/datenkatalog/modell/StatusPlausibilitaetsPruefungFormal.java</a>
                 </td>
                 <td>
                   0
@@ -886,7 +760,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Zustand.java">de/bsvrz/sys/funclib/datenkatalog/bind/Zustand.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.package-info.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -900,7 +774,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.BilanzVerkehrsStaerke.java">de/bsvrz/sys/funclib/datenkatalog/modell/BilanzVerkehrsStaerke.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.StauVerlaufPrognoseSchritt.java">de/muspellheim/datenverteiler/datenkatalog/modell/StauVerlaufPrognoseSchritt.java</a>
                 </td>
                 <td>
                   0
@@ -914,7 +788,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Zeitstempel.java">de/bsvrz/sys/funclib/datenkatalog/bind/Zeitstempel.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.LinienKoordinaten.java">de/muspellheim/datenverteiler/datenkatalog/modell/LinienKoordinaten.java</a>
                 </td>
                 <td>
                   0
@@ -928,7 +802,21 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Marshaller.java">de/bsvrz/sys/funclib/datenkatalog/bind/Marshaller.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.IsDataEqual.java">de/muspellheim/datenverteiler/datenkatalog/IsDataEqual.java</a>
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.Datensatz.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/Datensatz.java</a>
                 </td>
                 <td>
                   0
@@ -942,7 +830,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.AttributgruppenDefinition.java">de/bsvrz/sys/funclib/datenkatalog/bind/AttributgruppenDefinition.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.StringAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/StringAttributAdapter.java</a>
                 </td>
                 <td>
                   0
@@ -956,7 +844,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.util.package-info.java">de/bsvrz/sys/funclib/datenkatalog/util/package-info.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.GueteVerfahren.java">de/muspellheim/datenverteiler/datenkatalog/modell/GueteVerfahren.java</a>
                 </td>
                 <td>
                   0
@@ -970,7 +858,91 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.WerteBereichsEigenschaften.java">de/bsvrz/sys/funclib/datenkatalog/modell/WerteBereichsEigenschaften.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.DoubleAttributAdapter.java">de/muspellheim/datenverteiler/datenkatalog/bind/DoubleAttributAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.StatusMessWertErsetzung.java">de/muspellheim/datenverteiler/datenkatalog/modell/StatusMessWertErsetzung.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.DatenverteilerException.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/DatenverteilerException.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.util.SingleObjektFabrik.java">de/muspellheim/datenverteiler/datenkatalog/util/SingleObjektFabrik.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.package-info.java">de/muspellheim/datenverteiler/datenkatalog/bind/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.MultiplikatorAdapter.java">de/muspellheim/datenverteiler/datenkatalog/modell/MultiplikatorAdapter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.bind.Pojo.java">de/muspellheim/datenverteiler/datenkatalog/bind/Pojo.java</a>
                 </td>
                 <td>
                   1
@@ -984,49 +956,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.LinienKoordinaten.java">de/bsvrz/sys/funclib/datenkatalog/modell/LinienKoordinaten.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.modell.StauVerlaufPrognoseSchritt.java">de/bsvrz/sys/funclib/datenkatalog/modell/StauVerlaufPrognoseSchritt.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.bind.Pojo.java">de/bsvrz/sys/funclib/datenkatalog/bind/Pojo.java</a>
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.bsvrz.sys.funclib.datenkatalog.flow.FlowApplikation.java">de/bsvrz/sys/funclib/datenkatalog/flow/FlowApplikation.java</a>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.modell.StraßenTeilSegment.java">de/muspellheim/datenverteiler/datenkatalog/modell/StraßenTeilSegment.java</a>
                 </td>
                 <td>
                   1
