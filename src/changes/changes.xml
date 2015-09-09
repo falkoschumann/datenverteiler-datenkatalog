@@ -16,6 +16,14 @@
     </properties>
 
     <body>
+        <release version="3.0.1" date="2015-09-09" description="Bugfix Build">
+            <action dev="falkoschumann" type="fix">
+        Das letzte Release wurde versehentlich mit von Cobertura
+    instrumentierten Bytecode ausgeliefert.
+
+            </action>
+        </release>
+
         <release version="3.0.0" date="2015-09-08" description="Neuer Namensraum für Pakete">
             <action dev="falkoschumann" type="update" issue="31">
         Die Methode `toString`wird jetzt mit `StringBuilder` implementiert.
