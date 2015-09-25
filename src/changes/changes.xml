@@ -16,11 +16,28 @@
     </properties>
 
     <body>
+        <release version="3.0.2" date="2015-09-25" description="Platzhalter">
+            <action dev="falkoschumann" type="fix" issue="34">
+        Der Name eines Empfängerthreads enthält nur noch den Klassennamen, nicht
+    mehr das Paket.
+            </action>
+            <action dev="falkoschumann" type="fix">
+        Beim Anmelden auf Parameter wird nicht mehr gewartet, bis Parameterdaten
+    empfangen wurden, bevor die Anmeldemethode wieder verlassen wird. Das Warten
+    führt durch Synchronisierung innerhalb einer Anwendung (nicht in der
+    Bibliothek Datenkatalog) zu nicht behebbaren unnötigen Wartepausen.
+            </action>
+            <action dev="falkoschumann" type="fix">
+        Mehrere Empfangsanmeldungen mit dem selben Empfänger, aber
+    unterschiedlichen Objekten und/oder Attributgruppen wurden nicht
+    durchgeführt.
+            </action>
+        </release>
+
         <release version="3.0.1" date="2015-09-09" description="Bugfix Build">
             <action dev="falkoschumann" type="fix">
         Das letzte Release wurde versehentlich mit von Cobertura
     instrumentierten Bytecode ausgeliefert.
-
             </action>
         </release>
 

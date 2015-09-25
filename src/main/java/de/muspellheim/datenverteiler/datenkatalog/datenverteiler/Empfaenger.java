@@ -25,8 +25,8 @@ import java.util.function.Consumer;
  * <p>Um die Verteilung der Datensätze durch die Datenverteiler-Applikationsfunktionen nicht zu blockieren, werden die
  * empfangenen Datensätze in einer Warteschlange eingereiht und in einem eigenen Thread weiterverarbeitet.</p>
  *
- * @author Falko Schumann
  * @param <T> der Typ der empfangenen Daten.
+ * @author Falko Schumann
  * @since 1.2
  */
 public class Empfaenger<T> implements ClientReceiverInterface {
@@ -35,17 +35,16 @@ public class Empfaenger<T> implements ClientReceiverInterface {
     private final BlockingQueue<ResultData> warteschlange = new LinkedBlockingQueue<>();
 
     private final Context context;
-    private final Class<T> clazz;
+    private Empfaengeranmeldung<T> anmeldung;
 
     /**
      * Initialisiert den Empfänger mit dem Kontext des Databindings und des Typs der Daten.
      */
-    public Empfaenger(Context context, Class<T> clazz) {
+    public Empfaenger(Context context, Empfaengeranmeldung<T> anmeldung) {
         this.context = context;
-        this.clazz = clazz;
+        this.anmeldung = anmeldung;
 
-        // TODO Mehrere Threads in einem Threadpool nutzen?
-        Thread t = new Thread(this::veroeffentlicheNeueDatensaetze, "Empfänger für Daten vom Typ " + clazz.getName());
+        Thread t = new Thread(this::veroeffentlicheNeueDatensaetze, "Empfänger für " + anmeldung);
         t.setDaemon(true);
         t.start();
     }
@@ -81,7 +80,7 @@ public class Empfaenger<T> implements ClientReceiverInterface {
     }
 
     private void veroeffentlicheDatensatz(Consumer<Datensatz<T>> c, ResultData rd) {
-        T datum = context.createUnmarshaller().unmarshal(rd.getData(), clazz);
+        T datum = context.createUnmarshaller().unmarshal(rd.getData(), anmeldung.getDatumTyp());
         LocalDateTime zeitstempel = LocalDateTime.ofInstant(Instant.ofEpochMilli(rd.getDataTime()), ZoneId.systemDefault());
         Datensatz<T> datensatz = Datensatz.of(rd.getObject(), datum, rd.getDataDescription().getAspect(), zeitstempel);
         c.accept(datensatz);

@@ -16,10 +16,6 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
 /**
@@ -30,7 +26,7 @@ import java.util.function.Consumer;
  */
 public class DatenverteilerImpl implements Datenverteiler {
 
-    private final Map<Consumer, Empfaenger> empfaengerliste = new LinkedHashMap<>();
+    private final Map<Empfaengeranmeldung, Empfaenger> empfaengerliste = new LinkedHashMap<>();
     private final ClientSenderInterface sender = new Sender();
 
     private final ClientDavInterface dav;
@@ -95,11 +91,10 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        if (!empfaengerliste.containsKey(empfaenger)) {
-            empfaengerliste.put(empfaenger, new Empfaenger<>(context, datumTyp));
-            empfaengerliste.get(empfaenger).connectConsumer(empfaenger);
-            dav.subscribeReceiver(empfaengerliste.get(empfaenger), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
-        }
+        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(empfaenger, objekte, datumTyp, aspekt);
+        empfaengerliste.put(anmeldung, new Empfaenger<>(context, anmeldung));
+        empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
+        dav.subscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
     }
 
     @Override
@@ -127,29 +122,17 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        if (empfaengerliste.containsKey(empfaenger)) {
-            empfaengerliste.get(empfaenger).disconnectConsumer(empfaenger);
-            dav.unsubscribeReceiver(empfaengerliste.get(empfaenger), objekte, getDataDescription(datumTyp, aspekt));
-            empfaengerliste.remove(empfaenger);
+        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(empfaenger, objekte, datumTyp, aspekt);
+        if (empfaengerliste.containsKey(anmeldung)) {
+            empfaengerliste.get(anmeldung).disconnectConsumer(empfaenger);
+            dav.unsubscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt));
+            empfaengerliste.remove(anmeldung);
         }
     }
 
     @Override
     public <T> void anmeldenAufParameter(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp) {
-        Objects.requireNonNull(empfaenger, "empfaenger");
-        Objects.requireNonNull(objekte, "objekte");
-        Objects.requireNonNull(datumTyp, "datumTyp");
-
-        ParameterEmpfaenger<T> parameterEmpfaenger = new ParameterEmpfaenger<>(empfaenger, objekte);
-        parameterEmpfaenger.getLock().lock();
-        try {
-            anmeldenAlsEmpfaenger(parameterEmpfaenger, objekte, datumTyp, getParameterSoll(), Empfaengeroption.NORMAL);
-            parameterEmpfaenger.getErsterDatensatzEmpfangen().await(1, TimeUnit.MINUTES);
-        } catch (InterruptedException ignored) {
-            // nothing to do
-        } finally {
-            parameterEmpfaenger.getLock().unlock();
-        }
+        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, getParameterSoll(), Empfaengeroption.NORMAL);
     }
 
     private Aspect getParameterSoll() {
@@ -254,49 +237,6 @@ public class DatenverteilerImpl implements Datenverteiler {
         @Override
         public boolean isRequestSupported(SystemObject object, DataDescription dataDescription) {
             return false;
-        }
-
-    }
-
-    private static class ParameterEmpfaenger<T> implements Consumer<Datensatz<T>> {
-
-        private final Lock lock = new ReentrantLock();
-        private final Condition ersterDatensatzEmpfangen = lock.newCondition();
-
-        private final Consumer<Datensatz<T>> empfaenger;
-        private final Set<SystemObject> objekte;
-
-        ParameterEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte) {
-            this.empfaenger = empfaenger;
-            this.objekte = new LinkedHashSet<>(objekte);
-        }
-
-        Lock getLock() {
-            return lock;
-        }
-
-        Condition getErsterDatensatzEmpfangen() {
-            return ersterDatensatzEmpfangen;
-        }
-
-        @Override
-        public void accept(Datensatz<T> datensatz) {
-            empfaenger.accept(datensatz);
-            benachrichteWennAlleParameterEinmalEmpfangenWurden(datensatz);
-        }
-
-        private void benachrichteWennAlleParameterEinmalEmpfangenWurden(Datensatz<T> datensatz) {
-            lock.lock();
-            try {
-                if (objekte.isEmpty())
-                    return;
-
-                objekte.remove(datensatz.getObjekt());
-                if (objekte.isEmpty())
-                    ersterDatensatzEmpfangen.signal();
-            } finally {
-                lock.unlock();
-            }
         }
 
     }
