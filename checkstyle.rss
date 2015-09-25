@@ -25,10 +25,10 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2015</copyright>
     <item>
-      <title>File: 66,
+      <title>File: 67,
              Errors: 0,
-             Warnings: 17,
-             Infos: 100
+             Warnings: 16,
+             Infos: 101
       </title>
             <link>https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html</link>
       <description>
@@ -176,6 +176,20 @@ under the License.
                 </td>
                 <td>
                   0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/falkoschumann/datenverteiler-datenkatalog/checkstyle.html#de.muspellheim.datenverteiler.datenkatalog.datenverteiler.Empfaengeranmeldung.java">de/muspellheim/datenverteiler/datenkatalog/datenverteiler/Empfaengeranmeldung.java</a>
+                </td>
+                <td>
+                  1
                 </td>
                 <td>
                   0
@@ -360,7 +374,7 @@ under the License.
                   10
                 </td>
                 <td>
-                  3
+                  2
                 </td>
                 <td>
                   0
