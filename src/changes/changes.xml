@@ -16,7 +16,7 @@
     </properties>
 
     <body>
-        <release version="3.0.2" date="2015-09-25" description="Platzhalter">
+        <release version="3.0.2" date="2015-09-25" description="Bugfixes">
             <action dev="falkoschumann" type="fix" issue="34">
         Der Name eines Empfängerthreads enthält nur noch den Klassennamen, nicht
     mehr das Paket.
