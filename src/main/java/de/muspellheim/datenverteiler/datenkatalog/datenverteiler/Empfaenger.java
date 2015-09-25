@@ -45,7 +45,7 @@ public class Empfaenger<T> implements ClientReceiverInterface {
         this.clazz = clazz;
 
         // TODO Mehrere Threads in einem Threadpool nutzen?
-        Thread t = new Thread(this::veroeffentlicheNeueDatensaetze, "Empfänger für Daten vom Typ " + clazz.getName());
+        Thread t = new Thread(this::veroeffentlicheNeueDatensaetze, "Empfänger für Daten vom Typ " + clazz.getSimpleName());
         t.setDaemon(true);
         t.start();
     }
