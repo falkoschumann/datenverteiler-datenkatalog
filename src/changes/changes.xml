@@ -27,6 +27,11 @@
     führt durch Synchronisierung innerhalb einer Anwendung (nicht in der
     Bibliothek Datenkatalog) zu nicht behebbaren unnötigen Wartepausen.
             </action>
+            <action dev="falkoschumann" type="fix">
+        Mehrere Empfangsanmeldungen mit dem selben Empfänger, aber
+    unterschiedlichen Objekten und/oder Attributgruppen wurden nicht
+    durchgeführt.
+            </action>
         </release>
 
         <release version="3.0.1" date="2015-09-09" description="Bugfix Build">

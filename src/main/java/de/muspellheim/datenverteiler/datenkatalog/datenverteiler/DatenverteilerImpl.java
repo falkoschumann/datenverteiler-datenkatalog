@@ -26,7 +26,7 @@ import java.util.function.Consumer;
  */
 public class DatenverteilerImpl implements Datenverteiler {
 
-    private final Map<Consumer, Empfaenger> empfaengerliste = new LinkedHashMap<>();
+    private final Map<Empfaengeranmeldung, Empfaenger> empfaengerliste = new LinkedHashMap<>();
     private final ClientSenderInterface sender = new Sender();
 
     private final ClientDavInterface dav;
@@ -91,11 +91,10 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        if (!empfaengerliste.containsKey(empfaenger)) {
-            empfaengerliste.put(empfaenger, new Empfaenger<>(context, datumTyp));
-            empfaengerliste.get(empfaenger).connectConsumer(empfaenger);
-            dav.subscribeReceiver(empfaengerliste.get(empfaenger), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
-        }
+        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(empfaenger, objekte, datumTyp, aspekt);
+        empfaengerliste.put(anmeldung, new Empfaenger<>(context, anmeldung));
+        empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
+        dav.subscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
     }
 
     @Override
@@ -123,10 +122,11 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        if (empfaengerliste.containsKey(empfaenger)) {
-            empfaengerliste.get(empfaenger).disconnectConsumer(empfaenger);
-            dav.unsubscribeReceiver(empfaengerliste.get(empfaenger), objekte, getDataDescription(datumTyp, aspekt));
-            empfaengerliste.remove(empfaenger);
+        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(empfaenger, objekte, datumTyp, aspekt);
+        if (empfaengerliste.containsKey(anmeldung)) {
+            empfaengerliste.get(anmeldung).disconnectConsumer(empfaenger);
+            dav.unsubscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt));
+            empfaengerliste.remove(anmeldung);
         }
     }
 
