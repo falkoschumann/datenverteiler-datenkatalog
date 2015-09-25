@@ -16,11 +16,16 @@
     </properties>
 
     <body>
+        <release version="3.0.2" date="2015-09-25" description="Platzhalter">
+            <action dev="falkoschumann" type="fix">
+        Lorem ipsum.
+            </action>
+        </release>
+
         <release version="3.0.1" date="2015-09-09" description="Bugfix Build">
             <action dev="falkoschumann" type="fix">
         Das letzte Release wurde versehentlich mit von Cobertura
     instrumentierten Bytecode ausgeliefert.
-
             </action>
         </release>
 
