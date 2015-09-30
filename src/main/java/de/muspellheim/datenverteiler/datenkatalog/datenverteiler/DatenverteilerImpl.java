@@ -91,10 +91,12 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(empfaenger, objekte, datumTyp, aspekt);
-        empfaengerliste.put(anmeldung, new Empfaenger<>(context, anmeldung));
+        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(objekte, datumTyp, aspekt);
+        if (!empfaengerliste.containsKey(anmeldung)) {
+            empfaengerliste.put(anmeldung, new Empfaenger<>(context, datumTyp));
+            dav.subscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
+        }
         empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
-        dav.subscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
     }
 
     @Override
@@ -122,11 +124,13 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(empfaenger, objekte, datumTyp, aspekt);
+        Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(objekte, datumTyp, aspekt);
         if (empfaengerliste.containsKey(anmeldung)) {
             empfaengerliste.get(anmeldung).disconnectConsumer(empfaenger);
-            dav.unsubscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt));
-            empfaengerliste.remove(anmeldung);
+            if (!empfaengerliste.get(anmeldung).hasConsumer()) {
+                dav.unsubscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt));
+                empfaengerliste.remove(anmeldung);
+            }
         }
     }
 

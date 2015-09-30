@@ -16,6 +16,16 @@
     </properties>
 
     <body>
+        <release version="3.0.3" date="2015-09-30" description="Bugfixes">
+            <action dev="falkoschumann" type="fix">
+        Die Empfangsthreads sorgten zu schwer behandelbaren
+    Synchronisationsproblemen, weswegen es nun vorerst keine integrierte
+    Entkopplung mehr zwischen Update-Thread und Applikation gibt. Die
+    Applikation ist jetzt selbst dafür verantwortlich, den Updater-Thread nicht
+    zu lange zu blockieren.
+            </action>
+        </release>
+
         <release version="3.0.2" date="2015-09-25" description="Bugfixes">
             <action dev="falkoschumann" type="fix" issue="34">
         Der Name eines Empfängerthreads enthält nur noch den Klassennamen, nicht
