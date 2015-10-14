@@ -39,6 +39,7 @@ festlegen (mindestens das `SNAPSHOT` entfernen). Das Änderungsprotokoll
 `changes.xml` prüfen und falls noch nicht geschehen ergänzen. Dann die Tests
 ausführen sowie das Distributionspaket und die Projektseite prüfen:
 
+    mvn clean
     mvn site
     mvn install
     mvn assembly:single
@@ -47,6 +48,7 @@ Wenn alles in Ordnung ist, den Branch in den `master`-Branch mergen und mit
 GitHub synchronisieren. Aus dem `master`-Branch heraus das Distributionspaket
 und die Projektseite erzeugen:
 
+    mvn clean
     mvn site
     mvn install
     mvn assembly:single
