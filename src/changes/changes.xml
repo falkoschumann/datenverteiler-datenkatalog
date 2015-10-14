@@ -16,6 +16,13 @@
     </properties>
 
     <body>
+        <release version="3.1.0" date="2015-10-14" description="Kleine Verbesserung">
+            <action dev="falkoschumann" type="add">
+        Die Annotation @Ignorieren kann jetzt auch an Settern verwendet werden.
+    Damit sind auch Write-Only-Properties möglich, die nicht verwaltet werden.
+            </action>
+        </release>
+
         <release version="3.0.3" date="2015-09-30" description="Bugfixes">
             <action dev="falkoschumann" type="fix">
         Die Empfangsthreads sorgten zu schwer behandelbaren

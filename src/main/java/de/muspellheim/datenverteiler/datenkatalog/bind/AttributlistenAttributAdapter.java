@@ -59,7 +59,9 @@ class AttributlistenAttributAdapter implements AttributAdapter {
     }
 
     private static boolean ignorieren(PropertyDescriptor pd) {
-        return "class".equals(pd.getName()) || pd.getReadMethod().getAnnotation(Ignorieren.class) != null;
+        return "class".equals(pd.getName()) ||
+                (pd.getReadMethod() != null && pd.getReadMethod().getAnnotation(Ignorieren.class) != null) ||
+                (pd.getWriteMethod() != null && pd.getWriteMethod().getAnnotation(Ignorieren.class) != null);
     }
 
     private static Data getAttribut(Data data, PropertyDescriptor pd) {
