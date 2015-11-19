@@ -1,0 +1,38 @@
+digraph {
+
+  graph [ranksep=1 nodesep=1];
+  node [fillcolor=yellow shape=rect style=filled ranksep=2 fontname="Arial bold" fontsize=14]
+  edge [arrowhead=vee fontname=Arial fontsize=12]
+
+  Typ -> AttributgruppenVerwendung [label=Attributgruppen color=red fontcolor=red]
+  Typ -> MengenVerwendung [label=Mengen color=red fontcolor=red]
+  Typ -> Typ [label=SuperTypen color=red fontcolor=red]
+
+  MengenVerwendung -> MengenTyp [label=mengenTyp color=blue fontcolor=blue]
+  MengenTyp -> Typ [arrowhead=onormal]
+  MengenTyp -> Typ [label=ObjektTypen color=red fontcolor=red]
+
+  Attributgruppe -> AttributMenge [arrowhead=onormal]
+  AttributgruppenVerwendung -> Attributgruppe [label=Attributgruppe color=blue fontcolor=blue]
+  AttributgruppenVerwendung -> Aspekt [label=Aspekt color=blue fontcolor=blue]
+
+  AttributMenge -> Attribut [label=Attribute color=red fontcolor=red]
+  Attribut -> AttributTyp [label=attributTyp color=blue fontcolor=blue]
+
+  AttributTyp -> GanzzahlAttributTyp [arrowhead=onormal]
+  GanzzahlAttributTyp -> WerteBereich [label=bereich color=blue fontcolor=blue]
+  GanzzahlAttributTyp -> WerteZustand [label=zustände color=red fontcolor=red]
+
+  AttributTyp -> KommazahlAttributTyp [arrowhead=onormal]
+
+  AttributTyp -> ObjektReferenzAttributTyp [arrowhead=onormal]
+  ObjektReferenzAttributTyp -> Typ [label=typ color=blue fontcolor=blue]
+
+  AttributTyp -> ZeichenkettenAttributTyp [arrowhead=onormal]
+
+  AttributTyp -> ZeitstempelAttributTyp [arrowhead=onormal]
+
+  AttributListenDefinition -> AttributTyp [arrowhead=onormal]
+  AttributListenDefinition -> AttributMenge [arrowhead=onormal]
+
+}
