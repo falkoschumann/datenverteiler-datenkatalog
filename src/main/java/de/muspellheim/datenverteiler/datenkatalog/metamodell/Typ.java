@@ -16,8 +16,17 @@ import java.util.Set;
  */
 public class Typ {
 
+    private String name;
     private Set<MengenVerwendung> mengen = new LinkedHashSet<>();
     private Set<Typ> superTypen = new LinkedHashSet<>();
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Führt die Mengen auf, die mit Objekten dieses Typs verwendet werden können oder müssen.
