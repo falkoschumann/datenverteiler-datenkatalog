@@ -6,6 +6,8 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.MengenTyp;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.MengenVerwendung;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Typ;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -73,6 +75,13 @@ public class DiagrammGenerator {
         Typ netzBestandTeil = new Typ();
         netzBestandTeil.setName("NetzBestandTeil");
         netz.getSuperTypen().add(netzBestandTeil);
+
+        MengenVerwendung menge = new MengenVerwendung();
+        menge.setMengenName("NetzBestandTeile");
+        MengenTyp mengenTyp = new MengenTyp();
+        mengenTyp.getObjektTypen().add(netzBestandTeil);
+        menge.setMengenTyp(mengenTyp);
+        netz.getMengen().add(menge);
 
         return netz;
     }

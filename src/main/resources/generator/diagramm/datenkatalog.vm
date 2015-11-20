@@ -5,8 +5,13 @@ digraph {
     edge [arrowhead=vee fontname=Arial fontsize=12]
 
 #foreach( $typ in $konfigurationsbereich.getTypen() )
-#foreach( $e in $typ.getSuperTypen() )
-    $typ.getName() -> $e.getName() [arrowhead=onormal]
+#foreach( $superTyp in $typ.getSuperTypen() )
+    $typ.getName() -> $superTyp.getName() [arrowhead=onormal]
+#end
+#foreach( $mengenVerwendung in $typ.getMengen() )
+#foreach( $objektTyp in $mengenVerwendung.getMengenTyp().getObjektTypen() )
+    $typ.getName() -> $objektTyp.getName() [label=$mengenVerwendung.getMengenName() color=red fontcolor=red]
+#end
 #end
 #end
 
