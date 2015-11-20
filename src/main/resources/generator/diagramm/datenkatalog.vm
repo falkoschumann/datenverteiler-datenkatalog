@@ -1,0 +1,13 @@
+digraph {
+
+    graph [ranksep=1 nodesep=1];
+    node [fillcolor=yellow shape=rect style=filled ranksep=2 fontname="Arial bold" fontsize=14]
+    edge [arrowhead=vee fontname=Arial fontsize=12]
+
+#foreach( $typ in $konfigurationsbereich.getTypen() )
+#foreach( $e in $typ.getSuperTypen() )
+    $typ.getName() -> $e.getName() [arrowhead=onormal]
+#end
+#end
+
+}
