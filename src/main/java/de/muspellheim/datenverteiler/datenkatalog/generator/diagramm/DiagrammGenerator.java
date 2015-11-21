@@ -16,21 +16,25 @@ import org.apache.velocity.exception.MethodInvocationException;
 import org.apache.velocity.exception.ParseErrorException;
 import org.apache.velocity.exception.ResourceNotFoundException;
 
-import java.io.FileWriter;
-import java.io.StringWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /**
  * Ein Generator für Überblicksdiagramme des Datenkatalogs.
  * <p>
- * Der Generator erzeugt eine DOT-Datei, die mit GraphViz dargestellt, gedruckt oder in andere Dateiformate umgewandelt
- * werden kann.
+ * Der Generator erzeugt eine DOT-Datei, die mit <a href="http://www.graphviz.org">GraphViz</a> dargestellt, gedruckt
+ * oder in andere Dateiformate umgewandelt werden kann.
  * </p>
  *
  * @author Falko Schumann
- * @see http://www.graphviz.org
  * @since 3.2
  */
-public class DiagrammGenerator {
+public final class DiagrammGenerator {
+
+    private DiagrammGenerator() {
+        // main class
+    }
 
     public static void main(String args[]) throws Exception {
         Velocity.setProperty("resource.loader", "class");
@@ -51,10 +55,11 @@ public class DiagrammGenerator {
             // something invoked in the template
             // threw an exception
         } catch (Exception e) {
+            // other
         }
 
         //StringWriter writer = new StringWriter();
-        FileWriter writer = new FileWriter("target/diagramm.dot");
+        Writer writer = new OutputStreamWriter(new FileOutputStream("target/diagramm.dot"), "UTF-8");
         template.merge(context, writer);
         writer.close();
         //System.out.println(writer);
