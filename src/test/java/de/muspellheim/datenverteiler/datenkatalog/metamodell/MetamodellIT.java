@@ -45,11 +45,9 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         netzBestandTeil.setName("NetzBestandTeil");
         netzBestandTeil.getSuperTypen().add(stoerfallIndikator);
 
-        MengenTyp mengeNetzBestandTeile = new MengenTyp();
-        mengeNetzBestandTeile.getObjektTypen().add(netzBestandTeil);
         MengenVerwendung netzBestandTeile = new MengenVerwendung();
         netzBestandTeile.setMengenName("NetzBestandTeile");
-        netzBestandTeile.setMengenTyp(mengeNetzBestandTeile);
+        netzBestandTeile.getObjektTypen().add(netzBestandTeil);
 
         Typ netz = metamodell.getTyp("typ.netz");
 

@@ -54,12 +54,7 @@ public class Metamodell {
         Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
         MengenVerwendung result = new MengenVerwendung();
         result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
-        result.setMengenTyp(getMengenTyp(eigenschaften.getReferenceValue("mengenTyp").getSystemObject()));
-        return result;
-    }
-
-    private MengenTyp getMengenTyp(SystemObject mengenTyp) {
-        MengenTyp result = new MengenTyp();
+        SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
         ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
         cMengenTyp.getNonMutableSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp(t)));
         return result;
