@@ -5,6 +5,8 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import java.util.Objects;
+
 /**
  * Beschreibt die Verwendung einer MengenDefinition bei einer TypDefinition.
  *
@@ -48,6 +50,28 @@ public class MengenVerwendung {
      */
     public void setMengenTyp(MengenTyp mengenTyp) {
         this.mengenTyp = mengenTyp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MengenVerwendung that = (MengenVerwendung) o;
+        return Objects.equals(mengenName, that.mengenName) &&
+                Objects.equals(mengenTyp, that.mengenTyp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mengenName, mengenTyp);
+    }
+
+    @Override
+    public String toString() {
+        return "MengenVerwendung{" +
+                "mengenName='" + mengenName + '\'' +
+                ", mengenTyp=" + mengenTyp +
+                '}';
     }
 
 }
