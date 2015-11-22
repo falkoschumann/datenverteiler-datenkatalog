@@ -30,16 +30,11 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testTyp() {
-        Typ konfigurationsObjekt = new Typ();
-        konfigurationsObjekt.setName("KonfigurationsObjekt");
-
         Typ typ = new Typ();
         typ.setName("Typ");
-        typ.getSuperTypen().add(konfigurationsObjekt);
 
         Typ stoerfallIndikator = new Typ();
         stoerfallIndikator.setName("StörfallIndikator");
-        stoerfallIndikator.getSuperTypen().add(konfigurationsObjekt);
 
         Typ netzBestandTeil = new Typ();
         netzBestandTeil.setName("NetzBestandTeil");
