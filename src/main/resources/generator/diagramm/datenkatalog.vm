@@ -1,16 +1,20 @@
 digraph {
 
+    fontname="Arial bold" fontsize=18
+    label="$diagrammtitel\n\n"
+    labelloc=t
+
     graph [ranksep=1 nodesep=1];
-    node [fillcolor=yellow shape=rect style=filled ranksep=2 fontname="Arial bold" fontsize=14]
-    edge [arrowhead=vee fontname=Arial fontsize=12]
+    node [fillcolor=yellow shape=rect style=filled fontname="Arial bold" fontsize=14]
+    edge [fontname=Arial fontsize=12]
 
 #foreach( $typ in $konfigurationsbereich.getTypen() )
 #foreach( $superTyp in $typ.getSuperTypen() )
-    $typ.getName() -> $superTyp.getName() [arrowhead=onormal]
+    $superTyp.getName() -> $typ.getName() [dir=back arrowtail=onormal]
 #end
 #foreach( $mengenVerwendung in $typ.getMengen() )
-#foreach( $objektTyp in $mengenVerwendung.getMengenTyp().getObjektTypen() )
-    $typ.getName() -> $objektTyp.getName() [label=$mengenVerwendung.getMengenName() color=red fontcolor=red]
+#foreach( $objektTyp in $mengenVerwendung.getObjektTypen() )
+    $typ.getName() -> $objektTyp.getName() [label=$mengenVerwendung.getMengenName() arrowhead=vee color=red fontcolor=red]
 #end
 #end
 #end
