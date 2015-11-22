@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.MengenTyp;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.MengenVerwendung;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Typ;
 import org.apache.velocity.Template;
@@ -42,6 +41,7 @@ public final class DiagrammGenerator {
         Velocity.init();
 
         VelocityContext context = new VelocityContext();
+        context.put("diagrammtitel", "TmVerkehrGlobal");
         context.put("konfigurationsbereich", getTmVerkehrGlobal());
 
         Template template = null;
@@ -83,9 +83,7 @@ public final class DiagrammGenerator {
 
         MengenVerwendung menge = new MengenVerwendung();
         menge.setMengenName("NetzBestandTeile");
-        MengenTyp mengenTyp = new MengenTyp();
-        mengenTyp.getObjektTypen().add(netzBestandTeil);
-        menge.setMengenTyp(mengenTyp);
+        menge.getObjektTypen().add(netzBestandTeil);
         netz.getMengen().add(menge);
 
         return netz;
