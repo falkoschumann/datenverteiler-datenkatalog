@@ -6,10 +6,10 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import de.bsvrz.dav.daf.main.Data;
-import de.bsvrz.dav.daf.main.config.ConfigurationArea;
-import de.bsvrz.dav.daf.main.config.ConfigurationObject;
-import de.bsvrz.dav.daf.main.config.DataModel;
-import de.bsvrz.dav.daf.main.config.SystemObject;
+import de.bsvrz.dav.daf.main.config.*;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Fabrik zum Erzeugen von Objekten des Metamodells.
@@ -20,6 +20,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
 public class Metamodell {
 
     private final DataModel model;
+    private final Map<SystemObjectType, Typ> zwischenspeicher = new LinkedHashMap<>();
 
     public Metamodell(DataModel model) {
         this.model = model;
@@ -34,7 +35,7 @@ public class Metamodell {
     }
 
     private static boolean istTyp(SystemObject systemObject) {
-        return systemObject.isOfType("typ.typ");
+        return systemObject.isOfType("typ.typ") && !systemObject.isOfType("typ.mengenTyp");
     }
 
     public Typ getTyp(String pid) {
@@ -42,11 +43,23 @@ public class Metamodell {
     }
 
     private Typ getTyp(SystemObject type) {
+        if (type instanceof SystemObjectType)
+            return getTyp((SystemObjectType) type);
+
+        throw new IllegalArgumentException("Kein Typ: " + type);
+    }
+
+    private Typ getTyp(SystemObjectType type) {
+        if (zwischenspeicher.containsKey(type))
+            return zwischenspeicher.get(type);
+
         Typ result = new Typ();
         result.setName(type.getName());
-        ConfigurationObject cType = (ConfigurationObject) type;
-        cType.getNonMutableSet("SuperTypen").getElements().forEach(t -> result.getSuperTypen().add(getTyp(t)));
-        cType.getNonMutableSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
+        type.getSuperTypes().stream().filter(t -> !t.isBaseType()).forEach(t -> result.getSuperTypen().add(getTyp(t)));
+        if (type.getObjectSet("Mengen") != null)
+            type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
+
+        zwischenspeicher.put(type, result);
         return result;
     }
 
@@ -56,7 +69,7 @@ public class Metamodell {
         result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
         SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
         ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
-        cMengenTyp.getNonMutableSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp(t)));
+        cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp(t)));
         return result;
     }
 
