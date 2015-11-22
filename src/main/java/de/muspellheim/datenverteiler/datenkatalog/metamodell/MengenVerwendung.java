@@ -5,6 +5,10 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
+
 /**
  * Beschreibt die Verwendung einer MengenDefinition bei einer TypDefinition.
  *
@@ -14,7 +18,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 public class MengenVerwendung {
 
     private String mengenName;
-    private MengenTyp mengenTyp;
+    private Set<Typ> objektTypen = new LinkedHashSet<>();
 
     /**
      * Persistenter Name der Menge.
@@ -36,18 +40,34 @@ public class MengenVerwendung {
         this.mengenName = mengenName;
     }
 
-    /**
-     * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
-     */
-    public MengenTyp getMengenTyp() {
-        return mengenTyp;
-    }
 
     /**
-     * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
+     * Enthält die möglichen Typen von Objekten, die in Mengen des jeweiligen MengenTyps verwendet werden können.
      */
-    public void setMengenTyp(MengenTyp mengenTyp) {
-        this.mengenTyp = mengenTyp;
+    public Set<Typ> getObjektTypen() {
+        return objektTypen;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MengenVerwendung that = (MengenVerwendung) o;
+        return Objects.equals(mengenName, that.mengenName) &&
+                Objects.equals(objektTypen, that.objektTypen);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mengenName, objektTypen);
+    }
+
+    @Override
+    public String toString() {
+        return "MengenVerwendung{" +
+                "mengenName='" + mengenName + '\'' +
+                ", objektTypen=" + objektTypen +
+                '}';
     }
 
 }

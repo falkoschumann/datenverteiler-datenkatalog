@@ -6,6 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -44,6 +45,30 @@ public class Typ {
      */
     public Set<Typ> getSuperTypen() {
         return superTypen;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Typ typ = (Typ) o;
+        return Objects.equals(name, typ.name) &&
+                Objects.equals(mengen, typ.mengen) &&
+                Objects.equals(superTypen, typ.superTypen);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, mengen, superTypen);
+    }
+
+    @Override
+    public String toString() {
+        return "Typ{" +
+                "name='" + name + '\'' +
+                ", mengen=" + mengen +
+                ", superTypen=" + superTypen +
+                '}';
     }
 
 }
