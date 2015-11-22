@@ -60,48 +60,10 @@ public final class DiagrammGenerator {
             throw new IllegalStateException("Fehler beim Laden des Templates.", ex);
         }
 
-        Writer writer = new OutputStreamWriter(new FileOutputStream("target/" + bereich.getName() + ".dot"), "UTF-8");
-        template.merge(context, writer);
-        writer.close();
-    }
-
-    public static KonfigurationsBereich getTmVerkehrGlobal() {
-        KonfigurationsBereich tmVerkehrGlobal = new KonfigurationsBereich();
-        tmVerkehrGlobal.setName("TmVerkehrGlobal");
-        tmVerkehrGlobal.getTypen().add(getNetz());
-        tmVerkehrGlobal.getTypen().add(getAeusseresStrassenSegment());
-        return tmVerkehrGlobal;
-    }
-
-    public static Typ getNetz() {
-        Typ netz = new Typ();
-        netz.setName("Netz");
-
-        Typ netzBestandTeil = new Typ();
-        netzBestandTeil.setName("NetzBestandTeil");
-        netz.getSuperTypen().add(netzBestandTeil);
-
-        MengenVerwendung menge = new MengenVerwendung();
-        menge.setMengenName("NetzBestandTeile");
-        menge.getObjektTypen().add(netzBestandTeil);
-        netz.getMengen().add(menge);
-
-        return netz;
-    }
-
-    public static Typ getAeusseresStrassenSegment() {
-        Typ aeusseresStrassenSegment = new Typ();
-        aeusseresStrassenSegment.setName("ÄußeresStraßenSegment");
-
-        Typ netzBestandTeil = new Typ();
-        netzBestandTeil.setName("NetzBestandTeil");
-        aeusseresStrassenSegment.getSuperTypen().add(netzBestandTeil);
-
-        Typ strassenSegment = new Typ();
-        strassenSegment.setName("StraßenSegment");
-        aeusseresStrassenSegment.getSuperTypen().add(strassenSegment);
-
-        return aeusseresStrassenSegment;
+        OutputStream out = new FileOutputStream("target/" + bereich.getName() + ".dot");
+        try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
+            template.merge(context, writer);
+        }
     }
 
 }
