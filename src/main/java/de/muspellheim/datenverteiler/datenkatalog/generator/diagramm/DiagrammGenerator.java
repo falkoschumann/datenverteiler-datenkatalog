@@ -5,19 +5,16 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 
+import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.MengenVerwendung;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Typ;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 
 /**
  * Ein Generator für Überblicksdiagramme des Datenkatalogs.
@@ -31,38 +28,41 @@ import java.io.Writer;
  */
 public final class DiagrammGenerator {
 
-    private DiagrammGenerator() {
-        // main class
-    }
-
-    public static void main(String args[]) throws Exception {
+    static {
         Velocity.setProperty("resource.loader", "class");
         Velocity.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
-        Velocity.init();
+        try {
+            Velocity.init();
+        } catch (Exception ex) {
+            throw new IllegalStateException("Fehler beim Initialisieren der Template-Engine.", ex);
+        }
+    }
 
+    public static void main(String args[]) throws IOException {
+        ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
+        Metamodell metamodell = new Metamodell(model);
+        try {
+            new DiagrammGenerator().generiere(metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal"));
+        } finally {
+            model.close();
+        }
+    }
+
+    public void generiere(KonfigurationsBereich bereich) throws IOException {
         VelocityContext context = new VelocityContext();
-        context.put("diagrammtitel", "TmVerkehrGlobal");
-        context.put("konfigurationsbereich", getTmVerkehrGlobal());
+        context.put("diagrammtitel", bereich.getName());
+        context.put("konfigurationsbereich", bereich);
 
         Template template = null;
         try {
             template = Velocity.getTemplate("/generator/diagramm/datenkatalog.vm");
-        } catch (ResourceNotFoundException rnfe) {
-            // couldn't find the template
-        } catch (ParseErrorException pee) {
-            // syntax error: problem parsing the template
-        } catch (MethodInvocationException mie) {
-            // something invoked in the template
-            // threw an exception
-        } catch (Exception e) {
-            // other
+        } catch (Exception ex) {
+            throw new IllegalStateException("Fehler beim Laden des Templates.", ex);
         }
 
-        //StringWriter writer = new StringWriter();
-        Writer writer = new OutputStreamWriter(new FileOutputStream("target/diagramm.dot"), "UTF-8");
+        Writer writer = new OutputStreamWriter(new FileOutputStream("target/" + bereich.getName() + ".dot"), "UTF-8");
         template.merge(context, writer);
         writer.close();
-        //System.out.println(writer);
     }
 
     public static KonfigurationsBereich getTmVerkehrGlobal() {
