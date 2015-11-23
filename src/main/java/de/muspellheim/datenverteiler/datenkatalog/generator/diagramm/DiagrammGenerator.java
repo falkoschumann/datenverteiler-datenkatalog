@@ -7,9 +7,7 @@ package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.MengenVerwendung;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Typ;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
