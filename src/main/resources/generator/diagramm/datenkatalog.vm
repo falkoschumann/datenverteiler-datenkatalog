@@ -16,7 +16,9 @@ digraph {
 
 #foreach( $typ in $konfigurationsbereich.getTypen() )
 #foreach( $superTyp in $typ.getSuperTypen() )
+#if( $konfigurationsbereich.getTypen().contains($superTyp) )
     $superTyp.getName() -> $typ.getName() [dir=back arrowtail=onormal]
+#end
 #end
 #foreach( $mengenVerwendung in $typ.getMengen() )
 #foreach( $objektTyp in $mengenVerwendung.getObjektTypen() )
