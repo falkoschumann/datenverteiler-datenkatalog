@@ -55,6 +55,7 @@ public class Metamodell {
 
         Typ result = new Typ();
         result.setName(type.getName());
+        result.setDynamisch(type instanceof DynamicObjectType);
         type.getSuperTypes().stream().filter(t -> !t.isBaseType()).forEach(t -> result.getSuperTypen().add(getTyp(t)));
         if (type.getObjectSet("Mengen") != null)
             type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
