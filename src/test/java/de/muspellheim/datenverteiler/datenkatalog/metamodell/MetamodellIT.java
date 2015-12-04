@@ -9,8 +9,6 @@ import de.muspellheim.datenverteiler.datenkatalog.AbstractDatenkatalogIT;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Collections;
-
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -29,10 +27,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testTyp() {
-        Typ typ = new Typ();
-        typ.setName("Typ");
-
+    public void testTyp_Netz_SuperTypUndMenge() {
         Typ stoerfallIndikator = new Typ();
         stoerfallIndikator.setName("StörfallIndikator");
 
@@ -44,11 +39,30 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         netzBestandTeile.setMengenName("NetzBestandTeile");
         netzBestandTeile.getObjektTypen().add(netzBestandTeil);
 
-        Typ netz = metamodell.getTyp("typ.netz");
+        Typ netz = new Typ();
+        netz.setName("Netz");
+        netz.getSuperTypen().add(netzBestandTeil);
+        netz.getMengen().add(netzBestandTeile);
 
-        assertEquals("Netz", netz.getName());
-        assertEquals(Collections.singleton(netzBestandTeil), netz.getSuperTypen());
-        assertEquals(Collections.singleton(netzBestandTeile), netz.getMengen());
+        Typ actual = metamodell.getTyp("typ.netz");
+
+        assertEquals(netz, actual);
+    }
+
+    @Test
+    public void testTyp_Stau_SuperTypUndDynamischerTyp() {
+        Typ situation = new Typ();
+        situation.setName("Situation");
+        situation.setDynamisch(true);
+
+        Typ stau = new Typ();
+        stau.setName("Stau");
+        stau.setDynamisch(true);
+        stau.getSuperTypen().add(situation);
+
+        Typ actual = metamodell.getTyp("typ.stau");
+
+        assertEquals(stau, actual);
     }
 
 }

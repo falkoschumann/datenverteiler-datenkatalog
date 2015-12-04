@@ -18,6 +18,7 @@ import java.util.Set;
 public class Typ {
 
     private String name;
+    private boolean dynamisch;
     private Set<MengenVerwendung> mengen = new LinkedHashSet<>();
     private Set<Typ> superTypen = new LinkedHashSet<>();
 
@@ -27,6 +28,14 @@ public class Typ {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isDynamisch() {
+        return dynamisch;
+    }
+
+    public void setDynamisch(boolean dynamisch) {
+        this.dynamisch = dynamisch;
     }
 
     /**
@@ -53,19 +62,21 @@ public class Typ {
         if (o == null || getClass() != o.getClass()) return false;
         Typ typ = (Typ) o;
         return Objects.equals(name, typ.name) &&
+                Objects.equals(dynamisch, typ.dynamisch) &&
                 Objects.equals(mengen, typ.mengen) &&
                 Objects.equals(superTypen, typ.superTypen);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, mengen, superTypen);
+        return Objects.hash(name, dynamisch, mengen, superTypen);
     }
 
     @Override
     public String toString() {
         return "Typ{" +
                 "name='" + name + '\'' +
+                ", dynamisch=" + dynamisch +
                 ", mengen=" + mengen +
                 ", superTypen=" + superTypen +
                 '}';
