@@ -9,6 +9,12 @@ digraph {
     edge [fontname=Arial fontsize=12]
 
 #foreach( $typ in $konfigurationsbereich.getTypen() )
+#if( $typ.isDynamisch() )
+    $typ.getName() [fillcolor=green]
+#end
+#end
+
+#foreach( $typ in $konfigurationsbereich.getTypen() )
 #foreach( $superTyp in $typ.getSuperTypen() )
     $superTyp.getName() -> $typ.getName() [dir=back arrowtail=onormal]
 #end
