@@ -33,10 +33,6 @@
         <td>Verantwortlich:</td>
         <td>$typ.getBereich().getZustaendiger().getName()</td>
     </tr>
-    <tr>
-        <td>Dynamisch:</td>
-        <td>$typ.isDynamisch()</td>
-    </tr>
 </table>
 <p>$typ.getBeschreibung()</p>
 <p>TODO Mengen</p>
