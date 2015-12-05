@@ -6,6 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.html;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -14,6 +15,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Der Generator erzeugt eine HTML-Dokumentation des Datenkatalogs nach dem Vorbild von JavaDoc.
@@ -45,7 +48,9 @@ public class HtmlGenerator {
 
     public void generiere(Metamodell metamodell) throws IOException {
         VelocityContext context = new VelocityContext();
-        context.put("konfigurationsbereiche", metamodell.getKonfigurationsbereiche());
+        SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>((kb1, kb2) -> kb1.getName().compareToIgnoreCase(kb2.getName()));
+        konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
+        context.put("konfigurationsbereiche", konfigurationsBereiche);
 
         String source = "/generator/html/";
         String target = "target/datenkatalog-html/";
