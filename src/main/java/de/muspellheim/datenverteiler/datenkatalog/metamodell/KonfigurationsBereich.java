@@ -18,7 +18,16 @@ import java.util.Set;
  */
 public class KonfigurationsBereich extends SystemObjekt {
 
+    private KonfigurationsVerantwortlicher zustaender;
     private Set<Typ> typen = new LinkedHashSet<>();
+
+    public KonfigurationsVerantwortlicher getZustaender() {
+        return zustaender;
+    }
+
+    public void setZustaender(KonfigurationsVerantwortlicher zustaender) {
+        this.zustaender = zustaender;
+    }
 
     public Set<Typ> getTypen() {
         return typen;
@@ -30,12 +39,12 @@ public class KonfigurationsBereich extends SystemObjekt {
         if (!(o instanceof KonfigurationsBereich)) return false;
         if (!super.equals(o)) return false;
         KonfigurationsBereich that = (KonfigurationsBereich) o;
-        return Objects.equals(getTypen(), that.getTypen());
+        return Objects.equals(getZustaender(), that.getZustaender()) && Objects.equals(getTypen(), that.getTypen());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getTypen());
+        return Objects.hash(super.hashCode(), getZustaender(), getTypen());
     }
 
     @Override
@@ -45,6 +54,7 @@ public class KonfigurationsBereich extends SystemObjekt {
                 ", pid='" + getPid() + '\'' +
                 ", kurzinfo='" + getKurzinfo() + '\'' +
                 ", beschreibung='" + getBeschreibung() + '\'' +
+                ", zustaender=" + zustaender +
                 ", typen=" + typen +
                 "}";
     }
