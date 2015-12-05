@@ -16,7 +16,6 @@ import java.util.Set;
  */
 public class Typ extends SystemObjekt {
 
-    private boolean dynamisch;
     private Set<MengenVerwendung> mengen = new LinkedHashSet<>();
     private Set<Typ> superTypen = new LinkedHashSet<>();
 
@@ -24,14 +23,6 @@ public class Typ extends SystemObjekt {
         Typ result = new Typ();
         result.setPid(pid);
         return result;
-    }
-
-    public boolean isDynamisch() {
-        return dynamisch;
-    }
-
-    public void setDynamisch(boolean dynamisch) {
-        this.dynamisch = dynamisch;
     }
 
     /**
@@ -59,7 +50,6 @@ public class Typ extends SystemObjekt {
                 ", pid='" + getPid() + '\'' +
                 ", kurzinfo='" + getKurzinfo() + '\'' +
                 ", beschreibung='" + getBeschreibung() + '\'' +
-                ", dynamisch=" + isDynamisch() +
                 ", mengen=" + getMengen() +
                 ", superTypen=" + getSuperTypen() +
                 "}";

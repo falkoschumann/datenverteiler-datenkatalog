@@ -12,7 +12,8 @@ import org.junit.Test;
 import java.util.Collections;
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Integrationstests für das Metamodells.
@@ -69,23 +70,16 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testDynamischerTyp() {
-        Typ mq = metamodell.getTyp("typ.messQuerschnitt");
-        assertFalse(mq.isDynamisch());
-
-        Typ stau = metamodell.getTyp("typ.stau");
-        assertTrue(stau.isDynamisch());
-    }
-
-    @Test
     public void testSupertypen() {
+        Typ konfigurationsObjekt = Typ.erzeugeMitPid("typ.konfigurationsObjekt");
         Typ stoerfallIndikator = Typ.erzeugeMitPid("typ.störfallIndikator");
         Typ netzBestandTeil = Typ.erzeugeMitPid("typ.netzBestandTeil");
-        netzBestandTeil.getSuperTypen().add(stoerfallIndikator);
 
         Typ netz = metamodell.getTyp("typ.netz");
 
         assertEquals(Collections.singleton(netzBestandTeil), netz.getSuperTypen());
+        assertEquals(Collections.singleton(stoerfallIndikator), netz.getSuperTypen().toArray(new Typ[0])[0].getSuperTypen());
+        assertEquals(Collections.singleton(konfigurationsObjekt), netz.getSuperTypen().toArray(new Typ[0])[0].getSuperTypen().toArray(new Typ[0])[0].getSuperTypen());
     }
 
     @Test
