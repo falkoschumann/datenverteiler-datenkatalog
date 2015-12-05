@@ -9,7 +9,10 @@ import de.muspellheim.datenverteiler.datenkatalog.AbstractDatenkatalogIT;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Integrationstests für das Metamodells.
@@ -63,6 +66,12 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         Typ actual = metamodell.getTyp("typ.stau");
 
         assertEquals(stau, actual);
+    }
+
+    @Test
+    public void testGetKonfigurationsbereiche() {
+        Set<KonfigurationsBereich> konfigurationsbereiche = metamodell.getKonfigurationsbereiche();
+        assertFalse(konfigurationsbereiche.isEmpty());
     }
 
 }
