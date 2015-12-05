@@ -10,6 +10,8 @@ import de.bsvrz.dav.daf.main.config.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Fabrik zum Erzeugen von Objekten des Metamodells.
@@ -20,16 +22,32 @@ import java.util.Map;
 public class Metamodell {
 
     private final DataModel model;
-    private final Map<SystemObjectType, Typ> zwischenspeicher = new LinkedHashMap<>();
+    private final Map<String, KonfigurationsBereich> konfigurationsbereiche = new LinkedHashMap<>();
+    private final Map<String, Typ> typen = new LinkedHashMap<>();
+    private final Map<String, MengenVerwendung> mengenVerwendungen = new LinkedHashMap<>();
 
     public Metamodell(DataModel model) {
         this.model = model;
     }
 
+    public Set<KonfigurationsBereich> getKonfigurationsbereiche() {
+        return model.getType("typ.konfigurationsBereich").getElements().stream().
+                map(k -> getKonfigurationsbereich(k.getPid())).
+                collect(Collectors.toSet());
+    }
+
     public KonfigurationsBereich getKonfigurationsbereich(String pid) {
-        ConfigurationArea area = model.getConfigurationArea(pid);
+        return getKonfigurationsbereich(model.getConfigurationArea(pid));
+    }
+
+    private KonfigurationsBereich getKonfigurationsbereich(ConfigurationArea area) {
+        if (konfigurationsbereiche.containsKey(area.getPid()))
+            return konfigurationsbereiche.get(area.getPid());
+
+        System.out.println("Analysiere Konfigurationsbereich " + area);
         KonfigurationsBereich result = new KonfigurationsBereich();
         result.setName(area.getName());
+        konfigurationsbereiche.put(area.getPid(), result);
         area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp(t)));
         return result;
     }
@@ -50,24 +68,28 @@ public class Metamodell {
     }
 
     private Typ getTyp(SystemObjectType type) {
-        if (zwischenspeicher.containsKey(type))
-            return zwischenspeicher.get(type);
+        if (typen.containsKey(type.getPid()))
+            return typen.get(type.getPid());
 
+        System.out.println("Analysiere Typ " + type);
         Typ result = new Typ();
         result.setName(type.getName());
         result.setDynamisch(type instanceof DynamicObjectType);
+        typen.put(type.getPid(), result);
         type.getSuperTypes().stream().filter(t -> !t.isBaseType()).forEach(t -> result.getSuperTypen().add(getTyp(t)));
         if (type.getObjectSet("Mengen") != null)
             type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
-
-        zwischenspeicher.put(type, result);
         return result;
     }
 
     private MengenVerwendung getMengenVerwendung(SystemObject mengenVerwendung) {
+        if (mengenVerwendungen.containsKey(mengenVerwendung.getPid()))
+            return mengenVerwendungen.get(mengenVerwendung.getPid());
+
         Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
         MengenVerwendung result = new MengenVerwendung();
         result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
+        mengenVerwendungen.put(mengenVerwendung.getPid(), result);
         SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
         ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
         cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp(t)));
