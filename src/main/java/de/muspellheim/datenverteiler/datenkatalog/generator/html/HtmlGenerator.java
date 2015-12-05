@@ -68,11 +68,11 @@ public class HtmlGenerator {
     private VelocityContext erzeugeContext(Metamodell metamodell) {
         VelocityContext result = new VelocityContext();
 
-        SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>(SystemObjektComparator.EXEMPLAR);
+        SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>();
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
         result.put("konfigurationsbereiche", konfigurationsBereiche);
 
-        SortedSet<SystemObjekt> objekte = new TreeSet<>(SystemObjektComparator.EXEMPLAR);
+        SortedSet<SystemObjekt> objekte = new TreeSet<>();
         objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getTypen).flatMap(Collection::stream).collect(Collectors.toSet()));
         result.put("objekte", objekte);
 
@@ -93,17 +93,6 @@ public class HtmlGenerator {
                 throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + name + ".html.", ex);
             }
         }
-    }
-
-    private static class SystemObjektComparator implements Comparator<SystemObjekt> {
-
-        static final SystemObjektComparator EXEMPLAR = new SystemObjektComparator();
-
-        @Override
-        public int compare(SystemObjekt s1, SystemObjekt s2) {
-            return s1.getName().compareToIgnoreCase(s2.getName());
-        }
-
     }
 
 }
