@@ -1,6 +1,6 @@
 body {
     color: #2e3436;
-    background-color: #eeeeec;
+    background-color: #fff;
     font-family: "Lucida Grande", "Verdana", "Arial", sans-serif;
     font-size: 14px;
 }
@@ -8,6 +8,24 @@ body {
 .block {
     font-family: "Georgia", "Times New Roman", serif;
     font-size: 16px;
+}
+
+ul.konfigurationsbereiche {
+    padding: 0px;
+}
+
+.konfigurationsbereiche li {
+    list-style: none;
+}
+
+h2.konfigurationsbereiche {
+    color: #2e3436;
+    font-size: 15px;
+}
+
+.konfigurationsbereiche a {
+    font-size: 13px;
+    font-weight: normal;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -51,4 +69,10 @@ th, td {
 
 .altColor {
     background-color: #eeeeec;
+}
+
+a {
+    color: #3465a4;
+    font-weight: bold;
+    text-decoration: none;
 }

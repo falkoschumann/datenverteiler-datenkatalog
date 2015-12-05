@@ -26,6 +26,11 @@ import java.util.TreeSet;
  */
 public class HtmlGenerator {
 
+    private final String source = "/generator/html/";
+    private final String target = "target/datenkatalog-html/";
+
+    private VelocityContext context;
+
     static {
         Velocity.setProperty("resource.loader", "class");
         Velocity.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
@@ -47,22 +52,34 @@ public class HtmlGenerator {
     }
 
     public void generiere(Metamodell metamodell) throws IOException {
-        VelocityContext context = new VelocityContext();
+        context = erzeugeContext(metamodell);
+
+        Files.createDirectories(Paths.get(target));
+        kopiereStatischeDateien();
+        generiereDatei("uebersicht");
+        generiereDatei("uebersicht-frame");
+    }
+
+    private VelocityContext erzeugeContext(Metamodell metamodell) {
+        VelocityContext result = new VelocityContext();
         SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>((kb1, kb2) -> kb1.getName().compareToIgnoreCase(kb2.getName()));
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
-        context.put("konfigurationsbereiche", konfigurationsBereiche);
+        result.put("konfigurationsbereiche", konfigurationsBereiche);
+        return result;
+    }
 
-        String source = "/generator/html/";
-        String target = "target/datenkatalog-html/";
-        Files.createDirectories(Paths.get(target));
+    private void kopiereStatischeDateien() throws IOException {
         Files.copy(getClass().getResourceAsStream(source + "stylesheet.css"), Paths.get(target, "stylesheet.css"), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(getClass().getResourceAsStream(source + "index.html"), Paths.get(target, "index.html"), StandardCopyOption.REPLACE_EXISTING);
+    }
 
-        OutputStream out = Files.newOutputStream(Paths.get(target, "uebersicht.html"));
+    private void generiereDatei(String name) throws IOException {
+        OutputStream out = Files.newOutputStream(Paths.get(target, name + ".html"));
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
-                Velocity.mergeTemplate(source + "uebersicht.vm", "UTF-8", context, writer);
+                Velocity.mergeTemplate(source + name + ".vm", "UTF-8", context, writer);
             } catch (Exception ex) {
-                throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Übersicht.", ex);
+                throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + name + ".html.", ex);
             }
         }
     }
