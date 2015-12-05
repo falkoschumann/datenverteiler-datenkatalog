@@ -62,6 +62,13 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testBereich() {
+        Typ typ = metamodell.getTyp("typ.aspekt");
+
+        assertEquals(KonfigurationsBereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getBereich());
+    }
+
+    @Test
     public void testDynamischerTyp() {
         Typ mq = metamodell.getTyp("typ.messQuerschnitt");
         assertFalse(mq.isDynamisch());
@@ -83,14 +90,11 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testMengen() {
+        Typ stoerfallIndikator = Typ.erzeugeMitPid("typ.störfallIndikator");
         Typ netzBestandTeil = Typ.erzeugeMitPid("typ.netzBestandTeil");
+        netzBestandTeil.getSuperTypen().add(stoerfallIndikator);
 
         MengenVerwendung netzBestandTeile = new MengenVerwendung();
-        netzBestandTeile.setName("");
-        netzBestandTeile.setPid("");
-        netzBestandTeile.setKurzinfo("Netzbestandteile, aus denen das Netz besteht.");
-        netzBestandTeile.setBeschreibung("");
-        netzBestandTeile.setMengenName("NetzBestandTeile");
         netzBestandTeile.getObjektTypen().add(netzBestandTeil);
 
         Typ netz = metamodell.getTyp("typ.netz");

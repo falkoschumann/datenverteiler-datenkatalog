@@ -19,6 +19,7 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
     private String pid;
     private String kurzinfo;
     private String beschreibung;
+    private KonfigurationsBereich bereich;
 
     public String getName() {
         return name;
@@ -50,6 +51,14 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
 
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
+    }
+
+    public KonfigurationsBereich getBereich() {
+        return bereich;
+    }
+
+    public void setBereich(KonfigurationsBereich bereich) {
+        this.bereich = bereich;
     }
 
     @Override

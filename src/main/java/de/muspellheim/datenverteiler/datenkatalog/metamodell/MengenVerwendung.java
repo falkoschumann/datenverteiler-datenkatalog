@@ -56,7 +56,7 @@ public class MengenVerwendung extends SystemObjekt {
                 ", beschreibung='" + getBeschreibung() + '\'' +
                 ", mengenName='" + mengenName + '\'' +
                 ", objektTypen=" + objektTypen +
-                "} " + super.toString();
+                "}";
     }
 
 }

@@ -20,4 +20,14 @@ public class KonfigurationsVerantwortlicher extends SystemObjekt {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "KonfigurationsVerantwortlicher{" +
+                "name='" + getName() + '\'' +
+                ", pid='" + getPid() + '\'' +
+                ", kurzinfo='" + getKurzinfo() + '\'' +
+                ", beschreibung='" + getBeschreibung() + '\'' +
+                '}';
+    }
+
 }
