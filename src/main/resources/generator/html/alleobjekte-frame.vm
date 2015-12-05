@@ -11,7 +11,7 @@
 <h2 class="objekte">Objekte</h2>
 <ul class="objekte">
     #foreach( $objekt in $objekte )
-        <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html">$objekt.getName()</a></li>
+        <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html" target="objektFrame">$objekt.getName()</a></li>
     #end
 </ul>
 </body>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Typ $typ.getName()</title>
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<h2>Typ $typ.getName()</h2>
+<p>$typ.getKurzinfo()</p>
+<p><strong>Alle erweiterten Typen</strong></p>
+<p>
+#foreach( $superTyp in $typ.getSuperTypen() )
+<a href="${superTyp.getBereich().getZustaendiger().getPid()}/${superTyp.getBereich().getPid()}/${superTyp.getPid()}.html" target="objektFrame">$superTyp.getName()</a>#if( $velocityHasNext ), #end
+#end
+</p>
+<table>
+    <tr>
+        <td>Name:</td>
+        <td>$typ.getName()</td>
+    </tr>
+    <tr>
+        <td>PID:</td>
+        <td>$typ.getPid()</td>
+    </tr>
+    <tr>
+        <td>Konfigurationsbereich:</td>
+        <td>$typ.getBereich().getName()</td>
+    </tr>
+    <tr>
+        <td>Verantwortlich:</td>
+        <td>$typ.getBereich().getZustaendiger().getName()</td>
+    </tr>
+    <tr>
+        <td>Dynamisch:</td>
+        <td>$typ.isDynamisch()</td>
+    </tr>
+</table>
+<p>$typ.getBeschreibung()</p>
+<p>TODO Mengen</p>
+</body>
+</html>
