@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -21,6 +20,12 @@ public class KonfigurationsBereich extends SystemObjekt {
     private KonfigurationsVerantwortlicher zustaendiger;
     private Set<Typ> typen = new LinkedHashSet<>();
 
+    public static KonfigurationsBereich erzeugeMitPid(String pid) {
+        KonfigurationsBereich result = new KonfigurationsBereich();
+        result.setPid(pid);
+        return result;
+    }
+
     public KonfigurationsVerantwortlicher getZustaendiger() {
         return zustaendiger;
     }
@@ -31,20 +36,6 @@ public class KonfigurationsBereich extends SystemObjekt {
 
     public Set<Typ> getTypen() {
         return typen;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof KonfigurationsBereich)) return false;
-        if (!super.equals(o)) return false;
-        KonfigurationsBereich that = (KonfigurationsBereich) o;
-        return Objects.equals(getZustaendiger(), that.getZustaendiger()) && Objects.equals(getTypen(), that.getTypen());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getZustaendiger(), getTypen());
     }
 
     @Override

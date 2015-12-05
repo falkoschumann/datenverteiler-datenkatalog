@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -49,21 +48,6 @@ public class MengenVerwendung extends SystemObjekt {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MengenVerwendung)) return false;
-        if (!super.equals(o)) return false;
-        MengenVerwendung that = (MengenVerwendung) o;
-        return Objects.equals(getMengenName(), that.getMengenName()) &&
-                Objects.equals(getObjektTypen(), that.getObjektTypen());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), getMengenName(), getObjektTypen());
-    }
-
-    @Override
     public String toString() {
         return "MengenVerwendung{" +
                 "name='" + getName() + '\'' +
@@ -72,7 +56,7 @@ public class MengenVerwendung extends SystemObjekt {
                 ", beschreibung='" + getBeschreibung() + '\'' +
                 ", mengenName='" + mengenName + '\'' +
                 ", objektTypen=" + objektTypen +
-                "} " + super.toString();
+                "}";
     }
 
 }

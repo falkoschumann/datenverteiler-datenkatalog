@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -20,6 +19,12 @@ public class Typ extends SystemObjekt {
     private boolean dynamisch;
     private Set<MengenVerwendung> mengen = new LinkedHashSet<>();
     private Set<Typ> superTypen = new LinkedHashSet<>();
+
+    public static Typ erzeugeMitPid(String pid) {
+        Typ result = new Typ();
+        result.setPid(pid);
+        return result;
+    }
 
     public boolean isDynamisch() {
         return dynamisch;
@@ -45,22 +50,6 @@ public class Typ extends SystemObjekt {
      */
     public Set<Typ> getSuperTypen() {
         return superTypen;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Typ)) return false;
-        if (!super.equals(o)) return false;
-        Typ typ = (Typ) o;
-        return isDynamisch() == typ.isDynamisch() &&
-                Objects.equals(getMengen(), typ.getMengen()) &&
-                Objects.equals(getSuperTypen(), typ.getSuperTypen());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), isDynamisch(), getMengen(), getSuperTypen());
     }
 
     @Override

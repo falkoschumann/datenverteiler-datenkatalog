@@ -21,10 +21,12 @@ import java.util.stream.Collectors;
  */
 public class Metamodell {
 
-    private final DataModel model;
+    private final Map<String, KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new LinkedHashMap<>();
     private final Map<String, KonfigurationsBereich> konfigurationsbereiche = new LinkedHashMap<>();
     private final Map<String, Typ> typen = new LinkedHashMap<>();
-    private final Map<String, MengenVerwendung> mengenVerwendungen = new LinkedHashMap<>();
+    private final Map<Long, MengenVerwendung> mengenVerwendungen = new LinkedHashMap<>();
+
+    private final DataModel model;
 
     public Metamodell(DataModel model) {
         this.model = model;
@@ -44,25 +46,30 @@ public class Metamodell {
         if (konfigurationsbereiche.containsKey(area.getPid()))
             return konfigurationsbereiche.get(area.getPid());
 
-        KonfigurationsBereich result = new KonfigurationsBereich();
+        KonfigurationsBereich result = KonfigurationsBereich.erzeugeMitPid(area.getPid());
+        konfigurationsbereiche.put(area.getPid(), result);
         bestimmeSystemObjekt(area, result);
         result.setZustaendiger(getKonfiguratonsVerantwortlicher(area.getConfigurationAuthority()));
-        konfigurationsbereiche.put(area.getPid(), result);
-        area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp(t)));
+        area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp((SystemObjectType) t)));
         return result;
     }
 
     private KonfigurationsVerantwortlicher getKonfiguratonsVerantwortlicher(ConfigurationAuthority authority) {
-        KonfigurationsVerantwortlicher result = new KonfigurationsVerantwortlicher();
+        if (konfigurationsVerantwortliche.containsKey(authority.getPid()))
+            return konfigurationsVerantwortliche.get(authority.getPid());
+
+        KonfigurationsVerantwortlicher result = KonfigurationsVerantwortlicher.erzeugeMitPid(authority.getPid());
+        konfigurationsVerantwortliche.put(authority.getPid(), result);
         bestimmeSystemObjekt(authority, result);
         return result;
     }
 
     private void bestimmeSystemObjekt(SystemObject object, SystemObjekt result) {
         result.setName(object.getName());
-        result.setPid(object.getPid());
         result.setKurzinfo(object.getInfo().getShortInfo().trim());
         result.setBeschreibung(object.getInfo().getDescription().trim());
+        if (!(object instanceof ConfigurationArea))
+            result.setBereich(getKonfigurationsbereich(object.getConfigurationArea()));
     }
 
     private static boolean istTyp(SystemObject systemObject) {
@@ -73,21 +80,14 @@ public class Metamodell {
         return getTyp(model.getType(pid));
     }
 
-    private Typ getTyp(SystemObject type) {
-        if (type instanceof SystemObjectType)
-            return getTyp((SystemObjectType) type);
-
-        throw new IllegalArgumentException("Kein Typ: " + type);
-    }
-
     private Typ getTyp(SystemObjectType type) {
         if (typen.containsKey(type.getPid()))
             return typen.get(type.getPid());
 
-        Typ result = new Typ();
+        Typ result = Typ.erzeugeMitPid(type.getPid());
+        typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
         result.setDynamisch(type instanceof DynamicObjectType);
-        typen.put(type.getPid(), result);
         type.getSuperTypes().stream().filter(t -> !t.isBaseType()).forEach(t -> result.getSuperTypen().add(getTyp(t)));
         if (type.getObjectSet("Mengen") != null)
             type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
@@ -95,17 +95,17 @@ public class Metamodell {
     }
 
     private MengenVerwendung getMengenVerwendung(SystemObject mengenVerwendung) {
-        if (mengenVerwendungen.containsKey(mengenVerwendung.getPid()))
-            return mengenVerwendungen.get(mengenVerwendung.getPid());
+        if (mengenVerwendungen.containsKey(mengenVerwendung.getId()))
+            return mengenVerwendungen.get(mengenVerwendung.getId());
 
-        Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
         MengenVerwendung result = new MengenVerwendung();
+        mengenVerwendungen.put(mengenVerwendung.getId(), result);
         bestimmeSystemObjekt(mengenVerwendung, result);
+        Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
         result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
-        mengenVerwendungen.put(mengenVerwendung.getPid(), result);
         SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
         ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
-        cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp(t)));
+        cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp((SystemObjectType) t)));
         return result;
     }
 

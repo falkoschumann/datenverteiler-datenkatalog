@@ -13,12 +13,13 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public abstract class SystemObjekt {
+public abstract class SystemObjekt implements Comparable<SystemObjekt> {
 
     private String name;
     private String pid;
     private String kurzinfo;
     private String beschreibung;
+    private KonfigurationsBereich bereich;
 
     public String getName() {
         return name;
@@ -52,20 +53,30 @@ public abstract class SystemObjekt {
         this.beschreibung = beschreibung;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SystemObjekt)) return false;
-        SystemObjekt that = (SystemObjekt) o;
-        return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getPid(), that.getPid()) &&
-                Objects.equals(getKurzinfo(), that.getKurzinfo()) &&
-                Objects.equals(getBeschreibung(), that.getBeschreibung());
+    public KonfigurationsBereich getBereich() {
+        return bereich;
+    }
+
+    public void setBereich(KonfigurationsBereich bereich) {
+        this.bereich = bereich;
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getPid(), getKurzinfo(), getBeschreibung());
+    public int compareTo(SystemObjekt s) {
+        return name.compareToIgnoreCase(s.name);
+    }
+
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SystemObjekt)) return false;
+        SystemObjekt that = (SystemObjekt) o;
+        return Objects.equals(pid, that.pid);
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(pid);
     }
 
     @Override

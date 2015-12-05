@@ -37,11 +37,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testZustaender() {
-        KonfigurationsVerantwortlicher kv = new KonfigurationsVerantwortlicher();
-        kv.setName("Konfiguration inovat");
-        kv.setPid("kv.inovat");
-        kv.setKurzinfo("Konfigurationsverantwortlicher für Firma inovat");
-        kv.setBeschreibung("");
+        KonfigurationsVerantwortlicher kv = KonfigurationsVerantwortlicher.erzeugeMitPid("kv.inovat");
 
         KonfigurationsBereich kb = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
 
@@ -66,6 +62,13 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testBereich() {
+        Typ typ = metamodell.getTyp("typ.aspekt");
+
+        assertEquals(KonfigurationsBereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getBereich());
+    }
+
+    @Test
     public void testDynamischerTyp() {
         Typ mq = metamodell.getTyp("typ.messQuerschnitt");
         assertFalse(mq.isDynamisch());
@@ -76,21 +79,8 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testSupertypen() {
-        Typ stoerfallIndikator = new Typ();
-        stoerfallIndikator.setName("StörfallIndikator");
-        stoerfallIndikator.setPid("typ.störfallIndikator");
-        stoerfallIndikator.setKurzinfo("Allgemeiner Störfallindikator, wird von einer Reihe\n" +
-                "\t\t\t\t\tanderer Objekttypen erweitert, selbst aber nie\n" +
-                "\t\t\t\t\tdirekt instanziert.");
-        stoerfallIndikator.setBeschreibung("");
-
-        Typ netzBestandTeil = new Typ();
-        netzBestandTeil.setName("NetzBestandTeil");
-        netzBestandTeil.setPid("typ.netzBestandTeil");
-        netzBestandTeil.setKurzinfo("Ein Netz besteht aus NetzBestandTeilen, also aus\n" +
-                "\t\t\t\t\tÄußerenStraßenSegmenten und bereits definierten\n" +
-                "\t\t\t\t\tNetzen.");
-        netzBestandTeil.setBeschreibung("");
+        Typ stoerfallIndikator = Typ.erzeugeMitPid("typ.störfallIndikator");
+        Typ netzBestandTeil = Typ.erzeugeMitPid("typ.netzBestandTeil");
         netzBestandTeil.getSuperTypen().add(stoerfallIndikator);
 
         Typ netz = metamodell.getTyp("typ.netz");
@@ -100,29 +90,11 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testMengen() {
-        Typ stoerfallIndikator = new Typ();
-        stoerfallIndikator.setName("StörfallIndikator");
-        stoerfallIndikator.setPid("typ.störfallIndikator");
-        stoerfallIndikator.setKurzinfo("Allgemeiner Störfallindikator, wird von einer Reihe\n" +
-                "\t\t\t\t\tanderer Objekttypen erweitert, selbst aber nie\n" +
-                "\t\t\t\t\tdirekt instanziert.");
-        stoerfallIndikator.setBeschreibung("");
-
-        Typ netzBestandTeil = new Typ();
-        netzBestandTeil.setName("NetzBestandTeil");
-        netzBestandTeil.setPid("typ.netzBestandTeil");
-        netzBestandTeil.setKurzinfo("Ein Netz besteht aus NetzBestandTeilen, also aus\n" +
-                "\t\t\t\t\tÄußerenStraßenSegmenten und bereits definierten\n" +
-                "\t\t\t\t\tNetzen.");
-        netzBestandTeil.setBeschreibung("");
+        Typ stoerfallIndikator = Typ.erzeugeMitPid("typ.störfallIndikator");
+        Typ netzBestandTeil = Typ.erzeugeMitPid("typ.netzBestandTeil");
         netzBestandTeil.getSuperTypen().add(stoerfallIndikator);
 
         MengenVerwendung netzBestandTeile = new MengenVerwendung();
-        netzBestandTeile.setName("");
-        netzBestandTeile.setPid("");
-        netzBestandTeile.setKurzinfo("Netzbestandteile, aus denen das Netz besteht.");
-        netzBestandTeile.setBeschreibung("");
-        netzBestandTeile.setMengenName("NetzBestandTeile");
         netzBestandTeile.getObjektTypen().add(netzBestandTeil);
 
         Typ netz = metamodell.getTyp("typ.netz");
