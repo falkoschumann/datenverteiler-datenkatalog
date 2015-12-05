@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public abstract class SystemObjekt {
+public abstract class SystemObjekt implements Comparable<SystemObjekt> {
 
     private String name;
     private String pid;
@@ -50,6 +50,11 @@ public abstract class SystemObjekt {
 
     public void setBeschreibung(String beschreibung) {
         this.beschreibung = beschreibung;
+    }
+
+    @Override
+    public int compareTo(SystemObjekt s) {
+        return name.compareToIgnoreCase(s.name);
     }
 
     @Override
