@@ -8,6 +8,7 @@ package de.muspellheim.datenverteiler.datenkatalog.generator.html;
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.SystemObjekt;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
@@ -15,8 +16,11 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * Der Generator erzeugt eine HTML-Dokumentation des Datenkatalogs nach dem Vorbild von JavaDoc.
@@ -58,13 +62,20 @@ public class HtmlGenerator {
         kopiereStatischeDateien();
         generiereDatei("uebersicht");
         generiereDatei("uebersicht-frame");
+        generiereDatei("alleobjekte-frame");
     }
 
     private VelocityContext erzeugeContext(Metamodell metamodell) {
         VelocityContext result = new VelocityContext();
-        SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>((kb1, kb2) -> kb1.getName().compareToIgnoreCase(kb2.getName()));
+
+        SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>(SystemObjektComparator.EXEMPLAR);
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
         result.put("konfigurationsbereiche", konfigurationsBereiche);
+
+        SortedSet<SystemObjekt> objekte = new TreeSet<>(SystemObjektComparator.EXEMPLAR);
+        objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getTypen).flatMap(Collection::stream).collect(Collectors.toSet()));
+        result.put("objekte", objekte);
+
         return result;
     }
 
@@ -82,6 +93,17 @@ public class HtmlGenerator {
                 throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + name + ".html.", ex);
             }
         }
+    }
+
+    private static class SystemObjektComparator implements Comparator<SystemObjekt> {
+
+        static final SystemObjektComparator EXEMPLAR = new SystemObjektComparator();
+
+        @Override
+        public int compare(SystemObjekt s1, SystemObjekt s2) {
+            return s1.getName().compareToIgnoreCase(s2.getName());
+        }
+
     }
 
 }

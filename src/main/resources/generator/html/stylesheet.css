@@ -10,20 +10,20 @@ body {
     font-size: 16px;
 }
 
-ul.konfigurationsbereiche {
+ul.konfigurationsbereiche, ul.objekte {
     padding: 0px;
 }
 
-.konfigurationsbereiche li {
+.konfigurationsbereiche li, .objekte li {
     list-style: none;
 }
 
-h2.konfigurationsbereiche {
+h2.konfigurationsbereiche, h2.objekte {
     color: #2e3436;
     font-size: 15px;
 }
 
-.konfigurationsbereiche a {
+.konfigurationsbereiche a, .objekte a {
     font-size: 13px;
     font-weight: normal;
 }
