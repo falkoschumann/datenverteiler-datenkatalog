@@ -15,7 +15,7 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class MengenVerwendung {
+public class MengenVerwendung extends SystemObjekt {
 
     private String mengenName;
     private Set<Typ> objektTypen = new LinkedHashSet<>();
@@ -51,23 +51,28 @@ public class MengenVerwendung {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof MengenVerwendung)) return false;
+        if (!super.equals(o)) return false;
         MengenVerwendung that = (MengenVerwendung) o;
-        return Objects.equals(mengenName, that.mengenName) &&
-                Objects.equals(objektTypen, that.objektTypen);
+        return Objects.equals(getMengenName(), that.getMengenName()) &&
+                Objects.equals(getObjektTypen(), that.getObjektTypen());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mengenName, objektTypen);
+        return Objects.hash(super.hashCode(), getMengenName(), getObjektTypen());
     }
 
     @Override
     public String toString() {
         return "MengenVerwendung{" +
-                "mengenName='" + mengenName + '\'' +
+                "name='" + getName() + '\'' +
+                ", pid='" + getPid() + '\'' +
+                ", kurzinfo='" + getKurzinfo() + '\'' +
+                ", beschreibung='" + getBeschreibung() + '\'' +
+                ", mengenName='" + mengenName + '\'' +
                 ", objektTypen=" + objektTypen +
-                '}';
+                "} " + super.toString();
     }
 
 }

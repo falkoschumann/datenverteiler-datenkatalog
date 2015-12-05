@@ -44,12 +44,18 @@ public class Metamodell {
         if (konfigurationsbereiche.containsKey(area.getPid()))
             return konfigurationsbereiche.get(area.getPid());
 
-        System.out.println("Analysiere Konfigurationsbereich " + area);
         KonfigurationsBereich result = new KonfigurationsBereich();
-        result.setName(area.getName());
+        bestimmeSystemObjekt(area, result);
         konfigurationsbereiche.put(area.getPid(), result);
         area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp(t)));
         return result;
+    }
+
+    private void bestimmeSystemObjekt(SystemObject object, SystemObjekt result) {
+        result.setName(object.getName());
+        result.setPid(object.getPid());
+        result.setKurzinfo(object.getInfo().getShortInfo().trim());
+        result.setBeschreibung(object.getInfo().getDescription().trim());
     }
 
     private static boolean istTyp(SystemObject systemObject) {
@@ -71,9 +77,8 @@ public class Metamodell {
         if (typen.containsKey(type.getPid()))
             return typen.get(type.getPid());
 
-        System.out.println("Analysiere Typ " + type);
         Typ result = new Typ();
-        result.setName(type.getName());
+        bestimmeSystemObjekt(type, result);
         result.setDynamisch(type instanceof DynamicObjectType);
         typen.put(type.getPid(), result);
         type.getSuperTypes().stream().filter(t -> !t.isBaseType()).forEach(t -> result.getSuperTypen().add(getTyp(t)));
@@ -88,6 +93,7 @@ public class Metamodell {
 
         Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
         MengenVerwendung result = new MengenVerwendung();
+        bestimmeSystemObjekt(mengenVerwendung, result);
         result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
         mengenVerwendungen.put(mengenVerwendung.getPid(), result);
         SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();

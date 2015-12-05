@@ -16,18 +16,9 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class KonfigurationsBereich {
+public class KonfigurationsBereich extends SystemObjekt {
 
-    private String name;
     private Set<Typ> typen = new LinkedHashSet<>();
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Set<Typ> getTypen() {
         return typen;
@@ -36,23 +27,26 @@ public class KonfigurationsBereich {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof KonfigurationsBereich)) return false;
+        if (!super.equals(o)) return false;
         KonfigurationsBereich that = (KonfigurationsBereich) o;
-        return Objects.equals(name, that.name) &&
-                Objects.equals(typen, that.typen);
+        return Objects.equals(getTypen(), that.getTypen());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, typen);
+        return Objects.hash(super.hashCode(), getTypen());
     }
 
     @Override
     public String toString() {
         return "KonfigurationsBereich{" +
-                "name='" + name + '\'' +
+                "name='" + getName() + '\'' +
+                ", pid='" + getPid() + '\'' +
+                ", kurzinfo='" + getKurzinfo() + '\'' +
+                ", beschreibung='" + getBeschreibung() + '\'' +
                 ", typen=" + typen +
-                '}';
+                "}";
     }
 
 }
