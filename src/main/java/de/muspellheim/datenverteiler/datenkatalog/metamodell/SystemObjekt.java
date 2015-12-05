@@ -53,19 +53,16 @@ public abstract class SystemObjekt {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SystemObjekt)) return false;
         SystemObjekt that = (SystemObjekt) o;
-        return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getPid(), that.getPid()) &&
-                Objects.equals(getKurzinfo(), that.getKurzinfo()) &&
-                Objects.equals(getBeschreibung(), that.getBeschreibung());
+        return Objects.equals(pid, that.pid);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getPid(), getKurzinfo(), getBeschreibung());
+    public final int hashCode() {
+        return Objects.hash(pid);
     }
 
     @Override
