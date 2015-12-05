@@ -1,0 +1,61 @@
+/*
+ * Copyright (c) 2015 Falko Schumann
+ * Released under the terms of the MIT License.
+ */
+
+package de.muspellheim.datenverteiler.datenkatalog.generator.html;
+
+import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+/**
+ * Der Generator erzeugt eine HTML-Dokumentation des Datenkatalogs nach dem Vorbild von JavaDoc.
+ *
+ * @author Falko Schumann
+ * @since 3.2
+ */
+public class HtmlGenerator {
+
+    static {
+        Velocity.setProperty("resource.loader", "class");
+        Velocity.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
+        try {
+            Velocity.init();
+        } catch (Exception ex) {
+            throw new IllegalStateException("Fehler beim Initialisieren der Template-Engine.", ex);
+        }
+    }
+
+    public static void main(String args[]) throws IOException {
+        ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
+        Metamodell metamodell = new Metamodell(model);
+        try {
+            new HtmlGenerator().generiere(metamodell);
+        } finally {
+            model.close();
+        }
+    }
+
+    public void generiere(Metamodell metamodell) throws IOException {
+        VelocityContext context = new VelocityContext();
+        context.put("konfigurationsbereiche", metamodell.getKonfigurationsbereiche());
+
+        Files.createDirectories(Paths.get("target/datenkatalog-html/"));
+
+        OutputStream out = new FileOutputStream("target/datenkatalog-html/uebersicht.html");
+        try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
+            try {
+                Velocity.mergeTemplate("/generator/html/uebersicht.vm", "UTF-8", context, writer);
+            } catch (Exception ex) {
+                throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Übersicht.", ex);
+            }
+        }
+    }
+
+}

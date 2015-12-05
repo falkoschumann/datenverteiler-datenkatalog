@@ -43,6 +43,11 @@ BSVRZ-Software vereinfachen und zusätzliche Werkzeuge dafür anbieten.
             <version>${kernsoftware.version}</version>
         </dependency>
         <dependency>
+            <groupId>velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>1.5</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
