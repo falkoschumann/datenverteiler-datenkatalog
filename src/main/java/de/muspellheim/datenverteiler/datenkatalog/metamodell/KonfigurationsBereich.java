@@ -18,15 +18,15 @@ import java.util.Set;
  */
 public class KonfigurationsBereich extends SystemObjekt {
 
-    private KonfigurationsVerantwortlicher zustaender;
+    private KonfigurationsVerantwortlicher zustaendiger;
     private Set<Typ> typen = new LinkedHashSet<>();
 
-    public KonfigurationsVerantwortlicher getZustaender() {
-        return zustaender;
+    public KonfigurationsVerantwortlicher getZustaendiger() {
+        return zustaendiger;
     }
 
-    public void setZustaender(KonfigurationsVerantwortlicher zustaender) {
-        this.zustaender = zustaender;
+    public void setZustaendiger(KonfigurationsVerantwortlicher zustaendiger) {
+        this.zustaendiger = zustaendiger;
     }
 
     public Set<Typ> getTypen() {
@@ -39,12 +39,12 @@ public class KonfigurationsBereich extends SystemObjekt {
         if (!(o instanceof KonfigurationsBereich)) return false;
         if (!super.equals(o)) return false;
         KonfigurationsBereich that = (KonfigurationsBereich) o;
-        return Objects.equals(getZustaender(), that.getZustaender()) && Objects.equals(getTypen(), that.getTypen());
+        return Objects.equals(getZustaendiger(), that.getZustaendiger()) && Objects.equals(getTypen(), that.getTypen());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getZustaender(), getTypen());
+        return Objects.hash(super.hashCode(), getZustaendiger(), getTypen());
     }
 
     @Override
@@ -54,7 +54,7 @@ public class KonfigurationsBereich extends SystemObjekt {
                 ", pid='" + getPid() + '\'' +
                 ", kurzinfo='" + getKurzinfo() + '\'' +
                 ", beschreibung='" + getBeschreibung() + '\'' +
-                ", zustaender=" + zustaender +
+                ", zustaendiger=" + zustaendiger +
                 ", typen=" + typen +
                 "}";
     }

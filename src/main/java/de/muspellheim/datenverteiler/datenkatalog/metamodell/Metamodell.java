@@ -46,7 +46,7 @@ public class Metamodell {
 
         KonfigurationsBereich result = new KonfigurationsBereich();
         bestimmeSystemObjekt(area, result);
-        result.setZustaender(getKonfiguratonsVerantwortlicher(area.getConfigurationAuthority()));
+        result.setZustaendiger(getKonfiguratonsVerantwortlicher(area.getConfigurationAuthority()));
         konfigurationsbereiche.put(area.getPid(), result);
         area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp(t)));
         return result;

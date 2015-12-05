@@ -45,7 +45,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
         KonfigurationsBereich kb = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
 
-        assertEquals(kv, kb.getZustaender());
+        assertEquals(kv, kb.getZustaendiger());
     }
 
     @Test
