@@ -1,0 +1,54 @@
+body {
+    color: #2e3436;
+    background-color: #eeeeec;
+    font-family: "Lucida Grande", "Verdana", "Arial", sans-serif;
+    font-size: 14px;
+}
+
+.block {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #3465a4;
+}
+
+.uebersicht {
+    padding: 10px 20px;
+}
+
+table {
+    width: 100%;
+    border: 1px solid #babdb6;
+}
+
+caption {
+    text-align: left;
+}
+
+caption span {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #f57900;
+    font-weight: bold;
+}
+
+th {
+    background-color: #babdb6;
+    font-weight: bold;
+}
+
+th, td {
+    padding: 4px 6px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.rowColor {
+    background-color: #d3d7cf;
+}
+
+.altColor {
+    background-color: #eeeeec;
+}

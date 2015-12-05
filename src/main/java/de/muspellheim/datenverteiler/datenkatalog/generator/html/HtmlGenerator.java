@@ -13,6 +13,7 @@ import org.apache.velocity.app.Velocity;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 /**
  * Der Generator erzeugt eine HTML-Dokumentation des Datenkatalogs nach dem Vorbild von JavaDoc.
@@ -46,12 +47,15 @@ public class HtmlGenerator {
         VelocityContext context = new VelocityContext();
         context.put("konfigurationsbereiche", metamodell.getKonfigurationsbereiche());
 
-        Files.createDirectories(Paths.get("target/datenkatalog-html/"));
+        String source = "/generator/html/";
+        String target = "target/datenkatalog-html/";
+        Files.createDirectories(Paths.get(target));
+        Files.copy(getClass().getResourceAsStream(source + "stylesheet.css"), Paths.get(target, "stylesheet.css"), StandardCopyOption.REPLACE_EXISTING);
 
-        OutputStream out = new FileOutputStream("target/datenkatalog-html/uebersicht.html");
+        OutputStream out = Files.newOutputStream(Paths.get(target, "uebersicht.html"));
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
-                Velocity.mergeTemplate("/generator/html/uebersicht.vm", "UTF-8", context, writer);
+                Velocity.mergeTemplate(source + "uebersicht.vm", "UTF-8", context, writer);
             } catch (Exception ex) {
                 throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Übersicht.", ex);
             }
