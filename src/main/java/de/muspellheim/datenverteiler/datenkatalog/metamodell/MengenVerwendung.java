@@ -5,8 +5,7 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.Objects;
 
 /**
  * Beschreibt die Verwendung einer MengenDefinition bei einer TypDefinition.
@@ -14,10 +13,17 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class MengenVerwendung extends SystemObjekt {
+public class MengenVerwendung {
 
     private String mengenName;
-    private Set<Typ> objektTypen = new LinkedHashSet<>();
+    private MengenTyp mengenTyp;
+
+    public static MengenVerwendung erzeugeMitNameUndTyp(String mengenName, MengenTyp mengenTyp) {
+        MengenVerwendung result = new MengenVerwendung();
+        result.setMengenName(mengenName);
+        result.setMengenTyp(mengenTyp);
+        return result;
+    }
 
     /**
      * Persistenter Name der Menge.
@@ -39,24 +45,40 @@ public class MengenVerwendung extends SystemObjekt {
         this.mengenName = mengenName;
     }
 
+    /**
+     * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
+     */
+    public MengenTyp getMengenTyp() {
+        return mengenTyp;
+    }
 
     /**
-     * Enthält die möglichen Typen von Objekten, die in Mengen des jeweiligen MengenTyps verwendet werden können.
+     * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
      */
-    public Set<Typ> getObjektTypen() {
-        return objektTypen;
+    public void setMengenTyp(MengenTyp mengenTyp) {
+        this.mengenTyp = mengenTyp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MengenVerwendung that = (MengenVerwendung) o;
+        return Objects.equals(mengenName, that.mengenName) &&
+                Objects.equals(mengenTyp, that.mengenTyp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mengenName, mengenTyp);
     }
 
     @Override
     public String toString() {
         return "MengenVerwendung{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", mengenName='" + mengenName + '\'' +
-                ", objektTypen=" + objektTypen +
-                "}";
+                "mengenName='" + mengenName + '\'' +
+                ", mengenTyp=" + mengenTyp +
+                '}';
     }
 
 }

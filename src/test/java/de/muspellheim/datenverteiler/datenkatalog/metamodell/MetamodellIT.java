@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
@@ -84,16 +85,33 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testMengen() {
-        Typ stoerfallIndikator = Typ.erzeugeMitPid("typ.störfallIndikator");
-        Typ netzBestandTeil = Typ.erzeugeMitPid("typ.netzBestandTeil");
-        netzBestandTeil.getSuperTypen().add(stoerfallIndikator);
-
-        MengenVerwendung netzBestandTeile = new MengenVerwendung();
-        netzBestandTeile.getObjektTypen().add(netzBestandTeil);
+        MengenVerwendung netzBestandTeile = MengenVerwendung.erzeugeMitNameUndTyp("NetzBestandTeile", MengenTyp.erzeugeMitPid("menge.netzBestandTeile"));
 
         Typ netz = metamodell.getTyp("typ.netz");
 
         assertEquals(Collections.singleton(netzBestandTeile), netz.getMengen());
+    }
+
+    @Test
+    public void testMengenNeu() {
+        MengenVerwendung aktionen = MengenVerwendung.erzeugeMitNameUndTyp("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
+        MengenVerwendung baustellen = MengenVerwendung.erzeugeMitNameUndTyp("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));
+        MengenVerwendung seitenStreifenFreigaben = MengenVerwendung.erzeugeMitNameUndTyp("SeitenStreifenFreigaben", MengenTyp.erzeugeMitPid("menge.seitenStreifenFreigaben"));
+        MengenVerwendung situationen = MengenVerwendung.erzeugeMitNameUndTyp("Situationen", MengenTyp.erzeugeMitPid("menge.situationen"));
+        MengenVerwendung staus = MengenVerwendung.erzeugeMitNameUndTyp("Staus", MengenTyp.erzeugeMitPid("menge.staus"));
+        MengenVerwendung unfaelle = MengenVerwendung.erzeugeMitNameUndTyp("Unfälle", MengenTyp.erzeugeMitPid("menge.unfälle"));
+        Set<MengenVerwendung> mengen = new LinkedHashSet<>();
+        mengen.add(aktionen);
+        mengen.add(baustellen);
+        mengen.add(seitenStreifenFreigaben);
+        mengen.add(situationen);
+        mengen.add(staus);
+        mengen.add(unfaelle);
+
+        Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
+
+        assertEquals(6, netz.getMengen().size());
+        assertEquals(mengen, netz.getMengen());
     }
 
 }

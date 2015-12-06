@@ -5,7 +5,6 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.config.*;
 
 import java.util.LinkedHashMap;
@@ -24,7 +23,7 @@ public class Metamodell {
     private final Map<String, KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new LinkedHashMap<>();
     private final Map<String, KonfigurationsBereich> konfigurationsbereiche = new LinkedHashMap<>();
     private final Map<String, Typ> typen = new LinkedHashMap<>();
-    private final Map<Long, MengenVerwendung> mengenVerwendungen = new LinkedHashMap<>();
+    private final Map<String, MengenTyp> mengenTypen = new LinkedHashMap<>();
 
     private final DataModel model;
 
@@ -88,23 +87,22 @@ public class Metamodell {
         typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
         type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));
-        if (type.getObjectSet("Mengen") != null)
-            type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
+        type.getDirectObjectSetUses().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
         return result;
     }
 
-    private MengenVerwendung getMengenVerwendung(SystemObject mengenVerwendung) {
-        if (mengenVerwendungen.containsKey(mengenVerwendung.getId()))
-            return mengenVerwendungen.get(mengenVerwendung.getId());
+    private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
+        return MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
+    }
 
-        MengenVerwendung result = new MengenVerwendung();
-        mengenVerwendungen.put(mengenVerwendung.getId(), result);
-        bestimmeSystemObjekt(mengenVerwendung, result);
-        Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
-        result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
-        SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
-        ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
-        cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp((SystemObjectType) t)));
+    private MengenTyp getMengenTyp(ObjectSetType objectSetType) {
+        if (mengenTypen.containsKey(objectSetType.getPid()))
+            return mengenTypen.get(objectSetType.getPid());
+
+        MengenTyp result = MengenTyp.erzeugeMitPid(objectSetType.getPid());
+        mengenTypen.put(objectSetType.getPid(), result);
+        bestimmeSystemObjekt(objectSetType, result);
+        objectSetType.getObjectTypes().forEach(t -> result.getObjektTypen().add(getTyp(t)));
         return result;
     }
 

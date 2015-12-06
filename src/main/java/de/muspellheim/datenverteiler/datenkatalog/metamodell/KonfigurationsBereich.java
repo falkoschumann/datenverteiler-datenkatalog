@@ -26,10 +26,16 @@ public class KonfigurationsBereich extends SystemObjekt {
         return result;
     }
 
+    /**
+     * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
+     */
     public KonfigurationsVerantwortlicher getZustaendiger() {
         return zustaendiger;
     }
 
+    /**
+     * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
+     */
     public void setZustaendiger(KonfigurationsVerantwortlicher zustaendiger) {
         this.zustaendiger = zustaendiger;
     }
