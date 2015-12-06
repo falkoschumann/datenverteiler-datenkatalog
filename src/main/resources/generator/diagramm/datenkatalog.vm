@@ -21,7 +21,7 @@ digraph {
 #end
 #end
 #foreach( $mengenVerwendung in $typ.getMengen() )
-#foreach( $objektTyp in $mengenVerwendung.getObjektTypen() )
+#foreach( $objektTyp in $mengenVerwendung.getMengenTyp().getObjektTypen() )
     $typ.getName() -> $objektTyp.getName() [label=$mengenVerwendung.getMengenName() arrowhead=vee color=red fontcolor=red]
 #end
 #end

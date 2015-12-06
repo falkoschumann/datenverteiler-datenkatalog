@@ -8,11 +8,12 @@ package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
-import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * Ein Generator für Überblicksdiagramme des Datenkatalogs.
@@ -36,6 +37,10 @@ public final class DiagrammGenerator {
         }
     }
 
+    private static final String SOURCE = "/generator/diagramm/";
+    private static final String TARGET = "TARGET/datenkatalog/diagramm/";
+    private static final String TEMPLATE = "datenkatalog";
+
     public static void main(String args[]) throws IOException {
         ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
         Metamodell metamodell = new Metamodell(model);
@@ -47,20 +52,26 @@ public final class DiagrammGenerator {
     }
 
     public void generiere(KonfigurationsBereich bereich) throws IOException {
+        VelocityContext context = erzeugeContext(bereich);
+        Files.createDirectories(Paths.get(TARGET));
+        generiereDiagramm(bereich, context);
+    }
+
+    private VelocityContext erzeugeContext(KonfigurationsBereich bereich) {
         VelocityContext context = new VelocityContext();
         context.put("diagrammtitel", bereich.getName());
         context.put("konfigurationsbereich", bereich);
+        return context;
+    }
 
-        Template template = null;
-        try {
-            template = Velocity.getTemplate("/generator/diagramm/datenkatalog.vm");
-        } catch (Exception ex) {
-            throw new IllegalStateException("Fehler beim Laden des Templates.", ex);
-        }
-
-        OutputStream out = new FileOutputStream("target/" + bereich.getName() + ".dot");
+    private void generiereDiagramm(KonfigurationsBereich bereich, VelocityContext context) throws IOException {
+        OutputStream out = Files.newOutputStream(Paths.get(TARGET, bereich.getPid() + ".dot"));
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
-            template.merge(context, writer);
+            try {
+                Velocity.mergeTemplate(SOURCE + TEMPLATE + ".vm", "UTF-8", context, writer);
+            } catch (Exception ex) {
+                throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + bereich.getPid() + ".dot mit dem Template " + TEMPLATE + ".vm.", ex);
+            }
         }
     }
 
