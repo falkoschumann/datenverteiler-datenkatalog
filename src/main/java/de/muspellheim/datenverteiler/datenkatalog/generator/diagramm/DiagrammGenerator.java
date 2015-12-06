@@ -38,7 +38,7 @@ public final class DiagrammGenerator {
     }
 
     private static final String SOURCE = "/generator/diagramm/";
-    private static final String TARGET = "TARGET/datenkatalog/diagramm/";
+    private static final String TARGET = "target/datenkatalog/diagramm/";
     private static final String TEMPLATE = "datenkatalog";
 
     public static void main(String args[]) throws IOException {
