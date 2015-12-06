@@ -24,7 +24,7 @@ public class Metamodell {
     private final Map<String, KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new LinkedHashMap<>();
     private final Map<String, KonfigurationsBereich> konfigurationsbereiche = new LinkedHashMap<>();
     private final Map<String, Typ> typen = new LinkedHashMap<>();
-    private final Map<Long, MengenVerwendung> mengenVerwendungen = new LinkedHashMap<>();
+    private final Map<String, MengenTyp> mengenTypen = new LinkedHashMap<>();
 
     private final DataModel model;
 
@@ -88,21 +88,28 @@ public class Metamodell {
         typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
         type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));
+        // TODO Umstellen auf Metamodell?
+        // type.getObjectSetUses().get(0).getObjectSetName();
+        // type.getObjectSetUses().get(0).getObjectSetType();
         if (type.getObjectSet("Mengen") != null)
             type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
         return result;
     }
 
     private MengenVerwendung getMengenVerwendung(SystemObject mengenVerwendung) {
-        if (mengenVerwendungen.containsKey(mengenVerwendung.getId()))
-            return mengenVerwendungen.get(mengenVerwendung.getId());
-
-        MengenVerwendung result = new MengenVerwendung();
-        mengenVerwendungen.put(mengenVerwendung.getId(), result);
-        bestimmeSystemObjekt(mengenVerwendung, result);
         Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
-        result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
+        String mengenName = eigenschaften.getTextValue("mengenName").getText();
         SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
+        return MengenVerwendung.erzeugeMitNameUndTyp(mengenName, getMengenTyp(mengenTyp));
+    }
+
+    private MengenTyp getMengenTyp(SystemObject mengenTyp) {
+        if (mengenTypen.containsKey(mengenTyp.getPid()))
+            return mengenTypen.get(mengenTyp.getPid());
+
+        MengenTyp result = MengenTyp.erzeugeMitPid(mengenTyp.getPid());
+        mengenTypen.put(mengenTyp.getPid(), result);
+        bestimmeSystemObjekt(mengenTyp, result);
         ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
         cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp((SystemObjectType) t)));
         return result;
