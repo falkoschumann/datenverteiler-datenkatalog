@@ -100,9 +100,6 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         MengenVerwendung situationen = MengenVerwendung.erzeugeMitNameUndTyp("Situationen", MengenTyp.erzeugeMitPid("menge.situationen"));
         MengenVerwendung staus = MengenVerwendung.erzeugeMitNameUndTyp("Staus", MengenTyp.erzeugeMitPid("menge.staus"));
         MengenVerwendung unfaelle = MengenVerwendung.erzeugeMitNameUndTyp("Unfälle", MengenTyp.erzeugeMitPid("menge.unfälle"));
-
-        Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
-
         Set<MengenVerwendung> mengen = new LinkedHashSet<>();
         mengen.add(aktionen);
         mengen.add(baustellen);
@@ -110,6 +107,9 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         mengen.add(situationen);
         mengen.add(staus);
         mengen.add(unfaelle);
+
+        Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
+
         assertEquals(6, netz.getMengen().size());
         assertEquals(mengen, netz.getMengen());
     }

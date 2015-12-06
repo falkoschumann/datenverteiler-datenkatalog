@@ -5,7 +5,6 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.config.*;
 
 import java.util.LinkedHashMap;
@@ -88,30 +87,22 @@ public class Metamodell {
         typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
         type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));
-        // TODO Umstellen auf Metamodell?
-        // type.getObjectSetUses().get(0).getObjectSetName();
-        // type.getObjectSetUses().get(0).getObjectSetType();
-        if (type.getObjectSet("Mengen") != null)
-            type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
+        type.getDirectObjectSetUses().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
         return result;
     }
 
-    private MengenVerwendung getMengenVerwendung(SystemObject mengenVerwendung) {
-        Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
-        String mengenName = eigenschaften.getTextValue("mengenName").getText();
-        SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
-        return MengenVerwendung.erzeugeMitNameUndTyp(mengenName, getMengenTyp(mengenTyp));
+    private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
+        return MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
     }
 
-    private MengenTyp getMengenTyp(SystemObject mengenTyp) {
-        if (mengenTypen.containsKey(mengenTyp.getPid()))
-            return mengenTypen.get(mengenTyp.getPid());
+    private MengenTyp getMengenTyp(ObjectSetType objectSetType) {
+        if (mengenTypen.containsKey(objectSetType.getPid()))
+            return mengenTypen.get(objectSetType.getPid());
 
-        MengenTyp result = MengenTyp.erzeugeMitPid(mengenTyp.getPid());
-        mengenTypen.put(mengenTyp.getPid(), result);
-        bestimmeSystemObjekt(mengenTyp, result);
-        ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
-        cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp((SystemObjectType) t)));
+        MengenTyp result = MengenTyp.erzeugeMitPid(objectSetType.getPid());
+        mengenTypen.put(objectSetType.getPid(), result);
+        bestimmeSystemObjekt(objectSetType, result);
+        objectSetType.getObjectTypes().forEach(t -> result.getObjektTypen().add(getTyp(t)));
         return result;
     }
 
