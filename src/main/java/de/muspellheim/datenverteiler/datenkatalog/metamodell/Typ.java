@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -15,27 +14,15 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class Typ {
+public class Typ extends SystemObjekt {
 
-    private String name;
-    private boolean dynamisch;
     private Set<MengenVerwendung> mengen = new LinkedHashSet<>();
     private Set<Typ> superTypen = new LinkedHashSet<>();
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isDynamisch() {
-        return dynamisch;
-    }
-
-    public void setDynamisch(boolean dynamisch) {
-        this.dynamisch = dynamisch;
+    public static Typ erzeugeMitPid(String pid) {
+        Typ result = new Typ();
+        result.setPid(pid);
+        return result;
     }
 
     /**
@@ -57,29 +44,15 @@ public class Typ {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Typ typ = (Typ) o;
-        return Objects.equals(name, typ.name) &&
-                Objects.equals(dynamisch, typ.dynamisch) &&
-                Objects.equals(mengen, typ.mengen) &&
-                Objects.equals(superTypen, typ.superTypen);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, dynamisch, mengen, superTypen);
-    }
-
-    @Override
     public String toString() {
         return "Typ{" +
-                "name='" + name + '\'' +
-                ", dynamisch=" + dynamisch +
-                ", mengen=" + mengen +
-                ", superTypen=" + superTypen +
-                '}';
+                "name='" + getName() + '\'' +
+                ", pid='" + getPid() + '\'' +
+                ", kurzinfo='" + getKurzinfo() + '\'' +
+                ", beschreibung='" + getBeschreibung() + '\'' +
+                ", mengen=" + getMengen() +
+                ", superTypen=" + getSuperTypen() +
+                "}";
     }
 
 }

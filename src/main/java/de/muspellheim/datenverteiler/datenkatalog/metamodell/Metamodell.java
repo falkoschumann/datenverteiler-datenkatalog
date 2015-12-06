@@ -5,11 +5,12 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import de.bsvrz.dav.daf.main.Data;
 import de.bsvrz.dav.daf.main.config.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Fabrik zum Erzeugen von Objekten des Metamodells.
@@ -19,19 +20,55 @@ import java.util.Map;
  */
 public class Metamodell {
 
+    private final Map<String, KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new LinkedHashMap<>();
+    private final Map<String, KonfigurationsBereich> konfigurationsbereiche = new LinkedHashMap<>();
+    private final Map<String, Typ> typen = new LinkedHashMap<>();
+    private final Map<String, MengenTyp> mengenTypen = new LinkedHashMap<>();
+
     private final DataModel model;
-    private final Map<SystemObjectType, Typ> zwischenspeicher = new LinkedHashMap<>();
 
     public Metamodell(DataModel model) {
         this.model = model;
     }
 
+    public Set<KonfigurationsBereich> getKonfigurationsbereiche() {
+        return model.getType("typ.konfigurationsBereich").getElements().stream().
+                map(k -> getKonfigurationsbereich(k.getPid())).
+                collect(Collectors.toSet());
+    }
+
     public KonfigurationsBereich getKonfigurationsbereich(String pid) {
-        ConfigurationArea area = model.getConfigurationArea(pid);
-        KonfigurationsBereich result = new KonfigurationsBereich();
-        result.setName(area.getName());
-        area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp(t)));
+        return getKonfigurationsbereich(model.getConfigurationArea(pid));
+    }
+
+    private KonfigurationsBereich getKonfigurationsbereich(ConfigurationArea area) {
+        if (konfigurationsbereiche.containsKey(area.getPid()))
+            return konfigurationsbereiche.get(area.getPid());
+
+        KonfigurationsBereich result = KonfigurationsBereich.erzeugeMitPid(area.getPid());
+        konfigurationsbereiche.put(area.getPid(), result);
+        bestimmeSystemObjekt(area, result);
+        result.setZustaendiger(getKonfiguratonsVerantwortlicher(area.getConfigurationAuthority()));
+        area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp((SystemObjectType) t)));
         return result;
+    }
+
+    private KonfigurationsVerantwortlicher getKonfiguratonsVerantwortlicher(ConfigurationAuthority authority) {
+        if (konfigurationsVerantwortliche.containsKey(authority.getPid()))
+            return konfigurationsVerantwortliche.get(authority.getPid());
+
+        KonfigurationsVerantwortlicher result = KonfigurationsVerantwortlicher.erzeugeMitPid(authority.getPid());
+        konfigurationsVerantwortliche.put(authority.getPid(), result);
+        bestimmeSystemObjekt(authority, result);
+        return result;
+    }
+
+    private void bestimmeSystemObjekt(SystemObject object, SystemObjekt result) {
+        result.setName(object.getName());
+        result.setKurzinfo(object.getInfo().getShortInfo().trim());
+        result.setBeschreibung(object.getInfo().getDescription().trim());
+        if (!(object instanceof ConfigurationArea))
+            result.setBereich(getKonfigurationsbereich(object.getConfigurationArea()));
     }
 
     private static boolean istTyp(SystemObject systemObject) {
@@ -42,35 +79,30 @@ public class Metamodell {
         return getTyp(model.getType(pid));
     }
 
-    private Typ getTyp(SystemObject type) {
-        if (type instanceof SystemObjectType)
-            return getTyp((SystemObjectType) type);
-
-        throw new IllegalArgumentException("Kein Typ: " + type);
-    }
-
     private Typ getTyp(SystemObjectType type) {
-        if (zwischenspeicher.containsKey(type))
-            return zwischenspeicher.get(type);
+        if (typen.containsKey(type.getPid()))
+            return typen.get(type.getPid());
 
-        Typ result = new Typ();
-        result.setName(type.getName());
-        result.setDynamisch(type instanceof DynamicObjectType);
-        type.getSuperTypes().stream().filter(t -> !t.isBaseType()).forEach(t -> result.getSuperTypen().add(getTyp(t)));
-        if (type.getObjectSet("Mengen") != null)
-            type.getObjectSet("Mengen").getElements().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
-
-        zwischenspeicher.put(type, result);
+        Typ result = Typ.erzeugeMitPid(type.getPid());
+        typen.put(type.getPid(), result);
+        bestimmeSystemObjekt(type, result);
+        type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));
+        type.getDirectObjectSetUses().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
         return result;
     }
 
-    private MengenVerwendung getMengenVerwendung(SystemObject mengenVerwendung) {
-        Data eigenschaften = mengenVerwendung.getConfigurationData(model.getAttributeGroup("atg.mengenVerwendungsEigenschaften"));
-        MengenVerwendung result = new MengenVerwendung();
-        result.setMengenName(eigenschaften.getTextValue("mengenName").getText());
-        SystemObject mengenTyp = eigenschaften.getReferenceValue("mengenTyp").getSystemObject();
-        ConfigurationObject cMengenTyp = (ConfigurationObject) mengenTyp;
-        cMengenTyp.getObjectSet("ObjektTypen").getElements().forEach(t -> result.getObjektTypen().add(getTyp(t)));
+    private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
+        return MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
+    }
+
+    private MengenTyp getMengenTyp(ObjectSetType objectSetType) {
+        if (mengenTypen.containsKey(objectSetType.getPid()))
+            return mengenTypen.get(objectSetType.getPid());
+
+        MengenTyp result = MengenTyp.erzeugeMitPid(objectSetType.getPid());
+        mengenTypen.put(objectSetType.getPid(), result);
+        bestimmeSystemObjekt(objectSetType, result);
+        objectSetType.getObjectTypes().forEach(t -> result.getObjektTypen().add(getTyp(t)));
         return result;
     }
 

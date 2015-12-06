@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import java.util.LinkedHashSet;
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -16,17 +15,29 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class KonfigurationsBereich {
+public class KonfigurationsBereich extends SystemObjekt {
 
-    private String name;
+    private KonfigurationsVerantwortlicher zustaendiger;
     private Set<Typ> typen = new LinkedHashSet<>();
 
-    public String getName() {
-        return name;
+    public static KonfigurationsBereich erzeugeMitPid(String pid) {
+        KonfigurationsBereich result = new KonfigurationsBereich();
+        result.setPid(pid);
+        return result;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    /**
+     * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
+     */
+    public KonfigurationsVerantwortlicher getZustaendiger() {
+        return zustaendiger;
+    }
+
+    /**
+     * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
+     */
+    public void setZustaendiger(KonfigurationsVerantwortlicher zustaendiger) {
+        this.zustaendiger = zustaendiger;
     }
 
     public Set<Typ> getTypen() {
@@ -34,25 +45,15 @@ public class KonfigurationsBereich {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        KonfigurationsBereich that = (KonfigurationsBereich) o;
-        return Objects.equals(name, that.name) &&
-                Objects.equals(typen, that.typen);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, typen);
-    }
-
-    @Override
     public String toString() {
         return "KonfigurationsBereich{" +
-                "name='" + name + '\'' +
+                "name='" + getName() + '\'' +
+                ", pid='" + getPid() + '\'' +
+                ", kurzinfo='" + getKurzinfo() + '\'' +
+                ", beschreibung='" + getBeschreibung() + '\'' +
+                ", zustaendiger=" + zustaendiger +
                 ", typen=" + typen +
-                '}';
+                "}";
     }
 
 }

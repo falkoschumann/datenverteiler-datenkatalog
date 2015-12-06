@@ -5,9 +5,7 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Beschreibt die Verwendung einer MengenDefinition bei einer TypDefinition.
@@ -18,7 +16,14 @@ import java.util.Set;
 public class MengenVerwendung {
 
     private String mengenName;
-    private Set<Typ> objektTypen = new LinkedHashSet<>();
+    private MengenTyp mengenTyp;
+
+    public static MengenVerwendung erzeugeMitNameUndTyp(String mengenName, MengenTyp mengenTyp) {
+        MengenVerwendung result = new MengenVerwendung();
+        result.setMengenName(mengenName);
+        result.setMengenTyp(mengenTyp);
+        return result;
+    }
 
     /**
      * Persistenter Name der Menge.
@@ -40,12 +45,18 @@ public class MengenVerwendung {
         this.mengenName = mengenName;
     }
 
+    /**
+     * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
+     */
+    public MengenTyp getMengenTyp() {
+        return mengenTyp;
+    }
 
     /**
-     * Enthält die möglichen Typen von Objekten, die in Mengen des jeweiligen MengenTyps verwendet werden können.
+     * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
      */
-    public Set<Typ> getObjektTypen() {
-        return objektTypen;
+    public void setMengenTyp(MengenTyp mengenTyp) {
+        this.mengenTyp = mengenTyp;
     }
 
     @Override
@@ -54,19 +65,19 @@ public class MengenVerwendung {
         if (o == null || getClass() != o.getClass()) return false;
         MengenVerwendung that = (MengenVerwendung) o;
         return Objects.equals(mengenName, that.mengenName) &&
-                Objects.equals(objektTypen, that.objektTypen);
+                Objects.equals(mengenTyp, that.mengenTyp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mengenName, objektTypen);
+        return Objects.hash(mengenName, mengenTyp);
     }
 
     @Override
     public String toString() {
         return "MengenVerwendung{" +
                 "mengenName='" + mengenName + '\'' +
-                ", objektTypen=" + objektTypen +
+                ", mengenTyp=" + mengenTyp +
                 '}';
     }
 
