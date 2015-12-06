@@ -35,8 +35,8 @@ public class HtmlGenerator {
     public static final String OBJEKTE = "objekte";
     public static final String TYP = "typ";
 
-    private final String source = "/generator/html/";
-    private final String target = "target/datenkatalog-html/";
+    private static final String SOURCE = "/generator/html/";
+    private static final String TARGET = "target/datenkatalog/html/";
 
     private VelocityContext context;
 
@@ -63,7 +63,7 @@ public class HtmlGenerator {
     public void generiere(Metamodell metamodell) throws IOException {
         context = erzeugeContext(metamodell);
 
-        Files.createDirectories(Paths.get(target));
+        Files.createDirectories(Paths.get(TARGET));
         kopiereStatischeDateien();
         generiereDatei("uebersicht");
         generiereDatei("uebersicht-frame");
@@ -88,8 +88,8 @@ public class HtmlGenerator {
     }
 
     private void kopiereStatischeDateien() throws IOException {
-        Files.copy(getClass().getResourceAsStream(source + "stylesheet.css"), Paths.get(target, "stylesheet.css"), StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(getClass().getResourceAsStream(source + "index.html"), Paths.get(target, "index.html"), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(getClass().getResourceAsStream(SOURCE + "stylesheet.css"), Paths.get(TARGET, "stylesheet.css"), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(getClass().getResourceAsStream(SOURCE + "index.html"), Paths.get(TARGET, "index.html"), StandardCopyOption.REPLACE_EXISTING);
     }
 
     private void generiereDatei(String name) throws IOException {
@@ -97,10 +97,10 @@ public class HtmlGenerator {
     }
 
     private void generiereDatei(String template, String zieldateiname) throws IOException {
-        OutputStream out = Files.newOutputStream(Paths.get(target, zieldateiname + ".html"));
+        OutputStream out = Files.newOutputStream(Paths.get(TARGET, zieldateiname + ".html"));
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
-                Velocity.mergeTemplate(source + template + ".vm", "UTF-8", context, writer);
+                Velocity.mergeTemplate(SOURCE + template + ".vm", "UTF-8", context, writer);
             } catch (Exception ex) {
                 throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + zieldateiname + ".html mit dem Template " + template + ".vm.", ex);
             }
@@ -111,7 +111,7 @@ public class HtmlGenerator {
         if (systemObjekt instanceof Typ) {
             context.put(TYP, systemObjekt);
             String pfad = systemObjekt.getBereich().getZustaendiger().getPid() + "/" + systemObjekt.getBereich().getPid() + "/";
-            Files.createDirectories(Paths.get(target, pfad));
+            Files.createDirectories(Paths.get(TARGET, pfad));
             generiereDatei("typ", pfad + systemObjekt.getPid());
         }
     }
