@@ -9,7 +9,7 @@ digraph {
     edge [fontname=Arial fontsize=12]
 
 #foreach( $typ in $konfigurationsbereich.getTypen() )
-#if( $typ.isDynamisch() )
+#if( $typ.class.simpleName == "DynamischerTyp" )
     $typ.getName() [fillcolor=green]
 #end
 #end
