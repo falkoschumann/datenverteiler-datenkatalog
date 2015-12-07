@@ -83,7 +83,11 @@ public class Metamodell {
         if (typen.containsKey(type.getPid()))
             return typen.get(type.getPid());
 
-        Typ result = Typ.erzeugeMitPid(type.getPid());
+        Typ result;
+        if (type instanceof DynamicObjectType)
+            result = DynamischerTyp.erzeugeMitPid(type.getPid());
+        else
+            result = Typ.erzeugeMitPid(type.getPid());
         typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
         type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));

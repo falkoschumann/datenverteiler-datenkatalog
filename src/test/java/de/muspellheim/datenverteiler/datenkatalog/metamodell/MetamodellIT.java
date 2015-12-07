@@ -15,6 +15,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Integrationstests für das Metamodells.
@@ -112,6 +113,13 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
         assertEquals(6, netz.getMengen().size());
         assertEquals(mengen, netz.getMengen());
+    }
+
+    @Test
+    public void testDynamischesObjekt() {
+        Typ stau = metamodell.getTyp("typ.stau");
+
+        assertTrue(stau instanceof DynamischerTyp);
     }
 
 }
