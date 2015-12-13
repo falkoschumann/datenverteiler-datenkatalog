@@ -7,6 +7,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Der Typ aller Typobjekte.
@@ -16,8 +17,8 @@ import java.util.Set;
  */
 public class Typ extends SystemObjekt {
 
-    private Set<MengenVerwendung> mengen = new LinkedHashSet<>();
-    private Set<Typ> superTypen = new LinkedHashSet<>();
+    private final Set<MengenVerwendung> mengen = new LinkedHashSet<>();
+    private final Set<Typ> superTypen = new TreeSet<>();
 
     public static Typ erzeugeMitPid(String pid) {
         Typ result = new Typ();
