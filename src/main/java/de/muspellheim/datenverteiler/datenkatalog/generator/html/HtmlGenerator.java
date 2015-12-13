@@ -31,9 +31,13 @@ import java.util.stream.Collectors;
  */
 public class HtmlGenerator {
 
-    public static final String KONFIGURATIONSBEREICHE = "konfigurationsbereiche";
-    public static final String OBJEKTE = "objekte";
-    public static final String TYP = "typ";
+    // TODO Konfigurationsbereich-Frame mit Typen und Mengen
+    // TODO Konfigurationsbereich-Übersicht mit Mengen
+
+    public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";
+    public static final String PROP_KONFIGURATIONSBEREICHE = "konfigurationsbereiche";
+    public static final String PROP_OBJEKTE = "objekte";
+    public static final String PROP_TYP = "typ";
 
     private static final String SOURCE = "/generator/html/";
     private static final String TARGET = "target/datenkatalog/html/";
@@ -68,9 +72,8 @@ public class HtmlGenerator {
         generiereDatei("uebersicht");
         generiereDatei("uebersicht-frame");
         generiereDatei("alleobjekte-frame");
-        Set<SystemObjekt> objekte = (Set<SystemObjekt>) context.get(OBJEKTE);
-        for (SystemObjekt e : objekte)
-            generiereObjekt(e);
+        generiereKonfigurationsbereiche();
+        generiereObjekte();
     }
 
     private VelocityContext erzeugeContext(Metamodell metamodell) {
@@ -78,11 +81,13 @@ public class HtmlGenerator {
 
         SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>();
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
-        result.put(KONFIGURATIONSBEREICHE, konfigurationsBereiche);
+        result.put(PROP_KONFIGURATIONSBEREICHE, konfigurationsBereiche);
+
+        SortedSet<SystemObjekt> typen = new TreeSet<>();
+        typen.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getTypen).flatMap(Collection::stream).collect(Collectors.toSet()));
 
         SortedSet<SystemObjekt> objekte = new TreeSet<>();
-        objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getTypen).flatMap(Collection::stream).collect(Collectors.toSet()));
-        result.put(OBJEKTE, objekte);
+        result.put(PROP_OBJEKTE, typen);
 
         return result;
     }
@@ -107,9 +112,28 @@ public class HtmlGenerator {
         }
     }
 
+    private void generiereKonfigurationsbereiche() throws IOException {
+        Set<SystemObjekt> konfigurationsbereiche = (Set<SystemObjekt>) context.get(PROP_KONFIGURATIONSBEREICHE);
+        for (SystemObjekt e : konfigurationsbereiche)
+            generiereKonfigurationsbereich((KonfigurationsBereich) e);
+    }
+
+    private void generiereKonfigurationsbereich(KonfigurationsBereich konfigurationsBereich) throws IOException {
+            context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
+            String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
+            Files.createDirectories(Paths.get(TARGET, pfad));
+            generiereDatei("konfigurationsbereich", pfad + "konfigurationsbereich-uebersicht");
+    }
+
+    private void generiereObjekte() throws IOException {
+        Set<SystemObjekt> objekte = (Set<SystemObjekt>) context.get(PROP_OBJEKTE);
+        for (SystemObjekt e : objekte)
+            generiereObjekt(e);
+    }
+
     private void generiereObjekt(SystemObjekt systemObjekt) throws IOException {
         if (systemObjekt instanceof Typ) {
-            context.put(TYP, systemObjekt);
+            context.put(PROP_TYP, systemObjekt);
             String pfad = systemObjekt.getBereich().getZustaendiger().getPid() + "/" + systemObjekt.getBereich().getPid() + "/";
             Files.createDirectories(Paths.get(TARGET, pfad));
             generiereDatei("typ", pfad + systemObjekt.getPid());
