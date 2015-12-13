@@ -6,10 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.html;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.SystemObjekt;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Typ;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.*;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
@@ -38,6 +35,7 @@ public class HtmlGenerator {
     public static final String PROP_KONFIGURATIONSBEREICHE = "konfigurationsbereiche";
     public static final String PROP_OBJEKTE = "objekte";
     public static final String PROP_TYP = "typ";
+    public static final String PROP_MENGENTYP = "mengentyp";
 
     private static final String SOURCE = "/generator/html/";
     private static final String TARGET = "target/datenkatalog/html/";
@@ -146,11 +144,14 @@ public class HtmlGenerator {
     }
 
     private void generiereObjekt(SystemObjekt systemObjekt) throws IOException {
-        if (systemObjekt instanceof Typ) {
+        String pfad = systemObjekt.getBereich().getZustaendiger().getPid() + "/" + systemObjekt.getBereich().getPid() + "/";
+        Files.createDirectories(Paths.get(TARGET, pfad));
+        if (systemObjekt instanceof MengenTyp) {
+            context.put(PROP_MENGENTYP, systemObjekt);
+            generiereDatei(PROP_MENGENTYP, pfad + systemObjekt.getPid());
+        } else if (systemObjekt instanceof Typ) {
             context.put(PROP_TYP, systemObjekt);
-            String pfad = systemObjekt.getBereich().getZustaendiger().getPid() + "/" + systemObjekt.getBereich().getPid() + "/";
-            Files.createDirectories(Paths.get(TARGET, pfad));
-            generiereDatei("typ", pfad + systemObjekt.getPid());
+            generiereDatei(PROP_TYP, pfad + systemObjekt.getPid());
         }
     }
 

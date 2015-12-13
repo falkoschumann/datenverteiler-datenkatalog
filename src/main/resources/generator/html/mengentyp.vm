@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Menge ${mengentyp.getNameOderPid()}</title>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<script type="text/javascript">
+    <!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title = "${mengentyp.getNameOderPid()} (Datenkatalog)";
+        }
+    }
+    catch (err) {
+    }
+    //-->
+</script>
+<p>$mengentyp.getBereich().getZustaendiger().getNameOderPid() / $mengentyp.getBereich().getNameOderPid()</p>
+<h2>Menge ${mengentyp.getNameOderPid()} (${typ.getPid()})</h2>
+<p>${typ.getKurzinfo()}</p>
+<p>${typ.getBeschreibung()}</p>
+<p>TODO Konfigurationsdaten des Mengentyps</p>
+#if( !$mengentyp.getTypen().isEmpty() )
+<div class="ueberblick">
+    <table border="0" cellpadding="0" cellspacing="0">
+        <caption><span>Objekttypen</span></caption>
+        <tbody>
+        <tr>
+            <th>Typ</th>
+            <th>Beschreibung</th>
+        </tr>
+            #set( $row = 1 )
+            #foreach( $typ in $mengentyp.getObjektTypen() )
+            <tr>
+                <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">${typ.getName()}</a></td>
+                <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
+            </tr>
+                #set( $row = $row + 1 )
+            #end
+        </tbody>
+    </table>
+</div>
+#end
+</body>
+</html>

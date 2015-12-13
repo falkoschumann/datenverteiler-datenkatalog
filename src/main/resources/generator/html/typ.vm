@@ -9,8 +9,19 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
 </head>
 <body>
+<script type="text/javascript">
+    <!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title = "${typ.getNameOderPid()} (Datenkatalog)";
+        }
+    }
+    catch (err) {
+    }
+    //-->
+</script>
 <p>$typ.getBereich().getZustaendiger().getNameOderPid() / $typ.getBereich().getNameOderPid()</p>
-<h2>Typ ${typ.getNameOderPid()} (${typ.getPid()}))</h2>
+<h2>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h2>
 <p><strong>Alle erweiterten Typen</strong></p>
 <p>
 #foreach( $superTyp in $typ.getSuperTypen() )
