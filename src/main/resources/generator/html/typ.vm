@@ -20,38 +20,40 @@
     }
     //-->
 </script>
-<p>$typ.getBereich().getZustaendiger().getNameOderPid() / $typ.getBereich().getNameOderPid()</p>
-<h2>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h2>
-<p><strong>Alle erweiterten Typen</strong></p>
-<p>
-#foreach( $superTyp in $typ.getSuperTypen() )
-<a href="${superTyp.getBereich().getZustaendiger().getPid()}/${superTyp.getBereich().getPid()}/${superTyp.getPid()}.html" target="objektFrame">${superTyp.getNameOderPid()}</a>#if( $velocityHasNext ), #end
-#end
-</p>
-<p><strong>Bekannte direkte Subtypen</strong></p>
-<p>TODO</p>
-<br>
-<p>${typ.getKurzinfo()}</p>
-<p>${typ.getBeschreibung()}</p>
-#if( !$typ.getMengen().isEmpty() )
-<div class="ueberblick">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <caption><span>Mengen</span></caption>
-        <tbody>
-        <tr>
-            <th>Menge</th>
-            <th>Beschreibung</th>
-        </tr>
-            #set( $row = 1 )
-            #foreach( $mengenVerwendung in $typ.getMengen() )
+<div class="content">
+    <p>$typ.getBereich().getZustaendiger().getNameOderPid() / $typ.getBereich().getNameOderPid()</p>
+    <h2>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h2>
+    <p><strong>Alle erweiterten Typen</strong></p>
+    <p>
+    #foreach( $superTyp in $typ.getSuperTypen() )
+    <a href="${superTyp.getBereich().getZustaendiger().getPid()}/${superTyp.getBereich().getPid()}/${superTyp.getPid()}.html" target="objektFrame">${superTyp.getNameOderPid()}</a>#if( $velocityHasNext ), #end
+    #end
+    </p>
+    <p><strong>Bekannte direkte Subtypen</strong></p>
+    <p>TODO</p>
+    <br>
+    <p>${typ.getKurzinfo()}</p>
+    <p>${typ.getBeschreibung()}</p>
+    #if( !$typ.getMengen().isEmpty() )
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Mengen</span></caption>
+            <tbody>
             <tr>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.getMengenTyp().getBereich().getZustaendiger().getPid()}/${mengenVerwendung.getMengenTyp().getBereich().getPid()}/${mengenVerwendung.getMengenTyp().getPid()}.html">${mengenVerwendung.getMengenName()}</a></td>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${mengenVerwendung.getMengenTyp().getKurzinfo()}</td>
+                <th>Menge</th>
+                <th>Beschreibung</th>
             </tr>
-                #set( $row = $row + 1 )
-            #end
-        </tbody>
-    </table>
+                #set( $row = 1 )
+                #foreach( $mengenVerwendung in $typ.getMengen() )
+                <tr>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.getMengenTyp().getBereich().getZustaendiger().getPid()}/${mengenVerwendung.getMengenTyp().getBereich().getPid()}/${mengenVerwendung.getMengenTyp().getPid()}.html">${mengenVerwendung.getMengenName()}</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${mengenVerwendung.getMengenTyp().getKurzinfo()}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
 </div>
 #end
 <p>TODO Attributgruppen</p>

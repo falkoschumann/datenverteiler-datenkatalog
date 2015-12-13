@@ -28,8 +28,9 @@ import java.util.stream.Collectors;
  */
 public class HtmlGenerator {
 
-    // TODO Konfigurationsbereich-Frame mit Typen und Mengen
-    // TODO Mengentypen
+    // TODO Kopfzeile für rechten Frame
+    // TODO "Datenkatalog" durch Variable "projekt" ersetzen
+    // TODO Überblicksseite für Konfigurationsverantwortlichen mit Liste der Konfigurationsbereichen
 
     public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";
     public static final String PROP_KONFIGURATIONSBEREICHE = "konfigurationsbereiche";

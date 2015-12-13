@@ -1,8 +1,31 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
 body {
+    margin: 0;
+    padding: 0;
     color: #2e3436;
     background-color: #fff;
     font-family: "Lucida Grande", "Verdana", "Arial", sans-serif;
     font-size: 14px;
+}
+
+.header {
+    padding: 8px 5px;
+    color: #fff;
+    background-color: #3465a4;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.header a {
+    color: #fff;
+}
+
+.content {
+    padding: 5px;
 }
 
 .block {
@@ -16,11 +39,6 @@ ul.konfigurationsbereiche, ul.objekte {
 
 .konfigurationsbereiche li, .objekte li {
     list-style: none;
-}
-
-h2.konfigurationsbereiche, h2.objekte {
-    color: #2e3436;
-    font-size: 15px;
 }
 
 .konfigurationsbereiche a, .objekte a {

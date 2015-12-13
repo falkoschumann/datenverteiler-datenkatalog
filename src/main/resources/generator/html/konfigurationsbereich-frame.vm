@@ -9,11 +9,15 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
 </head>
 <body>
-<h2 class="objekte"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.getNameOderPid()}</a></h2>
-<ul class="objekte">
-    #foreach( $objekt in $konfigurationsbereich.getAlleObjekte() )
+<div class="header">
+    <a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.getNameOderPid()}</a>
+</div>
+<div class="content">
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.getAlleObjekte() )
         <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html" target="objektFrame">${objekt.getNameOderPid()}</a></li>
-    #end
-</ul>
+        #end
+    </ul>
+</div>
 </body>
 </html>

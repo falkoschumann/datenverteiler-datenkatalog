@@ -4,16 +4,22 @@
     <title>Konfigurationsbereiche</title>
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
-    <meta name="keywords" content="Konfigurationsbereiche, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <meta name="keywords"
+          content="Konfigurationsbereiche, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
     <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
 </head>
 <body>
-<p><a href="alleobjekte-frame.html" target="konfigurationsbereichFrame">Alle Konfigurationsbereich</a></p>
-<h2 class="konfigurationsbereiche">Konfigurationsbereiche</h2>
-<ul class="konfigurationsbereiche">
-#foreach( $konfigurationsbereich in $konfigurationsbereiche )
-    <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-frame.html" target="konfigurationsbereichFrame">${konfigurationsbereich.getNameOderPid()}</a></li>
-#end
-</ul>
+<div class="header">
+    Datenkatalog
+</div>
+<div class="content">
+    <p><a href="alleobjekte-frame.html" target="konfigurationsbereichFrame">Alle Konfigurationsbereich</a></p>
+    <h2 class="konfigurationsbereiche">Konfigurationsbereiche</h2>
+    <ul class="konfigurationsbereiche">
+        #foreach( $konfigurationsbereich in $konfigurationsbereiche )
+        <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-frame.html" target="konfigurationsbereichFrame">${konfigurationsbereich.getNameOderPid()}</a></li>
+        #end
+    </ul>
+</div>
 </body>
 </html>

@@ -8,11 +8,15 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
 </head>
 <body>
-<h2 class="objekte">Objekte</h2>
-<ul class="objekte">
-    #foreach( $objekt in $objekte )
+<div class="header">
+    Objekte
+</div>
+<div class="content">
+    <ul class="objekte">
+        #foreach( $objekt in $objekte )
         <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html" target="objektFrame">$objekt.getNameOderPid()</a></li>
-    #end
-</ul>
+        #end
+    </ul>
+</div>
 </body>
 </html>

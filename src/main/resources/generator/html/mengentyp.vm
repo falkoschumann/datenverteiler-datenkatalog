@@ -20,30 +20,32 @@
     }
     //-->
 </script>
-<p>$mengentyp.getBereich().getZustaendiger().getNameOderPid() / $mengentyp.getBereich().getNameOderPid()</p>
-<h2>Menge ${mengentyp.getNameOderPid()} (${typ.getPid()})</h2>
-<p>${typ.getKurzinfo()}</p>
-<p>${typ.getBeschreibung()}</p>
-<p>TODO Konfigurationsdaten des Mengentyps</p>
-#if( !$mengentyp.getTypen().isEmpty() )
-<div class="ueberblick">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <caption><span>Objekttypen</span></caption>
-        <tbody>
-        <tr>
-            <th>Typ</th>
-            <th>Beschreibung</th>
-        </tr>
-            #set( $row = 1 )
-            #foreach( $typ in $mengentyp.getObjektTypen() )
+<div class="content">
+    <p>$mengentyp.getBereich().getZustaendiger().getNameOderPid() / $mengentyp.getBereich().getNameOderPid()</p>
+    <h2>Menge ${mengentyp.getNameOderPid()} (${typ.getPid()})</h2>
+    <p>${typ.getKurzinfo()}</p>
+    <p>${typ.getBeschreibung()}</p>
+    <p>TODO Konfigurationsdaten des Mengentyps</p>
+    #if( !$mengentyp.getTypen().isEmpty() )
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Objekttypen</span></caption>
+            <tbody>
             <tr>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">${typ.getName()}</a></td>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
+                <th>Typ</th>
+                <th>Beschreibung</th>
             </tr>
-                #set( $row = $row + 1 )
-            #end
-        </tbody>
-    </table>
+                #set( $row = 1 )
+                #foreach( $typ in $mengentyp.getObjektTypen() )
+                <tr>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">${typ.getName()}</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
 </div>
 #end
 </body>

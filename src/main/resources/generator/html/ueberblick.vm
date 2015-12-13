@@ -19,26 +19,27 @@
     }
     //-->
 </script>
-<h1>Überblick - Datenkatalog</h1>
-
-<div class="ueberblick">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <caption><span>Konfigurationsbereiche</span></caption>
-        <tbody>
-        <tr>
-            <th>Konfigurationsbereich</th>
-            <th>Beschreibung</th>
-        </tr>
-        #set( $row = 1 )
-        #foreach( $konfigurationsbereich in $konfigurationsbereiche )
-        <tr>
-            <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">$konfigurationsbereich.getNameOderPid()</a></td>
-            <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">$konfigurationsbereich.getKurzinfo()</td>
-        </tr>
+<div class="content">
+    <h1>Überblick - Datenkatalog</h1>
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Konfigurationsbereiche</span></caption>
+            <tbody>
+            <tr>
+                <th>Konfigurationsbereich</th>
+                <th>Beschreibung</th>
+            </tr>
+            #set( $row = 1 )
+            #foreach( $konfigurationsbereich in $konfigurationsbereiche )
+            <tr>
+                <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">$konfigurationsbereich.getNameOderPid()</a></td>
+                <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">$konfigurationsbereich.getKurzinfo()</td>
+            </tr>
             #set( $row = $row + 1 )
-        #end
-        </tbody>
-    </table>
+            #end
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

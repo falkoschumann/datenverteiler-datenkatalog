@@ -20,31 +20,32 @@
     }
     //-->
 </script>
-<p>${konfigurationsbereich.getZustaendiger().getNameOderPid()}</p>
-<h2>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()} (${konfigurationsbereich.getPid()}))</h2>
-<p>${konfigurationsbereich.getKurzinfo()}</p>
-<p>${konfigurationsbereich.getBeschreibung()}</p>
-#if( !$konfigurationsbereich.getTypen().isEmpty() )
-<div class="ueberblick">
-    <table border="0" cellpadding="0" cellspacing="0">
-        <caption><span>Typen</span></caption>
-        <tbody>
-        <tr>
-            <th>Typ</th>
-            <th>Beschreibung</th>
-        </tr>
-            #set( $row = 1 )
-            #foreach( $typ in $konfigurationsbereich.getTypen() )
+<div class="content">
+    <p>${konfigurationsbereich.getZustaendiger().getNameOderPid()}</p>
+    <h2>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()} (${konfigurationsbereich.getPid()}))</h2>
+    <p>${konfigurationsbereich.getKurzinfo()}</p>
+    <p>${konfigurationsbereich.getBeschreibung()}</p>
+    #if( !$konfigurationsbereich.getTypen().isEmpty() )
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Typen</span></caption>
+            <tbody>
             <tr>
-                <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">$typ.getNameOderPid()</a></td>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
+                <th>Typ</th>
+                <th>Beschreibung</th>
             </tr>
-                #set( $row = $row + 1 )
-            #end
-        </tbody>
-    </table>
-</div>
-#end
+                #set( $row = 1 )
+                #foreach( $typ in $konfigurationsbereich.getTypen() )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">$typ.getNameOderPid()</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    #end
     #if( !$konfigurationsbereich.getMengen().isEmpty() )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
@@ -66,8 +67,9 @@
         </table>
     </div>
     #end
-<p>TODO Attributgruppen</p>
-<p>TODO Attributlisten</p>
-<p>TODO Attribute</p>
+    <p>TODO Attributgruppen</p>
+    <p>TODO Attributlisten</p>
+    <p>TODO Attribute</p>
+</div>
 </body>
 </html>
