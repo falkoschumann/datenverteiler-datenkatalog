@@ -50,6 +50,7 @@ public class Metamodell {
         bestimmeSystemObjekt(area, result);
         result.setZustaendiger(getKonfiguratonsVerantwortlicher(area.getConfigurationAuthority()));
         area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp((SystemObjectType) t)));
+        area.getCurrentObjects().stream().filter(Metamodell::istMengenTyp).forEach(t -> result.getMengen().add(getMengenTyp((ObjectSetType) t)));
         return result;
     }
 
@@ -75,6 +76,14 @@ public class Metamodell {
         return systemObject.isOfType("typ.typ") && !systemObject.isOfType("typ.mengenTyp");
     }
 
+    public MengenTyp getMengenTyp(String pid) {
+        return getMengenTyp(model.getObjectSetType(pid));
+    }
+
+    private static boolean istMengenTyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.mengenTyp");
+    }
+
     public Typ getTyp(String pid) {
         return getTyp(model.getType(pid));
     }
@@ -83,7 +92,11 @@ public class Metamodell {
         if (typen.containsKey(type.getPid()))
             return typen.get(type.getPid());
 
-        Typ result = Typ.erzeugeMitPid(type.getPid());
+        Typ result;
+        if (type instanceof DynamicObjectType)
+            result = DynamischerTyp.erzeugeMitPid(type.getPid());
+        else
+            result = Typ.erzeugeMitPid(type.getPid());
         typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
         type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));

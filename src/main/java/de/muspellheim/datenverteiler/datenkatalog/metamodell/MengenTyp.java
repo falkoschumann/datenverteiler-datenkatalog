@@ -31,7 +31,6 @@ public class MengenTyp extends SystemObjekt {
         return result;
     }
 
-
     @Override
     public String toString() {
         return "MengenVerwendung{" +

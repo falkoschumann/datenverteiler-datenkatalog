@@ -19,6 +19,7 @@ public class KonfigurationsBereich extends SystemObjekt {
 
     private KonfigurationsVerantwortlicher zustaendiger;
     private Set<Typ> typen = new LinkedHashSet<>();
+    private Set<MengenTyp> mengen = new LinkedHashSet<>();
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -42,6 +43,10 @@ public class KonfigurationsBereich extends SystemObjekt {
 
     public Set<Typ> getTypen() {
         return typen;
+    }
+
+    public Set<MengenTyp> getMengen() {
+        return mengen;
     }
 
     @Override
