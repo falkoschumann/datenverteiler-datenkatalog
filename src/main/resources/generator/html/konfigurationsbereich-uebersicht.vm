@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Konfigurationsbereich ${konfigurationsbereich.getName()}</title>
+    <title>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -9,8 +9,8 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
 </head>
 <body>
-<p>${konfigurationsbereich.getZustaendiger().getName()}</p>
-<h2>Konfigurationsbereich ${konfigurationsbereich.getName()} (${konfigurationsbereich.getPid()}))</h2>
+<p>${konfigurationsbereich.getZustaendiger().getNameOderPid()}</p>
+<h2>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()} (${konfigurationsbereich.getPid()}))</h2>
 <p>${konfigurationsbereich.getKurzinfo()}</p>
 <p>${konfigurationsbereich.getBeschreibung()}</p>
 #if( !$konfigurationsbereich.getTypen().isEmpty() )
@@ -25,7 +25,7 @@
             #set( $row = 1 )
             #foreach( $typ in $konfigurationsbereich.getTypen() )
             <tr>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">$typ.getName()</a></td>
+                <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">$typ.getNameOderPid()</a></td>
                 <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
             </tr>
                 #set( $row = $row + 1 )
@@ -46,7 +46,7 @@
                 #set( $row = 1 )
                 #foreach( $menge in $konfigurationsbereich.getMengen() )
                 <tr>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.getBereich().getZustaendiger().getPid()}/${menge.getBereich().getPid()}/${menge.getPid()}.html">$menge.getName()</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.getBereich().getZustaendiger().getPid()}/${menge.getBereich().getPid()}/${menge.getPid()}.html">$menge.getNameOderPid()</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.getKurzinfo()}</td>
                 </tr>
                     #set( $row = $row + 1 )

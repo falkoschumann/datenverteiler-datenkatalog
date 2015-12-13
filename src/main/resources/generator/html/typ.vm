@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Typ ${typ.getName()}</title>
+    <title>Typ ${typ.getNameOderPid()}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -9,12 +9,12 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
 </head>
 <body>
-<p>$typ.getBereich().getZustaendiger().getName() / $typ.getBereich().getName()</p>
-<h2>Typ ${typ.getName()} (${typ.getPid()}))</h2>
+<p>$typ.getBereich().getZustaendiger().getNameOderPid() / $typ.getBereich().getNameOderPid()</p>
+<h2>Typ ${typ.getNameOderPid()} (${typ.getPid()}))</h2>
 <p><strong>Alle erweiterten Typen</strong></p>
 <p>
 #foreach( $superTyp in $typ.getSuperTypen() )
-<a href="${superTyp.getBereich().getZustaendiger().getPid()}/${superTyp.getBereich().getPid()}/${superTyp.getPid()}.html" target="objektFrame">${superTyp.getName()}</a>#if( $velocityHasNext ), #end
+<a href="${superTyp.getBereich().getZustaendiger().getPid()}/${superTyp.getBereich().getPid()}/${superTyp.getPid()}.html" target="objektFrame">${superTyp.getNameOderPid()}</a>#if( $velocityHasNext ), #end
 #end
 </p>
 <p><strong>Bekannte direkte Subtypen</strong></p>
