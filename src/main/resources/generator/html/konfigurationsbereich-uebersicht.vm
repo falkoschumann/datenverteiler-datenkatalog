@@ -34,7 +34,27 @@
     </table>
 </div>
 #end
-<p>TODO Mengen</p>
+    #if( !$konfigurationsbereich.getMengen().isEmpty() )
+    <div class="uebersicht">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Mengen</span></caption>
+            <tbody>
+            <tr>
+                <th>Menge</th>
+                <th>Beschreibung</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $menge in $konfigurationsbereich.getMengen() )
+                <tr>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.getBereich().getZustaendiger().getPid()}/${menge.getBereich().getPid()}/${menge.getPid()}.html">$menge.getName()</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.getKurzinfo()}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    #end
 <p>TODO Attributgruppen</p>
 <p>TODO Attributlisten</p>
 <p>TODO Attribute</p>

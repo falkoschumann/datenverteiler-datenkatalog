@@ -33,6 +33,7 @@ public class HtmlGenerator {
 
     // TODO Konfigurationsbereich-Frame mit Typen und Mengen
     // TODO Konfigurationsbereich-Übersicht mit Mengen
+    // TODO Mengentypen
 
     public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";
     public static final String PROP_KONFIGURATIONSBEREICHE = "konfigurationsbereiche";
@@ -122,7 +123,7 @@ public class HtmlGenerator {
             context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
             String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
             Files.createDirectories(Paths.get(TARGET, pfad));
-            generiereDatei("konfigurationsbereich", pfad + "konfigurationsbereich-uebersicht");
+            generiereDatei("konfigurationsbereich-uebersicht", pfad + "konfigurationsbereich-uebersicht");
     }
 
     private void generiereObjekte() throws IOException {
