@@ -49,6 +49,13 @@ public class KonfigurationsBereich extends SystemObjekt {
         return mengen;
     }
 
+    public Set<SystemObjekt> getAlleObjekte() {
+        Set<SystemObjekt> result = new LinkedHashSet<>();
+        result.addAll(typen);
+        result.addAll(mengen);
+        return result;
+    }
+
     @Override
     public String toString() {
         return "KonfigurationsBereich{" +
