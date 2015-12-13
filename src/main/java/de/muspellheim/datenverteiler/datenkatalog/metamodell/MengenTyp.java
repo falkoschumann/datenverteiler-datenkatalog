@@ -14,7 +14,7 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class MengenTyp extends SystemObjekt {
+public class MengenTyp extends Typ {
 
     private Set<Typ> objektTypen = new LinkedHashSet<>();
 
