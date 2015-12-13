@@ -70,7 +70,7 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
 
     @Override
     public int compareTo(SystemObjekt s) {
-        return name.compareToIgnoreCase(s.name);
+        return getNameOderPid().compareToIgnoreCase(s.getNameOderPid());
     }
 
     @Override

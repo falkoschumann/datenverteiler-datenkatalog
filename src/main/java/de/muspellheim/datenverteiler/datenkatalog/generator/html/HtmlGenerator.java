@@ -86,8 +86,13 @@ public class HtmlGenerator {
         SortedSet<SystemObjekt> typen = new TreeSet<>();
         typen.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getTypen).flatMap(Collection::stream).collect(Collectors.toSet()));
 
+        SortedSet<SystemObjekt> mengen = new TreeSet<>();
+        mengen.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getMengen).flatMap(Collection::stream).collect(Collectors.toSet()));
+
         SortedSet<SystemObjekt> objekte = new TreeSet<>();
-        result.put(PROP_OBJEKTE, typen);
+        objekte.addAll(typen);
+        objekte.addAll(mengen);
+        result.put(PROP_OBJEKTE, objekte);
 
         return result;
     }
@@ -119,10 +124,10 @@ public class HtmlGenerator {
     }
 
     private void generiereKonfigurationsbereich(KonfigurationsBereich konfigurationsBereich) throws IOException {
-            context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
-            String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
-            Files.createDirectories(Paths.get(TARGET, pfad));
-            generiereDatei("konfigurationsbereich-uebersicht", pfad + "konfigurationsbereich-uebersicht");
+        context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
+        String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
+        Files.createDirectories(Paths.get(TARGET, pfad));
+        generiereDatei("konfigurationsbereich-uebersicht", pfad + "konfigurationsbereich-uebersicht");
     }
 
     private void generiereObjekte() throws IOException {
