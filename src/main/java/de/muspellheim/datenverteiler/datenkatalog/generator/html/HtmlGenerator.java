@@ -119,15 +119,24 @@ public class HtmlGenerator {
 
     private void generiereKonfigurationsbereiche() throws IOException {
         Set<SystemObjekt> konfigurationsbereiche = (Set<SystemObjekt>) context.get(PROP_KONFIGURATIONSBEREICHE);
-        for (SystemObjekt e : konfigurationsbereiche)
-            generiereKonfigurationsbereich((KonfigurationsBereich) e);
+        for (SystemObjekt e : konfigurationsbereiche) {
+            generiereKonfigurationsbereichUeberblick((KonfigurationsBereich) e);
+            generiereKonfigurationsbereichFrame((KonfigurationsBereich) e);
+        }
     }
 
-    private void generiereKonfigurationsbereich(KonfigurationsBereich konfigurationsBereich) throws IOException {
+    private void generiereKonfigurationsbereichUeberblick(KonfigurationsBereich konfigurationsBereich) throws IOException {
         context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
         String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
         Files.createDirectories(Paths.get(TARGET, pfad));
         generiereDatei("konfigurationsbereich-ueberblick", pfad + "konfigurationsbereich-ueberblick");
+    }
+
+    private void generiereKonfigurationsbereichFrame(KonfigurationsBereich konfigurationsBereich) throws IOException {
+        context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
+        String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
+        Files.createDirectories(Paths.get(TARGET, pfad));
+        generiereDatei("konfigurationsbereich-frame", pfad + "konfigurationsbereich-frame");
     }
 
     private void generiereObjekte() throws IOException {

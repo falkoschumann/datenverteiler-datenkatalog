@@ -8,10 +8,11 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
 </head>
 <body>
+<p><a href="alleobjekte-frame.html" target="konfigurationsbereichFrame">Alle Konfigurationsbereich</a></p>
 <h2 class="konfigurationsbereiche">Konfigurationsbereiche</h2>
 <ul class="konfigurationsbereiche">
 #foreach( $konfigurationsbereich in $konfigurationsbereiche )
-    <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-frame.html" target="konfigurationsbereichFrame">$konfigurationsbereich.getNameOderPid()</a></li>
+    <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-frame.html" target="konfigurationsbereichFrame">${konfigurationsbereich.getNameOderPid()}</a></li>
 #end
 </ul>
 </body>

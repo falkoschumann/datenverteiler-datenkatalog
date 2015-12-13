@@ -25,7 +25,7 @@
             #set( $row = 1 )
             #foreach( $typ in $konfigurationsbereich.getTypen() )
             <tr>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">$typ.getNameOderPid()</a></td>
+                <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">$typ.getNameOderPid()</a></td>
                 <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
             </tr>
                 #set( $row = $row + 1 )
@@ -46,7 +46,7 @@
                 #set( $row = 1 )
                 #foreach( $menge in $konfigurationsbereich.getMengen() )
                 <tr>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.getBereich().getZustaendiger().getPid()}/${menge.getBereich().getPid()}/${menge.getPid()}.html">$menge.getNameOderPid()</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.getBereich().getZustaendiger().getPid()}/${menge.getBereich().getPid()}/${menge.getPid()}.html">$menge.getNameOderPid()</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.getKurzinfo()}</td>
                 </tr>
                     #set( $row = $row + 1 )

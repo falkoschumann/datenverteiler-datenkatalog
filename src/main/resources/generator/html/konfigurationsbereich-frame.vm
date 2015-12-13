@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>${konfigurationsbereich.getNameOderPid()}</title>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<h2 class="objekte"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.getNameOderPid()}</a></h2>
+<ul class="objekte">
+    #foreach( $objekt in $konfigurationsbereich.getAlleObjekte() )
+        <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html" target="objektFrame">${objekt.getNameOderPid()}</a></li>
+    #end
+</ul>
+</body>
+</html>

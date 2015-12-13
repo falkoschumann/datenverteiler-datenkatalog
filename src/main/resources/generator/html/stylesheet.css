@@ -11,7 +11,7 @@ body {
 }
 
 ul.konfigurationsbereiche, ul.objekte {
-    padding: 0px;
+    padding: 0;
 }
 
 .konfigurationsbereiche li, .objekte li {
@@ -73,6 +73,9 @@ th, td {
 
 a {
     color: #3465a4;
-    font-weight: bold;
     text-decoration: none;
+}
+
+.colFirst a {
+    font-weight: bold;
 }
