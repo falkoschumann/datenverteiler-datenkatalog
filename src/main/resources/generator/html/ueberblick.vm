@@ -21,7 +21,7 @@
 </script>
 <h1>Übersicht - Datenkatalog</h1>
 
-<div class="uebersicht">
+<div class="ueberblick">
     <table border="0" cellpadding="0" cellspacing="0">
         <caption><span>Konfigurationsbereiche</span></caption>
         <tbody>
@@ -32,7 +32,7 @@
         #set( $row = 1 )
         #foreach( $konfigurationsbereich in $konfigurationsbereiche )
         <tr>
-            <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-uebersicht.html" target="objektFrame">$konfigurationsbereich.getNameOderPid()</a></td>
+            <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">$konfigurationsbereich.getNameOderPid()</a></td>
             <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">$konfigurationsbereich.getKurzinfo()</td>
         </tr>
             #set( $row = $row + 1 )

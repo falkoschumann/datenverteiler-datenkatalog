@@ -23,7 +23,7 @@
 <p>${typ.getKurzinfo()}</p>
 <p>${typ.getBeschreibung()}</p>
 #if( !$typ.getMengen().isEmpty() )
-<div class="uebersicht">
+<div class="ueberblick">
     <table border="0" cellpadding="0" cellspacing="0">
         <caption><span>Mengen</span></caption>
         <tbody>

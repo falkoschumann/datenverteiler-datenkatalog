@@ -69,8 +69,8 @@ public class HtmlGenerator {
 
         Files.createDirectories(Paths.get(TARGET));
         kopiereStatischeDateien();
-        generiereDatei("uebersicht");
-        generiereDatei("uebersicht-frame");
+        generiereDatei("ueberblick");
+        generiereDatei("ueberblick-frame");
         generiereDatei("alleobjekte-frame");
         generiereKonfigurationsbereiche();
         generiereObjekte();
@@ -127,7 +127,7 @@ public class HtmlGenerator {
         context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
         String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
         Files.createDirectories(Paths.get(TARGET, pfad));
-        generiereDatei("konfigurationsbereich-uebersicht", pfad + "konfigurationsbereich-uebersicht");
+        generiereDatei("konfigurationsbereich-ueberblick", pfad + "konfigurationsbereich-ueberblick");
     }
 
     private void generiereObjekte() throws IOException {
