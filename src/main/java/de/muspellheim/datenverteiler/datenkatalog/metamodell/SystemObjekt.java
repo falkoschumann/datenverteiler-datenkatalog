@@ -37,6 +37,13 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
         this.pid = pid;
     }
 
+    public String getNameOderPid() {
+        if (name != null && !name.isEmpty())
+            return name;
+
+        return pid;
+    }
+
     public String getKurzinfo() {
         return kurzinfo;
     }
