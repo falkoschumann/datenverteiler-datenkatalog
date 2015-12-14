@@ -28,7 +28,8 @@ import java.util.stream.Collectors;
  */
 public class HtmlGenerator {
 
-    // TODO Kopfzeile für rechten Frame
+    // TODO Kopfzeile für rechten Frame (Frame und No-Frame)
+    // TODO Kopfzeile für rechten Frame (Verwendung, Baum, Index, Hilfe)
     // TODO Überblicksseite für Konfigurationsverantwortlichen mit Liste der Konfigurationsbereichen
 
     public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";

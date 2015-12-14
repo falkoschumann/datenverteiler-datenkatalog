@@ -24,6 +24,25 @@ body {
     color: #fff;
 }
 
+.header ul {
+    margin: 0;
+    padding: 0;
+}
+
+.header li {
+    display: inline-block;
+    padding: 6px 12px;
+    font-weight: normal;
+}
+
+.header li.active {
+    background-color: #f57900;
+}
+
+.header li a:hover {
+    color: #f57900;
+}
+
 .content {
     padding: 5px;
 }

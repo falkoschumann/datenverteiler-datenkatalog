@@ -20,6 +20,13 @@
     }
     //-->
 </script>
+<div class="header">
+    <ul>
+        <li><a href="ueberblick.html">Überblick</a></li>
+        <li><a href="${mengentyp.getBereich().getZustaendiger().getPid()}/${mengentyp.getBereich().getPid()}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li class="active">Objekt</li>
+    </ul>
+</div>
 <div class="content">
     <p>$mengentyp.getBereich().getZustaendiger().getNameOderPid() / $mengentyp.getBereich().getNameOderPid()</p>
     <h2>Menge ${mengentyp.getNameOderPid()} (${typ.getPid()})</h2>

@@ -20,6 +20,13 @@
     }
     //-->
 </script>
+<div class="header">
+    <ul>
+        <li><a href="ueberblick.html">Überblick</a></li>
+        <li class="active">Konfigurationsbereich</li>
+        <li>Objekt</li>
+    </ul>
+</div>
 <div class="content">
     <p>${konfigurationsbereich.getZustaendiger().getNameOderPid()}</p>
     <h2>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()} (${konfigurationsbereich.getPid()}))</h2>
