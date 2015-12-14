@@ -5,8 +5,8 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Zur Gruppierung von Konfigurationsobjekten und Konfigurationsdaten nach modellspezifischen, inhaltlichen und
@@ -18,7 +18,8 @@ import java.util.Set;
 public class KonfigurationsBereich extends SystemObjekt {
 
     private KonfigurationsVerantwortlicher zustaendiger;
-    private Set<Typ> typen = new LinkedHashSet<>();
+    private final Set<Typ> typen = new TreeSet<>();
+    private final Set<MengenTyp> mengen = new TreeSet<>();
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -42,6 +43,17 @@ public class KonfigurationsBereich extends SystemObjekt {
 
     public Set<Typ> getTypen() {
         return typen;
+    }
+
+    public Set<MengenTyp> getMengen() {
+        return mengen;
+    }
+
+    public Set<SystemObjekt> getAlleObjekte() {
+        Set<SystemObjekt> result = new TreeSet<>();
+        result.addAll(typen);
+        result.addAll(mengen);
+        return result;
     }
 
     @Override

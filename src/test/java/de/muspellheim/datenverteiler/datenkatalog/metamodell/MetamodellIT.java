@@ -13,9 +13,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Integrationstests für das Metamodells.
@@ -82,6 +80,14 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         assertEquals(Collections.singleton(netzBestandTeil), netz.getSuperTypen());
         assertEquals(Collections.singleton(stoerfallIndikator), netz.getSuperTypen().toArray(new Typ[0])[0].getSuperTypen());
         assertEquals(Collections.singleton(konfigurationsObjekt), netz.getSuperTypen().toArray(new Typ[0])[0].getSuperTypen().toArray(new Typ[0])[0].getSuperTypen());
+    }
+
+    @Test
+    public void testMengenTyp() {
+        MengenTyp typ = metamodell.getMengenTyp("menge.routen");
+
+        assertEquals(MengenTyp.erzeugeMitPid("menge.routen"), typ);
+        assertEquals(Collections.singleton(Typ.erzeugeMitPid("typ.route")), typ.getObjektTypen());
     }
 
     @Test
