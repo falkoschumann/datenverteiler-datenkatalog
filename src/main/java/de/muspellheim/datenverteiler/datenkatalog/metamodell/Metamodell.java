@@ -76,14 +76,6 @@ public class Metamodell {
         return systemObject.isOfType("typ.typ") && !systemObject.isOfType("typ.mengenTyp");
     }
 
-    public MengenTyp getMengenTyp(String pid) {
-        return getMengenTyp(model.getObjectSetType(pid));
-    }
-
-    private static boolean istMengenTyp(SystemObject systemObject) {
-        return systemObject.isOfType("typ.mengenTyp");
-    }
-
     public Typ getTyp(String pid) {
         return getTyp(model.getType(pid));
     }
@@ -104,8 +96,12 @@ public class Metamodell {
         return result;
     }
 
-    private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
-        return MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
+    private static boolean istMengenTyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.mengenTyp");
+    }
+
+    public MengenTyp getMengenTyp(String pid) {
+        return getMengenTyp(model.getObjectSetType(pid));
     }
 
     private MengenTyp getMengenTyp(ObjectSetType objectSetType) {
@@ -117,6 +113,10 @@ public class Metamodell {
         bestimmeSystemObjekt(objectSetType, result);
         objectSetType.getObjectTypes().forEach(t -> result.getObjektTypen().add(getTyp(t)));
         return result;
+    }
+
+    private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
+        return MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
     }
 
 }
