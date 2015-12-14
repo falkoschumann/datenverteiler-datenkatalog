@@ -29,7 +29,6 @@ import java.util.stream.Collectors;
 public class HtmlGenerator {
 
     // TODO Kopfzeile für rechten Frame
-    // TODO "Datenkatalog" durch Variable "projekt" ersetzen
     // TODO Überblicksseite für Konfigurationsverantwortlichen mit Liste der Konfigurationsbereichen
 
     public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";
@@ -37,6 +36,7 @@ public class HtmlGenerator {
     public static final String PROP_OBJEKTE = "objekte";
     public static final String PROP_TYP = "typ";
     public static final String PROP_MENGENTYP = "mengentyp";
+    public static final String PROP_PROJEKT = "projekt";
 
     private static final String SOURCE = "/generator/html/";
     private static final String TARGET = "target/datenkatalog/html/";
@@ -77,6 +77,8 @@ public class HtmlGenerator {
 
     private VelocityContext erzeugeContext(Metamodell metamodell) {
         VelocityContext result = new VelocityContext();
+
+        result.put(PROP_PROJEKT, "Datenkatalog");
 
         SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>();
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());

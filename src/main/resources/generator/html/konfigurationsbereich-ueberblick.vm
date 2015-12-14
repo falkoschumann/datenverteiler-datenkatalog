@@ -13,7 +13,7 @@
     <!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title = "${konfigurationsbereich.getNameOderPid()} (Datenkatalog)";
+            parent.document.title = "${konfigurationsbereich.getNameOderPid()} (${projekt})";
         }
     }
     catch (err) {

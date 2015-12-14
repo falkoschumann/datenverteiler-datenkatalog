@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Überblick - Datenkatalog</title>
+    <title>Überblick - ${projekt}</title>
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
     <meta name="keywords" content="Überblick, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
@@ -12,7 +12,7 @@
     <!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title = "Überblick (Datenkatalog)";
+            parent.document.title = "Überblick (${projekt})";
         }
     }
     catch (err) {
@@ -20,7 +20,7 @@
     //-->
 </script>
 <div class="content">
-    <h1>Überblick - Datenkatalog</h1>
+    <h1>Überblick - ${projekt}</h1>
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
             <caption><span>Konfigurationsbereiche</span></caption>
