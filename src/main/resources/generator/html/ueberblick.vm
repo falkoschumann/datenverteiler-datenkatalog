@@ -26,6 +26,12 @@
         <li>Objekt</li>
     </ul>
 </div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?ueberblick.html" target="_top">Mit Frames</a></li>
+        <li><a href="ueberblick.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
 <div class="content">
     <h1>Überblick - ${projekt}</h1>
     <div class="ueberblick">
@@ -39,7 +45,7 @@
             #set( $row = 1 )
             #foreach( $konfigurationsbereich in $konfigurationsbereiche )
             <tr>
-                <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">$konfigurationsbereich.getNameOderPid()</a></td>
+                <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html">$konfigurationsbereich.getNameOderPid()</a></td>
                 <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">$konfigurationsbereich.getKurzinfo()</td>
             </tr>
             #set( $row = $row + 1 )

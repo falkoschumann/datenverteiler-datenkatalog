@@ -2,12 +2,64 @@
 <html lang="de">
 <head>
     <title>Überblick</title>
+    <script type="text/javascript">
+        targetPage = "" + window.location.search;
+        if (targetPage != "" && targetPage != "undefined")
+            targetPage = targetPage.substring(1);
+//        if (targetPage.indexOf(":") != -1 || (targetPage != "" && !validURL(targetPage)))
+//            targetPage = "undefined";
+        function validURL(url) {
+            try {
+                url = decodeURIComponent(url);
+            }
+            catch (error) {
+                return false;
+            }
+            var pos = url.indexOf(".html");
+            if (pos == -1 || pos != url.length - 5)
+                return false;
+            var allowNumber = false;
+            var allowSep = false;
+            var seenDot = false;
+            for (var i = 0; i < url.length - 5; i++) {
+                var ch = url.charAt(i);
+                if ('a' <= ch && ch <= 'z' ||
+                        'A' <= ch && ch <= 'Z' ||
+                        ch == '$' ||
+                        ch == '_' ||
+                        ch.charCodeAt(0) > 127) {
+                    allowNumber = true;
+                    allowSep = true;
+                } else if ('0' <= ch && ch <= '9'
+                        || ch == '-') {
+                    if (!allowNumber)
+                        return false;
+                } else if (ch == '/' || ch == '.') {
+                    if (!allowSep)
+                        return false;
+                    allowNumber = false;
+                    allowSep = false;
+                    if (ch == '.')
+                        seenDot = true;
+                    if (ch == '/' && seenDot)
+                        return false;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+        function loadFrames() {
+            if (targetPage != "" && targetPage != "undefined")
+                top.objektFrame.location = top.targetPage;
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
     <meta name="keywords" content="Überblick, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
 </head>
-<frameset cols="20%,80%" title="Documentation frame">
-    <frameset rows="30%,70%" title="Left frames">
+<frameset cols="20%,80%" title="Dokumentation Frame" onload="top.loadFrames()">
+    <frameset rows="30%,70%" title="Linker Frames">
         <frame src="ueberblick-frame.html" name="konfigurationsbereichslisteFrame" title="Alle Konfigurationsbereiche">
         <frame src="alleobjekte-frame.html" name="konfigurationsbereichFrame" title="Alle Typen, Attributgruppen usw.">
     </frameset>

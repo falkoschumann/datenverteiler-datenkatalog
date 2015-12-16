@@ -31,16 +31,33 @@ body {
 
 .header li {
     display: inline-block;
-    padding: 6px 12px;
     font-weight: normal;
 }
 
 .header li.active {
+    padding: 6px 12px;
+    color: #2e3436;
     background-color: #f57900;
 }
 
 .header li a:hover {
     color: #f57900;
+}
+
+.subheader {
+    padding: 8px 5px;
+    background-color: #d3d7cf;
+    font-size: 13px;
+}
+
+.subheader ul {
+    margin: 0;
+    padding: 0;
+}
+
+.subheader li {
+    display: inline-block;
+    margin-right: 10px;
 }
 
 .content {

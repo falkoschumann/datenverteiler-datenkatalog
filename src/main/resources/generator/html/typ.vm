@@ -27,8 +27,14 @@
         <li class="active">Objekt</li>
     </ul>
 </div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
 <div class="content">
-    <p>$typ.getBereich().getZustaendiger().getNameOderPid() / $typ.getBereich().getNameOderPid()</p>
+    <p>${typ.getBereich().getZustaendiger().getNameOderPid()} / ${typ.getBereich().getNameOderPid()}</p>
     <h2>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h2>
     <p><strong>Alle erweiterten Typen</strong></p>
     <p>

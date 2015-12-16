@@ -27,8 +27,14 @@
         <li class="active">Objekt</li>
     </ul>
 </div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?${mengentyp.getBereich().getZustaendiger().getPid()}/${mengentyp.getBereich().getPid()}/${mengentyp.getPid()}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${mengentyp.getBereich().getZustaendiger().getPid()}/${mengentyp.getBereich().getPid()}/${mengentyp.getPid()}.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
 <div class="content">
-    <p>$mengentyp.getBereich().getZustaendiger().getNameOderPid() / $mengentyp.getBereich().getNameOderPid()</p>
+    <p>${mengentyp.getBereich().getZustaendiger().getNameOderPid()} / ${mengentyp.getBereich().getNameOderPid()}</p>
     <h2>Menge ${mengentyp.getNameOderPid()} (${typ.getPid()})</h2>
     <p>${typ.getKurzinfo()}</p>
     <p>${typ.getBeschreibung()}</p>

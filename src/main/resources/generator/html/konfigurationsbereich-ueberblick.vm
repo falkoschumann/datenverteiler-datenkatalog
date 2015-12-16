@@ -27,6 +27,12 @@
         <li>Objekt</li>
     </ul>
 </div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="_top">Mit Frames</a></li>
+        <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
 <div class="content">
     <p>${konfigurationsbereich.getZustaendiger().getNameOderPid()}</p>
     <h2>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()} (${konfigurationsbereich.getPid()}))</h2>
