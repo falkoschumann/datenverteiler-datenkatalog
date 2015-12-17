@@ -31,6 +31,12 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testGetKonfigurationsverantwortliche() {
+        Set<KonfigurationsVerantwortlicher> konfigurationsverantwortliche = metamodell.getKonfigurationsverantwortliche();
+        assertFalse(konfigurationsverantwortliche.isEmpty());
+    }
+
+    @Test
     public void testGetKonfigurationsbereiche() {
         Set<KonfigurationsBereich> konfigurationsbereiche = metamodell.getKonfigurationsbereiche();
         assertFalse(konfigurationsbereiche.isEmpty());
