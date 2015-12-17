@@ -26,8 +26,7 @@ import java.util.stream.Collectors;
  */
 public class HtmlGenerator {
 
-    // TODO Kopfzeile für rechten Frame (Verwendung, Baum, Index, Hilfe)
-    // TODO Überblicksseite für Konfigurationsverantwortlichen mit Liste der Konfigurationsbereichen
+    // TODO Kopfzeile für rechten Frame erweitern: Verwendung, Baum, Index, Hilfe
 
     public static final String PROP_VERANTWORTLICHKEITEN = "verantwortlichkeiten";
     public static final String PROP_KONFIGURATIONSVERANTWORTLICHE = "konfigurationsverantwortliche";

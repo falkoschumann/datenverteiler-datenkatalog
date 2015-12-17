@@ -44,7 +44,7 @@
     #end
     </p>
     <p><strong>Bekannte direkte Subtypen</strong></p>
-    <p>TODO</p>
+    <p>TODO drekte Subtypen</p>
     <br>
     <p>${typ.getKurzinfo()}</p>
     <p>${typ.getBeschreibung()}</p>
