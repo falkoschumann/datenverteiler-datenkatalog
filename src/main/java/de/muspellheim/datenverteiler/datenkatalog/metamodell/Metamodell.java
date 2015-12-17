@@ -77,6 +77,8 @@ public class Metamodell {
     private void bestimmeSystemObjekt(SystemObject object, SystemObjekt result) {
         result.setName(object.getName());
         result.setKurzinfo(object.getInfo().getShortInfo().trim());
+        // TODO HTML und BODY aus Beschreibung entfernen oder als XML lesen und in HTML konvertieren
+        // TODO Bilder fehlen in HTML
         result.setBeschreibung(object.getInfo().getDescription().trim());
         if (!(object instanceof ConfigurationArea))
             result.setBereich(getKonfigurationsbereich(object.getConfigurationArea()));

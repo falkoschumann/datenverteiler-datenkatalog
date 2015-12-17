@@ -31,6 +31,7 @@ public class HtmlGenerator {
     // TODO Kopfzeile für rechten Frame (Verwendung, Baum, Index, Hilfe)
     // TODO Überblicksseite für Konfigurationsverantwortlichen mit Liste der Konfigurationsbereichen
 
+    public static final String PROP_KONFIGURATIONSVERANTWORTLICHE = "konfigurationsverantwortliche";
     public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";
     public static final String PROP_KONFIGURATIONSBEREICHE = "konfigurationsbereiche";
     public static final String PROP_OBJEKTE = "objekte";
@@ -79,6 +80,10 @@ public class HtmlGenerator {
         VelocityContext result = new VelocityContext();
 
         result.put(PROP_PROJEKT, "Datenkatalog");
+
+        SortedSet<KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new TreeSet<>();
+        konfigurationsVerantwortliche.addAll(metamodell.getKonfigurationsverantwortliche());
+        result.put(PROP_KONFIGURATIONSVERANTWORTLICHE, konfigurationsVerantwortliche);
 
         SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>();
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
