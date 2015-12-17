@@ -14,10 +14,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Collection;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -31,6 +28,7 @@ public class HtmlGenerator {
     // TODO Kopfzeile für rechten Frame (Verwendung, Baum, Index, Hilfe)
     // TODO Überblicksseite für Konfigurationsverantwortlichen mit Liste der Konfigurationsbereichen
 
+    public static final String PROP_VERANTWORTLICHKEITEN = "verantwortlichkeiten";
     public static final String PROP_KONFIGURATIONSVERANTWORTLICHE = "konfigurationsverantwortliche";
     public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";
     public static final String PROP_KONFIGURATIONSBEREICHE = "konfigurationsbereiche";
@@ -88,6 +86,11 @@ public class HtmlGenerator {
         SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>();
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
         result.put(PROP_KONFIGURATIONSBEREICHE, konfigurationsBereiche);
+
+        SortedMap<KonfigurationsVerantwortlicher, SortedSet<KonfigurationsBereich>> verantwortlichkeiten = new TreeMap<>();
+        konfigurationsVerantwortliche.forEach(kv -> verantwortlichkeiten.put(kv, new TreeSet<>()));
+        konfigurationsBereiche.forEach(kb -> verantwortlichkeiten.get(kb.getZustaendiger()).add(kb));
+        result.put(PROP_VERANTWORTLICHKEITEN, verantwortlichkeiten);
 
         SortedSet<SystemObjekt> typen = new TreeSet<>();
         typen.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getTypen).flatMap(Collection::stream).collect(Collectors.toSet()));

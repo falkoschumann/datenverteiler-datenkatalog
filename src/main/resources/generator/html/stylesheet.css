@@ -130,6 +130,10 @@ a {
     text-decoration: none;
 }
 
+.ueberblick th:first-child {
+    width: 33%;
+}
+
 .colFirst a {
     font-weight: bold;
 }

@@ -37,6 +37,29 @@
     <h1>Überblick - ${projekt}</h1>
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Verantwortlichkeiten</span></caption>
+            <tbody>
+            <tr>
+                <th>Konfigurationsverantwortlicher</th>
+                <th>Konfigurationsbereiche</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $konfigurationsverantwortlicher in $verantwortlichkeiten.keySet() )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsverantwortlicher.getPid()}/konfigurationsverantwortlicher-ueberblick.html">${konfigurationsverantwortlicher.getNameOderPid()}</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                    #foreach( $konfigurationsbereich in $verantwortlichkeiten.get($konfigurationsverantwortlicher) )
+                        <a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.getNameOderPid()}</a>#if( $velocityHasNext )<br>#end
+                    #end
+                    </td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
             <caption><span>Konfigurationsverantwortliche</span></caption>
             <tbody>
             <tr>
