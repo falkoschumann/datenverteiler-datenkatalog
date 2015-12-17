@@ -36,7 +36,7 @@
 </div>
 <div class="content">
     <p>${typ.getBereich().getZustaendiger().getNameOderPid()} / ${typ.getBereich().getNameOderPid()}</p>
-    <h2>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h2>
+    <h1>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h1>
     <p><strong>Alle erweiterten Typen</strong></p>
     <p>
     #foreach( $superTyp in $typ.getSuperTypen() )

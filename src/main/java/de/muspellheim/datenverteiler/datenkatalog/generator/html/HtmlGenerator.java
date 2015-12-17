@@ -12,6 +12,7 @@ import org.apache.velocity.app.Velocity;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
@@ -30,6 +31,7 @@ public class HtmlGenerator {
 
     public static final String PROP_VERANTWORTLICHKEITEN = "verantwortlichkeiten";
     public static final String PROP_KONFIGURATIONSVERANTWORTLICHE = "konfigurationsverantwortliche";
+    public static final String PROP_KONFIGURATIONSVERANTWORTLICHER = "konfigurationsverantwortlicher";
     public static final String PROP_KONFIGURATIONSBEREICH = "konfigurationsbereich";
     public static final String PROP_KONFIGURATIONSBEREICHE = "konfigurationsbereiche";
     public static final String PROP_OBJEKTE = "objekte";
@@ -40,8 +42,6 @@ public class HtmlGenerator {
     private static final String SOURCE = "/generator/html/";
     private static final String TARGET = "target/datenkatalog/html/";
 
-    private VelocityContext context;
-
     static {
         Velocity.setProperty("resource.loader", "class");
         Velocity.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
@@ -51,6 +51,9 @@ public class HtmlGenerator {
             throw new IllegalStateException("Fehler beim Initialisieren der Template-Engine.", ex);
         }
     }
+
+    private VelocityContext context;
+    private SortedMap<KonfigurationsVerantwortlicher, SortedSet<KonfigurationsBereich>> verantwortlichkeiten;
 
     public static void main(String args[]) throws IOException {
         ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
@@ -71,6 +74,7 @@ public class HtmlGenerator {
         generiereDatei("ueberblick-frame");
         generiereDatei("alleobjekte-frame");
         generiereKonfigurationsbereiche();
+        generiereKonfigurationsverantwortliche();
         generiereObjekte();
     }
 
@@ -87,7 +91,7 @@ public class HtmlGenerator {
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
         result.put(PROP_KONFIGURATIONSBEREICHE, konfigurationsBereiche);
 
-        SortedMap<KonfigurationsVerantwortlicher, SortedSet<KonfigurationsBereich>> verantwortlichkeiten = new TreeMap<>();
+        verantwortlichkeiten = new TreeMap<>();
         konfigurationsVerantwortliche.forEach(kv -> verantwortlichkeiten.put(kv, new TreeSet<>()));
         konfigurationsBereiche.forEach(kb -> verantwortlichkeiten.get(kb.getZustaendiger()).add(kb));
         result.put(PROP_VERANTWORTLICHKEITEN, verantwortlichkeiten);
@@ -116,7 +120,9 @@ public class HtmlGenerator {
     }
 
     private void generiereDatei(String template, String zieldateiname) throws IOException {
-        OutputStream out = Files.newOutputStream(Paths.get(TARGET, zieldateiname + ".html"));
+        Path datei = Paths.get(TARGET, zieldateiname + ".html");
+        System.out.println("Generiere Datei " + datei);
+        OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
                 Velocity.mergeTemplate(SOURCE + template + ".vm", "UTF-8", context, writer);
@@ -124,6 +130,22 @@ public class HtmlGenerator {
                 throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + zieldateiname + ".html mit dem Template " + template + ".vm.", ex);
             }
         }
+    }
+
+    private void generiereKonfigurationsverantwortliche() throws IOException {
+        Set<SystemObjekt> konfigurationsverantwortliche = (Set<SystemObjekt>) context.get(PROP_KONFIGURATIONSVERANTWORTLICHE);
+        for (SystemObjekt e : konfigurationsverantwortliche) {
+            generiereKonfigurationsverantwortlicherUeberblick((KonfigurationsVerantwortlicher) e);
+        }
+    }
+
+    private void generiereKonfigurationsverantwortlicherUeberblick(KonfigurationsVerantwortlicher konfigurationsVerantwortlicher) throws IOException {
+        context.put(PROP_KONFIGURATIONSVERANTWORTLICHER, konfigurationsVerantwortlicher);
+        context.put(PROP_KONFIGURATIONSBEREICHE, verantwortlichkeiten.get(konfigurationsVerantwortlicher));
+
+        String pfad = konfigurationsVerantwortlicher.getPid();
+        Files.createDirectories(Paths.get(TARGET, pfad));
+        generiereDatei("konfigurationsverantwortlicher-ueberblick", pfad + "/konfigurationsverantwortlicher-ueberblick");
     }
 
     private void generiereKonfigurationsbereiche() throws IOException {
@@ -136,16 +158,16 @@ public class HtmlGenerator {
 
     private void generiereKonfigurationsbereichUeberblick(KonfigurationsBereich konfigurationsBereich) throws IOException {
         context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
-        String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
+        String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid();
         Files.createDirectories(Paths.get(TARGET, pfad));
-        generiereDatei("konfigurationsbereich-ueberblick", pfad + "konfigurationsbereich-ueberblick");
+        generiereDatei("konfigurationsbereich-ueberblick", pfad + "/konfigurationsbereich-ueberblick");
     }
 
     private void generiereKonfigurationsbereichFrame(KonfigurationsBereich konfigurationsBereich) throws IOException {
         context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
-        String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid() + "/";
+        String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid();
         Files.createDirectories(Paths.get(TARGET, pfad));
-        generiereDatei("konfigurationsbereich-frame", pfad + "konfigurationsbereich-frame");
+        generiereDatei("konfigurationsbereich-frame", pfad + "/konfigurationsbereich-frame");
     }
 
     private void generiereObjekte() throws IOException {
@@ -155,14 +177,14 @@ public class HtmlGenerator {
     }
 
     private void generiereObjekt(SystemObjekt systemObjekt) throws IOException {
-        String pfad = systemObjekt.getBereich().getZustaendiger().getPid() + "/" + systemObjekt.getBereich().getPid() + "/";
+        String pfad = systemObjekt.getBereich().getZustaendiger().getPid() + "/" + systemObjekt.getBereich().getPid();
         Files.createDirectories(Paths.get(TARGET, pfad));
         if (systemObjekt instanceof MengenTyp) {
             context.put(PROP_MENGENTYP, systemObjekt);
-            generiereDatei(PROP_MENGENTYP, pfad + systemObjekt.getPid());
+            generiereDatei(PROP_MENGENTYP, pfad + "/" + systemObjekt.getPid());
         } else if (systemObjekt instanceof Typ) {
             context.put(PROP_TYP, systemObjekt);
-            generiereDatei(PROP_TYP, pfad + systemObjekt.getPid());
+            generiereDatei(PROP_TYP, pfad + "/" + systemObjekt.getPid());
         }
     }
 
