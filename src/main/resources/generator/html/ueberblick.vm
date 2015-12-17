@@ -22,6 +22,7 @@
 <div class="header">
     <ul>
         <li class="active">Überblick</li>
+        <li>Konfigurationsverantwortlicher</li>
         <li>Konfigurationsbereich</li>
         <li>Objekt</li>
     </ul>

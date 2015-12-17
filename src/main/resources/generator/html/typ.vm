@@ -23,6 +23,7 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
+        <li><a href="${typ.getBereich().getZustaendiger().getPid()}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
         <li><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
