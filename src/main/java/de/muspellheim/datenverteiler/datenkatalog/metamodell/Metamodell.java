@@ -31,6 +31,26 @@ public class Metamodell {
         this.model = model;
     }
 
+    public Set<KonfigurationsVerantwortlicher> getKonfigurationsverantwortliche() {
+        return model.getType("typ.konfigurationsVerantwortlicher").getElements().stream().
+                map(k -> getKonfigurationsverantwortlicher(k.getPid())).
+                collect(Collectors.toSet());
+    }
+
+    public KonfigurationsVerantwortlicher getKonfigurationsverantwortlicher(String pid) {
+        return getKonfigurationsverantwortlicher((ConfigurationAuthority) model.getObject(pid));
+    }
+
+    private KonfigurationsVerantwortlicher getKonfigurationsverantwortlicher(ConfigurationAuthority authority) {
+        if (konfigurationsVerantwortliche.containsKey(authority.getPid()))
+            return konfigurationsVerantwortliche.get(authority.getPid());
+
+        KonfigurationsVerantwortlicher result = KonfigurationsVerantwortlicher.erzeugeMitPid(authority.getPid());
+        konfigurationsVerantwortliche.put(authority.getPid(), result);
+        bestimmeSystemObjekt(authority, result);
+        return result;
+    }
+
     public Set<KonfigurationsBereich> getKonfigurationsbereiche() {
         return model.getType("typ.konfigurationsBereich").getElements().stream().
                 map(k -> getKonfigurationsbereich(k.getPid())).
@@ -48,19 +68,9 @@ public class Metamodell {
         KonfigurationsBereich result = KonfigurationsBereich.erzeugeMitPid(area.getPid());
         konfigurationsbereiche.put(area.getPid(), result);
         bestimmeSystemObjekt(area, result);
-        result.setZustaendiger(getKonfiguratonsVerantwortlicher(area.getConfigurationAuthority()));
+        result.setZustaendiger(getKonfigurationsverantwortlicher(area.getConfigurationAuthority()));
         area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp((SystemObjectType) t)));
         area.getCurrentObjects().stream().filter(Metamodell::istMengenTyp).forEach(t -> result.getMengen().add(getMengenTyp((ObjectSetType) t)));
-        return result;
-    }
-
-    private KonfigurationsVerantwortlicher getKonfiguratonsVerantwortlicher(ConfigurationAuthority authority) {
-        if (konfigurationsVerantwortliche.containsKey(authority.getPid()))
-            return konfigurationsVerantwortliche.get(authority.getPid());
-
-        KonfigurationsVerantwortlicher result = KonfigurationsVerantwortlicher.erzeugeMitPid(authority.getPid());
-        konfigurationsVerantwortliche.put(authority.getPid(), result);
-        bestimmeSystemObjekt(authority, result);
         return result;
     }
 
