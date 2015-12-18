@@ -90,20 +90,15 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testSubtypen() {
-        Typ baustelle = Typ.erzeugeMitPid("typ.baustelle");
-        Typ stau = Typ.erzeugeMitPid("typ.stau");
-        Typ unfall = Typ.erzeugeMitPid("typ.unfall");
-        Typ aktion = Typ.erzeugeMitPid("typ.aktion");
-        Typ seitenStreifenFreigabe = Typ.erzeugeMitPid("typ.seitenStreifenFreigabe");
+        Set<Typ> subtypen = new LinkedHashSet<>();
+        subtypen.add(Typ.erzeugeMitPid("typ.baustelle"));
+        subtypen.add(Typ.erzeugeMitPid("typ.stau"));
+        subtypen.add(Typ.erzeugeMitPid("typ.unfall"));
+        subtypen.add(Typ.erzeugeMitPid("typ.aktion"));
+        subtypen.add(Typ.erzeugeMitPid("typ.seitenStreifenFreigabe"));
 
         Typ result = metamodell.getTyp("typ.situation");
 
-        Set<Typ> subtypen = new LinkedHashSet<>();
-        subtypen.add(baustelle);
-        subtypen.add(stau);
-        subtypen.add(unfall);
-        subtypen.add(aktion);
-        subtypen.add(seitenStreifenFreigabe);
         assertEquals(subtypen, result.getSubTypen());
     }
 
