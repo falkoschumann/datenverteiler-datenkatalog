@@ -37,14 +37,22 @@
 <div class="content">
     <p>${typ.getBereich().getZustaendiger().getNameOderPid()} / ${typ.getBereich().getNameOderPid()}</p>
     <h1>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h1>
-    <p><strong>Alle erweiterten Typen</strong></p>
+    <p><strong>Alle direkten Supertypen</strong></p>
+    #if( !$typ.getSuperTypen().isEmpty() )
     <p>
     #foreach( $superTyp in $typ.getSuperTypen() )
     <a href="${superTyp.getBereich().getZustaendiger().getPid()}/${superTyp.getBereich().getPid()}/${superTyp.getPid()}.html" target="objektFrame">${superTyp.getNameOderPid()}</a>#if( $velocityHasNext ), #end
     #end
     </p>
+    #end
+    #if( !$typ.getSubTypen().isEmpty() )
     <p><strong>Bekannte direkte Subtypen</strong></p>
-    <p>TODO drekte Subtypen</p>
+    <p>
+    #foreach( $subTyp in $typ.getSubTypen() )
+        <a href="${subTyp.getBereich().getZustaendiger().getPid()}/${subTyp.getBereich().getPid()}/${subTyp.getPid()}.html" target="objektFrame">${subTyp.getNameOderPid()}</a>#if( $velocityHasNext ), #end
+    #end
+    #end
+    </p>
     <br>
     <p>${typ.getKurzinfo()}</p>
     <p>${typ.getBeschreibung()}</p>
