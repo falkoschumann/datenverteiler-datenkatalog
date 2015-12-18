@@ -19,6 +19,7 @@ public class Typ extends SystemObjekt {
 
     private final Set<MengenVerwendung> mengen = new LinkedHashSet<>();
     private final Set<Typ> superTypen = new TreeSet<>();
+    private final Set<Typ> subTypen = new TreeSet<>();
 
     public static Typ erzeugeMitPid(String pid) {
         Typ result = new Typ();
@@ -42,6 +43,10 @@ public class Typ extends SystemObjekt {
      */
     public Set<Typ> getSuperTypen() {
         return superTypen;
+    }
+
+    public Set<Typ> getSubTypen() {
+        return subTypen;
     }
 
     @Override

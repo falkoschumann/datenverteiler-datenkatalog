@@ -104,6 +104,7 @@ public class Metamodell {
         typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
         type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));
+        type.getSubTypes().stream().forEach(t -> result.getSubTypen().add(getTyp(t)));
         type.getDirectObjectSetUses().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
         return result;
     }
