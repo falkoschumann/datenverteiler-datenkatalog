@@ -55,7 +55,7 @@ public class KonfigurationsBereich extends SystemObjekt {
     }
 
     public Set<SystemObjekt> getAlleObjekte() {
-        Set<SystemObjekt> result = new TreeSet<>();
+        Set<SystemObjekt> result = new TreeSet<>(SystemObjekt::compare);
         result.addAll(typen);
         result.addAll(mengen);
         result.addAll(attributgruppen);
