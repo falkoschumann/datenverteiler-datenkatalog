@@ -5,6 +5,7 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -20,9 +21,9 @@ public class KonfigurationsBereich extends SystemObjekt {
     // TODO Attributgruppen ergänzen
 
     private KonfigurationsVerantwortlicher zustaendiger;
-    private final Set<Typ> typen = new TreeSet<>();
-    private final Set<MengenTyp> mengen = new TreeSet<>();
-    private final Set<Attributgruppe> attributgruppen = new TreeSet<>();
+    private final Set<Typ> typen = new LinkedHashSet<>();
+    private final Set<MengenTyp> mengen = new LinkedHashSet<>();
+    private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
