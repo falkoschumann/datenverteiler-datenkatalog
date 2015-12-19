@@ -85,12 +85,12 @@ public class HtmlGenerator {
 
         List<KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new ArrayList<>();
         konfigurationsVerantwortliche.addAll(metamodell.getKonfigurationsverantwortliche());
-        konfigurationsVerantwortliche.sort(SystemObjekt::compare);
+        konfigurationsVerantwortliche.sort(SystemObjekt::compareToNameOderPid);
         result.put(PROP_KONFIGURATIONSVERANTWORTLICHE, konfigurationsVerantwortliche);
 
         List<KonfigurationsBereich> konfigurationsBereiche = new ArrayList<>();
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
-        konfigurationsBereiche.sort(SystemObjekt::compare);
+        konfigurationsBereiche.sort(SystemObjekt::compareToNameOderPid);
         result.put(PROP_KONFIGURATIONSBEREICHE, konfigurationsBereiche);
 
         verantwortlichkeiten = new LinkedHashMap<>();
@@ -100,7 +100,7 @@ public class HtmlGenerator {
 
         List<SystemObjekt> objekte = new ArrayList<>();
         objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getAlleObjekte).flatMap(Collection::stream).collect(Collectors.toSet()));
-        objekte.sort(SystemObjekt::compare);
+        objekte.sort(SystemObjekt::compareToNameOderPid);
         result.put(PROP_OBJEKTE, objekte);
 
         return result;

@@ -14,7 +14,11 @@
 <div class="content">
     <ul class="objekte">
         #foreach( $objekt in $objekte )
-        <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html" target="objektFrame">$objekt.getNameOderPid()</a></li>
+        <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html" target="objektFrame">
+            #if ( ${objekt.class.simpleName} == "Typ" )<em>#end
+            $objekt.getNameOderPid()
+            #if ( ${objekt.class.simpleName} == "Typ" )</em>#end
+        </a></li>
         #end
     </ul>
 </div>
