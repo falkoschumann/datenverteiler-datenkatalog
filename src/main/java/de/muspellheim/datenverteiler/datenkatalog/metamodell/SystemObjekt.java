@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public abstract class SystemObjekt implements Comparable<SystemObjekt> {
+public abstract class SystemObjekt {
 
     private String name;
     private String pid;
@@ -65,11 +65,6 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
 
     public void setBereich(KonfigurationsBereich bereich) {
         this.bereich = bereich;
-    }
-
-    @Override
-    public int compareTo(SystemObjekt s) {
-        return getNameOderPid().compareToIgnoreCase(s.getNameOderPid());
     }
 
     @Override
