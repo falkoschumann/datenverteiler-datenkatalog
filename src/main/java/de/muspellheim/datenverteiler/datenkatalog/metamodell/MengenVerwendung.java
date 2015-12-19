@@ -13,7 +13,7 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public class MengenVerwendung {
+public class MengenVerwendung extends SystemObjekt {
 
     private String mengenName;
     private MengenTyp mengenTyp;

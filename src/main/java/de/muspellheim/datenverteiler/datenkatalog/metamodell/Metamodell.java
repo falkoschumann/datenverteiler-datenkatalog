@@ -130,7 +130,9 @@ public class Metamodell {
     }
 
     private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
-        return MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
+        MengenVerwendung result = MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
+        bestimmeSystemObjekt(objectSetUse, result);
+        return result;
     }
 
     private static boolean istAttributgruppe(SystemObject systemObject) {
