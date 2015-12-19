@@ -123,12 +123,13 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testAttributgruppen() {
-        Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
-
         Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
         attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.baustellenSimulationModell"));
         attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.stauBestimmungModell"));
         attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.stauPrognoseModell"));
+
+        Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
+
         assertEquals(attributgruppen, netz.getAttributgruppen());
     }
 
