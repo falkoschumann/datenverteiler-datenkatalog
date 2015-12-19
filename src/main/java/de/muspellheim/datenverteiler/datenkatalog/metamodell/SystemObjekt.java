@@ -21,8 +21,13 @@ public abstract class SystemObjekt {
     private String beschreibung;
     private KonfigurationsBereich bereich;
 
-    public static int compare(SystemObjekt so1, SystemObjekt so2) {
-        return so1.getNameOderPid().compareToIgnoreCase(so2.getNameOderPid());
+    public static int compareToNameOderPid(SystemObjekt so1, SystemObjekt so2) {
+        if (Objects.equals(so1, so2)) return 0;
+
+        int result = so1.getName().compareToIgnoreCase(so2.getName());
+        if (result != 0) return result;
+
+        return so1.getPid().compareToIgnoreCase(so2.getPid());
     }
 
     public String getName() {

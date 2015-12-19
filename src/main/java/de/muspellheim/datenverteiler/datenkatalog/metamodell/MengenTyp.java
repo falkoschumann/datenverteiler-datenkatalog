@@ -16,7 +16,7 @@ import java.util.TreeSet;
  */
 public class MengenTyp extends Typ {
 
-    private final Set<Typ> objektTypen = new TreeSet<>(SystemObjekt::compare);
+    private final Set<Typ> objektTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
 
     public static MengenTyp erzeugeMitPid(String pid) {
         MengenTyp result = new MengenTyp();

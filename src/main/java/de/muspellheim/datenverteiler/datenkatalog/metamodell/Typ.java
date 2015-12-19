@@ -17,10 +17,10 @@ import java.util.TreeSet;
  */
 public class Typ extends SystemObjekt {
 
-    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compare);
+    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
     private final Set<MengenVerwendung> mengen = new TreeSet<>((Comparator<MengenVerwendung>) (m1, m2) -> m1.getMengenName().compareToIgnoreCase(m2.getMengenName()));
-    private final Set<Typ> superTypen = new TreeSet<>(SystemObjekt::compare);
-    private final Set<Typ> subTypen = new TreeSet<>(SystemObjekt::compare);
+    private final Set<Typ> superTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<Typ> subTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
 
     public static Typ erzeugeMitPid(String pid) {
         Typ result = new Typ();
