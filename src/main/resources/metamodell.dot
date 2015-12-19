@@ -12,7 +12,7 @@ digraph {
 
   Typ -> MengenVerwendung [label=Mengen arrowhead=vee color=red fontcolor=red]
   Typ -> Typ [label=SuperTypen arrowhead=vee color=red fontcolor=red]
-  Typ -> AttributgruppenVerwendung [label=Attributgruppen arrowhead=vee color=red fontcolor=red]
+  Typ -> Attributgruppe [label=Attributgruppen arrowhead=vee color=red fontcolor=red]
 
   DynamischerTyp -> Typ [arrowhead=onormal]
 
@@ -25,6 +25,8 @@ digraph {
   AttributgruppenVerwendung -> Aspekt [label=Aspekt color=blue fontcolor=blue]
 
   Attributgruppe -> AttributMenge [arrowhead=onormal]
+  Attributgruppe -> AttributgruppenVerwendung [label=AttributgruppenVerwendungen color=red fontcolor=red]
+  Attributgruppe -> Aspekt [label=Aspekt color=red fontcolor=red style=dashed]
 
   AttributListenDefinition -> AttributTyp [arrowhead=onormal]
   AttributListenDefinition -> AttributMenge [arrowhead=onormal]
