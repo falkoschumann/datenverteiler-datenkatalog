@@ -17,9 +17,12 @@ import java.util.TreeSet;
  */
 public class KonfigurationsBereich extends SystemObjekt {
 
+    // TODO Attributgruppen ergänzen
+
     private KonfigurationsVerantwortlicher zustaendiger;
     private final Set<Typ> typen = new TreeSet<>();
     private final Set<MengenTyp> mengen = new TreeSet<>();
+    private final Set<Attributgruppe> attributgruppen = new TreeSet<>();
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -49,10 +52,15 @@ public class KonfigurationsBereich extends SystemObjekt {
         return mengen;
     }
 
+    public Set<Attributgruppe> getAttributgruppen() {
+        return attributgruppen;
+    }
+
     public Set<SystemObjekt> getAlleObjekte() {
         Set<SystemObjekt> result = new TreeSet<>();
         result.addAll(typen);
         result.addAll(mengen);
+        result.addAll(attributgruppen);
         return result;
     }
 

@@ -17,6 +17,7 @@ import java.util.TreeSet;
  */
 public class Typ extends SystemObjekt {
 
+    private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
     private final Set<MengenVerwendung> mengen = new LinkedHashSet<>();
     private final Set<Typ> superTypen = new TreeSet<>();
     private final Set<Typ> subTypen = new TreeSet<>();
@@ -25,6 +26,13 @@ public class Typ extends SystemObjekt {
         Typ result = new Typ();
         result.setPid(pid);
         return result;
+    }
+
+    /**
+     * Jedem Typ ist eine Menge von Attributgruppen zugeordnet.
+     */
+    public Set<Attributgruppe> getAttributgruppen() {
+        return attributgruppen;
     }
 
     /**
