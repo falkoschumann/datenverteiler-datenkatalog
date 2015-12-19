@@ -28,6 +28,7 @@ public class HtmlGenerator {
 
     // TODO Kopfzeile für rechten Frame erweitern: Verwendung, Baum, Index, Hilfe
 
+    public static final String PROP_PROJEKT = "projekt";
     public static final String PROP_VERANTWORTLICHKEITEN = "verantwortlichkeiten";
     public static final String PROP_KONFIGURATIONSVERANTWORTLICHE = "konfigurationsverantwortliche";
     public static final String PROP_KONFIGURATIONSVERANTWORTLICHER = "konfigurationsverantwortlicher";
@@ -36,7 +37,7 @@ public class HtmlGenerator {
     public static final String PROP_OBJEKTE = "objekte";
     public static final String PROP_TYP = "typ";
     public static final String PROP_MENGENTYP = "mengentyp";
-    public static final String PROP_PROJEKT = "projekt";
+    public static final String PROP_ATTRIBUTGRUPPE = "attributgruppe";
 
     private static final String SOURCE = "/generator/html/";
     private static final String TARGET = "target/datenkatalog/html/";
@@ -95,15 +96,8 @@ public class HtmlGenerator {
         konfigurationsBereiche.forEach(kb -> verantwortlichkeiten.get(kb.getZustaendiger()).add(kb));
         result.put(PROP_VERANTWORTLICHKEITEN, verantwortlichkeiten);
 
-        SortedSet<SystemObjekt> typen = new TreeSet<>();
-        typen.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getTypen).flatMap(Collection::stream).collect(Collectors.toSet()));
-
-        SortedSet<SystemObjekt> mengen = new TreeSet<>();
-        mengen.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getMengen).flatMap(Collection::stream).collect(Collectors.toSet()));
-
         SortedSet<SystemObjekt> objekte = new TreeSet<>();
-        objekte.addAll(typen);
-        objekte.addAll(mengen);
+        objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getAlleObjekte).flatMap(Collection::stream).collect(Collectors.toSet()));
         result.put(PROP_OBJEKTE, objekte);
 
         return result;
@@ -120,7 +114,7 @@ public class HtmlGenerator {
 
     private void generiereDatei(String template, String zieldateiname) throws IOException {
         Path datei = Paths.get(TARGET, zieldateiname + ".html");
-        System.out.println("Generiere Datei " + datei);
+        System.out.println("Generiere " + datei + " ...");
         OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
@@ -150,20 +144,19 @@ public class HtmlGenerator {
     private void generiereKonfigurationsbereiche() throws IOException {
         Set<SystemObjekt> konfigurationsbereiche = (Set<SystemObjekt>) context.get(PROP_KONFIGURATIONSBEREICHE);
         for (SystemObjekt e : konfigurationsbereiche) {
+            context.put(PROP_KONFIGURATIONSBEREICH, e);
             generiereKonfigurationsbereichUeberblick((KonfigurationsBereich) e);
             generiereKonfigurationsbereichFrame((KonfigurationsBereich) e);
         }
     }
 
     private void generiereKonfigurationsbereichUeberblick(KonfigurationsBereich konfigurationsBereich) throws IOException {
-        context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
         String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid();
         Files.createDirectories(Paths.get(TARGET, pfad));
         generiereDatei("konfigurationsbereich-ueberblick", pfad + "/konfigurationsbereich-ueberblick");
     }
 
     private void generiereKonfigurationsbereichFrame(KonfigurationsBereich konfigurationsBereich) throws IOException {
-        context.put(PROP_KONFIGURATIONSBEREICH, konfigurationsBereich);
         String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid();
         Files.createDirectories(Paths.get(TARGET, pfad));
         generiereDatei("konfigurationsbereich-frame", pfad + "/konfigurationsbereich-frame");
@@ -184,6 +177,9 @@ public class HtmlGenerator {
         } else if (systemObjekt instanceof Typ) {
             context.put(PROP_TYP, systemObjekt);
             generiereDatei(PROP_TYP, pfad + "/" + systemObjekt.getPid());
+        } else if (systemObjekt instanceof Attributgruppe) {
+            context.put(PROP_ATTRIBUTGRUPPE, systemObjekt);
+            generiereDatei(PROP_ATTRIBUTGRUPPE, pfad + "/" + systemObjekt.getPid());
         }
     }
 

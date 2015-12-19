@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Menge ${attributgruppe.getNameOderPid()}</title>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<script type="text/javascript">
+    <!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title = "${attributgruppe.getNameOderPid()} (${projekt})";
+        }
+    }
+    catch (err) {
+    }
+    //-->
+</script>
+<div class="header">
+    <ul>
+        <li><a href="ueberblick.html">Überblick</a></li>
+        <li><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li class="active">Objekt</li>
+    </ul>
+</div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/${attributgruppe.getPid()}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/${attributgruppe.getPid()}.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
+<div class="content">
+    <p>${attributgruppe.getBereich().getZustaendiger().getNameOderPid()} / ${attributgruppe.getBereich().getNameOderPid()}</p>
+    <h1>Attributgruppe ${attributgruppe.getNameOderPid()} (${attributgruppe.getPid()})</h1>
+    <p>${attributgruppe.getKurzinfo()}</p>
+    <p>${attributgruppe.getBeschreibung()}</p>
+    <p>TODO Attribute</p>
+</div>
+</body>
+</html>

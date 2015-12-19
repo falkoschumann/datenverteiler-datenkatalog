@@ -36,9 +36,9 @@
 </div>
 <div class="content">
     <p>${mengentyp.getBereich().getZustaendiger().getNameOderPid()} / ${mengentyp.getBereich().getNameOderPid()}</p>
-    <h1>Menge ${mengentyp.getNameOderPid()} (${typ.getPid()})</h1>
-    <p>${typ.getKurzinfo()}</p>
-    <p>${typ.getBeschreibung()}</p>
+    <h1>Menge ${mengentyp.getNameOderPid()} (${mengentyp.getPid()})</h1>
+    <p>${mengentyp.getKurzinfo()}</p>
+    <p>${mengentyp.getBeschreibung()}</p>
     <p>TODO Konfigurationsdaten des Mengentyps</p>
     #if( !$mengentyp.getTypen().isEmpty() )
     <div class="ueberblick">
