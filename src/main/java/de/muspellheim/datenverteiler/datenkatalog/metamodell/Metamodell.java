@@ -24,6 +24,7 @@ public class Metamodell {
     private final Map<String, KonfigurationsBereich> konfigurationsbereiche = new LinkedHashMap<>();
     private final Map<String, Typ> typen = new LinkedHashMap<>();
     private final Map<String, MengenTyp> mengenTypen = new LinkedHashMap<>();
+    private final Map<String, Attributgruppe> attributgruppen = new LinkedHashMap<>();
 
     private final DataModel model;
 
@@ -69,8 +70,9 @@ public class Metamodell {
         konfigurationsbereiche.put(area.getPid(), result);
         bestimmeSystemObjekt(area, result);
         result.setZustaendiger(getKonfigurationsverantwortlicher(area.getConfigurationAuthority()));
-        area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(t -> result.getTypen().add(getTyp((SystemObjectType) t)));
-        area.getCurrentObjects().stream().filter(Metamodell::istMengenTyp).forEach(t -> result.getMengen().add(getMengenTyp((ObjectSetType) t)));
+        area.getCurrentObjects().stream().filter(Metamodell::istTyp).forEach(e -> result.getTypen().add(getTyp((SystemObjectType) e)));
+        area.getCurrentObjects().stream().filter(Metamodell::istMengenTyp).forEach(e -> result.getMengen().add(getMengenTyp((ObjectSetType) e)));
+        area.getCurrentObjects().stream().filter(Metamodell::istAttributgruppe).forEach(e -> result.getAttributgruppen().add(getAttributgruppe((AttributeGroup) e)));
         return result;
     }
 
@@ -101,9 +103,10 @@ public class Metamodell {
             result = Typ.erzeugeMitPid(type.getPid());
         typen.put(type.getPid(), result);
         bestimmeSystemObjekt(type, result);
-        type.getSuperTypes().stream().forEach(t -> result.getSuperTypen().add(getTyp(t)));
-        type.getSubTypes().stream().forEach(t -> result.getSubTypen().add(getTyp(t)));
-        type.getDirectObjectSetUses().forEach(m -> result.getMengen().add(getMengenVerwendung(m)));
+        type.getSuperTypes().stream().forEach(e -> result.getSuperTypen().add(getTyp(e)));
+        type.getSubTypes().stream().forEach(e -> result.getSubTypen().add(getTyp(e)));
+        type.getDirectObjectSetUses().forEach(e -> result.getMengen().add(getMengenVerwendung(e)));
+        type.getDirectAttributeGroups().forEach(e -> result.getAttributgruppen().add(getAttributgruppe(e)));
         return result;
     }
 
@@ -128,6 +131,25 @@ public class Metamodell {
 
     private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
         return MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType()));
+    }
+
+    private static boolean istAttributgruppe(SystemObject systemObject) {
+        return systemObject.isOfType("typ.attributgruppe");
+    }
+
+    public Attributgruppe getAttributgruppe(String pid) {
+        return getAttributgruppe(model.getAttributeGroup(pid));
+    }
+
+    private Attributgruppe getAttributgruppe(AttributeGroup atg) {
+        if (attributgruppen.containsKey(atg.getPid()))
+            return attributgruppen.get(atg.getPid());
+
+        Attributgruppe result;
+        result = Attributgruppe.erzeugeMitPid(atg.getPid());
+        attributgruppen.put(atg.getPid(), result);
+        bestimmeSystemObjekt(atg, result);
+        return result;
     }
 
 }

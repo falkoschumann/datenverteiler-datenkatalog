@@ -31,7 +31,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testGetKonfigurationsverantwortliche() {
+    public void testGetKonfigurationsverantwortlich() {
         Set<KonfigurationsVerantwortlicher> konfigurationsverantwortliche = metamodell.getKonfigurationsverantwortliche();
         assertFalse(konfigurationsverantwortliche.isEmpty());
     }
@@ -40,6 +40,17 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     public void testGetKonfigurationsbereiche() {
         Set<KonfigurationsBereich> konfigurationsbereiche = metamodell.getKonfigurationsbereiche();
         assertFalse(konfigurationsbereiche.isEmpty());
+    }
+
+    @Test
+    public void testKonfigurationsbereich() {
+        KonfigurationsBereich verkehr = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
+
+        assertFalse(verkehr.getTypen().isEmpty());
+        assertFalse(verkehr.getMengen().isEmpty());
+        assertFalse(verkehr.getAttributgruppen().isEmpty());
+        KonfigurationsVerantwortlicher inovat = metamodell.getKonfigurationsverantwortlicher("kv.inovat");
+        assertEquals(inovat, verkehr.getZustaendiger());
     }
 
     @Test
@@ -111,16 +122,18 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testMengen() {
-        MengenVerwendung netzBestandTeile = MengenVerwendung.erzeugeMitNameUndTyp("NetzBestandTeile", MengenTyp.erzeugeMitPid("menge.netzBestandTeile"));
+    public void testAttributgruppen() {
+        Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
 
-        Typ netz = metamodell.getTyp("typ.netz");
-
-        assertEquals(Collections.singleton(netzBestandTeile), netz.getMengen());
+        Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
+        attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.baustellenSimulationModell"));
+        attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.stauBestimmungModell"));
+        attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.stauPrognoseModell"));
+        assertEquals(attributgruppen, netz.getAttributgruppen());
     }
 
     @Test
-    public void testMengenNeu() {
+    public void testMengen() {
         MengenVerwendung aktionen = MengenVerwendung.erzeugeMitNameUndTyp("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
         MengenVerwendung baustellen = MengenVerwendung.erzeugeMitNameUndTyp("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));
         MengenVerwendung seitenStreifenFreigaben = MengenVerwendung.erzeugeMitNameUndTyp("SeitenStreifenFreigaben", MengenTyp.erzeugeMitPid("menge.seitenStreifenFreigaben"));
