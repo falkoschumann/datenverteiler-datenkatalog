@@ -73,12 +73,4 @@ public class MengenVerwendung extends SystemObjekt {
         return Objects.hash(mengenName, mengenTyp);
     }
 
-    @Override
-    public String toString() {
-        return "MengenVerwendung{" +
-                "mengenName='" + mengenName + '\'' +
-                ", mengenTyp=" + mengenTyp +
-                '}';
-    }
-
 }

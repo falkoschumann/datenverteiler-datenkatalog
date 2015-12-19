@@ -31,15 +31,4 @@ public class MengenTyp extends Typ {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "MengenVerwendung{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", objektTypen=" + objektTypen +
-                "}";
-    }
-
 }
