@@ -21,16 +21,4 @@ public class DynamischerTyp extends Typ {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "DynamischerTyp{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", mengen=" + getMengen() +
-                ", superTypen=" + getSuperTypen() +
-                "}";
-    }
-
 }

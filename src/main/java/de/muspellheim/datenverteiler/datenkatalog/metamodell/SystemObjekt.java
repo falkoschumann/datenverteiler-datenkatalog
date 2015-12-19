@@ -38,10 +38,9 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
     }
 
     public String getNameOderPid() {
-        if (name != null && !name.isEmpty())
-            return name;
-
-        return pid;
+        if (name != null && !name.isEmpty()) return name;
+        if (pid != null && !pid.isEmpty()) return pid;
+        return "";
     }
 
     public String getKurzinfo() {
@@ -74,7 +73,7 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
     }
 
     @Override
-    public final boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SystemObjekt)) return false;
         SystemObjekt that = (SystemObjekt) o;
@@ -82,18 +81,16 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hash(pid);
     }
 
     @Override
     public String toString() {
-        return "SystemObjekt{" +
-                "name='" + name + '\'' +
-                ", pid='" + pid + '\'' +
-                ", kurzinfo='" + kurzinfo + '\'' +
-                ", beschreibung='" + beschreibung + '\'' +
-                '}';
+        String result = getClass().getSimpleName();
+        result += name != null && !name.isEmpty() ? " " + name : "";
+        result += pid != null && !pid.isEmpty() ? " (" + pid + ")" : "";
+        return result;
     }
 
 }

@@ -64,16 +64,4 @@ public class KonfigurationsBereich extends SystemObjekt {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "KonfigurationsBereich{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", zustaendiger=" + zustaendiger +
-                ", typen=" + typen +
-                "}";
-    }
-
 }

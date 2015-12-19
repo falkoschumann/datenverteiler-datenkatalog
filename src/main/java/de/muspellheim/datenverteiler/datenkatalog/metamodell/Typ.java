@@ -57,16 +57,4 @@ public class Typ extends SystemObjekt {
         return subTypen;
     }
 
-    @Override
-    public String toString() {
-        return "Typ{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", mengen=" + getMengen() +
-                ", superTypen=" + getSuperTypen() +
-                "}";
-    }
-
 }
