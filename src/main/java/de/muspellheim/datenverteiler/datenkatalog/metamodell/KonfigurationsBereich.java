@@ -5,7 +5,6 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -56,7 +55,7 @@ public class KonfigurationsBereich extends SystemObjekt {
     }
 
     public Set<SystemObjekt> getAlleObjekte() {
-        Set<SystemObjekt> result = new LinkedHashSet<>();
+        Set<SystemObjekt> result = new TreeSet<>();
         result.addAll(typen);
         result.addAll(mengen);
         result.addAll(attributgruppen);
