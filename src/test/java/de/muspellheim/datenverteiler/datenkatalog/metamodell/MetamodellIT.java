@@ -151,7 +151,6 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
         Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
 
-        assertEquals(6, netz.getMengen().size());
         assertEquals(mengen, netz.getMengen());
     }
 

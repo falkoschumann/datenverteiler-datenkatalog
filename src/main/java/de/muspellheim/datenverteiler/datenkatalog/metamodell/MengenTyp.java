@@ -5,8 +5,8 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Beschreibt die Verwendung einer MengenDefinition bei einer TypDefinition.
@@ -16,19 +16,19 @@ import java.util.Set;
  */
 public class MengenTyp extends Typ {
 
-    private final Set<Typ> objektTypen = new LinkedHashSet<>();
+    private final Set<Typ> objektTypen = new TreeSet<>(SystemObjekt::compare);
+
+    public static MengenTyp erzeugeMitPid(String pid) {
+        MengenTyp result = new MengenTyp();
+        result.setPid(pid);
+        return result;
+    }
 
     /**
      * Enthält die möglichen Typen von Objekten, die in Mengen des jeweiligen MengenTyps verwendet werden können.
      */
     public Set<Typ> getObjektTypen() {
         return objektTypen;
-    }
-
-    public static MengenTyp erzeugeMitPid(String pid) {
-        MengenTyp result = new MengenTyp();
-        result.setPid(pid);
-        return result;
     }
 
 }
