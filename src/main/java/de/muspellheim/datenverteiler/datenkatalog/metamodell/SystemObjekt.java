@@ -21,6 +21,10 @@ public abstract class SystemObjekt {
     private String beschreibung;
     private KonfigurationsBereich bereich;
 
+    public static int compare(SystemObjekt so1, SystemObjekt so2) {
+        return so1.getNameOderPid().compareToIgnoreCase(so2.getNameOderPid());
+    }
+
     public String getName() {
         return name;
     }
