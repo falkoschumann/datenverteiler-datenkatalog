@@ -53,7 +53,7 @@ public class HtmlGenerator {
     }
 
     private VelocityContext context;
-    private SortedMap<KonfigurationsVerantwortlicher, SortedSet<KonfigurationsBereich>> verantwortlichkeiten;
+    private Map<KonfigurationsVerantwortlicher, List<KonfigurationsBereich>> verantwortlichkeiten;
 
     public static void main(String args[]) throws IOException {
         ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
@@ -83,21 +83,24 @@ public class HtmlGenerator {
 
         result.put(PROP_PROJEKT, "Datenkatalog");
 
-        SortedSet<KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new TreeSet<>();
+        List<KonfigurationsVerantwortlicher> konfigurationsVerantwortliche = new ArrayList<>();
         konfigurationsVerantwortliche.addAll(metamodell.getKonfigurationsverantwortliche());
+        konfigurationsVerantwortliche.sort(SystemObjekt::compare);
         result.put(PROP_KONFIGURATIONSVERANTWORTLICHE, konfigurationsVerantwortliche);
 
-        SortedSet<KonfigurationsBereich> konfigurationsBereiche = new TreeSet<>();
+        List<KonfigurationsBereich> konfigurationsBereiche = new ArrayList<>();
         konfigurationsBereiche.addAll(metamodell.getKonfigurationsbereiche());
+        konfigurationsBereiche.sort(SystemObjekt::compare);
         result.put(PROP_KONFIGURATIONSBEREICHE, konfigurationsBereiche);
 
-        verantwortlichkeiten = new TreeMap<>();
-        konfigurationsVerantwortliche.forEach(kv -> verantwortlichkeiten.put(kv, new TreeSet<>()));
+        verantwortlichkeiten = new LinkedHashMap<>();
+        konfigurationsVerantwortliche.forEach(kv -> verantwortlichkeiten.put(kv, new ArrayList<>()));
         konfigurationsBereiche.forEach(kb -> verantwortlichkeiten.get(kb.getZustaendiger()).add(kb));
         result.put(PROP_VERANTWORTLICHKEITEN, verantwortlichkeiten);
 
-        SortedSet<SystemObjekt> objekte = new TreeSet<>();
+        List<SystemObjekt> objekte = new ArrayList<>();
         objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getAlleObjekte).flatMap(Collection::stream).collect(Collectors.toSet()));
+        objekte.sort(SystemObjekt::compare);
         result.put(PROP_OBJEKTE, objekte);
 
         return result;
@@ -126,7 +129,7 @@ public class HtmlGenerator {
     }
 
     private void generiereKonfigurationsverantwortliche() throws IOException {
-        Set<SystemObjekt> konfigurationsverantwortliche = (Set<SystemObjekt>) context.get(PROP_KONFIGURATIONSVERANTWORTLICHE);
+        List<SystemObjekt> konfigurationsverantwortliche = (List<SystemObjekt>) context.get(PROP_KONFIGURATIONSVERANTWORTLICHE);
         for (SystemObjekt e : konfigurationsverantwortliche) {
             generiereKonfigurationsverantwortlicherUeberblick((KonfigurationsVerantwortlicher) e);
         }
@@ -142,7 +145,7 @@ public class HtmlGenerator {
     }
 
     private void generiereKonfigurationsbereiche() throws IOException {
-        Set<SystemObjekt> konfigurationsbereiche = (Set<SystemObjekt>) context.get(PROP_KONFIGURATIONSBEREICHE);
+        List<SystemObjekt> konfigurationsbereiche = (List<SystemObjekt>) context.get(PROP_KONFIGURATIONSBEREICHE);
         for (SystemObjekt e : konfigurationsbereiche) {
             context.put(PROP_KONFIGURATIONSBEREICH, e);
             generiereKonfigurationsbereichUeberblick((KonfigurationsBereich) e);
@@ -163,7 +166,7 @@ public class HtmlGenerator {
     }
 
     private void generiereObjekte() throws IOException {
-        Set<SystemObjekt> objekte = (Set<SystemObjekt>) context.get(PROP_OBJEKTE);
+        List<SystemObjekt> objekte = (List<SystemObjekt>) context.get(PROP_OBJEKTE);
         for (SystemObjekt e : objekte)
             generiereObjekt(e);
     }
