@@ -76,8 +76,28 @@
             </tbody>
         </table>
     </div>
+    #end
+    #if( !$typ.getAttributgruppen().isEmpty() )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attributgruppen</span></caption>
+                <tbody>
+                <tr>
+                    <th>Attributgruppe</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $attributgruppe in $typ.getAttributgruppen() )
+                    <tr>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/${attributgruppe.getPid()}.html">${attributgruppe.getName()}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.getKurzinfo()}</td>
+                    </tr>
+                        #set( $row = $row + 1 )
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
 </div>
-#end
-<p>TODO Attributgruppen</p>
 </body>
 </html>
