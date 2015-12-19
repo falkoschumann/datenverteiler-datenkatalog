@@ -18,9 +18,9 @@ import java.util.TreeSet;
 public class KonfigurationsBereich extends SystemObjekt {
 
     private KonfigurationsVerantwortlicher zustaendiger;
-    private final Set<Typ> typen = new TreeSet<>(SystemObjekt::compare);
-    private final Set<MengenTyp> mengen = new TreeSet<>(SystemObjekt::compare);
-    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compare);
+    private final Set<Typ> typen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<MengenTyp> mengen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -55,7 +55,7 @@ public class KonfigurationsBereich extends SystemObjekt {
     }
 
     public Set<SystemObjekt> getAlleObjekte() {
-        Set<SystemObjekt> result = new TreeSet<>(SystemObjekt::compare);
+        Set<SystemObjekt> result = new TreeSet<>(SystemObjekt::compareToNameOderPid);
         result.addAll(typen);
         result.addAll(mengen);
         result.addAll(attributgruppen);

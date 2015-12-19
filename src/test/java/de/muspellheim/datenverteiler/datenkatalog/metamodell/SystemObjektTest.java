@@ -8,6 +8,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unittests für Systemobjekte.
@@ -53,6 +54,20 @@ public class SystemObjektTest {
 
         SystemObjekt nichts = new TestingSystemObjekt();
         assertEquals("TestingSystemObjekt", nichts.toString());
+    }
+
+    @Test
+    public void testCompareToNameOderPid() {
+        Typ mqTyp = Typ.erzeugeMitPid("typ.messQuerschnitt");
+        mqTyp.setName("MessQuerschnitt");
+        Attributgruppe mqAtg = Attributgruppe.erzeugeMitPid("atg.messQuerschnitt");
+        mqAtg.setName("MessQuerschnitt");
+        Typ fsTyp = Typ.erzeugeMitPid("typ.fahrStreifen");
+        fsTyp.setName("FahrStreifen");
+
+        assertTrue(SystemObjekt.compareToNameOderPid(mqTyp, mqTyp) == 0);
+        assertTrue(SystemObjekt.compareToNameOderPid(mqTyp, mqAtg) > 0);
+        assertTrue(SystemObjekt.compareToNameOderPid(fsTyp, mqTyp) < 0);
     }
 
     private class TestingSystemObjekt extends SystemObjekt {
