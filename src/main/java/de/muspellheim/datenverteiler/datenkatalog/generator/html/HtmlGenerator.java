@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.html;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
-import de.muspellheim.datenverteiler.datenkatalog.bind.AttributlistenDefinition;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.*;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -186,7 +185,7 @@ public class HtmlGenerator {
         } else if (systemObjekt instanceof Attributgruppe) {
             context.put(PROP_ATTRIBUTGRUPPE, systemObjekt);
             generiereDatei(PROP_ATTRIBUTGRUPPE, pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof AttributlistenDefinition) {
+        } else if (systemObjekt instanceof AttributListenDefinition) {
             context.put(PROP_ATTRIBUTLISTE, systemObjekt);
             generiereDatei(PROP_ATTRIBUTLISTE, pfad + "/" + systemObjekt.getPid());
         }
