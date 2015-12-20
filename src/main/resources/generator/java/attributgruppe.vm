@@ -1,0 +1,22 @@
+${dateikopf}package ${paketpraefix}.${Java.paket($attributgruppe)};
+
+import de.bsvrz.dav.daf.main.config.*;
+import de.muspellheim.datenverteiler.datenkatalog.bind.*;
+
+import java.util.Objects;
+
+/**
+ * ${attributgruppe.kurzinfo}
+#if( !$attributgruppe.beschreibung.isEmpty() )
+ * <p>${attributgruppe.beschreibung}</p>
+#end
+ */
+@AttributgruppenDefinition(pid = "${attributgruppe.pid}")
+public class ${Java.klasse($attributgruppe)} {
+
+    @Override
+    public String toString() {
+        return "${Java.klasse($attributgruppe)}{}");
+    }
+
+}
