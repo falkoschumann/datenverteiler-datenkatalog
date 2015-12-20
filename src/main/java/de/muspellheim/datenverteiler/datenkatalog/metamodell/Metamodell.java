@@ -26,6 +26,7 @@ public class Metamodell {
     private final TypFabrik typFabrik;
     private final MengenTypFabrik mengenTypFabrik;
     private final AttributgruppeFabrik attributgruppeFabrik;
+    private final AttributListenDefinitionFabrik attributListenDefinitionFabrik;
 
     public Metamodell(DataModel model) {
         this.model = model;
@@ -34,6 +35,7 @@ public class Metamodell {
         typFabrik = new TypFabrik(this);
         mengenTypFabrik = new MengenTypFabrik(this);
         attributgruppeFabrik = new AttributgruppeFabrik(this);
+        attributListenDefinitionFabrik = new AttributListenDefinitionFabrik(this);
     }
 
     DataModel getModel() {
@@ -78,6 +80,10 @@ public class Metamodell {
 
     public Attributgruppe getAttributgruppe(String pid) {
         return attributgruppeFabrik.getObjekt(pid);
+    }
+
+    public AttributListenDefinition getAttributliste(String pid) {
+        return attributListenDefinitionFabrik.getObjekt(pid);
     }
 
 }
