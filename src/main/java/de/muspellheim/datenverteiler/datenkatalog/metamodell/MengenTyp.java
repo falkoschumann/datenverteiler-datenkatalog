@@ -16,14 +16,7 @@ import java.util.TreeSet;
  */
 public class MengenTyp extends Typ {
 
-    private final Set<Typ> objektTypen = new TreeSet<>();
-
-    /**
-     * Enthält die möglichen Typen von Objekten, die in Mengen des jeweiligen MengenTyps verwendet werden können.
-     */
-    public Set<Typ> getObjektTypen() {
-        return objektTypen;
-    }
+    private final Set<Typ> objektTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
 
     public static MengenTyp erzeugeMitPid(String pid) {
         MengenTyp result = new MengenTyp();
@@ -31,15 +24,11 @@ public class MengenTyp extends Typ {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "MengenVerwendung{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", objektTypen=" + objektTypen +
-                "}";
+    /**
+     * Enthält die möglichen Typen von Objekten, die in Mengen des jeweiligen MengenTyps verwendet werden können.
+     */
+    public Set<Typ> getObjektTypen() {
+        return objektTypen;
     }
 
 }

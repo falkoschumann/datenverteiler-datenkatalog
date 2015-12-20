@@ -31,9 +31,26 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testGetKonfigurationsverantwortlich() {
+        Set<KonfigurationsVerantwortlicher> konfigurationsverantwortliche = metamodell.getKonfigurationsverantwortliche();
+        assertFalse(konfigurationsverantwortliche.isEmpty());
+    }
+
+    @Test
     public void testGetKonfigurationsbereiche() {
         Set<KonfigurationsBereich> konfigurationsbereiche = metamodell.getKonfigurationsbereiche();
         assertFalse(konfigurationsbereiche.isEmpty());
+    }
+
+    @Test
+    public void testKonfigurationsbereich() {
+        KonfigurationsBereich verkehr = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
+
+        assertFalse(verkehr.getTypen().isEmpty());
+        assertFalse(verkehr.getMengen().isEmpty());
+        assertFalse(verkehr.getAttributgruppen().isEmpty());
+        KonfigurationsVerantwortlicher inovat = metamodell.getKonfigurationsverantwortlicher("kv.inovat");
+        assertEquals(inovat, verkehr.getZustaendiger());
     }
 
     @Test
@@ -83,6 +100,20 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testSubtypen() {
+        Set<Typ> subtypen = new LinkedHashSet<>();
+        subtypen.add(Typ.erzeugeMitPid("typ.baustelle"));
+        subtypen.add(Typ.erzeugeMitPid("typ.stau"));
+        subtypen.add(Typ.erzeugeMitPid("typ.unfall"));
+        subtypen.add(Typ.erzeugeMitPid("typ.aktion"));
+        subtypen.add(Typ.erzeugeMitPid("typ.seitenStreifenFreigabe"));
+
+        Typ result = metamodell.getTyp("typ.situation");
+
+        assertEquals(subtypen, result.getSubTypen());
+    }
+
+    @Test
     public void testMengenTyp() {
         MengenTyp typ = metamodell.getMengenTyp("menge.routen");
 
@@ -91,16 +122,19 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testMengen() {
-        MengenVerwendung netzBestandTeile = MengenVerwendung.erzeugeMitNameUndTyp("NetzBestandTeile", MengenTyp.erzeugeMitPid("menge.netzBestandTeile"));
+    public void testAttributgruppen() {
+        Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
+        attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.baustellenSimulationModell"));
+        attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.stauBestimmungModell"));
+        attributgruppen.add(Attributgruppe.erzeugeMitPid("atg.stauPrognoseModell"));
 
-        Typ netz = metamodell.getTyp("typ.netz");
+        Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
 
-        assertEquals(Collections.singleton(netzBestandTeile), netz.getMengen());
+        assertEquals(attributgruppen, netz.getAttributgruppen());
     }
 
     @Test
-    public void testMengenNeu() {
+    public void testMengen() {
         MengenVerwendung aktionen = MengenVerwendung.erzeugeMitNameUndTyp("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
         MengenVerwendung baustellen = MengenVerwendung.erzeugeMitNameUndTyp("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));
         MengenVerwendung seitenStreifenFreigaben = MengenVerwendung.erzeugeMitNameUndTyp("SeitenStreifenFreigaben", MengenTyp.erzeugeMitPid("menge.seitenStreifenFreigaben"));
@@ -117,7 +151,6 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
         Typ netz = metamodell.getTyp("typ.verkehrsModellNetz");
 
-        assertEquals(6, netz.getMengen().size());
         assertEquals(mengen, netz.getMengen());
     }
 

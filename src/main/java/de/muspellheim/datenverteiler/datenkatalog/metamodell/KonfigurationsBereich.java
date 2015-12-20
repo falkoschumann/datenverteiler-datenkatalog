@@ -18,8 +18,9 @@ import java.util.TreeSet;
 public class KonfigurationsBereich extends SystemObjekt {
 
     private KonfigurationsVerantwortlicher zustaendiger;
-    private final Set<Typ> typen = new TreeSet<>();
-    private final Set<MengenTyp> mengen = new TreeSet<>();
+    private final Set<Typ> typen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<MengenTyp> mengen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -49,23 +50,16 @@ public class KonfigurationsBereich extends SystemObjekt {
         return mengen;
     }
 
-    public Set<SystemObjekt> getAlleObjekte() {
-        Set<SystemObjekt> result = new TreeSet<>();
-        result.addAll(typen);
-        result.addAll(mengen);
-        return result;
+    public Set<Attributgruppe> getAttributgruppen() {
+        return attributgruppen;
     }
 
-    @Override
-    public String toString() {
-        return "KonfigurationsBereich{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", zustaendiger=" + zustaendiger +
-                ", typen=" + typen +
-                "}";
+    public Set<SystemObjekt> getAlleObjekte() {
+        Set<SystemObjekt> result = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+        result.addAll(typen);
+        result.addAll(mengen);
+        result.addAll(attributgruppen);
+        return result;
     }
 
 }

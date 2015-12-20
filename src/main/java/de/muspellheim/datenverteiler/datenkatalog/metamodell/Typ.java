@@ -5,7 +5,7 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.LinkedHashSet;
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,13 +17,22 @@ import java.util.TreeSet;
  */
 public class Typ extends SystemObjekt {
 
-    private final Set<MengenVerwendung> mengen = new LinkedHashSet<>();
-    private final Set<Typ> superTypen = new TreeSet<>();
+    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<MengenVerwendung> mengen = new TreeSet<>((Comparator<MengenVerwendung>) (m1, m2) -> m1.getMengenName().compareToIgnoreCase(m2.getMengenName()));
+    private final Set<Typ> superTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<Typ> subTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
 
     public static Typ erzeugeMitPid(String pid) {
         Typ result = new Typ();
         result.setPid(pid);
         return result;
+    }
+
+    /**
+     * Jedem Typ ist eine Menge von Attributgruppen zugeordnet.
+     */
+    public Set<Attributgruppe> getAttributgruppen() {
+        return attributgruppen;
     }
 
     /**
@@ -44,16 +53,8 @@ public class Typ extends SystemObjekt {
         return superTypen;
     }
 
-    @Override
-    public String toString() {
-        return "Typ{" +
-                "name='" + getName() + '\'' +
-                ", pid='" + getPid() + '\'' +
-                ", kurzinfo='" + getKurzinfo() + '\'' +
-                ", beschreibung='" + getBeschreibung() + '\'' +
-                ", mengen=" + getMengen() +
-                ", superTypen=" + getSuperTypen() +
-                "}";
+    public Set<Typ> getSubTypen() {
+        return subTypen;
     }
 
 }

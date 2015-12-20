@@ -13,13 +13,22 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public abstract class SystemObjekt implements Comparable<SystemObjekt> {
+public abstract class SystemObjekt {
 
     private String name;
     private String pid;
     private String kurzinfo;
     private String beschreibung;
     private KonfigurationsBereich bereich;
+
+    public static int compareToNameOderPid(SystemObjekt so1, SystemObjekt so2) {
+        if (Objects.equals(so1, so2)) return 0;
+
+        int result = so1.getNameOderPid().compareToIgnoreCase(so2.getNameOderPid());
+        if (result != 0) return result;
+
+        return so1.getPid().compareToIgnoreCase(so2.getPid());
+    }
 
     public String getName() {
         return name;
@@ -38,10 +47,9 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
     }
 
     public String getNameOderPid() {
-        if (name != null && !name.isEmpty())
-            return name;
-
-        return pid;
+        if (name != null && !name.isEmpty()) return name;
+        if (pid != null && !pid.isEmpty()) return pid;
+        return "";
     }
 
     public String getKurzinfo() {
@@ -69,12 +77,7 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
     }
 
     @Override
-    public int compareTo(SystemObjekt s) {
-        return name.compareToIgnoreCase(s.name);
-    }
-
-    @Override
-    public final boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof SystemObjekt)) return false;
         SystemObjekt that = (SystemObjekt) o;
@@ -82,18 +85,16 @@ public abstract class SystemObjekt implements Comparable<SystemObjekt> {
     }
 
     @Override
-    public final int hashCode() {
+    public int hashCode() {
         return Objects.hash(pid);
     }
 
     @Override
     public String toString() {
-        return "SystemObjekt{" +
-                "name='" + name + '\'' +
-                ", pid='" + pid + '\'' +
-                ", kurzinfo='" + kurzinfo + '\'' +
-                ", beschreibung='" + beschreibung + '\'' +
-                '}';
+        String result = getClass().getSimpleName();
+        result += name != null && !name.isEmpty() ? " " + name : "";
+        result += pid != null && !pid.isEmpty() ? " (" + pid + ")" : "";
+        return result;
     }
 
 }
