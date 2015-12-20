@@ -102,7 +102,27 @@
             </table>
         </div>
     #end
-    <p>TODO Attributlisten</p>
+    #if( !$konfigurationsbereich.getAttributlisten().isEmpty() )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attributlisten</span></caption>
+                <tbody>
+                <tr>
+                    <th>Attributliste</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $attributliste in $konfigurationsbereich.getAttributlisten() )
+                    <tr>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.getBereich().getZustaendiger().getPid()}/${attributliste.getBereich().getPid()}/${attributliste.getPid()}.html">$attributliste.getNameOderPid()</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributliste.getKurzinfo()}</td>
+                    </tr>
+                        #set( $row = $row + 1 )
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
     <p>TODO Attribute</p>
 </div>
 </body>

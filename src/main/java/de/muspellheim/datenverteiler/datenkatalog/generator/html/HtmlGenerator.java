@@ -6,6 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.html;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
+import de.muspellheim.datenverteiler.datenkatalog.bind.AttributlistenDefinition;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.*;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
  */
 public class HtmlGenerator {
 
+    // TODO Attributlisten generieren
     // TODO Kopfzeile für rechten Frame erweitern: Verwendung, Baum, Index, Hilfe
 
     public static final String PROP_PROJEKT = "projekt";
@@ -38,6 +40,7 @@ public class HtmlGenerator {
     public static final String PROP_TYP = "typ";
     public static final String PROP_MENGENTYP = "mengentyp";
     public static final String PROP_ATTRIBUTGRUPPE = "attributgruppe";
+    public static final String PROP_ATTRIBUTLISTE = "attributliste";
 
     private static final String SOURCE = "/generator/html/";
     private static final String TARGET = "target/datenkatalog/html/";
@@ -183,6 +186,9 @@ public class HtmlGenerator {
         } else if (systemObjekt instanceof Attributgruppe) {
             context.put(PROP_ATTRIBUTGRUPPE, systemObjekt);
             generiereDatei(PROP_ATTRIBUTGRUPPE, pfad + "/" + systemObjekt.getPid());
+        } else if (systemObjekt instanceof AttributlistenDefinition) {
+            context.put(PROP_ATTRIBUTLISTE, systemObjekt);
+            generiereDatei(PROP_ATTRIBUTLISTE, pfad + "/" + systemObjekt.getPid());
         }
     }
 
