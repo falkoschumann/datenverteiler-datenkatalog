@@ -49,6 +49,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         assertFalse(verkehr.getTypen().isEmpty());
         assertFalse(verkehr.getMengen().isEmpty());
         assertFalse(verkehr.getAttributgruppen().isEmpty());
+        assertFalse(verkehr.getAttributlisten().isEmpty());
         KonfigurationsVerantwortlicher inovat = metamodell.getKonfigurationsverantwortlicher("kv.inovat");
         assertEquals(inovat, verkehr.getZustaendiger());
     }
