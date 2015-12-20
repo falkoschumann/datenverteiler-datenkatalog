@@ -6,10 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.java;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Attributgruppe;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.SystemObjekt;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.*;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
@@ -35,6 +32,7 @@ public class JavaGenerator {
 
     public static final String PROP_OBJEKTE = "objekte";
     public static final String PROP_ATTRIBUTGRUPPE = "attributgruppe";
+    public static final String PROP_ATTRIBUTLISTE = "attributliste";
     public static final String PROP_PAKETPRAEFIX = "paketpraefix";
     public static final String PROP_JAVA = "Java";
     public static final String PROP_DATEIKOPF = "dateikopf";
@@ -91,6 +89,8 @@ public class JavaGenerator {
 
     private void generiereDatei(String template, String zieldateiname) throws IOException {
         Path datei = Paths.get(TARGET, zieldateiname + ".java");
+        if (Files.exists(datei))
+            System.err.println("Warnung: Die Datei existierte bereits: " + datei);
         System.out.println("Generiere " + datei + " ...");
         OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
@@ -109,11 +109,14 @@ public class JavaGenerator {
     }
 
     private void generiereObjekt(SystemObjekt systemObjekt) throws IOException {
-        String pfad = (String) context.get(PROP_PAKETPRAEFIX) + "/" + Java.paket(systemObjekt).replaceAll("\\.", "/");
+        String pfad = context.get(PROP_PAKETPRAEFIX) + "/" + Java.paket(systemObjekt).replaceAll("\\.", "/");
         Files.createDirectories(Paths.get(TARGET, pfad));
         if (systemObjekt instanceof Attributgruppe) {
             context.put(PROP_ATTRIBUTGRUPPE, systemObjekt);
             generiereDatei(PROP_ATTRIBUTGRUPPE, pfad + "/" + Java.klasse(systemObjekt));
+        } else if (systemObjekt instanceof AttributListenDefinition) {
+            context.put(PROP_ATTRIBUTLISTE, systemObjekt);
+            generiereDatei(PROP_ATTRIBUTLISTE, pfad + "/" + Java.klasse(systemObjekt));
         }
     }
 

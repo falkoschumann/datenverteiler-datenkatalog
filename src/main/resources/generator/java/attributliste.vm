@@ -1,0 +1,22 @@
+${dateikopf}package ${paketpraefix}.${Java.paket($attributliste)};
+
+import de.bsvrz.dav.daf.main.config.*;
+import de.muspellheim.datenverteiler.datenkatalog.bind.*;
+
+import java.util.Objects;
+
+/**
+ * ${attributliste.kurzinfo}
+#if( !$attributliste.beschreibung.isEmpty() )
+ * <p>${attributliste.beschreibung}</p>
+#end
+ */
+@AttributlistenDefinition
+public class ${Java.klasse($attributliste)} {
+
+    @Override
+    public String toString() {
+        return "${Java.klasse($attributliste)}{}";
+    }
+
+}
