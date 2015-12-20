@@ -15,20 +15,20 @@ import de.muspellheim.datenverteiler.datenkatalog.metamodell.SystemObjekt;
  */
 public final class Java {
 
-    private Java() {
-        // utility class
-    }
-
     private static final boolean verwendePidAlsBezeicher;
 
     static {
         // TODO System-Property dokumentieren
-        verwendePidAlsBezeicher = System.getProperty("generator.java.klassenname", "name").toLowerCase().equals("name");
+        verwendePidAlsBezeicher = "name".equals(System.getProperty("generator.java.klassenname", "name").toLowerCase());
         if (verwendePidAlsBezeicher) {
             System.out.println("Verwende den Namen der Objekte als Klassenbezeichner.");
         } else {
             System.out.println("Verwende die PID der Objekte als Klassenbezeichner.");
         }
+    }
+
+    private Java() {
+        // utility class
     }
 
     public static String paket(SystemObjekt systemObjekt) {
