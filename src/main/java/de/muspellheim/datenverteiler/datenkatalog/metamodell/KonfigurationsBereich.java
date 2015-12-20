@@ -21,6 +21,7 @@ public class KonfigurationsBereich extends SystemObjekt {
     private final Set<Typ> typen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
     private final Set<MengenTyp> mengen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
     private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<AttributListenDefinition> attributlisten = new TreeSet<>(SystemObjekt::compareToNameOderPid);
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -54,11 +55,16 @@ public class KonfigurationsBereich extends SystemObjekt {
         return attributgruppen;
     }
 
+    public Set<AttributListenDefinition> getAttributlisten() {
+        return attributlisten;
+    }
+
     public Set<SystemObjekt> getAlleObjekte() {
         Set<SystemObjekt> result = new TreeSet<>(SystemObjekt::compareToNameOderPid);
         result.addAll(typen);
         result.addAll(mengen);
         result.addAll(attributgruppen);
+        result.addAll(attributlisten);
         return result;
     }
 
