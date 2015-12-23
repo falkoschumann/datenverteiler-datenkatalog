@@ -9,19 +9,30 @@ import java.util.Objects;
 
 /**
  * Beschreibt die Verwendung einer MengenDefinition bei einer TypDefinition.
+ * <p><em>Hinweis: Eine Mengenverwendung ist ein Wertobjekt und wird über seine Eigenschaften identifiziert.</em></p>
  *
  * @author Falko Schumann
  * @since 3.2
  */
-public class MengenVerwendung extends SystemObjekt {
+public final class MengenVerwendung extends SystemObjekt {
 
     private String mengenName;
     private MengenTyp mengenTyp;
+    private boolean erforderlich;
 
-    public static MengenVerwendung erzeugeMitNameUndTyp(String mengenName, MengenTyp mengenTyp) {
+    private MengenVerwendung() {
+        // value object
+    }
+
+    public static MengenVerwendung erzeuge(String mengenName, MengenTyp mengenTyp) {
+        return erzeuge(mengenName, mengenTyp, true);
+    }
+
+    public static MengenVerwendung erzeuge(String mengenName, MengenTyp mengenTyp, boolean erforderlich) {
         MengenVerwendung result = new MengenVerwendung();
-        result.setMengenName(mengenName);
-        result.setMengenTyp(mengenTyp);
+        result.mengenName = mengenName;
+        result.mengenTyp = mengenTyp;
+        result.erforderlich = erforderlich;
         return result;
     }
 
@@ -36,16 +47,6 @@ public class MengenVerwendung extends SystemObjekt {
     }
 
     /**
-     * Persistenter Name der Menge.
-     * <p>
-     * Der Name unter dem die Menge ausgehend von einem Objekt des jeweiligen Typs referenzierbar ist.
-     * </p>
-     */
-    public void setMengenName(String mengenName) {
-        this.mengenName = mengenName;
-    }
-
-    /**
      * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
      */
     public MengenTyp getMengenTyp() {
@@ -53,10 +54,10 @@ public class MengenVerwendung extends SystemObjekt {
     }
 
     /**
-     * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
+     * Gibt an ob die Existenz der Menge unter einem Objekt des jeweiligen Typs erforderlich ist.
      */
-    public void setMengenTyp(MengenTyp mengenTyp) {
-        this.mengenTyp = mengenTyp;
+    public boolean isErforderlich() {
+        return erforderlich;
     }
 
     @Override
@@ -65,12 +66,12 @@ public class MengenVerwendung extends SystemObjekt {
         if (o == null || getClass() != o.getClass()) return false;
         MengenVerwendung that = (MengenVerwendung) o;
         return Objects.equals(mengenName, that.mengenName) &&
-                Objects.equals(mengenTyp, that.mengenTyp);
+                Objects.equals(mengenTyp, that.mengenTyp) && Objects.equals(erforderlich, that.erforderlich);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mengenName, mengenTyp);
+        return Objects.hash(mengenName, mengenTyp, erforderlich);
     }
 
 }

@@ -34,7 +34,7 @@ class AttributTypFabrik extends SystemObjektFabrik<AttributTyp> {
     }
 
     private Attribut getAttribut(Attribute attribute) {
-        Attribut result = Attribut.erzeugeMitNameUndTyp(attribute.getName(), getMetamodell().getAttributTyp(attribute.getAttributeType().getPid()));
+        Attribut result = Attribut.erzeuge(attribute.getName(), attribute.getPosition(), attribute.getMaxCount(), attribute.isCountVariable(), getMetamodell().getAttributTyp(attribute.getAttributeType().getPid()));
         getMetamodell().bestimmeSystemObjekt(attribute, result);
         return result;
     }

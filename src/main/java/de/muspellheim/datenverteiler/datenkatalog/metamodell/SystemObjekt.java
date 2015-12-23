@@ -9,6 +9,7 @@ import java.util.Objects;
 
 /**
  * Basisklasse für alle Objekte des Metamodells.
+ * <p>Ein Systemobjekt ist ein Referenzobjekt, und wird über seine PID identifiziert.</p>
  *
  * @author Falko Schumann
  * @since 3.2

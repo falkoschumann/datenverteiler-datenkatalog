@@ -43,7 +43,7 @@ class MengenTypFabrik extends SystemObjektFabrik<MengenTyp> {
     }
 
     private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
-        MengenVerwendung result = MengenVerwendung.erzeugeMitNameUndTyp(objectSetUse.getObjectSetName(), getObjekt(objectSetUse.getObjectSetType().getPid()));
+        MengenVerwendung result = MengenVerwendung.erzeuge(objectSetUse.getObjectSetName(), getObjekt(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
         getMetamodell().bestimmeSystemObjekt(objectSetUse, result);
         return result;
     }
