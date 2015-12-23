@@ -53,7 +53,7 @@
                 #set( $row = 1 )
                 #foreach( $typ in $konfigurationsbereich.typen )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.bereich.zustaendiger.pid}/${typ.bereich.pid}/${typ.pid}.html">$typ.nameOderPid</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.konfigurationsBereich.zustaendiger.pid}/${typ.konfigurationsBereich.pid}/${typ.pid}.html">$typ.nameOderPid</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
@@ -74,7 +74,7 @@
                 #set( $row = 1 )
                 #foreach( $menge in $konfigurationsbereich.mengen )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.bereich.zustaendiger.pid}/${menge.bereich.pid}/${menge.pid}.html">$menge.nameOderPid</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.konfigurationsBereich.zustaendiger.pid}/${menge.konfigurationsBereich.pid}/${menge.pid}.html">$menge.nameOderPid</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
@@ -95,7 +95,7 @@
                     #set( $row = 1 )
                     #foreach( $attributgruppe in $konfigurationsbereich.attributgruppen )
                     <tr>
-                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/${attributgruppe.pid}.html">$attributgruppe.nameOderPid</a></td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html">$attributgruppe.nameOderPid</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )
@@ -116,7 +116,7 @@
                     #set( $row = 1 )
                     #foreach( $attributliste in $konfigurationsbereich.attributlisten )
                     <tr>
-                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.bereich.zustaendiger.pid}/${attributliste.bereich.pid}/${attributliste.pid}.html">$attributliste.nameOderPid</a></td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.konfigurationsBereich.zustaendiger.pid}/${attributliste.konfigurationsBereich.pid}/${attributliste.pid}.html">$attributliste.nameOderPid</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributliste.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )

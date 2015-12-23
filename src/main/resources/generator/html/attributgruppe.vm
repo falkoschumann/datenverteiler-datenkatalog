@@ -23,19 +23,19 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${attributgruppe.bereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/${attributgruppe.pid}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/${attributgruppe.pid}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${attributgruppe.bereich.zustaendiger.nameOderPid} / ${attributgruppe.bereich.nameOderPid}</p>
+    <p>${attributgruppe.konfigurationsBereich.zustaendiger.nameOderPid} / ${attributgruppe.konfigurationsBereich.nameOderPid}</p>
     <h1>Attributgruppe ${attributgruppe.nameOderPid} (${attributgruppe.pid})</h1>
     <p>${attributgruppe.kurzinfo}</p>
     #if( !$attributgruppe.beschreibung.empty )
@@ -57,7 +57,7 @@
                     #foreach( $attribut in $attributgruppe.attribute )
                     <tr>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.name}</td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.attributTyp.bereich.zustaendiger.pid}/${attribut.attributTypbereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.attributTyp.konfigurationsBereich.zustaendiger.pid}/${attribut.attributTypbereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.anzahl}</td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
                             #if( ${attribut.anzahlVariabel} )

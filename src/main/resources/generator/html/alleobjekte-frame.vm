@@ -14,7 +14,7 @@
 <div class="content">
     <ul class="objekte">
         #foreach( $objekt in $objekte )
-        <li><a href="${objekt.bereich.zustaendiger.pid}/${objekt.bereich.pid}/${objekt.pid}.html" target="objektFrame">
+        <li><a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
             #if ( ${objekt.class.simpleName} == "Typ" )<em>#end
             $objekt.nameOderPid
             #if ( ${objekt.class.simpleName} == "Typ" )</em>#end
