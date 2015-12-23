@@ -6,7 +6,6 @@
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import de.bsvrz.dav.daf.main.config.ObjectSetType;
-import de.bsvrz.dav.daf.main.config.ObjectSetUse;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
 /**
@@ -36,16 +35,6 @@ class MengenTypFabrik extends SystemObjektFabrik<MengenTyp> {
 
         ObjectSetType objectSetType = (ObjectSetType) object;
         objectSetType.getObjectTypes().forEach(t -> result.getObjektTypen().add(getMetamodell().getTyp(t.getPid())));
-    }
-
-    MengenVerwendung getMengenVerwendung(long id) {
-        return getMengenVerwendung((ObjectSetUse) getMetamodell().getModel().getObject(id));
-    }
-
-    private MengenVerwendung getMengenVerwendung(ObjectSetUse objectSetUse) {
-        MengenVerwendung result = MengenVerwendung.erzeuge(objectSetUse.getObjectSetName(), getObjekt(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
-        getMetamodell().bestimmeSystemObjekt(objectSetUse, result);
-        return result;
     }
 
 }

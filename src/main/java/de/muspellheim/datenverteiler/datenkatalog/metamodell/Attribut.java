@@ -9,13 +9,16 @@ import java.util.Objects;
 
 /**
  * Attribut im Kontext einer Attributmenge.
- * <p><em>Hinweis: Ein Attribut ist ein Wertobjekt und wird über seine Eigenschaften identifiziert.</em></p>
+ * <p><strong>Hinweis: </strong> Ein Attribut ist ein Wertobjekt und wird über seine Eigenschaften identifiziert.</p>
  *
  * @author Falko Schumann
  * @since 3.2
  */
 public final class Attribut extends SystemObjekt {
 
+    // TODO Soll SystemObjekt für Kurzinfo und Beschreibung abgeleitet werden?
+
+    private String name;
     private int position;
     private int anzahl;
     private boolean anzahlVariabel;
@@ -31,7 +34,7 @@ public final class Attribut extends SystemObjekt {
 
     public static Attribut erzeuge(String name, int position, int anzahl, boolean anzahlVariabel, AttributTyp typ) {
         Attribut result = new Attribut();
-        result.setName(name);
+        result.name = name;
         result.position = position;
         result.anzahl = anzahl;
         result.anzahlVariabel = anzahlVariabel;
@@ -39,6 +42,13 @@ public final class Attribut extends SystemObjekt {
         return result;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Position eines Attributs in einer Attributgruppe oder -liste.
+     */
     public int getPosition() {
         return position;
     }
@@ -47,6 +57,10 @@ public final class Attribut extends SystemObjekt {
         return anzahl;
     }
 
+    /**
+     * Spezifiziert ob die Anzahl der verwendeten Feldelement zwischen 0 und der im Attribut 'anzahl' angegebenen Größe
+     * variieren kann.
+     */
     public boolean isAnzahlVariabel() {
         return anzahlVariabel;
     }

@@ -9,12 +9,14 @@ import java.util.Objects;
 
 /**
  * Beschreibt die Verwendung einer MengenDefinition bei einer TypDefinition.
- * <p><em>Hinweis: Eine Mengenverwendung ist ein Wertobjekt und wird über seine Eigenschaften identifiziert.</em></p>
+ * <p><strong>Hinweis: </strong> Eine Mengenverwendung ist ein Wertobjekt und wird über seine Eigenschaften identifiziert.</p>
  *
  * @author Falko Schumann
  * @since 3.2
  */
 public final class MengenVerwendung extends SystemObjekt {
+
+    // TODO Soll SystemObjekt für Kurzinfo und Beschreibung abgeleitet werden?
 
     private String mengenName;
     private MengenTyp mengenTyp;

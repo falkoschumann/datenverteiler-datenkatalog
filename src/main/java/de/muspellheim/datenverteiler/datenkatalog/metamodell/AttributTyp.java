@@ -16,14 +16,8 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class AttributTyp extends SystemObjekt {
+public interface AttributTyp {
 
-    // TODO In Interface umwandeln
-
-    public static AttributTyp erzeugeMitPid(String pid) {
-        AttributTyp result = new AttributTyp();
-        result.setPid(pid);
-        return result;
-    }
+    // tagging interface
 
 }
