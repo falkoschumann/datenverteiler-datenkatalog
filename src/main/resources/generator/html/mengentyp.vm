@@ -38,7 +38,9 @@
     <p>${mengentyp.bereich.zustaendiger.nameOderPid} / ${mengentyp.bereich.nameOderPid}</p>
     <h1>Menge ${mengentyp.nameOderPid} (${mengentyp.pid})</h1>
     <p>${mengentyp.kurzinfo}</p>
+    #if( !$mengentyp.beschreibung.empty )
     <p>${mengentyp.beschreibung}</p>
+    #end
     <p>TODO Konfigurationsdaten des Mengentyps</p>
     #if( !$mengentyp.typen.empty )
     <div class="ueberblick">

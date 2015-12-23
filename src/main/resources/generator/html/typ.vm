@@ -54,7 +54,9 @@
     #end
     </p>
     <p>${typ.kurzinfo}</p>
+    #if( !$typ.beschreibung.empty )
     <p>${typ.beschreibung}</p>
+    #end
     #if( !$typ.mengen.empty )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">

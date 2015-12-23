@@ -37,7 +37,9 @@
 <div class="content">
     <h1>Konfigurationsverantwortlicher ${konfigurationsverantwortlicher.nameOderPid} (${konfigurationsverantwortlicher.pid})</h1>
     <p>${konfigurationsverantwortlicher.kurzinfo}</p>
+    #if( !$konfigurationsverantwortlicher.beschreibung.empty )
     <p>${konfigurationsverantwortlicher.beschreibung}</p>
+    #end
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
             <caption><span>Konfigurationsbereiche</span></caption>

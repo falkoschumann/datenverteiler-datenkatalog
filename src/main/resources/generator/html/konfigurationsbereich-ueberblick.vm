@@ -38,7 +38,9 @@
     <p>${konfigurationsbereich.zustaendiger.nameOderPid}</p>
     <h1>Konfigurationsbereich ${konfigurationsbereich.nameOderPid} (${konfigurationsbereich.pid})</h1>
     <p>${konfigurationsbereich.kurzinfo}</p>
+    #if( !$konfigurationsbereich.beschreibung.empty )
     <p>${konfigurationsbereich.beschreibung}</p>
+    #end
     #if( !$konfigurationsbereich.typen.empty )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">

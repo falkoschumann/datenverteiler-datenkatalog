@@ -38,7 +38,9 @@
     <p>${attributliste.bereich.zustaendiger.nameOderPid} / ${attributliste.bereich.nameOderPid}</p>
     <h1>Attributgruppe ${attributliste.nameOderPid} (${attributliste.pid})</h1>
     <p>${attributliste.kurzinfo}</p>
+    #if( !$attributliste.beschreibung.empty )
     <p>${attributliste.beschreibung}</p>
+    #end
     <p>TODO Attribute</p>
 </div>
 </body>
