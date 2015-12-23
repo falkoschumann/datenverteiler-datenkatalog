@@ -137,10 +137,10 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     @Test
     public void testAttributgruppe() {
         Attributgruppe expected = Attributgruppe.erzeugeMitPid("atg.werteBereichsEigenschaften");
-        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("minimum", AttributTyp.erzeugeMitPid("att.zahl")));
-        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("maximum", AttributTyp.erzeugeMitPid("att.zahl")));
-        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("skalierung", AttributTyp.erzeugeMitPid("att.faktor")));
-        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("einheit", AttributTyp.erzeugeMitPid("att.einheit")));
+        expected.getAttribute().add(Attribut.erzeuge("minimum", 1, AttributTyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeuge("maximum", 2, AttributTyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeuge("skalierung", 3, AttributTyp.erzeugeMitPid("att.faktor")));
+        expected.getAttribute().add(Attribut.erzeuge("einheit", 4, AttributTyp.erzeugeMitPid("att.einheit")));
 
         Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.werteBereichsEigenschaften");
 
@@ -152,19 +152,18 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.werteBereichsEigenschaften");
         Attribut attribut = attributgruppe.getAttribute().iterator().next();
 
-        AttributTyp expected = AttributTyp.erzeugeMitPid("att.zahl");
-        assertEquals(expected, attribut.getAttributTyp());
+        Attribut expected = Attribut.erzeuge("minimum", 1, AttributTyp.erzeugeMitPid("att.zahl"));
+        assertEquals(expected, attribut);
     }
 
     @Test
     public void testMengen() {
-        MengenVerwendung aktionen = MengenVerwendung.erzeugeMitNameUndTyp("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
-        MengenVerwendung baustellen = MengenVerwendung.erzeugeMitNameUndTyp("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));
-        MengenVerwendung seitenStreifenFreigaben = MengenVerwendung.erzeugeMitNameUndTyp("SeitenStreifenFreigaben", MengenTyp.erzeugeMitPid("menge.seitenStreifenFreigaben"));
-        seitenStreifenFreigaben.setErforderlich(false);
-        MengenVerwendung situationen = MengenVerwendung.erzeugeMitNameUndTyp("Situationen", MengenTyp.erzeugeMitPid("menge.situationen"));
-        MengenVerwendung staus = MengenVerwendung.erzeugeMitNameUndTyp("Staus", MengenTyp.erzeugeMitPid("menge.staus"));
-        MengenVerwendung unfaelle = MengenVerwendung.erzeugeMitNameUndTyp("Unfälle", MengenTyp.erzeugeMitPid("menge.unfälle"));
+        MengenVerwendung aktionen = MengenVerwendung.erzeuge("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
+        MengenVerwendung baustellen = MengenVerwendung.erzeuge("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));
+        MengenVerwendung seitenStreifenFreigaben = MengenVerwendung.erzeuge("SeitenStreifenFreigaben", MengenTyp.erzeugeMitPid("menge.seitenStreifenFreigaben"), false);
+        MengenVerwendung situationen = MengenVerwendung.erzeuge("Situationen", MengenTyp.erzeugeMitPid("menge.situationen"));
+        MengenVerwendung staus = MengenVerwendung.erzeuge("Staus", MengenTyp.erzeugeMitPid("menge.staus"));
+        MengenVerwendung unfaelle = MengenVerwendung.erzeuge("Unfälle", MengenTyp.erzeugeMitPid("menge.unfälle"));
         Set<MengenVerwendung> mengen = new LinkedHashSet<>();
         mengen.add(aktionen);
         mengen.add(baustellen);
