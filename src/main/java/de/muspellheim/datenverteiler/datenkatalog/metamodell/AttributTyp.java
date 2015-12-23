@@ -18,7 +18,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  */
 public class AttributTyp extends SystemObjekt {
 
-    // TODO abstrakt machen
+    // TODO In Interface umwandeln
 
     public static AttributTyp erzeugeMitPid(String pid) {
         AttributTyp result = new AttributTyp();

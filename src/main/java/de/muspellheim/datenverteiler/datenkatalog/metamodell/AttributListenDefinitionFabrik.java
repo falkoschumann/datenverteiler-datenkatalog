@@ -13,7 +13,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class AttributListenDefinitionFabrik extends SystemObjektFabrik<AttributListenDefinition> {
+class AttributListenDefinitionFabrik extends AttributMengeFabrik<AttributListenDefinition> {
 
     AttributListenDefinitionFabrik(Metamodell metamodell) {
         super(metamodell);
