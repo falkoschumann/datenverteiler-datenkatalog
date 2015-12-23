@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()}</title>
+    <title>Konfigurationsbereich ${konfigurationsbereich.nameOderPid}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -13,7 +13,7 @@
     <!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title = "${konfigurationsbereich.getNameOderPid()} (${projekt})";
+            parent.document.title = "${konfigurationsbereich.nameOderPid} (${projekt})";
         }
     }
     catch (err) {
@@ -23,23 +23,23 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
         <li class="active">Konfigurationsbereich</li>
         <li>Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="_top">Mit Frames</a></li>
-        <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="_top">Mit Frames</a></li>
+        <li><a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${konfigurationsbereich.getZustaendiger().getNameOderPid()}</p>
-    <h1>Konfigurationsbereich ${konfigurationsbereich.getNameOderPid()} (${konfigurationsbereich.getPid()})</h1>
-    <p>${konfigurationsbereich.getKurzinfo()}</p>
-    <p>${konfigurationsbereich.getBeschreibung()}</p>
-    #if( !$konfigurationsbereich.getTypen().isEmpty() )
+    <p>${konfigurationsbereich.zustaendiger.nameOderPid}</p>
+    <h1>Konfigurationsbereich ${konfigurationsbereich.nameOderPid} (${konfigurationsbereich.pid})</h1>
+    <p>${konfigurationsbereich.kurzinfo}</p>
+    <p>${konfigurationsbereich.beschreibung}</p>
+    #if( !$konfigurationsbereich.typen.empty )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
             <caption><span>Typen</span></caption>
@@ -49,10 +49,10 @@
                 <th>Beschreibung</th>
             </tr>
                 #set( $row = 1 )
-                #foreach( $typ in $konfigurationsbereich.getTypen() )
+                #foreach( $typ in $konfigurationsbereich.typen )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">$typ.getNameOderPid()</a></td>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.bereich.zustaendiger.pid}/${typ.bereich.pid}/${typ.pid}.html">$typ.nameOderPid</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
                 #end
@@ -60,7 +60,7 @@
         </table>
     </div>
     #end
-    #if( !$konfigurationsbereich.getMengen().isEmpty() )
+    #if( !$konfigurationsbereich.mengen.empty )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
             <caption><span>Mengen</span></caption>
@@ -70,10 +70,10 @@
                 <th>Beschreibung</th>
             </tr>
                 #set( $row = 1 )
-                #foreach( $menge in $konfigurationsbereich.getMengen() )
+                #foreach( $menge in $konfigurationsbereich.mengen )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.getBereich().getZustaendiger().getPid()}/${menge.getBereich().getPid()}/${menge.getPid()}.html">$menge.getNameOderPid()</a></td>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.getKurzinfo()}</td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.bereich.zustaendiger.pid}/${menge.bereich.pid}/${menge.pid}.html">$menge.nameOderPid</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
                 #end
@@ -81,7 +81,7 @@
         </table>
     </div>
     #end
-    #if( !$konfigurationsbereich.getAttributgruppen().isEmpty() )
+    #if( !$konfigurationsbereich.attributgruppen.empty )
         <div class="ueberblick">
             <table border="0" cellpadding="0" cellspacing="0">
                 <caption><span>Attributgruppen</span></caption>
@@ -91,10 +91,10 @@
                     <th>Beschreibung</th>
                 </tr>
                     #set( $row = 1 )
-                    #foreach( $attributgruppe in $konfigurationsbereich.getAttributgruppen() )
+                    #foreach( $attributgruppe in $konfigurationsbereich.attributgruppen )
                     <tr>
-                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/${attributgruppe.getPid()}.html">$attributgruppe.getNameOderPid()</a></td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.getKurzinfo()}</td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/${attributgruppe.pid}.html">$attributgruppe.nameOderPid</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )
                     #end
@@ -102,7 +102,7 @@
             </table>
         </div>
     #end
-    #if( !$konfigurationsbereich.getAttributlisten().isEmpty() )
+    #if( !$konfigurationsbereich.attributlisten.empty )
         <div class="ueberblick">
             <table border="0" cellpadding="0" cellspacing="0">
                 <caption><span>Attributlisten</span></caption>
@@ -112,10 +112,10 @@
                     <th>Beschreibung</th>
                 </tr>
                     #set( $row = 1 )
-                    #foreach( $attributliste in $konfigurationsbereich.getAttributlisten() )
+                    #foreach( $attributliste in $konfigurationsbereich.attributlisten )
                     <tr>
-                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.getBereich().getZustaendiger().getPid()}/${attributliste.getBereich().getPid()}/${attributliste.getPid()}.html">$attributliste.getNameOderPid()</a></td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributliste.getKurzinfo()}</td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.bereich.zustaendiger.pid}/${attributliste.bereich.pid}/${attributliste.pid}.html">$attributliste.nameOderPid</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributliste.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )
                     #end

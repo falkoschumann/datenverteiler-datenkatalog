@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>${konfigurationsbereich.getNameOderPid()}</title>
+    <title>${konfigurationsbereich.nameOderPid}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -10,14 +10,14 @@
 </head>
 <body>
 <div class="header">
-    <a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.getNameOderPid()}</a>
+    <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.nameOderPid}</a>
 </div>
 <div class="content">
     <ul class="objekte">
-        #foreach( $objekt in $konfigurationsbereich.getAlleObjekte() )
-        <li><a href="${objekt.getBereich().getZustaendiger().getPid()}/${objekt.getBereich().getPid()}/${objekt.getPid()}.html" target="objektFrame">
+        #foreach( $objekt in $konfigurationsbereich.alleObjekte )
+        <li><a href="${objekt.bereich.zustaendiger.pid}/${objekt.bereich.pid}/${objekt.pid}.html" target="objektFrame">
             #if ( ${objekt.class.simpleName} == "Typ" )<em>#end
-            $objekt.getNameOderPid()
+            ${objekt.nameOderPid}
             #if ( ${objekt.class.simpleName} == "Typ" )</em>#end
         </a></li>
         #end

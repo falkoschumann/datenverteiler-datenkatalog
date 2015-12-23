@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Menge ${mengentyp.getNameOderPid()}</title>
+    <title>Menge ${mengentyp.nameOderPid}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -13,7 +13,7 @@
     <!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title = "${mengentyp.getNameOderPid()} (${projekt})";
+            parent.document.title = "${mengentyp.nameOderPid} (${projekt})";
         }
     }
     catch (err) {
@@ -23,24 +23,24 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${mengentyp.getBereich().getZustaendiger().getPid()}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${mengentyp.getBereich().getZustaendiger().getPid()}/${mengentyp.getBereich().getPid()}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${mengentyp.bereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${mengentyp.bereich.zustaendiger.pid}/${mengentyp.bereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${mengentyp.getBereich().getZustaendiger().getPid()}/${mengentyp.getBereich().getPid()}/${mengentyp.getPid()}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${mengentyp.getBereich().getZustaendiger().getPid()}/${mengentyp.getBereich().getPid()}/${mengentyp.getPid()}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${mengentyp.bereich.zustaendiger.pid}/${mengentyp.bereich.pid}/${mengentyp.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${mengentyp.bereich.zustaendiger.pid}/${mengentyp.bereich.pid}/${mengentyp.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${mengentyp.getBereich().getZustaendiger().getNameOderPid()} / ${mengentyp.getBereich().getNameOderPid()}</p>
-    <h1>Menge ${mengentyp.getNameOderPid()} (${mengentyp.getPid()})</h1>
-    <p>${mengentyp.getKurzinfo()}</p>
-    <p>${mengentyp.getBeschreibung()}</p>
+    <p>${mengentyp.bereich.zustaendiger.nameOderPid} / ${mengentyp.bereich.nameOderPid}</p>
+    <h1>Menge ${mengentyp.nameOderPid} (${mengentyp.pid})</h1>
+    <p>${mengentyp.kurzinfo}</p>
+    <p>${mengentyp.beschreibung}</p>
     <p>TODO Konfigurationsdaten des Mengentyps</p>
-    #if( !$mengentyp.getTypen().isEmpty() )
+    #if( !$mengentyp.typen.empty )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
             <caption><span>Objekttypen</span></caption>
@@ -50,10 +50,10 @@
                 <th>Beschreibung</th>
             </tr>
                 #set( $row = 1 )
-                #foreach( $typ in $mengentyp.getObjektTypen() )
+                #foreach( $typ in $mengentyp.objektTypen )
                 <tr>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html">${typ.getName()}</a></td>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.getKurzinfo()}</td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.bereich.zustaendiger.pid}/${typ.bereich.pid}/${typ.pid}.html">${typ.name}</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
                 #end

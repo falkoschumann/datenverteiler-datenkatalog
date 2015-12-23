@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Menge ${attributliste.getNameOderPid()}</title>
+    <title>Menge ${attributliste.nameOderPid}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -13,7 +13,7 @@
     <!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title = "${attributliste.getNameOderPid()} (${projekt})";
+            parent.document.title = "${attributliste.nameOderPid} (${projekt})";
         }
     }
     catch (err) {
@@ -23,22 +23,22 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${attributliste.getBereich().getZustaendiger().getPid()}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${attributliste.getBereich().getZustaendiger().getPid()}/${attributliste.getBereich().getPid()}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${attributliste.bereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${attributliste.bereich.zustaendiger.pid}/${attributliste.bereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${attributliste.getBereich().getZustaendiger().getPid()}/${attributliste.getBereich().getPid()}/${attributliste.getPid()}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${attributliste.getBereich().getZustaendiger().getPid()}/${attributliste.getBereich().getPid()}/${attributliste.getPid()}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${attributliste.bereich.zustaendiger.pid}/${attributliste.bereich.pid}/${attributliste.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${attributliste.bereich.zustaendiger.pid}/${attributliste.bereich.pid}/${attributliste.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${attributliste.getBereich().getZustaendiger().getNameOderPid()} / ${attributliste.getBereich().getNameOderPid()}</p>
-    <h1>Attributgruppe ${attributliste.getNameOderPid()} (${attributliste.getPid()})</h1>
-    <p>${attributliste.getKurzinfo()}</p>
-    <p>${attributliste.getBeschreibung()}</p>
+    <p>${attributliste.bereich.zustaendiger.nameOderPid} / ${attributliste.bereich.nameOderPid}</p>
+    <h1>Attributgruppe ${attributliste.nameOderPid} (${attributliste.pid})</h1>
+    <p>${attributliste.kurzinfo}</p>
+    <p>${attributliste.beschreibung}</p>
     <p>TODO Attribute</p>
 </div>
 </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Menge ${attributgruppe.getNameOderPid()}</title>
+    <title>Menge ${attributgruppe.nameOderPid}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -13,7 +13,7 @@
     <!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title = "${attributgruppe.getNameOderPid()} (${projekt})";
+            parent.document.title = "${attributgruppe.nameOderPid} (${projekt})";
         }
     }
     catch (err) {
@@ -23,23 +23,23 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${attributgruppe.bereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/${attributgruppe.getPid()}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/${attributgruppe.getPid()}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/${attributgruppe.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/${attributgruppe.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${attributgruppe.getBereich().getZustaendiger().getNameOderPid()} / ${attributgruppe.getBereich().getNameOderPid()}</p>
-    <h1>Attributgruppe ${attributgruppe.getNameOderPid()} (${attributgruppe.getPid()})</h1>
-    <p>${attributgruppe.getKurzinfo()}</p>
-    <p>${attributgruppe.getBeschreibung()}</p>
-    #if( !$attributgruppe.getAttribute().isEmpty() )
+    <p>${attributgruppe.bereich.zustaendiger.nameOderPid} / ${attributgruppe.bereich.nameOderPid}</p>
+    <h1>Attributgruppe ${attributgruppe.nameOderPid} (${attributgruppe.pid})</h1>
+    <p>${attributgruppe.kurzinfo}</p>
+    <p>${attributgruppe.eschreibung}</p>
+    #if( !$attributgruppe.attribute.empty )
         <div class="ueberblick">
             <table border="0" cellpadding="0" cellspacing="0">
                 <caption><span>Attribute</span></caption>
@@ -50,10 +50,10 @@
                     <th>Beschreibung</th>
                 </tr>
                     #set( $row = 1 )
-                    #foreach( $attribut in $attributgruppe.getAttribute() )
+                    #foreach( $attribut in $attributgruppe.attribute )
                     <tr>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.getName()}</td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.getAttributTyp().getBereich().getZustaendiger().getPid()}/${attribut.getAttributTyp().getBereich().getPid()}/${attribut.getAttributTyp().getPid()}.html">${attribut.getAttributTyp().getName()}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.name}</td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.attributTyp.bereich.zustaendiger.pid}/${attribut.attributTypbereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">
                             #if( $attribut.kurzinfo && !$attribut.kurzinfo.empty )
                                 ${attribut.kurzinfo}

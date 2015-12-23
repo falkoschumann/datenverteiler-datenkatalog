@@ -16,7 +16,7 @@
     <h2 class="konfigurationsbereiche">Konfigurationsbereiche</h2>
     <ul class="konfigurationsbereiche">
         #foreach( $konfigurationsbereich in $konfigurationsbereiche )
-        <li><a href="${konfigurationsbereich.getZustaendiger().getPid()}/${konfigurationsbereich.getPid()}/konfigurationsbereich-frame.html" target="konfigurationsbereichFrame">${konfigurationsbereich.getNameOderPid()}</a></li>
+        <li><a href="${konfigurationsbereich.zustaendiger().pid}/${konfigurationsbereich.pid}/konfigurationsbereich-frame.html" target="konfigurationsbereichFrame">${konfigurationsbereich.nameOderPid}</a></li>
         #end
     </ul>
 </div>

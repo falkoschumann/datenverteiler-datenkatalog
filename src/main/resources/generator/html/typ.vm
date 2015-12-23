@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <title>Typ ${typ.getNameOderPid()}</title>
+    <title>Typ ${typ.nameOderPid}</title>
     <base href="../../">
     <meta charset="UTF-8">
     <meta name="date" content="2015-12-05"/>
@@ -13,7 +13,7 @@
     <!--
     try {
         if (location.href.indexOf('is-external=true') == -1) {
-            parent.document.title = "${typ.getNameOderPid()} (${projekt})";
+            parent.document.title = "${typ.nameOderPid} (${projekt})";
         }
     }
     catch (err) {
@@ -23,39 +23,39 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${typ.getBereich().getZustaendiger().getPid()}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${typ.bereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${typ.bereich.zustaendiger.pid}/${typ.bereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${typ.getBereich().getZustaendiger().getPid()}/${typ.getBereich().getPid()}/${typ.getPid()}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${typ.bereich.zustaendiger.pid}/${typ.bereich.pid}/${typ.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${typ.bereich.zustaendiger.pid}/${typ.bereich.pid}/${typ.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${typ.getBereich().getZustaendiger().getNameOderPid()} / ${typ.getBereich().getNameOderPid()}</p>
-    <h1>Typ ${typ.getNameOderPid()} (${typ.getPid()})</h1>
+    <p>${typ.bereich.zustaendiger.nameOderPid} / ${typ.bereich.nameOderPid}</p>
+    <h1>Typ ${typ.nameOderPid} (${typ.pid})</h1>
     <p><strong>Alle direkten Supertypen</strong></p>
-    #if( !$typ.getSuperTypen().isEmpty() )
+    #if( !$typ.superTypen.empty )
     <p>
-    #foreach( $superTyp in $typ.getSuperTypen() )
-    <a href="${superTyp.getBereich().getZustaendiger().getPid()}/${superTyp.getBereich().getPid()}/${superTyp.getPid()}.html" target="objektFrame">${superTyp.getNameOderPid()}</a>#if( $velocityHasNext ), #end
+    #foreach( $superTyp in $typ.superTypen )
+    <a href="${superTyp.bereich.zustaendiger.pid}/${superTyp.bereich.pid}/${superTyp.pid}.html" target="objektFrame">${superTyp.nameOderPid}</a>#if( $velocityHasNext ), #end
     #end
     </p>
     #end
-    #if( !$typ.getSubTypen().isEmpty() )
+    #if( !$typ.subTypen.empty )
     <p><strong>Bekannte direkte Subtypen</strong></p>
     <p>
-    #foreach( $subTyp in $typ.getSubTypen() )
-        <a href="${subTyp.getBereich().getZustaendiger().getPid()}/${subTyp.getBereich().getPid()}/${subTyp.getPid()}.html" target="objektFrame">${subTyp.getNameOderPid()}</a>#if( $velocityHasNext ), #end
+    #foreach( $subTyp in $typ.subTypen )
+        <a href="${subTyp.bereich.zustaendiger.pid}/${subTyp.bereich.pid}/${subTyp.pid}.html" target="objektFrame">${subTyp.nameOderPid}</a>#if( $velocityHasNext ), #end
     #end
     #end
     </p>
-    <p>${typ.getKurzinfo()}</p>
-    <p>${typ.getBeschreibung()}</p>
-    #if( !$typ.getMengen().isEmpty() )
+    <p>${typ.kurzinfo}</p>
+    <p>${typ.beschreibung}</p>
+    #if( !$typ.mengen.empty )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
             <caption><span>Mengen</span></caption>
@@ -65,10 +65,10 @@
                 <th>Beschreibung</th>
             </tr>
                 #set( $row = 1 )
-                #foreach( $mengenVerwendung in $typ.getMengen() )
+                #foreach( $mengenVerwendung in $typ.mengen )
                 <tr>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.getMengenTyp().getBereich().getZustaendiger().getPid()}/${mengenVerwendung.getMengenTyp().getBereich().getPid()}/${mengenVerwendung.getMengenTyp().getPid()}.html">${mengenVerwendung.getMengenName()}</a></td>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${mengenVerwendung.getMengenTyp().getKurzinfo()}</td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.mengenTyp.bereich.zustaendiger.pid}/${mengenVerwendung.mengenTyp.bereich.pid}/${mengenVerwendung.mengenTyp.pid}.html">${mengenVerwendung.mengenName}</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${mengenVerwendung.mengenTyp.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
                 #end
@@ -76,7 +76,7 @@
         </table>
     </div>
     #end
-    #if( !$typ.getAttributgruppen().isEmpty() )
+    #if( !$typ.attributgruppen.empty )
         <div class="ueberblick">
             <table border="0" cellpadding="0" cellspacing="0">
                 <caption><span>Attributgruppen</span></caption>
@@ -86,10 +86,10 @@
                     <th>Beschreibung</th>
                 </tr>
                     #set( $row = 1 )
-                    #foreach( $attributgruppe in $typ.getAttributgruppen() )
+                    #foreach( $attributgruppe in $typ.attributgruppen )
                     <tr>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.getBereich().getZustaendiger().getPid()}/${attributgruppe.getBereich().getPid()}/${attributgruppe.getPid()}.html">${attributgruppe.getName()}</a></td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.getKurzinfo()}</td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.bereich.zustaendiger.pid}/${attributgruppe.bereich.pid}/${attributgruppe.pid}.html">${attributgruppe.name}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )
                     #end
