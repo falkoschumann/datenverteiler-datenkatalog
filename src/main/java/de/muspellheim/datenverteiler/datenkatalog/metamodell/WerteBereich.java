@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public class WerteBereich extends SystemObjekt {
+public final class WerteBereich extends SystemObjekt {
 
     // TODO Soll SystemObjekt für Kurzinfo und Beschreibung abgeleitet werden?
 
@@ -23,6 +23,10 @@ public class WerteBereich extends SystemObjekt {
     private double skalierung;
     private String einheit;
 
+    private WerteBereich() {
+        // value object
+    }
+
     public static WerteBereich erzeuge(long minimum, long maximum, double skalierung, String einheit) {
         WerteBereich result = new WerteBereich();
         result.minimum = minimum;
@@ -30,10 +34,6 @@ public class WerteBereich extends SystemObjekt {
         result.skalierung = skalierung;
         result.einheit = einheit;
         return result;
-    }
-
-    private WerteBereich() {
-        // value object
     }
 
     public long getMinimum() {

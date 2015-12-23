@@ -48,6 +48,8 @@ class GanzzahlAttributTypFabrik extends AttributTypFabrik<GanzzahlAttributTyp> {
             case 8:
                 result.setAnzahlBytes(DatentypGroesse.LONG);
                 break;
+            default:
+                throw new IllegalStateException("Unbekannte Datentypgröße: " + type.getByteCount());
         }
         IntegerValueRange range = type.getRange();
         if (range != null)
