@@ -57,7 +57,7 @@
                     #foreach( $attribut in $attributgruppe.attribute )
                     <tr>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.name}</td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.attributTyp.konfigurationsBereich.zustaendiger.pid}/${attribut.attributTypbereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.attributTyp.konfigurationsBereich.zustaendiger.pid}/${attribut.attributTyp.konfigurationsBereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.anzahl}</td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
                             #if( ${attribut.anzahlVariabel} )
@@ -80,6 +80,7 @@
             </table>
         </div>
     #end
+    <p>TODO Attributlisten darstellen</p>
     <p>TODO Für Attribute ergänzen: Typ</p>
 </div>
 </body>
