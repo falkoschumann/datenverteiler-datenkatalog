@@ -84,7 +84,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     public void testBereich() {
         Typ typ = metamodell.getTyp("typ.aspekt");
 
-        assertEquals(KonfigurationsBereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getBereich());
+        assertEquals(KonfigurationsBereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getKonfigurationsBereich());
     }
 
     @Test
@@ -137,10 +137,10 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     @Test
     public void testAttributgruppe() {
         Attributgruppe expected = Attributgruppe.erzeugeMitPid("atg.werteBereichsEigenschaften");
-        expected.getAttribute().add(Attribut.erzeuge("minimum", 1, AttributTyp.erzeugeMitPid("att.zahl")));
-        expected.getAttribute().add(Attribut.erzeuge("maximum", 2, AttributTyp.erzeugeMitPid("att.zahl")));
-        expected.getAttribute().add(Attribut.erzeuge("skalierung", 3, AttributTyp.erzeugeMitPid("att.faktor")));
-        expected.getAttribute().add(Attribut.erzeuge("einheit", 4, AttributTyp.erzeugeMitPid("att.einheit")));
+        expected.getAttribute().add(Attribut.erzeuge("minimum", 1, GanzzahlAttributTyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeuge("maximum", 2, GanzzahlAttributTyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeuge("skalierung", 3, KommazahlAttributTyp.erzeugeMitPid("att.faktor")));
+        expected.getAttribute().add(Attribut.erzeuge("einheit", 4, ZeichenkettenAttributTyp.erzeugeMitPid("att.einheit")));
 
         Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.werteBereichsEigenschaften");
 
@@ -148,12 +148,43 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
-    public void testAttribut() {
-        Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.werteBereichsEigenschaften");
-        Attribut attribut = attributgruppe.getAttribute().iterator().next();
+    public void testZeichenkettenAttributTyp() {
+        ZeichenkettenAttributTyp attributTyp = (ZeichenkettenAttributTyp) metamodell.getAttributTyp("att.einheit");
 
-        Attribut expected = Attribut.erzeuge("minimum", 1, AttributTyp.erzeugeMitPid("att.zahl"));
-        assertEquals(expected, attribut);
+        assertEquals(64, attributTyp.getLaenge());
+        assertEquals(ZeichenKodierung.ISO_8859_1, attributTyp.getKodierung());
+    }
+
+    @Test
+    public void testZeitstempelAttributTyp() {
+        ZeitstempelAttributTyp attributTyp = (ZeitstempelAttributTyp) metamodell.getAttributTyp("att.zeitDauer");
+
+        assertEquals(true, attributTyp.isRelativ());
+        assertEquals(ZeitAufloesung.MILLISEKUNDEN, attributTyp.getGenauigkeit());
+    }
+
+    @Test
+    public void testKommazahlAttributTyp() {
+        KommazahlAttributTyp attributTyp = (KommazahlAttributTyp) metamodell.getAttributTyp("att.faktor");
+
+        assertEquals("", attributTyp.getEinheit());
+        assertEquals(FliesskommaAufloesung.DOUBLE, attributTyp.getGenauigkeit());
+    }
+
+    @Test
+    public void testObjektReferenzAttributTyp() {
+        ObjektReferenzAttributTyp attributTyp = (ObjektReferenzAttributTyp) metamodell.getAttributTyp("att.typReferenz");
+
+        assertEquals(false, attributTyp.isUndefiniertErlaubt());
+        assertEquals(Referenzierungsart.AGGREGATION, attributTyp.getReferenzierungsart());
+    }
+
+    @Test
+    public void testGanzzahlAttributTyp() {
+        GanzzahlAttributTyp attributTyp = (GanzzahlAttributTyp) metamodell.getAttributTyp("att.geschwindigkeit");
+
+        assertEquals(DatentypGroesse.SHORT, attributTyp.getAnzahlBytes());
+        assertEquals(WerteBereich.erzeuge(0, 254, 1, "km/h"), attributTyp.getBereich());
     }
 
     @Test

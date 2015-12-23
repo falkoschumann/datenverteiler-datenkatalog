@@ -174,7 +174,7 @@ public class HtmlGenerator {
     }
 
     private void generiereObjekt(SystemObjekt systemObjekt) throws IOException {
-        String pfad = systemObjekt.getBereich().getZustaendiger().getPid() + "/" + systemObjekt.getBereich().getPid();
+        String pfad = systemObjekt.getKonfigurationsBereich().getZustaendiger().getPid() + "/" + systemObjekt.getKonfigurationsBereich().getPid();
         Files.createDirectories(Paths.get(TARGET, pfad));
         if (systemObjekt instanceof MengenTyp) {
             context.put(PROP_MENGENTYP, systemObjekt);

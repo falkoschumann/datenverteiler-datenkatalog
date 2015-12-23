@@ -49,7 +49,7 @@ abstract class SystemObjektFabrik<T extends SystemObjekt> {
         result.setKurzinfo(object.getInfo().getShortInfo().trim());
         result.setBeschreibung(object.getInfo().getDescription().trim());
         if (!(object instanceof ConfigurationArea))
-            result.setBereich(metamodell.getKonfigurationsbereich(object.getConfigurationArea().getPid()));
+            result.setKonfigurationsBereich(metamodell.getKonfigurationsbereich(object.getConfigurationArea().getPid()));
     }
 
 }

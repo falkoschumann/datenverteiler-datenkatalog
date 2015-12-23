@@ -5,9 +5,10 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import de.bsvrz.dav.daf.main.config.ConfigurationArea;
+import de.bsvrz.dav.daf.main.config.Attribute;
+import de.bsvrz.dav.daf.main.config.AttributeType;
 import de.bsvrz.dav.daf.main.config.DataModel;
-import de.bsvrz.dav.daf.main.config.SystemObject;
+import de.bsvrz.dav.daf.main.config.ObjectSetUse;
 
 import java.util.Set;
 
@@ -23,38 +24,24 @@ public class Metamodell {
 
     private final DataModel model;
 
-    private final KonfigurationsVerantwortlicherFabrik konfigurationsVerantwortlicherFabrik;
-    private final KonfigurationsBereichFabrik konfigurationsBereichFabrik;
-    private final TypFabrik typFabrik;
-    private final MengenTypFabrik mengenTypFabrik;
-    private final AttributgruppeFabrik attributgruppeFabrik;
-    private final AttributListenDefinitionFabrik attributListenDefinitionFabrik;
-    private final AttributTypFabrik attributTypFabrik;
+    private final KonfigurationsVerantwortlicherFabrik konfigurationsVerantwortlicherFabrik = new KonfigurationsVerantwortlicherFabrik(this);
+    private final KonfigurationsBereichFabrik konfigurationsBereichFabrik = new KonfigurationsBereichFabrik(this);
+    private final TypFabrik typFabrik = new TypFabrik(this);
+    private final MengenTypFabrik mengenTypFabrik = new MengenTypFabrik(this);
+    private final AttributgruppeFabrik attributgruppeFabrik = new AttributgruppeFabrik(this);
+    private final AttributListenDefinitionFabrik attributListenDefinitionFabrik = new AttributListenDefinitionFabrik(this);
+    private final ZeichenkettenAttributTypFabrik zeichenkettenAttributTypFabrik = new ZeichenkettenAttributTypFabrik(this);
+    private final ZeitstempelAttributTypFabrik zeitstempelAttributTypFabrik = new ZeitstempelAttributTypFabrik(this);
+    private final KommazahlAttributTypFabrik kommazahlAttributTypFabrik = new KommazahlAttributTypFabrik(this);
+    private final ObjektReferenzAttributTypFabrik objektReferenAttributTypFabrik = new ObjektReferenzAttributTypFabrik(this);
+    private final GanzzahlAttributTypFabrik ganzzahlAttributTypFabrik = new GanzzahlAttributTypFabrik(this);
 
     public Metamodell(DataModel model) {
         this.model = model;
-
-        konfigurationsVerantwortlicherFabrik = new KonfigurationsVerantwortlicherFabrik(this);
-        konfigurationsBereichFabrik = new KonfigurationsBereichFabrik(this);
-        typFabrik = new TypFabrik(this);
-        mengenTypFabrik = new MengenTypFabrik(this);
-        attributgruppeFabrik = new AttributgruppeFabrik(this);
-        attributListenDefinitionFabrik = new AttributListenDefinitionFabrik(this);
-        attributTypFabrik = new AttributTypFabrik(this);
     }
 
     DataModel getModel() {
         return model;
-    }
-
-    void bestimmeSystemObjekt(SystemObject object, SystemObjekt result) {
-        result.setName(object.getName());
-        result.setKurzinfo(object.getInfo().getShortInfo().trim());
-        // TODO HTML und BODY aus Beschreibung entfernen oder als XML lesen und in HTML konvertieren
-        // TODO Bilder fehlen in HTML
-        result.setBeschreibung(object.getInfo().getDescription().trim());
-        if (!(object instanceof ConfigurationArea))
-            result.setBereich(konfigurationsBereichFabrik.getObjekt(object.getConfigurationArea().getPid()));
     }
 
     public Set<KonfigurationsVerantwortlicher> getKonfigurationsverantwortliche() {
@@ -82,7 +69,8 @@ public class Metamodell {
     }
 
     MengenVerwendung getMengenVerwendung(long id) {
-        return mengenTypFabrik.getMengenVerwendung(id);
+        ObjectSetUse objectSetUse = (ObjectSetUse) model.getObject(id);
+        return MengenVerwendung.erzeuge(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
     }
 
     public Attributgruppe getAttributgruppe(String pid) {
@@ -94,11 +82,25 @@ public class Metamodell {
     }
 
     AttributTyp getAttributTyp(String pid) {
-        return attributTypFabrik.getObjekt(pid);
+        AttributeType attributeType = model.getAttributeType(pid);
+        if (AttributListenDefinitionFabrik.istAttributliste(attributeType))
+            return attributListenDefinitionFabrik.getObjekt(pid);
+        if (ZeichenkettenAttributTypFabrik.istAttributTyp(attributeType))
+            return zeichenkettenAttributTypFabrik.getObjekt(pid);
+        if (ZeitstempelAttributTypFabrik.istAttributTyp(attributeType))
+            return zeitstempelAttributTypFabrik.getObjekt(pid);
+        if (KommazahlAttributTypFabrik.istAttributTyp(attributeType))
+            return kommazahlAttributTypFabrik.getObjekt(pid);
+        if (ObjektReferenzAttributTypFabrik.istAttributTyp(attributeType))
+            return objektReferenAttributTypFabrik.getObjekt(pid);
+        if (GanzzahlAttributTypFabrik.istAttributTyp(attributeType))
+            return ganzzahlAttributTypFabrik.getObjekt(pid);
+        throw new IllegalStateException("Unbekannter Attributtyp: " + attributeType);
     }
 
     Attribut getAttribut(long id) {
-        return attributTypFabrik.getAttribut(id);
+        Attribute attribute = (Attribute) model.getObject(id);
+        return Attribut.erzeuge(attribute.getName(), attribute.getPosition(), attribute.getMaxCount(), attribute.isCountVariable(), getAttributTyp(attribute.getAttributeType().getPid()));
     }
 
 }
