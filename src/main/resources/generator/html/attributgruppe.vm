@@ -47,6 +47,8 @@
                 <tr>
                     <th>Name</th>
                     <th>Attributtyp</th>
+                    <th>Anzahl</th>
+                    <th>Anzahl ist</th>
                     <th>Beschreibung</th>
                 </tr>
                     #set( $row = 1 )
@@ -54,6 +56,14 @@
                     <tr>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.name}</td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.attributTyp.bereich.zustaendiger.pid}/${attribut.attributTypbereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.anzahl}</td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
+                            #if( ${attribut.anzahlVariabel} )
+                                variabel
+                            #else
+                                fest
+                            #end
+                        </td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">
                             #if( $attribut.kurzinfo && !$attribut.kurzinfo.empty )
                                 ${attribut.kurzinfo}
@@ -68,7 +78,7 @@
             </table>
         </div>
     #end
-    <p>TODO Für Attribute ergänzen: Objekttyp, Typ, Anzahl, Anzahl ist</p>
+    <p>TODO Für Attribute ergänzen: Typ</p>
 </div>
 </body>
 </html>

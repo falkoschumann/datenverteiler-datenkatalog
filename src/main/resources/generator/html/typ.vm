@@ -62,12 +62,20 @@
             <tbody>
             <tr>
                 <th>Menge</th>
+                <th>Erforderlich</th>
                 <th>Beschreibung</th>
             </tr>
                 #set( $row = 1 )
                 #foreach( $mengenVerwendung in $typ.mengen )
                 <tr>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.mengenTyp.bereich.zustaendiger.pid}/${mengenVerwendung.mengenTyp.bereich.pid}/${mengenVerwendung.mengenTyp.pid}.html">${mengenVerwendung.mengenName}</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
+                        #if( ${mengenVerwendung.erforderlich} )
+                            ja
+                        #else
+                            nein
+                        #end
+                    </td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${mengenVerwendung.mengenTyp.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
