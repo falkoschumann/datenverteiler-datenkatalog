@@ -39,7 +39,36 @@
     <h1>Attributgruppe ${attributgruppe.getNameOderPid()} (${attributgruppe.getPid()})</h1>
     <p>${attributgruppe.getKurzinfo()}</p>
     <p>${attributgruppe.getBeschreibung()}</p>
-    <p>TODO Attribute</p>
+    #if( !$attributgruppe.getAttribute().isEmpty() )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attribute</span></caption>
+                <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Attributtyp</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $attribut in $attributgruppe.getAttribute() )
+                    <tr>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.getName()}</td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.getAttributTyp().getBereich().getZustaendiger().getPid()}/${attribut.getAttributTyp().getBereich().getPid()}/${attribut.getAttributTyp().getPid()}.html">${attribut.getAttributTyp().getName()}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">
+                            #if( $attribut.kurzinfo && !$attribut.kurzinfo.empty )
+                                ${attribut.kurzinfo}
+                            #else
+                                <span class="inherited">${attribut.attributTyp.kurzinfo}</span>
+                            #end
+                        </td>
+                    </tr>
+                        #set( $row = $row + 1 )
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
+    <p>TODO Für Attribute ergänzen: Objekttyp, Typ, Anzahl, Anzahl ist</p>
 </div>
 </body>
 </html>

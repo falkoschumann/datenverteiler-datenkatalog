@@ -130,10 +130,15 @@ a {
     text-decoration: none;
 }
 
-.ueberblick th:first-child {
+.ueberblick .colFirst {
     width: 33%;
 }
 
-.colFirst a {
+.ueberblick a {
     font-weight: bold;
+}
+
+.inherited {
+    font-style: italic;
+    color: #888a85;
 }
