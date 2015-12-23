@@ -14,7 +14,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class AttributListenDefinition extends SystemObjekt {
+public class AttributListenDefinition extends AttributMenge {
 
     public static AttributListenDefinition erzeugeMitPid(String pid) {
         AttributListenDefinition result = new AttributListenDefinition();

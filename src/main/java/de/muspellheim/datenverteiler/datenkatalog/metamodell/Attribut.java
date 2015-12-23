@@ -15,10 +15,21 @@ import java.util.Objects;
  */
 public class Attribut extends SystemObjekt {
 
+    private AttributTyp attributTyp;
+
     public static Attribut erzeugeMitNameUndTyp(String name, AttributTyp typ) {
         Attribut result = new Attribut();
         result.setName(name);
+        result.setAttributTyp(typ);
         return result;
+    }
+
+    public AttributTyp getAttributTyp() {
+        return attributTyp;
+    }
+
+    public void setAttributTyp(AttributTyp attributTyp) {
+        this.attributTyp = attributTyp;
     }
 
     @Override
