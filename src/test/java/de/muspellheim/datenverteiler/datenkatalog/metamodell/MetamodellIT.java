@@ -135,6 +135,18 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testAttributgruppe() {
+        Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.werteBereichsEigenschaften");
+
+        Attributgruppe expected = Attributgruppe.erzeugeMitPid("atg.werteBereichsEigenschaften");
+        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("minimum", AttributTyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("maximum", AttributTyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("skalierung", AttributTyp.erzeugeMitPid("att.faktor")));
+        expected.getAttribute().add(Attribut.erzeugeMitNameUndTyp("einheit", AttributTyp.erzeugeMitPid("att.einheit")));
+        assertEquals(expected.getAttribute(), attributgruppe.getAttribute());
+    }
+
+    @Test
     public void testMengen() {
         MengenVerwendung aktionen = MengenVerwendung.erzeugeMitNameUndTyp("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
         MengenVerwendung baustellen = MengenVerwendung.erzeugeMitNameUndTyp("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));

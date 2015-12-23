@@ -44,6 +44,7 @@ class KonfigurationsBereichFabrik extends SystemObjektFabrik<KonfigurationsBerei
         area.getCurrentObjects().stream().filter(MengenTypFabrik::istMengenTyp).forEach(e -> result.getMengen().add(getMetamodell().getMengenTyp(e.getPid())));
         area.getCurrentObjects().stream().filter(AttributgruppeFabrik::istAttributgruppe).forEach(e -> result.getAttributgruppen().add(getMetamodell().getAttributgruppe(e.getPid())));
         area.getCurrentObjects().stream().filter(AttributListenDefinitionFabrik::istAttributliste).forEach(e -> result.getAttributlisten().add(getMetamodell().getAttributliste(e.getPid())));
+        area.getCurrentObjects().stream().filter(AttributTypFabrik::istAttributTyp).forEach(e -> result.getAttributtypen().add(getMetamodell().getAttributTyp(e.getPid())));
     }
 
 }
