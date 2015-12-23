@@ -161,6 +161,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         MengenVerwendung aktionen = MengenVerwendung.erzeugeMitNameUndTyp("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
         MengenVerwendung baustellen = MengenVerwendung.erzeugeMitNameUndTyp("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));
         MengenVerwendung seitenStreifenFreigaben = MengenVerwendung.erzeugeMitNameUndTyp("SeitenStreifenFreigaben", MengenTyp.erzeugeMitPid("menge.seitenStreifenFreigaben"));
+        seitenStreifenFreigaben.setErforderlich(false);
         MengenVerwendung situationen = MengenVerwendung.erzeugeMitNameUndTyp("Situationen", MengenTyp.erzeugeMitPid("menge.situationen"));
         MengenVerwendung staus = MengenVerwendung.erzeugeMitNameUndTyp("Staus", MengenTyp.erzeugeMitPid("menge.staus"));
         MengenVerwendung unfaelle = MengenVerwendung.erzeugeMitNameUndTyp("Unfälle", MengenTyp.erzeugeMitPid("menge.unfälle"));

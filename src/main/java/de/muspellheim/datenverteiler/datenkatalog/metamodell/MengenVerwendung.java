@@ -17,6 +17,7 @@ public class MengenVerwendung extends SystemObjekt {
 
     private String mengenName;
     private MengenTyp mengenTyp;
+    private boolean erforderlich = true;
 
     public static MengenVerwendung erzeugeMitNameUndTyp(String mengenName, MengenTyp mengenTyp) {
         MengenVerwendung result = new MengenVerwendung();
@@ -59,18 +60,32 @@ public class MengenVerwendung extends SystemObjekt {
         this.mengenTyp = mengenTyp;
     }
 
+    /**
+     * Gibt an ob die Existenz der Menge unter einem Objekt des jeweiligen Typs erforderlich ist.
+     */
+    public boolean isErforderlich() {
+        return erforderlich;
+    }
+
+    /**
+     * Gibt an ob die Existenz der Menge unter einem Objekt des jeweiligen Typs erforderlich ist.
+     */
+    public void setErforderlich(boolean erforderlich) {
+        this.erforderlich = erforderlich;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MengenVerwendung that = (MengenVerwendung) o;
         return Objects.equals(mengenName, that.mengenName) &&
-                Objects.equals(mengenTyp, that.mengenTyp);
+                Objects.equals(mengenTyp, that.mengenTyp) && Objects.equals(erforderlich, that.erforderlich);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mengenName, mengenTyp);
+        return Objects.hash(mengenName, mengenTyp, erforderlich);
     }
 
 }
