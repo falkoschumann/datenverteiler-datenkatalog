@@ -36,12 +36,32 @@
 </div>
 <div class="content">
     <p>${attributliste.konfigurationsBereich.zustaendiger.nameOderPid} / ${attributliste.konfigurationsBereich.nameOderPid}</p>
-    <h1>Attributgruppe ${attributliste.nameOderPid} (${attributliste.pid})</h1>
+    <h1>Attributliste ${attributliste.nameOderPid} (${attributliste.pid})</h1>
     <p>${attributliste.kurzinfo}</p>
     #if( !$attributliste.beschreibung.empty )
     <p>${attributliste.beschreibung}</p>
     #end
-    <p>TODO Attribute</p>
+    #if( !$attributliste.attribute.empty )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attribute</span></caption>
+                <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Attributtyp</th>
+                    <th>Typ</th>
+                    <th>Anzahl</th>
+                    <th>Anzahl ist</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #set( $level = 1 )
+                    #set( $attributmenge = $attributliste )
+                    #parse( "/generator/html/attributmenge.vm" )
+                </tbody>
+            </table>
+        </div>
+    #end
 </div>
 </body>
 </html>

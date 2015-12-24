@@ -54,49 +54,14 @@
                     <th>Anzahl ist</th>
                     <th>Beschreibung</th>
                 </tr>
-                    #set( $row = 1 )
-                    #foreach( $attribut in $attributgruppe.attribute )
-                    <tr>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.name}</td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attribut.attributTyp.konfigurationsBereich.zustaendiger.pid}/${attribut.attributTyp.konfigurationsBereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a></td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
-                            #if( $attribut.attributTyp.class.simpleName == "AttributListenDefinition" )
-                                Attributliste
-                            #elseif( $attribut.attributTyp.class.simpleName == "GanzzahlAttributTyp" )
-                                Ganzzahl
-                            #elseif( $attribut.attributTyp.class.simpleName == "KommazahlAttributTyp" )
-                                Kommazahl
-                            #elseif( $attribut.attributTyp.class.simpleName == "ZeichenkettenAttributTyp" )
-                                Zeichenkette
-                            #elseif( $attribut.attributTyp.class.simpleName == "ZeitstempelAttributTyp" )
-                                Zeitstempel
-                            #elseif( $attribut.attributTyp.class.simpleName == "ObjektReferenzAttributTyp" )
-                                Objektreferenz
-                            #end
-                        </td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${attribut.anzahl}</td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
-                            #if( ${attribut.anzahlVariabel} )
-                                variabel
-                            #else
-                                fest
-                            #end
-                        </td>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">
-                            #if( $attribut.kurzinfo && !$attribut.kurzinfo.empty )
-                                ${attribut.kurzinfo}
-                            #else
-                                <span class="inherited">${attribut.attributTyp.kurzinfo}</span>
-                            #end
-                        </td>
-                    </tr>
-                        #set( $row = $row + 1 )
-                    #end
+                #set( $row = 1 )
+                #set( $level = 1 )
+                #set( $attributmenge = $attributgruppe )
+                #parse( "/generator/html/attributmenge.vm" )
                 </tbody>
             </table>
         </div>
     #end
-    <p>TODO Attributlisten darstellen</p>
 </div>
 </body>
 </html>
