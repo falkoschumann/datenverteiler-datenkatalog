@@ -14,7 +14,7 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class MengenTyp extends Typ {
+public class Mengentyp extends Typ {
 
     private final Set<Typ> objektTypen = new LinkedHashSet<>();
     private int minimaleAnzahl;
@@ -22,8 +22,8 @@ public class MengenTyp extends Typ {
     private boolean aenderbar;
     private Referenzierungsart referenzierungsart;
 
-    public static MengenTyp erzeugeMitPid(String pid) {
-        MengenTyp result = new MengenTyp();
+    public static Mengentyp erzeugeMitPid(String pid) {
+        Mengentyp result = new Mengentyp();
         result.setPid(pid);
         return result;
     }

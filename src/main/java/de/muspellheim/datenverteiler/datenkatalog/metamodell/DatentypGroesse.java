@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author Falko Schumann
  * @since 3.2
  */
-public enum DatentypGroesse {
+public enum Datentypgroesse {
 
     BYTE("Byte"),
 
@@ -27,12 +27,12 @@ public enum DatentypGroesse {
 
     private final String text;
 
-    DatentypGroesse(String text) {
+    Datentypgroesse(String text) {
         this.text = text;
     }
 
-    public static DatentypGroesse of(String text) {
-        Optional<DatentypGroesse> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
+    public static Datentypgroesse of(String text) {
+        Optional<Datentypgroesse> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
         if (result.isPresent())
             return result.get();
 

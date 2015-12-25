@@ -11,14 +11,14 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class ObjektReferenzAttributTyp extends AttributTyp {
+public class ObjektreferenzAttributtyp extends Attributtyp {
 
     private Typ typ;
     private boolean undefiniertErlaubt;
     private Referenzierungsart referenzierungsart;
 
-    public static ObjektReferenzAttributTyp erzeugeMitPid(String pid) {
-        ObjektReferenzAttributTyp result = new ObjektReferenzAttributTyp();
+    public static ObjektreferenzAttributtyp erzeugeMitPid(String pid) {
+        ObjektreferenzAttributtyp result = new ObjektreferenzAttributtyp();
         result.setPid(pid);
         return result;
     }

@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author Falko Schumann
  * @since 3.2
  */
-public enum FliesskommaAufloesung {
+public enum Fliesskommaaufloesung {
 
     /**
      * Genauigkeit entsprechend dem IEEE 754 floating-point"single format" mit 32 Bits.
@@ -29,12 +29,12 @@ public enum FliesskommaAufloesung {
 
     private final String text;
 
-    FliesskommaAufloesung(String text) {
+    Fliesskommaaufloesung(String text) {
         this.text = text;
     }
 
-    public static FliesskommaAufloesung of(String text) {
-        Optional<FliesskommaAufloesung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
+    public static Fliesskommaaufloesung of(String text) {
+        Optional<Fliesskommaaufloesung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
         if (result.isPresent())
             return result.get();
 

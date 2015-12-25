@@ -14,35 +14,35 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class GanzzahlAttributTyp extends AttributTyp {
+public class GanzzahlAttributtyp extends Attributtyp {
 
-    private WerteBereich bereich;
-    private DatentypGroesse anzahlBytes;
-    private Set<WerteZustand> zustaende = new LinkedHashSet<>();
+    private Wertebereich bereich;
+    private Datentypgroesse anzahlBytes;
+    private Set<Wertezustand> zustaende = new LinkedHashSet<>();
 
-    public static GanzzahlAttributTyp erzeugeMitPid(String pid) {
-        GanzzahlAttributTyp result = new GanzzahlAttributTyp();
+    public static GanzzahlAttributtyp erzeugeMitPid(String pid) {
+        GanzzahlAttributtyp result = new GanzzahlAttributtyp();
         result.setPid(pid);
         return result;
     }
 
-    public WerteBereich getBereich() {
+    public Wertebereich getBereich() {
         return bereich;
     }
 
-    public void setBereich(WerteBereich bereich) {
+    public void setBereich(Wertebereich bereich) {
         this.bereich = bereich;
     }
 
-    public DatentypGroesse getAnzahlBytes() {
+    public Datentypgroesse getAnzahlBytes() {
         return anzahlBytes;
     }
 
-    public void setAnzahlBytes(DatentypGroesse anzahlBytes) {
+    public void setAnzahlBytes(Datentypgroesse anzahlBytes) {
         this.anzahlBytes = anzahlBytes;
     }
 
-    public Set<WerteZustand> getZustaende() {
+    public Set<Wertezustand> getZustaende() {
         return zustaende;
     }
 

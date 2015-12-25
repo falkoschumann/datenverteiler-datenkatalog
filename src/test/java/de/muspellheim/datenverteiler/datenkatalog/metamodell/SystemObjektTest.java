@@ -20,39 +20,39 @@ public class SystemObjektTest {
 
     @Test
     public void testGetNameOderPid() {
-        SystemObjekt nameUndPid = new TestingSystemObjekt();
+        Systemobjekt nameUndPid = new TestingSystemObjekt();
         nameUndPid.setName("Foo");
         nameUndPid.setPid("obj.foo");
         assertEquals("Foo", nameUndPid.getNameOderPid());
 
-        SystemObjekt name = new TestingSystemObjekt();
+        Systemobjekt name = new TestingSystemObjekt();
         name.setName("Foo");
         assertEquals("Foo", name.getNameOderPid());
 
-        SystemObjekt pid = new TestingSystemObjekt();
+        Systemobjekt pid = new TestingSystemObjekt();
         pid.setPid("obj.foo");
         assertEquals("obj.foo", pid.getNameOderPid());
 
-        SystemObjekt nichts = new TestingSystemObjekt();
+        Systemobjekt nichts = new TestingSystemObjekt();
         assertEquals("", nichts.getNameOderPid());
     }
 
     @Test
     public void testToString() {
-        SystemObjekt nameUndPid = new TestingSystemObjekt();
+        Systemobjekt nameUndPid = new TestingSystemObjekt();
         nameUndPid.setName("Foo");
         nameUndPid.setPid("obj.foo");
         assertEquals("TestingSystemObjekt Foo (obj.foo)", nameUndPid.toString());
 
-        SystemObjekt name = new TestingSystemObjekt();
+        Systemobjekt name = new TestingSystemObjekt();
         name.setName("Foo");
         assertEquals("TestingSystemObjekt Foo", name.toString());
 
-        SystemObjekt pid = new TestingSystemObjekt();
+        Systemobjekt pid = new TestingSystemObjekt();
         pid.setPid("obj.foo");
         assertEquals("TestingSystemObjekt (obj.foo)", pid.toString());
 
-        SystemObjekt nichts = new TestingSystemObjekt();
+        Systemobjekt nichts = new TestingSystemObjekt();
         assertEquals("TestingSystemObjekt", nichts.toString());
     }
 
@@ -65,12 +65,12 @@ public class SystemObjektTest {
         Typ fsTyp = Typ.erzeugeMitPid("typ.fahrStreifen");
         fsTyp.setName("FahrStreifen");
 
-        assertTrue(SystemObjekt.compareToNameOderPid(mqTyp, mqTyp) == 0);
-        assertTrue(SystemObjekt.compareToNameOderPid(mqTyp, mqAtg) > 0);
-        assertTrue(SystemObjekt.compareToNameOderPid(fsTyp, mqTyp) < 0);
+        assertTrue(Systemobjekt.compareToNameOderPid(mqTyp, mqTyp) == 0);
+        assertTrue(Systemobjekt.compareToNameOderPid(mqTyp, mqAtg) > 0);
+        assertTrue(Systemobjekt.compareToNameOderPid(fsTyp, mqTyp) < 0);
     }
 
-    private class TestingSystemObjekt extends SystemObjekt {
+    private class TestingSystemObjekt extends Systemobjekt {
     }
 
 }

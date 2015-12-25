@@ -15,7 +15,7 @@ import java.util.Optional;
  * @author Falko Schumann
  * @since 3.2
  */
-public enum ZeitAufloesung {
+public enum Zeitaufloesung {
 
     SEKUNDEN("Sekunden"),
 
@@ -23,12 +23,12 @@ public enum ZeitAufloesung {
 
     private final String text;
 
-    ZeitAufloesung(String text) {
+    Zeitaufloesung(String text) {
         this.text = text;
     }
 
-    public static ZeitAufloesung of(String text) {
-        Optional<ZeitAufloesung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
+    public static Zeitaufloesung of(String text) {
+        Optional<Zeitaufloesung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
         if (result.isPresent())
             return result.get();
 

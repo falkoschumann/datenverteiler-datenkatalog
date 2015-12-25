@@ -14,9 +14,9 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class ZeichenkettenAttributTypFabrik extends AttributTypFabrik<ZeichenkettenAttributTyp> {
+class ZeichenkettenAttributtypFabrik extends AttributtypFabrik<ZeichenkettenAttributtyp> {
 
-    ZeichenkettenAttributTypFabrik(Metamodell metamodell) {
+    ZeichenkettenAttributtypFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -25,17 +25,17 @@ class ZeichenkettenAttributTypFabrik extends AttributTypFabrik<ZeichenkettenAttr
     }
 
     @Override
-    protected ZeichenkettenAttributTyp erzeugeObjekt(SystemObject objekt) {
-        return ZeichenkettenAttributTyp.erzeugeMitPid(objekt.getPid());
+    protected ZeichenkettenAttributtyp erzeugeObjekt(SystemObject objekt) {
+        return ZeichenkettenAttributtyp.erzeugeMitPid(objekt.getPid());
     }
 
     @Override
-    protected void initialisiereObjekt(SystemObject object, ZeichenkettenAttributTyp result) {
+    protected void initialisiereObjekt(SystemObject object, ZeichenkettenAttributtyp result) {
         super.initialisiereObjekt(object, result);
 
         StringAttributeType type = (StringAttributeType) object;
         result.setLaenge(type.getMaxLength());
-        result.setKodierung(ZeichenKodierung.of(type.getEncodingName()));
+        result.setKodierung(Zeichenkodierung.of(type.getEncodingName()));
     }
 
 }

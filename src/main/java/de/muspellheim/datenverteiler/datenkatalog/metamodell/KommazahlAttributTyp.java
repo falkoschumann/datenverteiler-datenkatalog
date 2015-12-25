@@ -11,13 +11,13 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class KommazahlAttributTyp extends AttributTyp {
+public class KommazahlAttributtyp extends Attributtyp {
 
     private String einheit;
-    private FliesskommaAufloesung genauigkeit;
+    private Fliesskommaaufloesung genauigkeit;
 
-    public static KommazahlAttributTyp erzeugeMitPid(String pid) {
-        KommazahlAttributTyp result = new KommazahlAttributTyp();
+    public static KommazahlAttributtyp erzeugeMitPid(String pid) {
+        KommazahlAttributtyp result = new KommazahlAttributtyp();
         result.setPid(pid);
         return result;
     }
@@ -30,11 +30,11 @@ public class KommazahlAttributTyp extends AttributTyp {
         this.einheit = einheit;
     }
 
-    public FliesskommaAufloesung getGenauigkeit() {
+    public Fliesskommaaufloesung getGenauigkeit() {
         return genauigkeit;
     }
 
-    public void setGenauigkeit(FliesskommaAufloesung genauigkeit) {
+    public void setGenauigkeit(Fliesskommaaufloesung genauigkeit) {
         this.genauigkeit = genauigkeit;
     }
 

@@ -14,9 +14,9 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class ObjektReferenzAttributTypFabrik extends AttributTypFabrik<ObjektReferenzAttributTyp> {
+class ObjektreferenzAttributtypFabrik extends AttributtypFabrik<ObjektreferenzAttributtyp> {
 
-    ObjektReferenzAttributTypFabrik(Metamodell metamodell) {
+    ObjektreferenzAttributtypFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -25,12 +25,12 @@ class ObjektReferenzAttributTypFabrik extends AttributTypFabrik<ObjektReferenzAt
     }
 
     @Override
-    protected ObjektReferenzAttributTyp erzeugeObjekt(SystemObject objekt) {
-        return ObjektReferenzAttributTyp.erzeugeMitPid(objekt.getPid());
+    protected ObjektreferenzAttributtyp erzeugeObjekt(SystemObject objekt) {
+        return ObjektreferenzAttributtyp.erzeugeMitPid(objekt.getPid());
     }
 
     @Override
-    protected void initialisiereObjekt(SystemObject object, ObjektReferenzAttributTyp result) {
+    protected void initialisiereObjekt(SystemObject object, ObjektreferenzAttributtyp result) {
         super.initialisiereObjekt(object, result);
 
         ReferenceAttributeType type = (ReferenceAttributeType) object;

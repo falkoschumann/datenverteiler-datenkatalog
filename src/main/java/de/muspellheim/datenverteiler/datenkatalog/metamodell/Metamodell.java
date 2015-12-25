@@ -26,17 +26,17 @@ public class Metamodell {
 
     private final DataModel model;
 
-    private final KonfigurationsVerantwortlicherFabrik konfigurationsVerantwortlicherFabrik = new KonfigurationsVerantwortlicherFabrik(this);
-    private final KonfigurationsBereichFabrik konfigurationsBereichFabrik = new KonfigurationsBereichFabrik(this);
+    private final KonfigurationsverantwortlicherFabrik konfigurationsVerantwortlicherFabrik = new KonfigurationsverantwortlicherFabrik(this);
+    private final KonfigurationsbereichFabrik konfigurationsBereichFabrik = new KonfigurationsbereichFabrik(this);
     private final TypFabrik typFabrik = new TypFabrik(this);
-    private final MengenTypFabrik mengenTypFabrik = new MengenTypFabrik(this);
+    private final MengentypFabrik mengenTypFabrik = new MengentypFabrik(this);
     private final AttributgruppeFabrik attributgruppeFabrik = new AttributgruppeFabrik(this);
-    private final AttributListenDefinitionFabrik attributListenDefinitionFabrik = new AttributListenDefinitionFabrik(this);
-    private final ZeichenkettenAttributTypFabrik zeichenkettenAttributTypFabrik = new ZeichenkettenAttributTypFabrik(this);
-    private final ZeitstempelAttributTypFabrik zeitstempelAttributTypFabrik = new ZeitstempelAttributTypFabrik(this);
-    private final KommazahlAttributTypFabrik kommazahlAttributTypFabrik = new KommazahlAttributTypFabrik(this);
-    private final ObjektReferenzAttributTypFabrik objektReferenAttributTypFabrik = new ObjektReferenzAttributTypFabrik(this);
-    private final GanzzahlAttributTypFabrik ganzzahlAttributTypFabrik = new GanzzahlAttributTypFabrik(this);
+    private final AttributlisteFabrik attributListenDefinitionFabrik = new AttributlisteFabrik(this);
+    private final ZeichenkettenAttributtypFabrik zeichenkettenAttributTypFabrik = new ZeichenkettenAttributtypFabrik(this);
+    private final ZeitstempelAttributtypFabrik zeitstempelAttributTypFabrik = new ZeitstempelAttributtypFabrik(this);
+    private final KommazahlAttributtypFabrik kommazahlAttributTypFabrik = new KommazahlAttributtypFabrik(this);
+    private final ObjektreferenzAttributtypFabrik objektReferenAttributTypFabrik = new ObjektreferenzAttributtypFabrik(this);
+    private final GanzzahlAttributtypFabrik ganzzahlAttributTypFabrik = new GanzzahlAttributtypFabrik(this);
     private final AspektFabrik aspektFabrik = new AspektFabrik(this);
     private final AttributgruppenVerwendungFabrik attributgruppenVerwendungFabrik = new AttributgruppenVerwendungFabrik(this);
 
@@ -48,19 +48,19 @@ public class Metamodell {
         return model;
     }
 
-    public Set<KonfigurationsVerantwortlicher> getKonfigurationsverantwortliche() {
+    public Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
         return konfigurationsVerantwortlicherFabrik.getKonfigurationsverantwortliche();
     }
 
-    public KonfigurationsVerantwortlicher getKonfigurationsverantwortlicher(String pid) {
+    public Konfigurationsverantwortlicher getKonfigurationsverantwortlicher(String pid) {
         return konfigurationsVerantwortlicherFabrik.getObjekt(pid);
     }
 
-    public Set<KonfigurationsBereich> getKonfigurationsbereiche() {
+    public Set<Konfigurationsbereich> getKonfigurationsbereiche() {
         return konfigurationsBereichFabrik.getKonfigurationsbereiche();
     }
 
-    public KonfigurationsBereich getKonfigurationsbereich(String pid) {
+    public Konfigurationsbereich getKonfigurationsbereich(String pid) {
         return konfigurationsBereichFabrik.getObjekt(pid);
     }
 
@@ -68,20 +68,20 @@ public class Metamodell {
         return typFabrik.getObjekt(pid);
     }
 
-    public MengenTyp getMengenTyp(String pid) {
+    public Mengentyp getMengenTyp(String pid) {
         return mengenTypFabrik.getObjekt(pid);
     }
 
-    MengenVerwendung getMengenVerwendung(long id) {
+    Mengenverwendung getMengenVerwendung(long id) {
         ObjectSetUse objectSetUse = (ObjectSetUse) model.getObject(id);
-        return MengenVerwendung.erzeuge(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
+        return Mengenverwendung.erzeuge(objectSetUse.getObjectSetName(), getMengenTyp(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
     }
 
     public Attributgruppe getAttributgruppe(String pid) {
         return attributgruppeFabrik.getObjekt(pid);
     }
 
-    public AttributListenDefinition getAttributliste(String pid) {
+    public Attributliste getAttributliste(String pid) {
         return attributListenDefinitionFabrik.getObjekt(pid);
     }
 
@@ -93,19 +93,19 @@ public class Metamodell {
         return attributgruppenVerwendungFabrik.getObjekt(pid);
     }
 
-    AttributTyp getAttributTyp(String pid) {
+    Attributtyp getAttributTyp(String pid) {
         AttributeType attributeType = model.getAttributeType(pid);
-        if (AttributListenDefinitionFabrik.istAttributliste(attributeType))
+        if (AttributlisteFabrik.istAttributliste(attributeType))
             return attributListenDefinitionFabrik.getObjekt(pid);
-        if (ZeichenkettenAttributTypFabrik.istAttributTyp(attributeType))
+        if (ZeichenkettenAttributtypFabrik.istAttributTyp(attributeType))
             return zeichenkettenAttributTypFabrik.getObjekt(pid);
-        if (ZeitstempelAttributTypFabrik.istAttributTyp(attributeType))
+        if (ZeitstempelAttributtypFabrik.istAttributTyp(attributeType))
             return zeitstempelAttributTypFabrik.getObjekt(pid);
-        if (KommazahlAttributTypFabrik.istAttributTyp(attributeType))
+        if (KommazahlAttributtypFabrik.istAttributTyp(attributeType))
             return kommazahlAttributTypFabrik.getObjekt(pid);
-        if (ObjektReferenzAttributTypFabrik.istAttributTyp(attributeType))
+        if (ObjektreferenzAttributtypFabrik.istAttributTyp(attributeType))
             return objektReferenAttributTypFabrik.getObjekt(pid);
-        if (GanzzahlAttributTypFabrik.istAttributTyp(attributeType))
+        if (GanzzahlAttributtypFabrik.istAttributTyp(attributeType))
             return ganzzahlAttributTypFabrik.getObjekt(pid);
         throw new IllegalStateException("Unbekannter Attributtyp: " + attributeType);
     }

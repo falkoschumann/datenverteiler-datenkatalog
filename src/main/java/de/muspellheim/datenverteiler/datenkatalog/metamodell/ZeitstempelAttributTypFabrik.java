@@ -14,9 +14,9 @@ import de.bsvrz.dav.daf.main.config.TimeAttributeType;
  * @author Falko Schumann
  * @since 3.2
  */
-class ZeitstempelAttributTypFabrik extends AttributTypFabrik<ZeitstempelAttributTyp> {
+class ZeitstempelAttributtypFabrik extends AttributtypFabrik<ZeitstempelAttributtyp> {
 
-    ZeitstempelAttributTypFabrik(Metamodell metamodell) {
+    ZeitstempelAttributtypFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -25,22 +25,22 @@ class ZeitstempelAttributTypFabrik extends AttributTypFabrik<ZeitstempelAttribut
     }
 
     @Override
-    protected ZeitstempelAttributTyp erzeugeObjekt(SystemObject objekt) {
-        return ZeitstempelAttributTyp.erzeugeMitPid(objekt.getPid());
+    protected ZeitstempelAttributtyp erzeugeObjekt(SystemObject objekt) {
+        return ZeitstempelAttributtyp.erzeugeMitPid(objekt.getPid());
     }
 
     @Override
-    protected void initialisiereObjekt(SystemObject object, ZeitstempelAttributTyp result) {
+    protected void initialisiereObjekt(SystemObject object, ZeitstempelAttributtyp result) {
         super.initialisiereObjekt(object, result);
 
         TimeAttributeType type = (TimeAttributeType) object;
         result.setRelativ(type.isRelative());
         switch (type.getAccuracy()) {
             case TimeAttributeType.SECONDS:
-                result.setGenauigkeit(ZeitAufloesung.SEKUNDEN);
+                result.setGenauigkeit(Zeitaufloesung.SEKUNDEN);
                 break;
             case TimeAttributeType.MILLISECONDS:
-                result.setGenauigkeit(ZeitAufloesung.MILLISEKUNDEN);
+                result.setGenauigkeit(Zeitaufloesung.MILLISEKUNDEN);
                 break;
             default:
                 throw new IllegalStateException("Unbekante Zeitauflösung: " + type.getAccuracy());

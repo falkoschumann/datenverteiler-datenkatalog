@@ -17,12 +17,12 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class AttributListenDefinition extends AttributTyp implements AttributMenge {
+public class Attributliste extends Attributtyp implements Attributmenge {
 
     private final Set<Attribut> attribute = new LinkedHashSet<>();
 
-    public static AttributListenDefinition erzeugeMitPid(String pid) {
-        AttributListenDefinition result = new AttributListenDefinition();
+    public static Attributliste erzeugeMitPid(String pid) {
+        Attributliste result = new Attributliste();
         result.setPid(pid);
         return result;
     }

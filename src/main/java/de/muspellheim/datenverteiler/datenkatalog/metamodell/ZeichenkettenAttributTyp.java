@@ -11,13 +11,13 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class ZeichenkettenAttributTyp extends AttributTyp {
+public class ZeichenkettenAttributtyp extends Attributtyp {
 
     private int laenge;
-    private ZeichenKodierung kodierung = ZeichenKodierung.ISO_8859_1;
+    private Zeichenkodierung kodierung = Zeichenkodierung.ISO_8859_1;
 
-    public static ZeichenkettenAttributTyp erzeugeMitPid(String pid) {
-        ZeichenkettenAttributTyp result = new ZeichenkettenAttributTyp();
+    public static ZeichenkettenAttributtyp erzeugeMitPid(String pid) {
+        ZeichenkettenAttributtyp result = new ZeichenkettenAttributtyp();
         result.setPid(pid);
         return result;
     }
@@ -30,11 +30,11 @@ public class ZeichenkettenAttributTyp extends AttributTyp {
         this.laenge = laenge;
     }
 
-    public ZeichenKodierung getKodierung() {
+    public Zeichenkodierung getKodierung() {
         return kodierung;
     }
 
-    public void setKodierung(ZeichenKodierung kodierung) {
+    public void setKodierung(Zeichenkodierung kodierung) {
         this.kodierung = kodierung;
     }
 

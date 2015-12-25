@@ -14,23 +14,23 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public final class Attribut extends SystemObjekt {
+public final class Attribut extends Systemobjekt {
 
     private String name;
     private int position;
     private int anzahl;
     private boolean anzahlVariabel;
-    private AttributTyp attributTyp;
+    private Attributtyp attributTyp;
 
     private Attribut() {
         // value object
     }
 
-    public static Attribut erzeuge(String name, int position, AttributTyp typ) {
+    public static Attribut erzeuge(String name, int position, Attributtyp typ) {
         return erzeuge(name, position, 1, false, typ);
     }
 
-    public static Attribut erzeuge(String name, int position, int anzahl, boolean anzahlVariabel, AttributTyp typ) {
+    public static Attribut erzeuge(String name, int position, int anzahl, boolean anzahlVariabel, Attributtyp typ) {
         Attribut result = new Attribut();
         result.name = name;
         result.position = position;
@@ -63,7 +63,7 @@ public final class Attribut extends SystemObjekt {
         return anzahlVariabel;
     }
 
-    public AttributTyp getAttributTyp() {
+    public Attributtyp getAttributTyp() {
         return attributTyp;
     }
 

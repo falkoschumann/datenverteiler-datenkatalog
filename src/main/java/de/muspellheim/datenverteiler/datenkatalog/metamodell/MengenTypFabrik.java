@@ -16,9 +16,9 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class MengenTypFabrik extends SystemObjektFabrik<MengenTyp> {
+class MengentypFabrik extends SystemobjektFabrik<Mengentyp> {
 
-    MengenTypFabrik(Metamodell metamodell) {
+    MengentypFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -27,12 +27,12 @@ class MengenTypFabrik extends SystemObjektFabrik<MengenTyp> {
     }
 
     @Override
-    protected MengenTyp erzeugeObjekt(SystemObject objekt) {
-        return MengenTyp.erzeugeMitPid(objekt.getPid());
+    protected Mengentyp erzeugeObjekt(SystemObject objekt) {
+        return Mengentyp.erzeugeMitPid(objekt.getPid());
     }
 
     @Override
-    protected void initialisiereObjekt(SystemObject object, MengenTyp result) {
+    protected void initialisiereObjekt(SystemObject object, Mengentyp result) {
         super.initialisiereObjekt(object, result);
 
         ObjectSetType objectSetType = (ObjectSetType) object;

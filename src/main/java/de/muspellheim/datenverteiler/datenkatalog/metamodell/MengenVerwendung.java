@@ -14,22 +14,22 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public final class MengenVerwendung extends SystemObjekt {
+public final class Mengenverwendung extends Systemobjekt {
 
     private String mengenName;
-    private MengenTyp mengenTyp;
+    private Mengentyp mengenTyp;
     private boolean erforderlich;
 
-    private MengenVerwendung() {
+    private Mengenverwendung() {
         // value object
     }
 
-    public static MengenVerwendung erzeuge(String mengenName, MengenTyp mengenTyp) {
+    public static Mengenverwendung erzeuge(String mengenName, Mengentyp mengenTyp) {
         return erzeuge(mengenName, mengenTyp, true);
     }
 
-    public static MengenVerwendung erzeuge(String mengenName, MengenTyp mengenTyp, boolean erforderlich) {
-        MengenVerwendung result = new MengenVerwendung();
+    public static Mengenverwendung erzeuge(String mengenName, Mengentyp mengenTyp, boolean erforderlich) {
+        Mengenverwendung result = new Mengenverwendung();
         result.mengenName = mengenName;
         result.mengenTyp = mengenTyp;
         result.erforderlich = erforderlich;
@@ -49,7 +49,7 @@ public final class MengenVerwendung extends SystemObjekt {
     /**
      * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
      */
-    public MengenTyp getMengenTyp() {
+    public Mengentyp getMengenTyp() {
         return mengenTyp;
     }
 
@@ -64,7 +64,7 @@ public final class MengenVerwendung extends SystemObjekt {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MengenVerwendung that = (MengenVerwendung) o;
+        Mengenverwendung that = (Mengenverwendung) o;
         return Objects.equals(mengenName, that.mengenName) &&
                 Objects.equals(mengenTyp, that.mengenTyp) && Objects.equals(erforderlich, that.erforderlich);
     }

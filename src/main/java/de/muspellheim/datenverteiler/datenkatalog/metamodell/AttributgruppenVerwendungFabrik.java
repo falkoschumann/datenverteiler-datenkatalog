@@ -14,7 +14,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class AttributgruppenVerwendungFabrik extends SystemObjektFabrik<AttributgruppenVerwendung> {
+class AttributgruppenVerwendungFabrik extends SystemobjektFabrik<AttributgruppenVerwendung> {
 
     AttributgruppenVerwendungFabrik(Metamodell metamodell) {
         super(metamodell);
@@ -40,22 +40,22 @@ class AttributgruppenVerwendungFabrik extends SystemObjektFabrik<Attributgruppen
         result.setDatensatzVerwendung(datensatzVerwendung(usage.getUsage()));
     }
 
-    private DatensatzVerwendung datensatzVerwendung(AttributeGroupUsage.Usage usage) {
+    private Datensatzverwendung datensatzVerwendung(AttributeGroupUsage.Usage usage) {
         switch (usage.getId()) {
             case 1:
-                return DatensatzVerwendung.KONFIGURIERENDER_DATENSATZ_NOTWENDIG;
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_NOTWENDIG;
             case 2:
-                return DatensatzVerwendung.KONFIGURIERENDER_DATENSATZ_NOTWENDIG_UND_AENDERBAR;
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_NOTWENDIG_UND_AENDERBAR;
             case 3:
-                return DatensatzVerwendung.KONFIGURIERENDER_DATENSATZ_OPTIONAL;
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_OPTIONAL;
             case 4:
-                return DatensatzVerwendung.KONFIGURIERENDER_DATENSATZ_OPTIONALUND_AENDERBAR;
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_OPTIONALUND_AENDERBAR;
             case 5:
-                return DatensatzVerwendung.ONLINE_DATENSATZ_QUELLE;
+                return Datensatzverwendung.ONLINE_DATENSATZ_QUELLE;
             case 6:
-                return DatensatzVerwendung.ONLINE_DATENSATZ_SENKE;
+                return Datensatzverwendung.ONLINE_DATENSATZ_SENKE;
             case 7:
-                return DatensatzVerwendung.ONLINE_DATENSATZ_QUELLE_UND_SENKE;
+                return Datensatzverwendung.ONLINE_DATENSATZ_QUELLE_UND_SENKE;
             default:
                 throw new IllegalStateException("Unbekannte Datensatzverwendung: " + usage);
         }

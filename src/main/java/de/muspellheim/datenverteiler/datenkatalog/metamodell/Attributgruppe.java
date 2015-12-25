@@ -18,7 +18,7 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class Attributgruppe extends SystemObjekt implements AttributMenge {
+public class Attributgruppe extends Systemobjekt implements Attributmenge {
 
     private final Set<Attribut> attribute = new LinkedHashSet<>();
 

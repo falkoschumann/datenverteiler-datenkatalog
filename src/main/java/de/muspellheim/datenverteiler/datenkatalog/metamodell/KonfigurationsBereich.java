@@ -15,13 +15,13 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class KonfigurationsBereich extends SystemObjekt {
+public class Konfigurationsbereich extends Systemobjekt {
 
-    private KonfigurationsVerantwortlicher zustaendiger;
-    private final Set<SystemObjekt> modell = new LinkedHashSet<>();
+    private Konfigurationsverantwortlicher zustaendiger;
+    private final Set<Systemobjekt> modell = new LinkedHashSet<>();
 
-    public static KonfigurationsBereich erzeugeMitPid(String pid) {
-        KonfigurationsBereich result = new KonfigurationsBereich();
+    public static Konfigurationsbereich erzeugeMitPid(String pid) {
+        Konfigurationsbereich result = new Konfigurationsbereich();
         result.setPid(pid);
         return result;
     }
@@ -29,18 +29,18 @@ public class KonfigurationsBereich extends SystemObjekt {
     /**
      * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
      */
-    public KonfigurationsVerantwortlicher getZustaendiger() {
+    public Konfigurationsverantwortlicher getZustaendiger() {
         return zustaendiger;
     }
 
     /**
      * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
      */
-    public void setZustaendiger(KonfigurationsVerantwortlicher zustaendiger) {
+    public void setZustaendiger(Konfigurationsverantwortlicher zustaendiger) {
         this.zustaendiger = zustaendiger;
     }
 
-    public Set<SystemObjekt> getModell() {
+    public Set<Systemobjekt> getModell() {
         return modell;
     }
 

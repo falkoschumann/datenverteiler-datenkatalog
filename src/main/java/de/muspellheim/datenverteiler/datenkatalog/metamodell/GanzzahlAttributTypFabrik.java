@@ -16,9 +16,9 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class GanzzahlAttributTypFabrik extends AttributTypFabrik<GanzzahlAttributTyp> {
+class GanzzahlAttributtypFabrik extends AttributtypFabrik<GanzzahlAttributtyp> {
 
-    GanzzahlAttributTypFabrik(Metamodell metamodell) {
+    GanzzahlAttributtypFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -27,39 +27,39 @@ class GanzzahlAttributTypFabrik extends AttributTypFabrik<GanzzahlAttributTyp> {
     }
 
     @Override
-    protected GanzzahlAttributTyp erzeugeObjekt(SystemObject objekt) {
-        return GanzzahlAttributTyp.erzeugeMitPid(objekt.getPid());
+    protected GanzzahlAttributtyp erzeugeObjekt(SystemObject objekt) {
+        return GanzzahlAttributtyp.erzeugeMitPid(objekt.getPid());
     }
 
     @Override
-    protected void initialisiereObjekt(SystemObject object, GanzzahlAttributTyp result) {
+    protected void initialisiereObjekt(SystemObject object, GanzzahlAttributtyp result) {
         super.initialisiereObjekt(object, result);
 
         IntegerAttributeType type = (IntegerAttributeType) object;
         switch (type.getByteCount()) {
             case 1:
-                result.setAnzahlBytes(DatentypGroesse.BYTE);
+                result.setAnzahlBytes(Datentypgroesse.BYTE);
                 break;
             case 2:
-                result.setAnzahlBytes(DatentypGroesse.SHORT);
+                result.setAnzahlBytes(Datentypgroesse.SHORT);
                 break;
             case 4:
-                result.setAnzahlBytes(DatentypGroesse.INT);
+                result.setAnzahlBytes(Datentypgroesse.INT);
                 break;
             case 8:
-                result.setAnzahlBytes(DatentypGroesse.LONG);
+                result.setAnzahlBytes(Datentypgroesse.LONG);
                 break;
             default:
                 throw new IllegalStateException("Unbekannte Datentypgröße: " + type.getByteCount());
         }
         IntegerValueRange range = type.getRange();
         if (range != null)
-            result.setBereich(WerteBereich.erzeuge(range.getMinimum(), range.getMaximum(), range.getConversionFactor(), range.getUnit()));
+            result.setBereich(Wertebereich.erzeuge(range.getMinimum(), range.getMaximum(), range.getConversionFactor(), range.getUnit()));
         type.getStates().forEach(e -> result.getZustaende().add(erzeugeZustand(e)));
     }
 
-    private WerteZustand erzeugeZustand(IntegerValueState state) {
-        WerteZustand result = WerteZustand.erzeuge(state.getName(), state.getValue());
+    private Wertezustand erzeugeZustand(IntegerValueState state) {
+        Wertezustand result = Wertezustand.erzeuge(state.getName(), state.getValue());
         result.setKurzinfo(state.getInfo().getShortInfo());
         result.setBeschreibung(state.getInfo().getDescription());
         return result;

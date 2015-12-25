@@ -32,30 +32,30 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testGetKonfigurationsverantwortlich() {
-        Set<KonfigurationsVerantwortlicher> konfigurationsverantwortliche = metamodell.getKonfigurationsverantwortliche();
+        Set<Konfigurationsverantwortlicher> konfigurationsverantwortliche = metamodell.getKonfigurationsverantwortliche();
         assertFalse(konfigurationsverantwortliche.isEmpty());
     }
 
     @Test
     public void testGetKonfigurationsbereiche() {
-        Set<KonfigurationsBereich> konfigurationsbereiche = metamodell.getKonfigurationsbereiche();
+        Set<Konfigurationsbereich> konfigurationsbereiche = metamodell.getKonfigurationsbereiche();
         assertFalse(konfigurationsbereiche.isEmpty());
     }
 
     @Test
     public void testKonfigurationsbereich() {
-        KonfigurationsBereich verkehr = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
+        Konfigurationsbereich verkehr = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
 
         assertFalse(verkehr.getModell().isEmpty());
-        KonfigurationsVerantwortlicher inovat = metamodell.getKonfigurationsverantwortlicher("kv.inovat");
+        Konfigurationsverantwortlicher inovat = metamodell.getKonfigurationsverantwortlicher("kv.inovat");
         assertEquals(inovat, verkehr.getZustaendiger());
     }
 
     @Test
     public void testZustaender() {
-        KonfigurationsVerantwortlicher kv = KonfigurationsVerantwortlicher.erzeugeMitPid("kv.inovat");
+        Konfigurationsverantwortlicher kv = Konfigurationsverantwortlicher.erzeugeMitPid("kv.inovat");
 
-        KonfigurationsBereich kb = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
+        Konfigurationsbereich kb = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
 
         assertEquals(kv, kb.getZustaendiger());
     }
@@ -81,7 +81,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     public void testBereich() {
         Typ typ = metamodell.getTyp("typ.aspekt");
 
-        assertEquals(KonfigurationsBereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getKonfigurationsBereich());
+        assertEquals(Konfigurationsbereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getKonfigurationsBereich());
     }
 
     @Test
@@ -113,9 +113,9 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testMengenTyp() {
-        MengenTyp typ = metamodell.getMengenTyp("menge.routen");
+        Mengentyp typ = metamodell.getMengenTyp("menge.routen");
 
-        assertEquals(MengenTyp.erzeugeMitPid("menge.routen"), typ);
+        assertEquals(Mengentyp.erzeugeMitPid("menge.routen"), typ);
         assertEquals(Collections.singleton(Typ.erzeugeMitPid("typ.route")), typ.getObjektTypen());
         assertEquals(2, typ.getMinimaleAnzahl());
         assertEquals(0, typ.getMaximaleAnzahl());
@@ -138,10 +138,10 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     @Test
     public void testAttributgruppe() {
         Attributgruppe expected = Attributgruppe.erzeugeMitPid("atg.werteBereichsEigenschaften");
-        expected.getAttribute().add(Attribut.erzeuge("minimum", 1, GanzzahlAttributTyp.erzeugeMitPid("att.zahl")));
-        expected.getAttribute().add(Attribut.erzeuge("maximum", 2, GanzzahlAttributTyp.erzeugeMitPid("att.zahl")));
-        expected.getAttribute().add(Attribut.erzeuge("skalierung", 3, KommazahlAttributTyp.erzeugeMitPid("att.faktor")));
-        expected.getAttribute().add(Attribut.erzeuge("einheit", 4, ZeichenkettenAttributTyp.erzeugeMitPid("att.einheit")));
+        expected.getAttribute().add(Attribut.erzeuge("minimum", 1, GanzzahlAttributtyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeuge("maximum", 2, GanzzahlAttributtyp.erzeugeMitPid("att.zahl")));
+        expected.getAttribute().add(Attribut.erzeuge("skalierung", 3, KommazahlAttributtyp.erzeugeMitPid("att.faktor")));
+        expected.getAttribute().add(Attribut.erzeuge("einheit", 4, ZeichenkettenAttributtyp.erzeugeMitPid("att.einheit")));
 
         Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.werteBereichsEigenschaften");
 
@@ -169,31 +169,31 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testZeichenkettenAttributTyp() {
-        ZeichenkettenAttributTyp attributTyp = (ZeichenkettenAttributTyp) metamodell.getAttributTyp("att.einheit");
+        ZeichenkettenAttributtyp attributTyp = (ZeichenkettenAttributtyp) metamodell.getAttributTyp("att.einheit");
 
         assertEquals(64, attributTyp.getLaenge());
-        assertEquals(ZeichenKodierung.ISO_8859_1, attributTyp.getKodierung());
+        assertEquals(Zeichenkodierung.ISO_8859_1, attributTyp.getKodierung());
     }
 
     @Test
     public void testZeitstempelAttributTyp() {
-        ZeitstempelAttributTyp attributTyp = (ZeitstempelAttributTyp) metamodell.getAttributTyp("att.zeitDauer");
+        ZeitstempelAttributtyp attributTyp = (ZeitstempelAttributtyp) metamodell.getAttributTyp("att.zeitDauer");
 
         assertEquals(true, attributTyp.isRelativ());
-        assertEquals(ZeitAufloesung.MILLISEKUNDEN, attributTyp.getGenauigkeit());
+        assertEquals(Zeitaufloesung.MILLISEKUNDEN, attributTyp.getGenauigkeit());
     }
 
     @Test
     public void testKommazahlAttributTyp() {
-        KommazahlAttributTyp attributTyp = (KommazahlAttributTyp) metamodell.getAttributTyp("att.faktor");
+        KommazahlAttributtyp attributTyp = (KommazahlAttributtyp) metamodell.getAttributTyp("att.faktor");
 
         assertEquals("", attributTyp.getEinheit());
-        assertEquals(FliesskommaAufloesung.DOUBLE, attributTyp.getGenauigkeit());
+        assertEquals(Fliesskommaaufloesung.DOUBLE, attributTyp.getGenauigkeit());
     }
 
     @Test
     public void testObjektReferenzAttributTyp() {
-        ObjektReferenzAttributTyp attributTyp = (ObjektReferenzAttributTyp) metamodell.getAttributTyp("att.typReferenz");
+        ObjektreferenzAttributtyp attributTyp = (ObjektreferenzAttributtyp) metamodell.getAttributTyp("att.typReferenz");
 
         assertEquals(false, attributTyp.isUndefiniertErlaubt());
         assertEquals(Referenzierungsart.AGGREGATION, attributTyp.getReferenzierungsart());
@@ -201,31 +201,31 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testGanzzahlAttributTyp() {
-        GanzzahlAttributTyp attributTyp = (GanzzahlAttributTyp) metamodell.getAttributTyp("att.geschwindigkeit");
+        GanzzahlAttributtyp attributTyp = (GanzzahlAttributtyp) metamodell.getAttributTyp("att.geschwindigkeit");
 
-        assertEquals(DatentypGroesse.SHORT, attributTyp.getAnzahlBytes());
-        assertEquals(WerteBereich.erzeuge(0, 254, 1, "km/h"), attributTyp.getBereich());
+        assertEquals(Datentypgroesse.SHORT, attributTyp.getAnzahlBytes());
+        assertEquals(Wertebereich.erzeuge(0, 254, 1, "km/h"), attributTyp.getBereich());
     }
 
     @Test
     public void testGanzzahlAttributTypMitZustaenden() {
-        GanzzahlAttributTyp attributTyp = (GanzzahlAttributTyp) metamodell.getAttributTyp("att.zeitAufloesung");
+        GanzzahlAttributtyp attributTyp = (GanzzahlAttributtyp) metamodell.getAttributTyp("att.zeitAufloesung");
 
-        Set<WerteZustand> expected = new LinkedHashSet<>();
-        expected.add(WerteZustand.erzeuge("Sekunden", 0));
-        expected.add(WerteZustand.erzeuge("Millisekunden", 1));
+        Set<Wertezustand> expected = new LinkedHashSet<>();
+        expected.add(Wertezustand.erzeuge("Sekunden", 0));
+        expected.add(Wertezustand.erzeuge("Millisekunden", 1));
         assertEquals(expected, attributTyp.getZustaende());
     }
 
     @Test
     public void testMengen() {
-        MengenVerwendung aktionen = MengenVerwendung.erzeuge("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
-        MengenVerwendung baustellen = MengenVerwendung.erzeuge("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));
-        MengenVerwendung seitenStreifenFreigaben = MengenVerwendung.erzeuge("SeitenStreifenFreigaben", MengenTyp.erzeugeMitPid("menge.seitenStreifenFreigaben"), false);
-        MengenVerwendung situationen = MengenVerwendung.erzeuge("Situationen", MengenTyp.erzeugeMitPid("menge.situationen"));
-        MengenVerwendung staus = MengenVerwendung.erzeuge("Staus", MengenTyp.erzeugeMitPid("menge.staus"));
-        MengenVerwendung unfaelle = MengenVerwendung.erzeuge("Unfälle", MengenTyp.erzeugeMitPid("menge.unfälle"));
-        Set<MengenVerwendung> mengen = new LinkedHashSet<>();
+        Mengenverwendung aktionen = Mengenverwendung.erzeuge("Aktionen", Mengentyp.erzeugeMitPid("menge.aktionen"));
+        Mengenverwendung baustellen = Mengenverwendung.erzeuge("Baustellen", Mengentyp.erzeugeMitPid("menge.baustellen"));
+        Mengenverwendung seitenStreifenFreigaben = Mengenverwendung.erzeuge("SeitenStreifenFreigaben", Mengentyp.erzeugeMitPid("menge.seitenStreifenFreigaben"), false);
+        Mengenverwendung situationen = Mengenverwendung.erzeuge("Situationen", Mengentyp.erzeugeMitPid("menge.situationen"));
+        Mengenverwendung staus = Mengenverwendung.erzeuge("Staus", Mengentyp.erzeugeMitPid("menge.staus"));
+        Mengenverwendung unfaelle = Mengenverwendung.erzeuge("Unfälle", Mengentyp.erzeugeMitPid("menge.unfälle"));
+        Set<Mengenverwendung> mengen = new LinkedHashSet<>();
         mengen.add(aktionen);
         mengen.add(baustellen);
         mengen.add(seitenStreifenFreigaben);

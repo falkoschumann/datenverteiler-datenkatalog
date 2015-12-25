@@ -11,13 +11,13 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class ZeitstempelAttributTyp extends AttributTyp {
+public class ZeitstempelAttributtyp extends Attributtyp {
 
     private boolean relativ;
-    private ZeitAufloesung genauigkeit = ZeitAufloesung.MILLISEKUNDEN;
+    private Zeitaufloesung genauigkeit = Zeitaufloesung.MILLISEKUNDEN;
 
-    public static ZeitstempelAttributTyp erzeugeMitPid(String pid) {
-        ZeitstempelAttributTyp result = new ZeitstempelAttributTyp();
+    public static ZeitstempelAttributtyp erzeugeMitPid(String pid) {
+        ZeitstempelAttributtyp result = new ZeitstempelAttributtyp();
         result.setPid(pid);
         return result;
     }
@@ -38,11 +38,11 @@ public class ZeitstempelAttributTyp extends AttributTyp {
         this.relativ = relativ;
     }
 
-    public ZeitAufloesung getGenauigkeit() {
+    public Zeitaufloesung getGenauigkeit() {
         return genauigkeit;
     }
 
-    public void setGenauigkeit(ZeitAufloesung genauigkeit) {
+    public void setGenauigkeit(Zeitaufloesung genauigkeit) {
         this.genauigkeit = genauigkeit;
     }
 

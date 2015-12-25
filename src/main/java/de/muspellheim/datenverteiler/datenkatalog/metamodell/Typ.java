@@ -14,10 +14,10 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class Typ extends SystemObjekt {
+public class Typ extends Systemobjekt {
 
     private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
-    private final Set<MengenVerwendung> mengen = new LinkedHashSet<>();
+    private final Set<Mengenverwendung> mengen = new LinkedHashSet<>();
     private final Set<Typ> superTypen = new LinkedHashSet<>();
     private final Set<Typ> subTypen = new LinkedHashSet<>();
 
@@ -37,7 +37,7 @@ public class Typ extends SystemObjekt {
     /**
      * Führt die Mengen auf, die mit Objekten dieses Typs verwendet werden können oder müssen.
      */
-    public Set<MengenVerwendung> getMengen() {
+    public Set<Mengenverwendung> getMengen() {
         return mengen;
     }
 

@@ -13,7 +13,7 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public interface AttributMenge {
+public interface Attributmenge {
 
     /**
      * Menge der Attribute.
