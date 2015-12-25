@@ -70,6 +70,7 @@ public class KonfigurationsBereich extends SystemObjekt {
         result.addAll(mengen);
         result.addAll(attributgruppen);
         result.addAll(attributlisten);
+        result.addAll(attributtypen);
         return result;
     }
 
