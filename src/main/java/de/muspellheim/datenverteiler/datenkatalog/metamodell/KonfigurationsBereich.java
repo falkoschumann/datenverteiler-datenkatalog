@@ -5,8 +5,8 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Zur Gruppierung von Konfigurationsobjekten und Konfigurationsdaten nach modellspezifischen, inhaltlichen und
@@ -18,11 +18,11 @@ import java.util.TreeSet;
 public class KonfigurationsBereich extends SystemObjekt {
 
     private KonfigurationsVerantwortlicher zustaendiger;
-    private final Set<Typ> typen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set<MengenTyp> mengen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set<AttributListenDefinition> attributlisten = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set attributtypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<Typ> typen = new LinkedHashSet<>();
+    private final Set<MengenTyp> mengen = new LinkedHashSet<>();
+    private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
+    private final Set<AttributListenDefinition> attributlisten = new LinkedHashSet<>();
+    private final Set attributtypen = new LinkedHashSet<>();
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -65,7 +65,7 @@ public class KonfigurationsBereich extends SystemObjekt {
     }
 
     public Set<SystemObjekt> getAlleObjekte() {
-        Set<SystemObjekt> result = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+        Set<SystemObjekt> result = new LinkedHashSet<>();
         result.addAll(typen);
         result.addAll(mengen);
         result.addAll(attributgruppen);

@@ -20,8 +20,6 @@ import java.util.Set;
  */
 public class Metamodell {
 
-    // TODO Set von TreeSet auf LinkedHashSet umstellen, damit Reihenfolge beibehalten wird
-
     private final DataModel model;
 
     private final KonfigurationsVerantwortlicherFabrik konfigurationsVerantwortlicherFabrik = new KonfigurationsVerantwortlicherFabrik(this);
