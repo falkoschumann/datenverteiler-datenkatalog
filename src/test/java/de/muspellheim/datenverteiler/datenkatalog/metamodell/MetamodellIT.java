@@ -192,6 +192,16 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testGanzzahlAttributTypMitZustaenden() {
+        GanzzahlAttributTyp attributTyp = (GanzzahlAttributTyp) metamodell.getAttributTyp("att.zeitAufloesung");
+
+        Set<WerteZustand> expected = new LinkedHashSet<>();
+        expected.add(WerteZustand.erzeuge("Sekunden", 0));
+        expected.add(WerteZustand.erzeuge("Millisekunden", 1));
+        assertEquals(expected, attributTyp.getZustaende());
+    }
+
+    @Test
     public void testMengen() {
         MengenVerwendung aktionen = MengenVerwendung.erzeuge("Aktionen", MengenTyp.erzeugeMitPid("menge.aktionen"));
         MengenVerwendung baustellen = MengenVerwendung.erzeuge("Baustellen", MengenTyp.erzeugeMitPid("menge.baustellen"));

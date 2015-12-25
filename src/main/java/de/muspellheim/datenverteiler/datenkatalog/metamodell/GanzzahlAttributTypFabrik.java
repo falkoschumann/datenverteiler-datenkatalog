@@ -54,6 +54,7 @@ class GanzzahlAttributTypFabrik extends AttributTypFabrik<GanzzahlAttributTyp> {
         IntegerValueRange range = type.getRange();
         if (range != null)
             result.setBereich(WerteBereich.erzeuge(range.getMinimum(), range.getMaximum(), range.getConversionFactor(), range.getUnit()));
+        type.getStates().forEach(e -> result.getZustaende().add(WerteZustand.erzeuge(e.getName(), e.getValue())));
     }
 
 }

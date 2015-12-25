@@ -16,8 +16,6 @@ import java.util.Objects;
  */
 public final class Attribut extends SystemObjekt {
 
-    // TODO Soll SystemObjekt für Kurzinfo und Beschreibung abgeleitet werden?
-
     private String name;
     private int position;
     private int anzahl;
