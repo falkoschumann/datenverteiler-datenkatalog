@@ -5,7 +5,6 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -14,15 +13,11 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public abstract class AttributMenge extends SystemObjekt {
-
-    private final Set<Attribut> attribute = new LinkedHashSet<>();
+public interface AttributMenge {
 
     /**
      * Menge der Attribute.
      */
-    public Set<Attribut> getAttribute() {
-        return attribute;
-    }
+    Set<Attribut> getAttribute();
 
 }

@@ -11,7 +11,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class KommazahlAttributTyp extends SystemObjekt implements AttributTyp {
+public class KommazahlAttributTyp extends AttributTyp {
 
     private String einheit;
     private FliesskommaAufloesung genauigkeit;

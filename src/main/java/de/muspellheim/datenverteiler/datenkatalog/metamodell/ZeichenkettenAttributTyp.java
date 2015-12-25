@@ -11,7 +11,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class ZeichenkettenAttributTyp extends SystemObjekt implements AttributTyp {
+public class ZeichenkettenAttributTyp extends AttributTyp {
 
     private int laenge;
     private ZeichenKodierung kodierung = ZeichenKodierung.ISO_8859_1;

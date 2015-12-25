@@ -20,6 +20,10 @@ import java.util.Set;
  */
 public class Metamodell {
 
+    // TODO Defaultwerte abbilden
+    // TODO Defaultparameter abbilden
+    // TODO Konfigurationsobjekte mit Mengen und Konfigurationsdaten abbilden
+
     private final DataModel model;
 
     private final KonfigurationsVerantwortlicherFabrik konfigurationsVerantwortlicherFabrik = new KonfigurationsVerantwortlicherFabrik(this);

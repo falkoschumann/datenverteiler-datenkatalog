@@ -11,7 +11,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class ObjektReferenzAttributTyp extends SystemObjekt implements AttributTyp {
+public class ObjektReferenzAttributTyp extends AttributTyp {
 
     private Typ typ;
     private boolean undefiniertErlaubt;

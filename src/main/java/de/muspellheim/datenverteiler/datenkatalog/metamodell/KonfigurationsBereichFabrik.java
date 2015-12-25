@@ -40,11 +40,12 @@ class KonfigurationsBereichFabrik extends SystemObjektFabrik<KonfigurationsBerei
 
         ConfigurationArea area = (ConfigurationArea) object;
         result.setZustaendiger(getMetamodell().getKonfigurationsverantwortlicher(area.getConfigurationAuthority().getPid()));
-        area.getCurrentObjects().stream().filter(TypFabrik::istTyp).forEach(e -> result.getTypen().add(getMetamodell().getTyp(e.getPid())));
-        area.getCurrentObjects().stream().filter(MengenTypFabrik::istMengenTyp).forEach(e -> result.getMengen().add(getMetamodell().getMengenTyp(e.getPid())));
-        area.getCurrentObjects().stream().filter(AttributgruppeFabrik::istAttributgruppe).forEach(e -> result.getAttributgruppen().add(getMetamodell().getAttributgruppe(e.getPid())));
-        area.getCurrentObjects().stream().filter(AttributListenDefinitionFabrik::istAttributliste).forEach(e -> result.getAttributlisten().add(getMetamodell().getAttributliste(e.getPid())));
-        area.getCurrentObjects().stream().filter(AttributTypFabrik::istAttributTyp).forEach(e -> result.getAttributtypen().add(getMetamodell().getAttributTyp(e.getPid())));
+        area.getCurrentObjects().stream().filter(TypFabrik::istTyp).forEach(e -> result.getModell().add(getMetamodell().getTyp(e.getPid())));
+        area.getCurrentObjects().stream().filter(MengenTypFabrik::istMengenTyp).forEach(e -> result.getModell().add(getMetamodell().getMengenTyp(e.getPid())));
+        area.getCurrentObjects().stream().filter(AttributgruppeFabrik::istAttributgruppe).forEach(e -> result.getModell().add(getMetamodell().getAttributgruppe(e.getPid())));
+        area.getCurrentObjects().stream().filter(AttributListenDefinitionFabrik::istAttributliste).forEach(e -> result.getModell().add(getMetamodell().getAttributliste(e.getPid())));
+        area.getCurrentObjects().stream().filter(AttributTypFabrik::istAttributTyp).forEach(e -> result.getModell().add(getMetamodell().getAttributTyp(e.getPid())));
+        area.getCurrentObjects().stream().filter(AspektFabrik::istAspekt).forEach(e -> result.getModell().add(getMetamodell().getAspekt(e.getPid())));
     }
 
 }

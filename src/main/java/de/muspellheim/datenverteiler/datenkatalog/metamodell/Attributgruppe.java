@@ -18,7 +18,9 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class Attributgruppe extends AttributMenge {
+public class Attributgruppe extends SystemObjekt implements AttributMenge {
+
+    private final Set<Attribut> attribute = new LinkedHashSet<>();
 
     private Set<Aspekt> aspekte = new LinkedHashSet<>();
     private Set<AttributgruppenVerwendung> attributgruppenVerwendungen = new LinkedHashSet<>();
@@ -27,6 +29,13 @@ public class Attributgruppe extends AttributMenge {
         Attributgruppe result = new Attributgruppe();
         result.setPid(pid);
         return result;
+    }
+
+    /**
+     * Menge der Attribute.
+     */
+    public Set<Attribut> getAttribute() {
+        return attribute;
     }
 
     /**
@@ -42,4 +51,5 @@ public class Attributgruppe extends AttributMenge {
     public Set<AttributgruppenVerwendung> getAttributgruppenVerwendungen() {
         return attributgruppenVerwendungen;
     }
+
 }

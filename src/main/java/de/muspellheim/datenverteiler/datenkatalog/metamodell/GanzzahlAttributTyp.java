@@ -14,7 +14,7 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class GanzzahlAttributTyp extends SystemObjekt implements AttributTyp {
+public class GanzzahlAttributTyp extends AttributTyp {
 
     private WerteBereich bereich;
     private DatentypGroesse anzahlBytes;

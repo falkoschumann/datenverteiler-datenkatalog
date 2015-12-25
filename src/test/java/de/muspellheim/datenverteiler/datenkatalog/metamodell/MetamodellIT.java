@@ -46,10 +46,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     public void testKonfigurationsbereich() {
         KonfigurationsBereich verkehr = metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal");
 
-        assertFalse(verkehr.getTypen().isEmpty());
-        assertFalse(verkehr.getMengen().isEmpty());
-        assertFalse(verkehr.getAttributgruppen().isEmpty());
-        assertFalse(verkehr.getAttributlisten().isEmpty());
+        assertFalse(verkehr.getModell().isEmpty());
         KonfigurationsVerantwortlicher inovat = metamodell.getKonfigurationsverantwortlicher("kv.inovat");
         assertEquals(inovat, verkehr.getZustaendiger());
     }

@@ -11,7 +11,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class ZeitstempelAttributTyp extends SystemObjekt implements AttributTyp {
+public class ZeitstempelAttributTyp extends AttributTyp {
 
     private boolean relativ;
     private ZeitAufloesung genauigkeit = ZeitAufloesung.MILLISEKUNDEN;

@@ -14,7 +14,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-abstract class AttributMengeFabrik<T extends AttributMenge> extends SystemObjektFabrik<T> {
+abstract class AttributMengeFabrik<T extends SystemObjekt & AttributMenge> extends SystemObjektFabrik<T> {
 
     AttributMengeFabrik(Metamodell metamodell) {
         super(metamodell);
