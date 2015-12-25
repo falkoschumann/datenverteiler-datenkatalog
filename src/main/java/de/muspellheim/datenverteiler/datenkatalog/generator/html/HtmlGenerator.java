@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class HtmlGenerator {
 
     // TODO Kopfzeile für rechten Frame erweitern: Verwendung, Baum, Index, Hilfe
-    // TODO Defaultwerte anzeigen
+    // TODO Proxyobjekte anlegen für Sortierung und Spezialisierung
 
     public static final String PROP_PROJEKT = "projekt";
     public static final String PROP_VERANTWORTLICHKEITEN = "verantwortlichkeiten";
