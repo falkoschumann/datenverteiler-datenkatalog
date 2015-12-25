@@ -125,7 +125,29 @@
             </table>
         </div>
     #end
-    <p>TODO Attribute</p>
+    #if( !$konfigurationsbereich.attributtypen.empty )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attributtypen</span></caption>
+                <tbody>
+                <tr>
+                    <th>Attributtyp</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $attributtyp in $konfigurationsbereich.attributtypen )
+                        #if( $attributtyp.class.simpleName != "AttributListenDefinition" )
+                        <tr>
+                            <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributtyp.konfigurationsBereich.zustaendiger.pid}/${attributtyp.konfigurationsBereich.pid}/${attributtyp.pid}.html">$attributtyp.nameOderPid</a></td>
+                            <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributtyp.kurzinfo}</td>
+                        </tr>
+                        #set( $row = $row + 1 )
+                        #end
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
 </div>
 </body>
 </html>
