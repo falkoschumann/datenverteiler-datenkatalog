@@ -23,6 +23,7 @@ public class KonfigurationsBereich extends SystemObjekt {
     private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
     private final Set<AttributListenDefinition> attributlisten = new LinkedHashSet<>();
     private final Set attributtypen = new LinkedHashSet<>();
+    private final Set aspekte = new LinkedHashSet<>();
 
     public static KonfigurationsBereich erzeugeMitPid(String pid) {
         KonfigurationsBereich result = new KonfigurationsBereich();
@@ -64,6 +65,10 @@ public class KonfigurationsBereich extends SystemObjekt {
         return attributtypen;
     }
 
+    public Set getAspekte() {
+        return aspekte;
+    }
+
     public Set<SystemObjekt> getAlleObjekte() {
         Set<SystemObjekt> result = new LinkedHashSet<>();
         result.addAll(typen);
@@ -71,6 +76,7 @@ public class KonfigurationsBereich extends SystemObjekt {
         result.addAll(attributgruppen);
         result.addAll(attributlisten);
         result.addAll(attributtypen);
+        result.addAll(aspekte);
         return result;
     }
 
