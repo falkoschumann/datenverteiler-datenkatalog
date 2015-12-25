@@ -152,6 +152,25 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     }
 
     @Test
+    public void testAspekt() {
+        Set<Aspekt> aspekte = new LinkedHashSet<>();
+        aspekte.add(Aspekt.erzeugeMitPid("asp.externeErfassung"));
+        aspekte.add(Aspekt.erzeugeMitPid("asp.messWertErsetzung"));
+        aspekte.add(Aspekt.erzeugeMitPid("asp.plausibilitätsPrüfungFormal"));
+        aspekte.add(Aspekt.erzeugeMitPid("asp.plausibilitätsPrüfungLogisch"));
+        Set<AttributgruppenVerwendung> attributgruppenVerwendungen = new LinkedHashSet<>();
+        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.externeErfassung"));
+        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.messWertErsetzung"));
+        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.plausibilitätsPrüfungFormal"));
+        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.plausibilitätsPrüfungLogisch"));
+
+        Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.verkehrsDatenKurzZeitIntervall");
+
+        assertEquals(aspekte, attributgruppe.getAspekte());
+        assertEquals(attributgruppenVerwendungen, attributgruppe.getAttributgruppenVerwendungen());
+    }
+
+    @Test
     public void testZeichenkettenAttributTyp() {
         ZeichenkettenAttributTyp attributTyp = (ZeichenkettenAttributTyp) metamodell.getAttributTyp("att.einheit");
 

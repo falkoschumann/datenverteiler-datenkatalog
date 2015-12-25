@@ -20,8 +20,6 @@ import java.util.Set;
  */
 public class Metamodell {
 
-    // TODO Set von TreeSet auf LinkedHashSet umstellen, damit Reihenfolge beibehalten wird
-
     private final DataModel model;
 
     private final KonfigurationsVerantwortlicherFabrik konfigurationsVerantwortlicherFabrik = new KonfigurationsVerantwortlicherFabrik(this);
@@ -35,6 +33,8 @@ public class Metamodell {
     private final KommazahlAttributTypFabrik kommazahlAttributTypFabrik = new KommazahlAttributTypFabrik(this);
     private final ObjektReferenzAttributTypFabrik objektReferenAttributTypFabrik = new ObjektReferenzAttributTypFabrik(this);
     private final GanzzahlAttributTypFabrik ganzzahlAttributTypFabrik = new GanzzahlAttributTypFabrik(this);
+    private final AspektFabrik aspektFabrik = new AspektFabrik(this);
+    private final AttributgruppenVerwendungFabrik attributgruppenVerwendungFabrik = new AttributgruppenVerwendungFabrik(this);
 
     public Metamodell(DataModel model) {
         this.model = model;
@@ -79,6 +79,14 @@ public class Metamodell {
 
     public AttributListenDefinition getAttributliste(String pid) {
         return attributListenDefinitionFabrik.getObjekt(pid);
+    }
+
+    public Aspekt getAspekt(String pid) {
+        return aspektFabrik.getObjekt(pid);
+    }
+
+    AttributgruppenVerwendung getAttributgruppenVerwendung(String pid) {
+        return attributgruppenVerwendungFabrik.getObjekt(pid);
     }
 
     AttributTyp getAttributTyp(String pid) {

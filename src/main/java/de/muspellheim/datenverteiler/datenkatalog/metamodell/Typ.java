@@ -5,9 +5,8 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Der Typ aller Typobjekte.
@@ -17,10 +16,10 @@ import java.util.TreeSet;
  */
 public class Typ extends SystemObjekt {
 
-    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set<MengenVerwendung> mengen = new TreeSet<>((Comparator<MengenVerwendung>) (m1, m2) -> m1.getMengenName().compareToIgnoreCase(m2.getMengenName()));
-    private final Set<Typ> superTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set<Typ> subTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
+    private final Set<MengenVerwendung> mengen = new LinkedHashSet<>();
+    private final Set<Typ> superTypen = new LinkedHashSet<>();
+    private final Set<Typ> subTypen = new LinkedHashSet<>();
 
     public static Typ erzeugeMitPid(String pid) {
         Typ result = new Typ();

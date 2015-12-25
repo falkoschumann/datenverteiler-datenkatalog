@@ -5,6 +5,7 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import de.bsvrz.dav.daf.main.config.AttributeGroup;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
 /**
@@ -26,6 +27,15 @@ class AttributgruppeFabrik extends AttributMengeFabrik<Attributgruppe> {
     @Override
     protected Attributgruppe erzeugeObjekt(SystemObject objekt) {
         return Attributgruppe.erzeugeMitPid(objekt.getPid());
+    }
+
+    @Override
+    protected void initialisiereObjekt(SystemObject object, Attributgruppe result) {
+        super.initialisiereObjekt(object, result);
+
+        AttributeGroup atg = (AttributeGroup) object;
+        atg.getAspects().forEach(e -> result.getAspekte().add(getMetamodell().getAspekt(e.getPid())));
+        atg.getAttributeGroupUsages().forEach(e -> result.getAttributgruppenVerwendungen().add(getMetamodell().getAttributgruppenVerwendung(e.getPid())));
     }
 
 }
