@@ -86,12 +86,23 @@ h1, h2, h3, h4, h5, h6 {
     color: #204a87;
 }
 
-.ueberblick {
+.ueberblick, .eigenschaften {
     padding: 10px 20px;
 }
 
-table {
+.ueberblick .colFirst {
+    width: 33%;
+}
+
+.ueberblick a, .eigenschaften a {
+    font-weight: bold;
+}
+
+.ueberblick table {
     width: 100%;
+}
+
+table {
     border: 1px solid #babdb6;
 }
 
@@ -128,14 +139,6 @@ th, td {
 a {
     color: #3465a4;
     text-decoration: none;
-}
-
-.ueberblick .colFirst {
-    width: 33%;
-}
-
-.ueberblick a {
-    font-weight: bold;
 }
 
 .inherited {

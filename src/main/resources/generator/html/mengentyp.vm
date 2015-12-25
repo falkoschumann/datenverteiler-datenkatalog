@@ -41,7 +41,29 @@
     #if( !$mengentyp.beschreibung.empty )
     <p>${mengentyp.beschreibung}</p>
     #end
-    <p>TODO Konfigurationsdaten des Mengentyps</p>
+    <div class="eigenschaften">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Mengeneigenschaften</span></caption>
+            <tbody>
+            <tr>
+                <th>Minimale Anzahl</th>
+                <td class="altColor">${mengentyp.minimaleAnzahl}</td>
+            </tr>
+            <tr>
+                <th>Maximale Anzahl</th>
+                <td class="altColor">${mengentyp.maximaleAnzahl}</td>
+            </tr>
+            <tr>
+                <th>Änderbar</th>
+                <td class="altColor">${mengentyp.aenderbar}</td>
+            </tr>
+            <tr>
+                <th>Referenzierungsart</th>
+                <td class="altColor">${mengentyp.referenzierungsart}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
     #if( !$mengentyp.typen.empty )
     <div class="ueberblick">
         <table border="0" cellpadding="0" cellspacing="0">
