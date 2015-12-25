@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,6 @@ import java.util.stream.Collectors;
  */
 public class HtmlGenerator {
 
-    // TODO Attributlisten generieren
     // TODO Kopfzeile für rechten Frame erweitern: Verwendung, Baum, Index, Hilfe
 
     public static final String PROP_PROJEKT = "projekt";
@@ -40,6 +40,12 @@ public class HtmlGenerator {
     public static final String PROP_MENGENTYP = "mengentyp";
     public static final String PROP_ATTRIBUTGRUPPE = "attributgruppe";
     public static final String PROP_ATTRIBUTLISTE = "attributliste";
+    public static final String PROP_ATTRIBUTTYP = "attributtyp";
+    public static final String PROP_ZEICHENKETTE = "zeichenkette";
+    public static final String PROP_ZEITSTEMPEL = "zeitstempel";
+    public static final String PROP_KOMMAZAHL = "kommazahl";
+    public static final String PROP_OBJEKTREFERENZ = "objektreferenz";
+    public static final String PROP_GANZZAHL = "ganzzahl";
 
     private static final String SOURCE = "/generator/html/";
     private static final String TARGET = "target/datenkatalog/html/";
@@ -82,6 +88,8 @@ public class HtmlGenerator {
 
     private VelocityContext erzeugeContext(Metamodell metamodell) {
         VelocityContext result = new VelocityContext();
+
+        result.put(NumberFormat.class.getSimpleName(), NumberFormat.class);
 
         result.put(PROP_PROJEKT, "Datenkatalog");
 
@@ -188,6 +196,21 @@ public class HtmlGenerator {
         } else if (systemObjekt instanceof AttributListenDefinition) {
             context.put(PROP_ATTRIBUTLISTE, systemObjekt);
             generiereDatei(PROP_ATTRIBUTLISTE, pfad + "/" + systemObjekt.getPid());
+        } else if (systemObjekt instanceof ZeichenkettenAttributTyp) {
+            context.put(PROP_ATTRIBUTTYP, systemObjekt);
+            generiereDatei(PROP_ZEICHENKETTE, pfad + "/" + systemObjekt.getPid());
+        } else if (systemObjekt instanceof ZeitstempelAttributTyp) {
+            context.put(PROP_ATTRIBUTTYP, systemObjekt);
+            generiereDatei(PROP_ZEITSTEMPEL, pfad + "/" + systemObjekt.getPid());
+        } else if (systemObjekt instanceof KommazahlAttributTyp) {
+            context.put(PROP_ATTRIBUTTYP, systemObjekt);
+            generiereDatei(PROP_KOMMAZAHL, pfad + "/" + systemObjekt.getPid());
+        } else if (systemObjekt instanceof ObjektReferenzAttributTyp) {
+            context.put(PROP_ATTRIBUTTYP, systemObjekt);
+            generiereDatei(PROP_OBJEKTREFERENZ, pfad + "/" + systemObjekt.getPid());
+        } else if (systemObjekt instanceof GanzzahlAttributTyp) {
+            context.put(PROP_ATTRIBUTTYP, systemObjekt);
+            generiereDatei(PROP_GANZZAHL, pfad + "/" + systemObjekt.getPid());
         }
     }
 
