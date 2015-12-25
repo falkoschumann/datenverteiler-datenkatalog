@@ -20,7 +20,7 @@ public final class Attribut extends Systemobjekt {
     private int position;
     private int anzahl;
     private boolean anzahlVariabel;
-    private Attributtyp attributTyp;
+    private Attributtyp attributtyp;
 
     private Attribut() {
         // value object
@@ -36,7 +36,7 @@ public final class Attribut extends Systemobjekt {
         result.position = position;
         result.anzahl = anzahl;
         result.anzahlVariabel = anzahlVariabel;
-        result.attributTyp = typ;
+        result.attributtyp = typ;
         return result;
     }
 
@@ -63,8 +63,8 @@ public final class Attribut extends Systemobjekt {
         return anzahlVariabel;
     }
 
-    public Attributtyp getAttributTyp() {
-        return attributTyp;
+    public Attributtyp getAttributtyp() {
+        return attributtyp;
     }
 
     @Override
@@ -77,12 +77,12 @@ public final class Attribut extends Systemobjekt {
                 position == attribut.position &&
                 anzahl == attribut.anzahl &&
                 anzahlVariabel == attribut.anzahlVariabel &&
-                Objects.equals(attributTyp, attribut.attributTyp);
+                Objects.equals(attributtyp, attribut.attributtyp);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), position, anzahl, anzahlVariabel, attributTyp);
+        return Objects.hash(getName(), position, anzahl, anzahlVariabel, attributtyp);
     }
 
 }

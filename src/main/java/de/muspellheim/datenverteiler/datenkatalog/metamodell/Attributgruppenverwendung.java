@@ -11,15 +11,15 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class AttributgruppenVerwendung extends Systemobjekt {
+public class Attributgruppenverwendung extends Systemobjekt {
 
     private Attributgruppe attributgruppe;
     private Aspekt aspekt;
     private boolean VerwendungExplizitVorgegeben;
-    private Datensatzverwendung datensatzVerwendung;
+    private Datensatzverwendung datensatzverwendung;
 
-    public static AttributgruppenVerwendung erzeugeMitPid(String pid) {
-        AttributgruppenVerwendung result = new AttributgruppenVerwendung();
+    public static Attributgruppenverwendung erzeugeMitPid(String pid) {
+        Attributgruppenverwendung result = new Attributgruppenverwendung();
         result.setPid(pid);
         return result;
     }
@@ -48,12 +48,12 @@ public class AttributgruppenVerwendung extends Systemobjekt {
         VerwendungExplizitVorgegeben = verwendungExplizitVorgegeben;
     }
 
-    public Datensatzverwendung getDatensatzVerwendung() {
-        return datensatzVerwendung;
+    public Datensatzverwendung getDatensatzverwendung() {
+        return datensatzverwendung;
     }
 
-    public void setDatensatzVerwendung(Datensatzverwendung datensatzVerwendung) {
-        this.datensatzVerwendung = datensatzVerwendung;
+    public void setDatensatzverwendung(Datensatzverwendung datensatzverwendung) {
+        this.datensatzverwendung = datensatzverwendung;
     }
 
 }

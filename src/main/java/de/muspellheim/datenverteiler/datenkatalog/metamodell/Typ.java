@@ -18,8 +18,8 @@ public class Typ extends Systemobjekt {
 
     private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
     private final Set<Mengenverwendung> mengen = new LinkedHashSet<>();
-    private final Set<Typ> superTypen = new LinkedHashSet<>();
-    private final Set<Typ> subTypen = new LinkedHashSet<>();
+    private final Set<Typ> supertypen = new LinkedHashSet<>();
+    private final Set<Typ> subtypen = new LinkedHashSet<>();
 
     public static Typ erzeugeMitPid(String pid) {
         Typ result = new Typ();
@@ -48,12 +48,12 @@ public class Typ extends Systemobjekt {
      * verwendbaren Attributgruppen und Mengen von all seinen Supertypen.
      * </p>
      */
-    public Set<Typ> getSuperTypen() {
-        return superTypen;
+    public Set<Typ> getSupertypen() {
+        return supertypen;
     }
 
-    public Set<Typ> getSubTypen() {
-        return subTypen;
+    public Set<Typ> getSubtypen() {
+        return subtypen;
     }
 
 }

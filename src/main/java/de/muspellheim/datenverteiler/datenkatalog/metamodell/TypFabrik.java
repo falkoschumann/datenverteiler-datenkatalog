@@ -38,9 +38,9 @@ class TypFabrik extends SystemobjektFabrik<Typ> {
         super.initialisiereObjekt(object, result);
 
         SystemObjectType type = (SystemObjectType) object;
-        type.getSuperTypes().stream().forEach(e -> result.getSuperTypen().add(getMetamodell().getTyp(e.getPid())));
-        type.getSubTypes().stream().forEach(e -> result.getSubTypen().add(getMetamodell().getTyp(e.getPid())));
-        type.getDirectObjectSetUses().forEach(e -> result.getMengen().add(getMetamodell().getMengenVerwendung(e.getId())));
+        type.getSuperTypes().stream().forEach(e -> result.getSupertypen().add(getMetamodell().getTyp(e.getPid())));
+        type.getSubTypes().stream().forEach(e -> result.getSubtypen().add(getMetamodell().getTyp(e.getPid())));
+        type.getDirectObjectSetUses().forEach(e -> result.getMengen().add(getMetamodell().getMengenverwendung(e.getId())));
         type.getDirectAttributeGroups().forEach(e -> result.getAttributgruppen().add(getMetamodell().getAttributgruppe(e.getPid())));
     }
 

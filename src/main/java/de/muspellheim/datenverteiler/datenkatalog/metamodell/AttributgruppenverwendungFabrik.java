@@ -14,9 +14,9 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class AttributgruppenVerwendungFabrik extends SystemobjektFabrik<AttributgruppenVerwendung> {
+class AttributgruppenverwendungFabrik extends SystemobjektFabrik<Attributgruppenverwendung> {
 
-    AttributgruppenVerwendungFabrik(Metamodell metamodell) {
+    AttributgruppenverwendungFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -25,19 +25,19 @@ class AttributgruppenVerwendungFabrik extends SystemobjektFabrik<Attributgruppen
     }
 
     @Override
-    protected AttributgruppenVerwendung erzeugeObjekt(SystemObject objekt) {
-        return AttributgruppenVerwendung.erzeugeMitPid(objekt.getPid());
+    protected Attributgruppenverwendung erzeugeObjekt(SystemObject objekt) {
+        return Attributgruppenverwendung.erzeugeMitPid(objekt.getPid());
     }
 
     @Override
-    protected void initialisiereObjekt(SystemObject object, AttributgruppenVerwendung result) {
+    protected void initialisiereObjekt(SystemObject object, Attributgruppenverwendung result) {
         super.initialisiereObjekt(object, result);
 
         AttributeGroupUsage usage = (AttributeGroupUsage) object;
         result.setAttributgruppe(getMetamodell().getAttributgruppe(usage.getAttributeGroup().getPid()));
         result.setAspekt(getMetamodell().getAspekt(usage.getAspect().getPid()));
         result.setVerwendungExplizitVorgegeben(usage.isExplicitDefined());
-        result.setDatensatzVerwendung(datensatzVerwendung(usage.getUsage()));
+        result.setDatensatzverwendung(datensatzVerwendung(usage.getUsage()));
     }
 
     private Datensatzverwendung datensatzVerwendung(AttributeGroupUsage.Usage usage) {
