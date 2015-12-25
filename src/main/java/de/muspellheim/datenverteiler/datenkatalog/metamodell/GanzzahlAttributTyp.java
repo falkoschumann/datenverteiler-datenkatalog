@@ -5,6 +5,9 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * Definiert ein Attribut vom Datentyp Ganzzahl mit seinen Eigenschaften.
  *
@@ -15,6 +18,7 @@ public class GanzzahlAttributTyp extends SystemObjekt implements AttributTyp {
 
     private WerteBereich bereich;
     private DatentypGroesse anzahlBytes;
+    private Set<WerteZustand> zustaende = new LinkedHashSet<>();
 
     public static GanzzahlAttributTyp erzeugeMitPid(String pid) {
         GanzzahlAttributTyp result = new GanzzahlAttributTyp();
@@ -36,6 +40,10 @@ public class GanzzahlAttributTyp extends SystemObjekt implements AttributTyp {
 
     public void setAnzahlBytes(DatentypGroesse anzahlBytes) {
         this.anzahlBytes = anzahlBytes;
+    }
+
+    public Set<WerteZustand> getZustaende() {
+        return zustaende;
     }
 
 }

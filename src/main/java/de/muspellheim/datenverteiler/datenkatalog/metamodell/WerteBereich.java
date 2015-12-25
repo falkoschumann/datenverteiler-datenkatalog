@@ -16,8 +16,6 @@ import java.util.Objects;
  */
 public final class WerteBereich extends SystemObjekt {
 
-    // TODO Soll SystemObjekt für Kurzinfo und Beschreibung abgeleitet werden?
-
     private long minimum;
     private long maximum;
     private double skalierung;
