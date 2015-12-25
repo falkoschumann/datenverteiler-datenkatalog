@@ -98,7 +98,7 @@
                     #set( $row = 1 )
                     #foreach( $attributgruppe in $typ.attributgruppen )
                     <tr>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html">${attributgruppe.name}</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html">${attributgruppe.nameOderPid}</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )

@@ -81,6 +81,29 @@
         </table>
     </div>
     #end
+    #if( !$attributtyp.zustaende.empty )
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Zustände</span></caption>
+            <tbody>
+            <tr>
+                <th>Name</th>
+                <th>Wert</th>
+                <th>Info</th>
+            </tr>
+            #set( $row = 1 )
+            #foreach( $zustand in $attributtyp.zustaende )
+            <tr>
+                <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${zustand.name}</td>
+                <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${zustand.wert}</td>
+                <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${zustand.kurzinfo}</td>
+            </tr>
+            #set( $row = $row + 1 )
+            #end
+            </tbody>
+        </table>
+    </div>
+    #end
 </div>
 </body>
 </html>
