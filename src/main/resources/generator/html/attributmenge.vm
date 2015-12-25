@@ -14,9 +14,7 @@
         ${attribut.name}
     </td>
     <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
-        <a href="${attribut.attributTyp.konfigurationsBereich.zustaendiger.pid}/${attribut.attributTyp.konfigurationsBereich.pid}/${attribut.attributTyp.pid}.html">${attribut.attributTyp.name}</a>
-    </td>
-    <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
+        <a href="${attribut.attributTyp.konfigurationsBereich.zustaendiger.pid}/${attribut.attributTyp.konfigurationsBereich.pid}/${attribut.attributTyp.pid}.html">
         #if( $attribut.attributTyp.class.simpleName == "AttributListenDefinition" )
             Attributliste
         #elseif( $attribut.attributTyp.class.simpleName == "GanzzahlAttributTyp" )
@@ -30,6 +28,7 @@
         #elseif( $attribut.attributTyp.class.simpleName == "ObjektReferenzAttributTyp" )
             Objektreferenz
         #end
+        </a>
     </td>
     <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
         ${attribut.anzahl}
