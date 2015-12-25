@@ -15,7 +15,7 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public class WerteZustand extends SystemObjekt {
+public final class WerteZustand extends SystemObjekt {
 
     private long wert;
 

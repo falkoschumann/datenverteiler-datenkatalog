@@ -7,6 +7,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
 import de.bsvrz.dav.daf.main.config.IntegerAttributeType;
 import de.bsvrz.dav.daf.main.config.IntegerValueRange;
+import de.bsvrz.dav.daf.main.config.IntegerValueState;
 import de.bsvrz.dav.daf.main.config.SystemObject;
 
 /**
@@ -54,7 +55,14 @@ class GanzzahlAttributTypFabrik extends AttributTypFabrik<GanzzahlAttributTyp> {
         IntegerValueRange range = type.getRange();
         if (range != null)
             result.setBereich(WerteBereich.erzeuge(range.getMinimum(), range.getMaximum(), range.getConversionFactor(), range.getUnit()));
-        type.getStates().forEach(e -> result.getZustaende().add(WerteZustand.erzeuge(e.getName(), e.getValue())));
+        type.getStates().forEach(e -> result.getZustaende().add(erzeugeZustand(e)));
+    }
+
+    private WerteZustand erzeugeZustand(IntegerValueState state) {
+        WerteZustand result = WerteZustand.erzeuge(state.getName(), state.getValue());
+        result.setKurzinfo(state.getInfo().getShortInfo());
+        result.setBeschreibung(state.getInfo().getDescription());
+        return result;
     }
 
 }
