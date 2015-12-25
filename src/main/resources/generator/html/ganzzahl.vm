@@ -94,7 +94,7 @@
             #set( $row = 1 )
             #foreach( $zustand in $attributtyp.zustaende )
             <tr>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${zustand.name}</td>
+                <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">${zustand.name}</td>
                 <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${zustand.wert}</td>
                 <td class="#if ($row % 2 == 0) rowColor #else altColor #end">${zustand.kurzinfo}</td>
             </tr>

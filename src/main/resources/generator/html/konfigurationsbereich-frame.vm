@@ -13,6 +13,7 @@
     <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.nameOderPid}</a>
 </div>
 <div class="content">
+    #if( !$konfigurationsbereich.typen.empty )
     <p><strong>Typen</strong></p>
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.typen )
@@ -23,6 +24,8 @@
             </li>
         #end
     </ul>
+    #end
+    #if( !$konfigurationsbereich.mengen.empty )
     <p><strong>Mengen</strong></p>
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.mengen )
@@ -33,6 +36,8 @@
             </li>
         #end
     </ul>
+    #end
+    #if( !$konfigurationsbereich.attributtypen.empty )
     <p><strong>Attributgruppen</strong></p>
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.attributgruppen )
@@ -43,6 +48,8 @@
             </li>
         #end
     </ul>
+    #end
+    #if( !$konfigurationsbereich.attributlisten.empty )
     <p><strong>Attributlisten</strong></p>
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.attributlisten )
@@ -53,6 +60,8 @@
             </li>
         #end
     </ul>
+    #end
+    #if( !$konfigurationsbereich.attributgruppen.empty )
     <p><strong>Attributtypen</strong></p>
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.attributtypen )
@@ -63,6 +72,7 @@
             </li>
         #end
     </ul>
+    #end
 </div>
 </body>
 </html>

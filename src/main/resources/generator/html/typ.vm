@@ -70,7 +70,7 @@
                 #set( $row = 1 )
                 #foreach( $mengenVerwendung in $typ.mengen )
                 <tr>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.mengenTyp.konfigurationsBereich.zustaendiger.pid}/${mengenVerwendung.mengenTyp.konfigurationsBereich.pid}/${mengenVerwendung.mengenTyp.pid}.html">${mengenVerwendung.mengenName}</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.mengenTyp.konfigurationsBereich.zustaendiger.pid}/${mengenVerwendung.mengenTyp.konfigurationsBereich.pid}/${mengenVerwendung.mengenTyp.pid}.html">${mengenVerwendung.mengenName}</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
                         #if( ${mengenVerwendung.erforderlich} )
                             ja
@@ -98,7 +98,7 @@
                     #set( $row = 1 )
                     #foreach( $attributgruppe in $typ.attributgruppen )
                     <tr>
-                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html">${attributgruppe.nameOderPid}</a></td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html">${attributgruppe.nameOderPid}</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )
