@@ -41,7 +41,7 @@ public enum DatentypGroesse {
 
     @Override
     public String toString() {
-        return super.toString();
+        return text;
     }
 
 }
