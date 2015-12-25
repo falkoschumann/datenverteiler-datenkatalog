@@ -16,8 +16,8 @@ import java.util.Objects;
  */
 public final class Mengenverwendung extends Systemobjekt {
 
-    private String mengenName;
-    private Mengentyp mengenTyp;
+    private String mengenname;
+    private Mengentyp mengentyp;
     private boolean erforderlich;
 
     private Mengenverwendung() {
@@ -30,8 +30,8 @@ public final class Mengenverwendung extends Systemobjekt {
 
     public static Mengenverwendung erzeuge(String mengenName, Mengentyp mengenTyp, boolean erforderlich) {
         Mengenverwendung result = new Mengenverwendung();
-        result.mengenName = mengenName;
-        result.mengenTyp = mengenTyp;
+        result.mengenname = mengenName;
+        result.mengentyp = mengenTyp;
         result.erforderlich = erforderlich;
         return result;
     }
@@ -42,15 +42,15 @@ public final class Mengenverwendung extends Systemobjekt {
      * Der Name unter dem die Menge ausgehend von einem Objekt des jeweiligen Typs referenzierbar ist.
      * </p>
      */
-    public String getMengenName() {
-        return mengenName;
+    public String getMengenname() {
+        return mengenname;
     }
 
     /**
      * Referenz auf die MengenDefinition die den Typ der Menge beschreibt.
      */
-    public Mengentyp getMengenTyp() {
-        return mengenTyp;
+    public Mengentyp getMengentyp() {
+        return mengentyp;
     }
 
     /**
@@ -65,13 +65,13 @@ public final class Mengenverwendung extends Systemobjekt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Mengenverwendung that = (Mengenverwendung) o;
-        return Objects.equals(mengenName, that.mengenName) &&
-                Objects.equals(mengenTyp, that.mengenTyp) && Objects.equals(erforderlich, that.erforderlich);
+        return Objects.equals(mengenname, that.mengenname) &&
+                Objects.equals(mengentyp, that.mengentyp) && Objects.equals(erforderlich, that.erforderlich);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mengenName, mengenTyp, erforderlich);
+        return Objects.hash(mengenname, mengentyp, erforderlich);
     }
 
 }

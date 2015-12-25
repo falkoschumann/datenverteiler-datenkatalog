@@ -81,7 +81,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
     public void testBereich() {
         Typ typ = metamodell.getTyp("typ.aspekt");
 
-        assertEquals(Konfigurationsbereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getKonfigurationsBereich());
+        assertEquals(Konfigurationsbereich.erzeugeMitPid("kb.metaModellGlobal"), typ.getKonfigurationsbereich());
     }
 
     @Test
@@ -92,9 +92,9 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
         Typ netz = metamodell.getTyp("typ.netz");
 
-        assertEquals(Collections.singleton(netzBestandTeil), netz.getSuperTypen());
-        assertEquals(Collections.singleton(stoerfallIndikator), netz.getSuperTypen().toArray(new Typ[0])[0].getSuperTypen());
-        assertEquals(Collections.singleton(konfigurationsObjekt), netz.getSuperTypen().toArray(new Typ[0])[0].getSuperTypen().toArray(new Typ[0])[0].getSuperTypen());
+        assertEquals(Collections.singleton(netzBestandTeil), netz.getSupertypen());
+        assertEquals(Collections.singleton(stoerfallIndikator), netz.getSupertypen().toArray(new Typ[0])[0].getSupertypen());
+        assertEquals(Collections.singleton(konfigurationsObjekt), netz.getSupertypen().toArray(new Typ[0])[0].getSupertypen().toArray(new Typ[0])[0].getSupertypen());
     }
 
     @Test
@@ -108,12 +108,12 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
         Typ result = metamodell.getTyp("typ.situation");
 
-        assertEquals(subtypen, result.getSubTypen());
+        assertEquals(subtypen, result.getSubtypen());
     }
 
     @Test
     public void testMengenTyp() {
-        Mengentyp typ = metamodell.getMengenTyp("menge.routen");
+        Mengentyp typ = metamodell.getMengentyp("menge.routen");
 
         assertEquals(Mengentyp.erzeugeMitPid("menge.routen"), typ);
         assertEquals(Collections.singleton(Typ.erzeugeMitPid("typ.route")), typ.getObjektTypen());
@@ -155,66 +155,66 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
         aspekte.add(Aspekt.erzeugeMitPid("asp.messWertErsetzung"));
         aspekte.add(Aspekt.erzeugeMitPid("asp.plausibilitätsPrüfungFormal"));
         aspekte.add(Aspekt.erzeugeMitPid("asp.plausibilitätsPrüfungLogisch"));
-        Set<AttributgruppenVerwendung> attributgruppenVerwendungen = new LinkedHashSet<>();
-        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.externeErfassung"));
-        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.messWertErsetzung"));
-        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.plausibilitätsPrüfungFormal"));
-        attributgruppenVerwendungen.add(AttributgruppenVerwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.plausibilitätsPrüfungLogisch"));
+        Set<Attributgruppenverwendung> attributgruppenverwendungen = new LinkedHashSet<>();
+        attributgruppenverwendungen.add(Attributgruppenverwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.externeErfassung"));
+        attributgruppenverwendungen.add(Attributgruppenverwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.messWertErsetzung"));
+        attributgruppenverwendungen.add(Attributgruppenverwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.plausibilitätsPrüfungFormal"));
+        attributgruppenverwendungen.add(Attributgruppenverwendung.erzeugeMitPid("atgv.atg.verkehrsDatenKurzZeitIntervall.asp.plausibilitätsPrüfungLogisch"));
 
         Attributgruppe attributgruppe = metamodell.getAttributgruppe("atg.verkehrsDatenKurzZeitIntervall");
 
         assertEquals(aspekte, attributgruppe.getAspekte());
-        assertEquals(attributgruppenVerwendungen, attributgruppe.getAttributgruppenVerwendungen());
+        assertEquals(attributgruppenverwendungen, attributgruppe.getAttributgruppenverwendungen());
     }
 
     @Test
     public void testZeichenkettenAttributTyp() {
-        ZeichenkettenAttributtyp attributTyp = (ZeichenkettenAttributtyp) metamodell.getAttributTyp("att.einheit");
+        ZeichenkettenAttributtyp attributtyp = (ZeichenkettenAttributtyp) metamodell.getAttributtyp("att.einheit");
 
-        assertEquals(64, attributTyp.getLaenge());
-        assertEquals(Zeichenkodierung.ISO_8859_1, attributTyp.getKodierung());
+        assertEquals(64, attributtyp.getLaenge());
+        assertEquals(Zeichenkodierung.ISO_8859_1, attributtyp.getKodierung());
     }
 
     @Test
     public void testZeitstempelAttributTyp() {
-        ZeitstempelAttributtyp attributTyp = (ZeitstempelAttributtyp) metamodell.getAttributTyp("att.zeitDauer");
+        ZeitstempelAttributtyp attributtyp = (ZeitstempelAttributtyp) metamodell.getAttributtyp("att.zeitDauer");
 
-        assertEquals(true, attributTyp.isRelativ());
-        assertEquals(Zeitaufloesung.MILLISEKUNDEN, attributTyp.getGenauigkeit());
+        assertEquals(true, attributtyp.isRelativ());
+        assertEquals(Zeitaufloesung.MILLISEKUNDEN, attributtyp.getGenauigkeit());
     }
 
     @Test
     public void testKommazahlAttributTyp() {
-        KommazahlAttributtyp attributTyp = (KommazahlAttributtyp) metamodell.getAttributTyp("att.faktor");
+        KommazahlAttributtyp attributtyp = (KommazahlAttributtyp) metamodell.getAttributtyp("att.faktor");
 
-        assertEquals("", attributTyp.getEinheit());
-        assertEquals(Fliesskommaaufloesung.DOUBLE, attributTyp.getGenauigkeit());
+        assertEquals("", attributtyp.getEinheit());
+        assertEquals(Fliesskommaaufloesung.DOUBLE, attributtyp.getGenauigkeit());
     }
 
     @Test
     public void testObjektReferenzAttributTyp() {
-        ObjektreferenzAttributtyp attributTyp = (ObjektreferenzAttributtyp) metamodell.getAttributTyp("att.typReferenz");
+        ObjektreferenzAttributtyp attributtyp = (ObjektreferenzAttributtyp) metamodell.getAttributtyp("att.typReferenz");
 
-        assertEquals(false, attributTyp.isUndefiniertErlaubt());
-        assertEquals(Referenzierungsart.AGGREGATION, attributTyp.getReferenzierungsart());
+        assertEquals(false, attributtyp.isUndefiniertErlaubt());
+        assertEquals(Referenzierungsart.AGGREGATION, attributtyp.getReferenzierungsart());
     }
 
     @Test
     public void testGanzzahlAttributTyp() {
-        GanzzahlAttributtyp attributTyp = (GanzzahlAttributtyp) metamodell.getAttributTyp("att.geschwindigkeit");
+        GanzzahlAttributtyp attributtyp = (GanzzahlAttributtyp) metamodell.getAttributtyp("att.geschwindigkeit");
 
-        assertEquals(Datentypgroesse.SHORT, attributTyp.getAnzahlBytes());
-        assertEquals(Wertebereich.erzeuge(0, 254, 1, "km/h"), attributTyp.getBereich());
+        assertEquals(Datentypgroesse.SHORT, attributtyp.getAnzahlBytes());
+        assertEquals(Wertebereich.erzeuge(0, 254, 1, "km/h"), attributtyp.getBereich());
     }
 
     @Test
     public void testGanzzahlAttributTypMitZustaenden() {
-        GanzzahlAttributtyp attributTyp = (GanzzahlAttributtyp) metamodell.getAttributTyp("att.zeitAufloesung");
+        GanzzahlAttributtyp attributtyp = (GanzzahlAttributtyp) metamodell.getAttributtyp("att.zeitAufloesung");
 
         Set<Wertezustand> expected = new LinkedHashSet<>();
         expected.add(Wertezustand.erzeuge("Sekunden", 0));
         expected.add(Wertezustand.erzeuge("Millisekunden", 1));
-        assertEquals(expected, attributTyp.getZustaende());
+        assertEquals(expected, attributtyp.getZustaende());
     }
 
     @Test

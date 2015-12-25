@@ -23,7 +23,7 @@ public class Attributgruppe extends Systemobjekt implements Attributmenge {
     private final Set<Attribut> attribute = new LinkedHashSet<>();
 
     private Set<Aspekt> aspekte = new LinkedHashSet<>();
-    private Set<AttributgruppenVerwendung> attributgruppenVerwendungen = new LinkedHashSet<>();
+    private Set<Attributgruppenverwendung> attributgruppenverwendungen = new LinkedHashSet<>();
 
     public static Attributgruppe erzeugeMitPid(String pid) {
         Attributgruppe result = new Attributgruppe();
@@ -48,8 +48,8 @@ public class Attributgruppe extends Systemobjekt implements Attributmenge {
     /**
      * Attributgruppenverwendungen dieser Attributgruppe.
      */
-    public Set<AttributgruppenVerwendung> getAttributgruppenVerwendungen() {
-        return attributgruppenVerwendungen;
+    public Set<Attributgruppenverwendung> getAttributgruppenverwendungen() {
+        return attributgruppenverwendungen;
     }
 
 }

@@ -20,7 +20,7 @@ public abstract class Systemobjekt {
     private String pid;
     private String kurzinfo;
     private String beschreibung;
-    private Konfigurationsbereich konfigurationsBereich;
+    private Konfigurationsbereich konfigurationsbereich;
 
     public static int compareToNameOderPid(Systemobjekt so1, Systemobjekt so2) {
         if (Objects.equals(so1, so2)) return 0;
@@ -69,12 +69,12 @@ public abstract class Systemobjekt {
         this.beschreibung = beschreibung;
     }
 
-    public Konfigurationsbereich getKonfigurationsBereich() {
-        return konfigurationsBereich;
+    public Konfigurationsbereich getKonfigurationsbereich() {
+        return konfigurationsbereich;
     }
 
-    public void setKonfigurationsBereich(Konfigurationsbereich konfigurationsBereich) {
-        this.konfigurationsBereich = konfigurationsBereich;
+    public void setKonfigurationsbereich(Konfigurationsbereich konfigurationsbereich) {
+        this.konfigurationsbereich = konfigurationsbereich;
     }
 
     @Override

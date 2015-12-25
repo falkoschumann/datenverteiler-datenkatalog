@@ -35,7 +35,7 @@ class AttributgruppeFabrik extends AttributmengeFabrik<Attributgruppe> {
 
         AttributeGroup atg = (AttributeGroup) object;
         atg.getAspects().forEach(e -> result.getAspekte().add(getMetamodell().getAspekt(e.getPid())));
-        atg.getAttributeGroupUsages().forEach(e -> result.getAttributgruppenVerwendungen().add(getMetamodell().getAttributgruppenVerwendung(e.getPid())));
+        atg.getAttributeGroupUsages().forEach(e -> result.getAttributgruppenverwendungen().add(getMetamodell().getAttributgruppenverwendung(e.getPid())));
     }
 
 }
