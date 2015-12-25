@@ -15,18 +15,13 @@ import java.util.Set;
  * @author Falko Schumann
  * @since 3.2
  */
-public class KonfigurationsBereich extends SystemObjekt {
+public class Konfigurationsbereich extends Systemobjekt {
 
-    private KonfigurationsVerantwortlicher zustaendiger;
-    private final Set<Typ> typen = new LinkedHashSet<>();
-    private final Set<MengenTyp> mengen = new LinkedHashSet<>();
-    private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
-    private final Set<AttributListenDefinition> attributlisten = new LinkedHashSet<>();
-    private final Set attributtypen = new LinkedHashSet<>();
-    private final Set aspekte = new LinkedHashSet<>();
+    private Konfigurationsverantwortlicher zustaendiger;
+    private final Set<Systemobjekt> modell = new LinkedHashSet<>();
 
-    public static KonfigurationsBereich erzeugeMitPid(String pid) {
-        KonfigurationsBereich result = new KonfigurationsBereich();
+    public static Konfigurationsbereich erzeugeMitPid(String pid) {
+        Konfigurationsbereich result = new Konfigurationsbereich();
         result.setPid(pid);
         return result;
     }
@@ -34,50 +29,19 @@ public class KonfigurationsBereich extends SystemObjekt {
     /**
      * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
      */
-    public KonfigurationsVerantwortlicher getZustaendiger() {
+    public Konfigurationsverantwortlicher getZustaendiger() {
         return zustaendiger;
     }
 
     /**
      * Spezifiziert den Konfigurationsverantwortlichen für diesen Bereich.
      */
-    public void setZustaendiger(KonfigurationsVerantwortlicher zustaendiger) {
+    public void setZustaendiger(Konfigurationsverantwortlicher zustaendiger) {
         this.zustaendiger = zustaendiger;
     }
 
-    public Set<Typ> getTypen() {
-        return typen;
-    }
-
-    public Set<MengenTyp> getMengen() {
-        return mengen;
-    }
-
-    public Set<Attributgruppe> getAttributgruppen() {
-        return attributgruppen;
-    }
-
-    public Set<AttributListenDefinition> getAttributlisten() {
-        return attributlisten;
-    }
-
-    public Set<AttributTyp> getAttributtypen() {
-        return attributtypen;
-    }
-
-    public Set getAspekte() {
-        return aspekte;
-    }
-
-    public Set<SystemObjekt> getAlleObjekte() {
-        Set<SystemObjekt> result = new LinkedHashSet<>();
-        result.addAll(typen);
-        result.addAll(mengen);
-        result.addAll(attributgruppen);
-        result.addAll(attributlisten);
-        result.addAll(attributtypen);
-        result.addAll(aspekte);
-        return result;
+    public Set<Systemobjekt> getModell() {
+        return modell;
     }
 
 }

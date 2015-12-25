@@ -13,7 +13,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class AspektFabrik extends SystemObjektFabrik<Aspekt> {
+class AspektFabrik extends SystemobjektFabrik<Aspekt> {
 
     AspektFabrik(Metamodell metamodell) {
         super(metamodell);

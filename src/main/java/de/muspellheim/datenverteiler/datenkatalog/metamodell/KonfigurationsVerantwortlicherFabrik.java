@@ -16,21 +16,21 @@ import java.util.stream.Collectors;
  * @author Falko Schumann
  * @since 3.2
  */
-class KonfigurationsVerantwortlicherFabrik extends SystemObjektFabrik<KonfigurationsVerantwortlicher> {
+class KonfigurationsverantwortlicherFabrik extends SystemobjektFabrik<Konfigurationsverantwortlicher> {
 
-    KonfigurationsVerantwortlicherFabrik(Metamodell metamodell) {
+    KonfigurationsverantwortlicherFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
-    Set<KonfigurationsVerantwortlicher> getKonfigurationsverantwortliche() {
+    Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
         return getMetamodell().getModel().getType("typ.konfigurationsVerantwortlicher").getElements().stream().
                 map(k -> getObjekt(k.getPid())).
                 collect(Collectors.toSet());
     }
 
     @Override
-    protected KonfigurationsVerantwortlicher erzeugeObjekt(SystemObject objekt) {
-        return KonfigurationsVerantwortlicher.erzeugeMitPid(objekt.getPid());
+    protected Konfigurationsverantwortlicher erzeugeObjekt(SystemObject objekt) {
+        return Konfigurationsverantwortlicher.erzeugeMitPid(objekt.getPid());
     }
 
 }

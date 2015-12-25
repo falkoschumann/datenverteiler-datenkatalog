@@ -17,13 +17,13 @@ import java.util.Map;
  * @author Falko Schumann
  * @since 3.2
  */
-abstract class SystemObjektFabrik<T extends SystemObjekt> {
+abstract class SystemobjektFabrik<T extends Systemobjekt> {
 
     private final Map<String, T> objekte = new LinkedHashMap<>();
 
     private final Metamodell metamodell;
 
-    protected SystemObjektFabrik(Metamodell metamodell) {
+    protected SystemobjektFabrik(Metamodell metamodell) {
         this.metamodell = metamodell;
     }
 

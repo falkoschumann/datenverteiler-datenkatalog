@@ -14,9 +14,9 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class KommazahlAttributTypFabrik extends AttributTypFabrik<KommazahlAttributTyp> {
+class KommazahlAttributtypFabrik extends AttributtypFabrik<KommazahlAttributtyp> {
 
-    KommazahlAttributTypFabrik(Metamodell metamodell) {
+    KommazahlAttributtypFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -25,22 +25,22 @@ class KommazahlAttributTypFabrik extends AttributTypFabrik<KommazahlAttributTyp>
     }
 
     @Override
-    protected KommazahlAttributTyp erzeugeObjekt(SystemObject objekt) {
-        return KommazahlAttributTyp.erzeugeMitPid(objekt.getPid());
+    protected KommazahlAttributtyp erzeugeObjekt(SystemObject objekt) {
+        return KommazahlAttributtyp.erzeugeMitPid(objekt.getPid());
     }
 
     @Override
-    protected void initialisiereObjekt(SystemObject object, KommazahlAttributTyp result) {
+    protected void initialisiereObjekt(SystemObject object, KommazahlAttributtyp result) {
         super.initialisiereObjekt(object, result);
 
         DoubleAttributeType type = (DoubleAttributeType) object;
         result.setEinheit(type.getUnit());
         switch (type.getAccuracy()) {
             case DoubleAttributeType.DOUBLE:
-                result.setGenauigkeit(FliesskommaAufloesung.DOUBLE);
+                result.setGenauigkeit(Fliesskommaaufloesung.DOUBLE);
                 break;
             case DoubleAttributeType.FLOAT:
-                result.setGenauigkeit(FliesskommaAufloesung.FLOAT);
+                result.setGenauigkeit(Fliesskommaaufloesung.FLOAT);
                 break;
             default:
                 throw new IllegalStateException("Unbekannte Fließkommaauflösung: " + type.getAccuracy());

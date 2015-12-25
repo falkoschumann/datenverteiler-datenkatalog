@@ -14,19 +14,19 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public final class WerteBereich extends SystemObjekt {
+public final class Wertebereich extends Systemobjekt {
 
     private long minimum;
     private long maximum;
     private double skalierung;
     private String einheit;
 
-    private WerteBereich() {
+    private Wertebereich() {
         // value object
     }
 
-    public static WerteBereich erzeuge(long minimum, long maximum, double skalierung, String einheit) {
-        WerteBereich result = new WerteBereich();
+    public static Wertebereich erzeuge(long minimum, long maximum, double skalierung, String einheit) {
+        Wertebereich result = new Wertebereich();
         result.minimum = minimum;
         result.maximum = maximum;
         result.skalierung = skalierung;
@@ -54,7 +54,7 @@ public final class WerteBereich extends SystemObjekt {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        WerteBereich that = (WerteBereich) o;
+        Wertebereich that = (Wertebereich) o;
         return minimum == that.minimum &&
                 maximum == that.maximum &&
                 Double.compare(that.skalierung, skalierung) == 0 &&

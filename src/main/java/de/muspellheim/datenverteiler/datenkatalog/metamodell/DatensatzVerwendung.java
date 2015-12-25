@@ -18,7 +18,7 @@ import java.util.Optional;
  * @author Falko Schumann
  * @since 3.2
  */
-public enum DatensatzVerwendung {
+public enum Datensatzverwendung {
 
     KONFIGURIERENDER_DATENSATZ_NOTWENDIG("KonfigurierenderDatensatzNotwendig"),
 
@@ -36,12 +36,12 @@ public enum DatensatzVerwendung {
 
     private final String text;
 
-    DatensatzVerwendung(String text) {
+    Datensatzverwendung(String text) {
         this.text = text;
     }
 
-    public static DatensatzVerwendung of(String text) {
-        Optional<DatensatzVerwendung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
+    public static Datensatzverwendung of(String text) {
+        Optional<Datensatzverwendung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
         if (result.isPresent())
             return result.get();
 

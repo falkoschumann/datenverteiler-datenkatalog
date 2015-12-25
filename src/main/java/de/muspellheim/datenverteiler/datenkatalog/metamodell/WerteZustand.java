@@ -15,16 +15,16 @@ import java.util.Objects;
  * @author Falko Schumann
  * @since 3.2
  */
-public final class WerteZustand extends SystemObjekt {
+public final class Wertezustand extends Systemobjekt {
 
     private long wert;
 
-    private WerteZustand() {
+    private Wertezustand() {
         // value object
     }
 
-    public static WerteZustand erzeuge(String name, long wert) {
-        WerteZustand result = new WerteZustand();
+    public static Wertezustand erzeuge(String name, long wert) {
+        Wertezustand result = new Wertezustand();
         result.setName(name);
         result.wert = wert;
         return result;
@@ -39,7 +39,7 @@ public final class WerteZustand extends SystemObjekt {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        WerteZustand werteZustand = (WerteZustand) o;
+        Wertezustand werteZustand = (Wertezustand) o;
         return Objects.equals(getName(), werteZustand.getName()) &&
                 wert == werteZustand.wert;
     }

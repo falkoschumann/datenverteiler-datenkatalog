@@ -13,9 +13,9 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class AttributListenDefinitionFabrik extends AttributMengeFabrik<AttributListenDefinition> {
+class AttributlisteFabrik extends AttributmengeFabrik<Attributliste> {
 
-    AttributListenDefinitionFabrik(Metamodell metamodell) {
+    AttributlisteFabrik(Metamodell metamodell) {
         super(metamodell);
     }
 
@@ -24,8 +24,8 @@ class AttributListenDefinitionFabrik extends AttributMengeFabrik<AttributListenD
     }
 
     @Override
-    protected AttributListenDefinition erzeugeObjekt(SystemObject objekt) {
-        return AttributListenDefinition.erzeugeMitPid(objekt.getPid());
+    protected Attributliste erzeugeObjekt(SystemObject objekt) {
+        return Attributliste.erzeugeMitPid(objekt.getPid());
     }
 
 }

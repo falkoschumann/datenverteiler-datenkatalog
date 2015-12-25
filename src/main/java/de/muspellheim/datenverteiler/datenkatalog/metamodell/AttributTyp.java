@@ -16,7 +16,7 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public interface AttributTyp {
+public abstract class Attributtyp extends Systemobjekt {
 
     // tagging interface
 

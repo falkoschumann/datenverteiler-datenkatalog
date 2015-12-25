@@ -14,7 +14,7 @@ import de.bsvrz.dav.daf.main.config.SystemObject;
  * @author Falko Schumann
  * @since 3.2
  */
-class AttributgruppeFabrik extends AttributMengeFabrik<Attributgruppe> {
+class AttributgruppeFabrik extends AttributmengeFabrik<Attributgruppe> {
 
     AttributgruppeFabrik(Metamodell metamodell) {
         super(metamodell);

@@ -15,18 +15,18 @@ import java.util.Optional;
  * @author Falko Schumann
  * @since 3.2
  */
-public enum ZeichenKodierung {
+public enum Zeichenkodierung {
 
     ISO_8859_1("ISO-8859-1");
 
     private final String text;
 
-    ZeichenKodierung(String text) {
+    Zeichenkodierung(String text) {
         this.text = text;
     }
 
-    public static ZeichenKodierung of(String text) {
-        Optional<ZeichenKodierung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
+    public static Zeichenkodierung of(String text) {
+        Optional<Zeichenkodierung> result = Arrays.stream(values()).filter(e -> e.text.equals(text)).findAny();
         if (result.isPresent())
             return result.get();
 
