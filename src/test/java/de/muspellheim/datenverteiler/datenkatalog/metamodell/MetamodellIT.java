@@ -120,6 +120,10 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
         assertEquals(MengenTyp.erzeugeMitPid("menge.routen"), typ);
         assertEquals(Collections.singleton(Typ.erzeugeMitPid("typ.route")), typ.getObjektTypen());
+        assertEquals(2, typ.getMinimaleAnzahl());
+        assertEquals(0, typ.getMaximaleAnzahl());
+        assertEquals(false, typ.isAenderbar());
+        assertEquals(Referenzierungsart.ASSOZIATION, typ.getReferenzierungsart());
     }
 
     @Test

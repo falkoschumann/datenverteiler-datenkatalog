@@ -50,7 +50,6 @@ class ObjektReferenzAttributTypFabrik extends AttributTypFabrik<ObjektReferenzAt
             default:
                 throw new IllegalStateException("Unbekannte Referenzierungsart: " + type.getReferenceType());
         }
-
     }
 
 }
