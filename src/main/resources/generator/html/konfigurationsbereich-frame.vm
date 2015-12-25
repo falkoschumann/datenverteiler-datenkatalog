@@ -13,13 +13,54 @@
     <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.nameOderPid}</a>
 </div>
 <div class="content">
+    <p><strong>Typen</strong></p>
     <ul class="objekte">
-        #foreach( $objekt in $konfigurationsbereich.alleObjekte )
-        <li><a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
-            #if ( ${objekt.class.simpleName} == "Typ" )<em>#end
-            ${objekt.nameOderPid}
-            #if ( ${objekt.class.simpleName} == "Typ" )</em>#end
-        </a></li>
+        #foreach( $objekt in $konfigurationsbereich.typen )
+            <li>
+                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    <strong>$objekt.nameOderPid</strong>
+                </a>
+            </li>
+        #end
+    </ul>
+    <p><strong>Mengen</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.mengen )
+            <li>
+                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    $objekt.nameOderPid
+                </a>
+            </li>
+        #end
+    </ul>
+    <p><strong>Attributgruppen</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.attributgruppen )
+            <li>
+                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    <em>$objekt.nameOderPid</em>
+                </a>
+            </li>
+        #end
+    </ul>
+    <p><strong>Attributlisten</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.attributlisten )
+            <li>
+                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    $objekt.nameOderPid
+                </a>
+            </li>
+        #end
+    </ul>
+    <p><strong>Attributtypen</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.attributtypen )
+            <li>
+                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    $objekt.nameOderPid
+                </a>
+            </li>
         #end
     </ul>
 </div>
