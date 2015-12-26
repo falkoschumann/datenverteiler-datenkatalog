@@ -17,10 +17,8 @@ public class ObjektreferenzAttributtyp extends Attributtyp {
     private boolean undefiniertErlaubt;
     private Referenzierungsart referenzierungsart;
 
-    public static ObjektreferenzAttributtyp erzeugeMitPid(String pid) {
-        ObjektreferenzAttributtyp result = new ObjektreferenzAttributtyp();
-        result.setPid(pid);
-        return result;
+    public ObjektreferenzAttributtyp(String pid) {
+        super(pid);
     }
 
     /**

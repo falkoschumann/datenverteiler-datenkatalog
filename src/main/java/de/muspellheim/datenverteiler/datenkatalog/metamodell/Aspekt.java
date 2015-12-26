@@ -17,10 +17,8 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  */
 public class Aspekt extends Systemobjekt {
 
-    public static Aspekt erzeugeMitPid(String pid) {
-        Aspekt result = new Aspekt();
-        result.setPid(pid);
-        return result;
+    public Aspekt(String pid) {
+        super(pid);
     }
 
 }

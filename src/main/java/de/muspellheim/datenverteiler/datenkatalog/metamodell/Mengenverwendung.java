@@ -21,7 +21,7 @@ public final class Mengenverwendung extends Systemobjekt {
     private boolean erforderlich;
 
     private Mengenverwendung() {
-        // value object
+        super(null);
     }
 
     public static Mengenverwendung erzeuge(String mengenName, Mengentyp mengenTyp) {

@@ -15,10 +15,8 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  */
 public class DynamischerTyp extends Typ {
 
-    public static DynamischerTyp erzeugeMitPid(String pid) {
-        DynamischerTyp result = new DynamischerTyp();
-        result.setPid(pid);
-        return result;
+    public DynamischerTyp(String pid) {
+        super(pid);
     }
 
 }

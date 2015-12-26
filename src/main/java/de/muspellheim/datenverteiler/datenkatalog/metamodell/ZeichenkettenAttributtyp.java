@@ -16,10 +16,8 @@ public class ZeichenkettenAttributtyp extends Attributtyp {
     private int laenge;
     private Zeichenkodierung kodierung = Zeichenkodierung.ISO_8859_1;
 
-    public static ZeichenkettenAttributtyp erzeugeMitPid(String pid) {
-        ZeichenkettenAttributtyp result = new ZeichenkettenAttributtyp();
-        result.setPid(pid);
-        return result;
+    public ZeichenkettenAttributtyp(String pid) {
+        super(pid);
     }
 
     public int getLaenge() {

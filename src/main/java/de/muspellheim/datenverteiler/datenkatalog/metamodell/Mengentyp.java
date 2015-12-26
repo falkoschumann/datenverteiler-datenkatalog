@@ -22,10 +22,8 @@ public class Mengentyp extends Typ {
     private boolean aenderbar;
     private Referenzierungsart referenzierungsart;
 
-    public static Mengentyp erzeugeMitPid(String pid) {
-        Mengentyp result = new Mengentyp();
-        result.setPid(pid);
-        return result;
+    public Mengentyp(String pid) {
+        super(pid);
     }
 
     /**

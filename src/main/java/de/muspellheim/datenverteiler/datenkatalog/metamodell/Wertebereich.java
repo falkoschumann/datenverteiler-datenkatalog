@@ -22,7 +22,7 @@ public final class Wertebereich extends Systemobjekt {
     private String einheit;
 
     private Wertebereich() {
-        // value object
+        super(null);
     }
 
     public static Wertebereich erzeuge(long minimum, long maximum, double skalierung, String einheit) {

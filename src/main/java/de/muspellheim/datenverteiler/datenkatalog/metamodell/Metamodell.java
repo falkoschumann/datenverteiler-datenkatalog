@@ -5,15 +5,16 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import de.bsvrz.dav.daf.main.config.Attribute;
-import de.bsvrz.dav.daf.main.config.AttributeType;
-import de.bsvrz.dav.daf.main.config.DataModel;
-import de.bsvrz.dav.daf.main.config.ObjectSetUse;
+import de.bsvrz.dav.daf.main.Data;
+import de.bsvrz.dav.daf.main.config.*;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
- * Fabrik zum Erzeugen von Objekten des Metamodells.
+ * Erbauer zum Bauen von Objekten des Metamodells.
  *
  * @author Falko Schumann
  * @since 3.2
@@ -24,95 +25,384 @@ public class Metamodell {
     // TODO Defaultparameter abbilden
     // TODO Konfigurationsobjekte mit Mengen und Konfigurationsdaten abbilden
 
+    private final Map<String, Systemobjekt> objekte = new LinkedHashMap<>();
+
+    private final MetamodellFabrik fabrik;
     private final DataModel model;
 
-    private final KonfigurationsverantwortlicherFabrik konfigurationsverantwortlicherFabrik = new KonfigurationsverantwortlicherFabrik(this);
-    private final KonfigurationsbereichFabrik konfigurationsbereichFabrik = new KonfigurationsbereichFabrik(this);
-    private final TypFabrik typFabrik = new TypFabrik(this);
-    private final MengentypFabrik mengentypFabrik = new MengentypFabrik(this);
-    private final AttributgruppeFabrik attributgruppeFabrik = new AttributgruppeFabrik(this);
-    private final AttributlisteFabrik attributlisteFabrik = new AttributlisteFabrik(this);
-    private final ZeichenkettenAttributtypFabrik zeichenkettenAttributtypFabrik = new ZeichenkettenAttributtypFabrik(this);
-    private final ZeitstempelAttributtypFabrik zeitstempelAttributtypFabrik = new ZeitstempelAttributtypFabrik(this);
-    private final KommazahlAttributtypFabrik kommazahlAttributTypFabrik = new KommazahlAttributtypFabrik(this);
-    private final ObjektreferenzAttributtypFabrik objektreferenAttributtypFabrik = new ObjektreferenzAttributtypFabrik(this);
-    private final GanzzahlAttributtypFabrik ganzzahlAttributtypFabrik = new GanzzahlAttributtypFabrik(this);
-    private final AspektFabrik aspektFabrik = new AspektFabrik(this);
-    private final AttributgruppenverwendungFabrik attributgruppenverwendungFabrik = new AttributgruppenverwendungFabrik(this);
 
-    public Metamodell(DataModel model) {
+    public Metamodell(MetamodellFabrik fabrik, DataModel model) {
+        this.fabrik = fabrik;
         this.model = model;
     }
 
-    DataModel getModel() {
-        return model;
+    private <T extends Systemobjekt> T gibObjekt(SystemObject so, Fabrikmethode<T> fabrikmethode, Initialisierungsstrategie<T> initalisierungsstrategie) {
+        if (objekte.containsKey(so.getPid()))
+            return (T) objekte.get(so.getPid());
+
+        T result = fabrikmethode.erzeuge(so.getPid());
+        objekte.put(result.getPid(), result);
+        initalisierungsstrategie.initialisiere(so, result);
+        return result;
     }
 
-    public Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
-        return konfigurationsverantwortlicherFabrik.getKonfigurationsverantwortliche();
-    }
-
-    public Konfigurationsverantwortlicher getKonfigurationsverantwortlicher(String pid) {
-        return konfigurationsverantwortlicherFabrik.getObjekt(pid);
+    private void initialisiereObjekt(SystemObject so, Systemobjekt objekt) {
+        objekt.setName(so.getName());
+        objekt.setKurzinfo(so.getInfo().getShortInfo().trim());
+        objekt.setBeschreibung(so.getInfo().getDescription().trim());
+        if (!(so instanceof ConfigurationArea))
+            objekt.setKonfigurationsbereich(gibKonfigurationsbereich(so.getConfigurationArea().getPid()));
     }
 
     public Set<Konfigurationsbereich> getKonfigurationsbereiche() {
-        return konfigurationsbereichFabrik.getKonfigurationsbereiche();
+        return model.getType("typ.konfigurationsBereich").getElements().stream().
+                map(k -> gibKonfigurationsbereich(k.getPid())).
+                collect(Collectors.toSet());
     }
 
-    public Konfigurationsbereich getKonfigurationsbereich(String pid) {
-        return konfigurationsbereichFabrik.getObjekt(pid);
+    public Konfigurationsbereich gibKonfigurationsbereich(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsbereich, this::initialisiereKonfigurationsbereich);
     }
 
-    public Typ getTyp(String pid) {
-        return typFabrik.getObjekt(pid);
+    protected void initialisiereKonfigurationsbereich(SystemObject object, Konfigurationsbereich result) {
+        initialisiereObjekt(object, result);
+
+        ConfigurationArea area = (ConfigurationArea) object;
+        result.setZustaendiger(gibKonfigurationsverantwortlicher(area.getConfigurationAuthority().getPid()));
+        area.getCurrentObjects().stream().filter(this::istTyp).forEach(e -> result.getModell().add(gibTyp(e.getPid())));
+        area.getCurrentObjects().stream().filter(this::istMengenTyp).forEach(e -> result.getModell().add(gibMengentyp(e.getPid())));
+        area.getCurrentObjects().stream().filter(this::istAttributgruppe).forEach(e -> result.getModell().add(gibAttributgruppe(e.getPid())));
+        area.getCurrentObjects().stream().filter(this::istAttributliste).forEach(e -> result.getModell().add(gibAttributliste(e.getPid())));
+        area.getCurrentObjects().stream().filter(this::istAttributTyp).forEach(e -> result.getModell().add(gibAttributtyp(e.getPid())));
+        area.getCurrentObjects().stream().filter(this::istAspekt).forEach(e -> result.getModell().add(gibAspekt(e.getPid())));
     }
 
-    public Mengentyp getMengentyp(String pid) {
-        return mengentypFabrik.getObjekt(pid);
+    public Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
+        return model.getType("typ.konfigurationsVerantwortlicher").getElements().stream().
+                map(k -> gibKonfigurationsverantwortlicher(k.getPid())).
+                collect(Collectors.toSet());
     }
 
-    Mengenverwendung getMengenverwendung(long id) {
+    public Konfigurationsverantwortlicher gibKonfigurationsverantwortlicher(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsverantwortlicher, this::initialisiereObjekt);
+    }
+
+    private boolean istTyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.typ") && !systemObject.isOfType("typ.mengenTyp");
+    }
+
+    public Typ gibTyp(String pid) {
+        SystemObject so = model.getObject(pid);
+        if (so instanceof DynamicObjectType)
+            return gibDynamischerTyp(pid);
+        if (so instanceof ObjectSetType)
+            return gibMengentyp(pid);
+
+        return gibObjekt(so, fabrik::erzeugeTyp, this::initialisiereTyp);
+    }
+
+    private void initialisiereTyp(SystemObject so, Typ objekt) {
+        initialisiereObjekt(so, objekt);
+
+        SystemObjectType type = (SystemObjectType) so;
+        type.getSuperTypes().stream().forEach(e -> objekt.getSupertypen().add(gibTyp(e.getPid())));
+        type.getSubTypes().stream().forEach(e -> objekt.getSubtypen().add(gibTyp(e.getPid())));
+        type.getDirectObjectSetUses().forEach(e -> objekt.getMengen().add(gibMengenverwendung(e.getId())));
+        type.getDirectAttributeGroups().forEach(e -> objekt.getAttributgruppen().add(gibAttributgruppe(e.getPid())));
+    }
+
+    private Mengenverwendung gibMengenverwendung(long id) {
         ObjectSetUse objectSetUse = (ObjectSetUse) model.getObject(id);
-        return Mengenverwendung.erzeuge(objectSetUse.getObjectSetName(), getMengentyp(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
+        return Mengenverwendung.erzeuge(objectSetUse.getObjectSetName(), gibMengentyp(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
     }
 
-    public Attributgruppe getAttributgruppe(String pid) {
-        return attributgruppeFabrik.getObjekt(pid);
+    public DynamischerTyp gibDynamischerTyp(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeDynamischerTyp, this::initialisiereTyp);
     }
 
-    public Attributliste getAttributliste(String pid) {
-        return attributlisteFabrik.getObjekt(pid);
+    private boolean istMengenTyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.mengenTyp");
     }
 
-    public Aspekt getAspekt(String pid) {
-        return aspektFabrik.getObjekt(pid);
+    public Mengentyp gibMengentyp(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeMengentyp, this::initialisiereMengentyp);
     }
 
-    Attributgruppenverwendung getAttributgruppenverwendung(String pid) {
-        return attributgruppenverwendungFabrik.getObjekt(pid);
+    private void initialisiereMengentyp(SystemObject so, Mengentyp objekt) {
+        initialisiereObjekt(so, objekt);
+
+        ObjectSetType objectSetType = (ObjectSetType) so;
+        objectSetType.getObjectTypes().forEach(t -> objekt.getObjektTypen().add(gibTyp(t.getPid())));
+        AttributeGroup atg = model.getAttributeGroup("atg.mengenTypEigenschaften");
+        Data data = so.getConfigurationData(atg);
+        objekt.setMinimaleAnzahl(data.getUnscaledValue("minimaleAnzahl").intValue());
+        objekt.setMaximaleAnzahl(data.getUnscaledValue("maximaleAnzahl").intValue());
+        objekt.setAenderbar(data.getUnscaledValue("änderbar").byteValue() != 0);
+        switch (data.getUnscaledValue("referenzierungsart").byteValue()) {
+            case 0:
+                objekt.setReferenzierungsart(Referenzierungsart.ASSOZIATION);
+                break;
+            case 1:
+                objekt.setReferenzierungsart(Referenzierungsart.AGGREGATION);
+                break;
+            case 2:
+                objekt.setReferenzierungsart(Referenzierungsart.KOMPOSITION);
+                break;
+            default:
+                throw new IllegalStateException("Unbekannte Referenzierungsart: " + data.getUnscaledValue("referenzierungsart").getText());
+        }
     }
 
-    Attributtyp getAttributtyp(String pid) {
+    private boolean istAttributgruppe(SystemObject systemObject) {
+        return systemObject.isOfType("typ.attributgruppe");
+    }
+
+    public Attributgruppe gibAttributgruppe(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributgruppe, this::initialisiereAttributgruppe);
+    }
+
+    private void initialisiereAttributgruppe(SystemObject so, Attributgruppe objekt) {
+        initialisiereAttributmenge(so, objekt);
+
+        AttributeGroup atg = (AttributeGroup) so;
+        atg.getAspects().forEach(e -> objekt.getAspekte().add(gibAspekt(e.getPid())));
+        atg.getAttributeGroupUsages().forEach(e -> objekt.getAttributgruppenverwendungen().add(getAttributgruppenverwendung(e.getPid())));
+    }
+
+    private <T extends Systemobjekt & Attributmenge> void initialisiereAttributmenge(SystemObject so, T objekt) {
+        initialisiereObjekt(so, objekt);
+
+        ConfigurationObject co = (ConfigurationObject) so;
+        co.getObjectSet("Attribute").getElements().stream().forEach(e -> objekt.getAttribute().add(gibAttribut(e.getId())));
+    }
+
+    private Attributgruppenverwendung getAttributgruppenverwendung(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributgruppenverwendung, this::initialisiereAttributgruppenverwendung);
+    }
+
+    private void initialisiereAttributgruppenverwendung(SystemObject so, Attributgruppenverwendung objekt) {
+        initialisiereObjekt(so, objekt);
+
+        AttributeGroupUsage usage = (AttributeGroupUsage) so;
+        objekt.setAttributgruppe(gibAttributgruppe(usage.getAttributeGroup().getPid()));
+        objekt.setAspekt(gibAspekt(usage.getAspect().getPid()));
+        objekt.setVerwendungExplizitVorgegeben(usage.isExplicitDefined());
+        objekt.setDatensatzverwendung(datensatzVerwendung(usage.getUsage()));
+    }
+
+    private Datensatzverwendung datensatzVerwendung(AttributeGroupUsage.Usage usage) {
+        switch (usage.getId()) {
+            case 1:
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_NOTWENDIG;
+            case 2:
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_NOTWENDIG_UND_AENDERBAR;
+            case 3:
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_OPTIONAL;
+            case 4:
+                return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_OPTIONALUND_AENDERBAR;
+            case 5:
+                return Datensatzverwendung.ONLINE_DATENSATZ_QUELLE;
+            case 6:
+                return Datensatzverwendung.ONLINE_DATENSATZ_SENKE;
+            case 7:
+                return Datensatzverwendung.ONLINE_DATENSATZ_QUELLE_UND_SENKE;
+            default:
+                throw new IllegalStateException("Unbekannte Datensatzverwendung: " + usage);
+        }
+    }
+
+    Attribut gibAttribut(long id) {
+        Attribute attribute = (Attribute) model.getObject(id);
+        return Attribut.erzeuge(attribute.getName(), attribute.getPosition(), attribute.getMaxCount(), attribute.isCountVariable(), gibAttributtyp(attribute.getAttributeType().getPid()));
+    }
+
+    private boolean istAspekt(SystemObject systemObject) {
+        return systemObject.isOfType("typ.aspekt");
+    }
+
+    public Aspekt gibAspekt(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeAspekt, this::initialisiereObjekt);
+    }
+
+    private boolean istAttributTyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.attributTyp");
+    }
+
+    public Attributtyp gibAttributtyp(String pid) {
         AttributeType attributeType = model.getAttributeType(pid);
-        if (AttributlisteFabrik.istAttributliste(attributeType))
-            return attributlisteFabrik.getObjekt(pid);
-        if (ZeichenkettenAttributtypFabrik.istAttributTyp(attributeType))
-            return zeichenkettenAttributtypFabrik.getObjekt(pid);
-        if (ZeitstempelAttributtypFabrik.istAttributTyp(attributeType))
-            return zeitstempelAttributtypFabrik.getObjekt(pid);
-        if (KommazahlAttributtypFabrik.istAttributTyp(attributeType))
-            return kommazahlAttributTypFabrik.getObjekt(pid);
-        if (ObjektreferenzAttributtypFabrik.istAttributTyp(attributeType))
-            return objektreferenAttributtypFabrik.getObjekt(pid);
-        if (GanzzahlAttributtypFabrik.istAttributTyp(attributeType))
-            return ganzzahlAttributtypFabrik.getObjekt(pid);
+        if (istAttributliste(attributeType))
+            return gibAttributliste(pid);
+        if (istZeichenketteAttributtyp(attributeType))
+            return gibZeichenkettenAttributtyp(pid);
+        if (istZeitstempelAttributtyp(attributeType))
+            return gibZeitstempelAttributtyp(pid);
+        if (istKommazahlAttributtyp(attributeType))
+            return gibKommazahlAttributtyp(pid);
+        if (istObjektreferenzAttributtyp(attributeType))
+            return gibObjektreferenzAttributtyp(pid);
+        if (istGanzzahlAttributtyp(attributeType))
+            return gibGanzzahlAttributtyp(pid);
         throw new IllegalStateException("Unbekannter Attributtyp: " + attributeType);
     }
 
-    Attribut getAttribut(long id) {
-        Attribute attribute = (Attribute) model.getObject(id);
-        return Attribut.erzeuge(attribute.getName(), attribute.getPosition(), attribute.getMaxCount(), attribute.isCountVariable(), getAttributtyp(attribute.getAttributeType().getPid()));
+    private boolean istAttributliste(SystemObject systemObject) {
+        return systemObject.isOfType("typ.attributListenDefinition");
+    }
+
+    public Attributliste gibAttributliste(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributliste, this::initialisiereAttributmenge);
+    }
+
+    private boolean istZeichenketteAttributtyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.zeichenketteAttributTyp");
+    }
+
+    public ZeichenkettenAttributtyp gibZeichenkettenAttributtyp(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeZeichenkettenAttributtyp, this::initialisiereZeichenkettenAttributtyp);
+    }
+
+    private void initialisiereZeichenkettenAttributtyp(SystemObject so, ZeichenkettenAttributtyp objekt) {
+        initialisiereObjekt(so, objekt);
+
+        StringAttributeType type = (StringAttributeType) so;
+        objekt.setLaenge(type.getMaxLength());
+        objekt.setKodierung(Zeichenkodierung.of(type.getEncodingName()));
+    }
+
+    private boolean istZeitstempelAttributtyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.zeitstempelAttributTyp");
+    }
+
+    public ZeitstempelAttributtyp gibZeitstempelAttributtyp(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeZeitstempelAttributtyp, this::initialisiereZeitstempelAttributtyp);
+    }
+
+    private void initialisiereZeitstempelAttributtyp(SystemObject so, ZeitstempelAttributtyp objekt) {
+        initialisiereObjekt(so, objekt);
+
+        TimeAttributeType type = (TimeAttributeType) so;
+        objekt.setRelativ(type.isRelative());
+        switch (type.getAccuracy()) {
+            case TimeAttributeType.SECONDS:
+                objekt.setGenauigkeit(Zeitaufloesung.SEKUNDEN);
+                break;
+            case TimeAttributeType.MILLISECONDS:
+                objekt.setGenauigkeit(Zeitaufloesung.MILLISEKUNDEN);
+                break;
+            default:
+                throw new IllegalStateException("Unbekante Zeitauflösung: " + type.getAccuracy());
+        }
+    }
+
+    private boolean istKommazahlAttributtyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.kommazahlAttributTyp");
+    }
+
+    public KommazahlAttributtyp gibKommazahlAttributtyp(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeKommazahlAttributtyp, this::initialisiereKommazahlAttributtyp);
+    }
+
+    private void initialisiereKommazahlAttributtyp(SystemObject so, KommazahlAttributtyp objekt) {
+        initialisiereObjekt(so, objekt);
+
+        DoubleAttributeType type = (DoubleAttributeType) so;
+        objekt.setEinheit(type.getUnit());
+        switch (type.getAccuracy()) {
+            case DoubleAttributeType.DOUBLE:
+                objekt.setGenauigkeit(Fliesskommaaufloesung.DOUBLE);
+                break;
+            case DoubleAttributeType.FLOAT:
+                objekt.setGenauigkeit(Fliesskommaaufloesung.FLOAT);
+                break;
+            default:
+                throw new IllegalStateException("Unbekannte Fließkommaauflösung: " + type.getAccuracy());
+        }
+
+    }
+
+    private boolean istObjektreferenzAttributtyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.objektReferenzAttributTyp");
+    }
+
+    public ObjektreferenzAttributtyp gibObjektreferenzAttributtyp(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeObjektreferenzAttributtyp, this::initialisiereObjektreferenzAttributtyp);
+    }
+
+    private void initialisiereObjektreferenzAttributtyp(SystemObject so, ObjektreferenzAttributtyp objekt) {
+        initialisiereObjekt(so, objekt);
+
+        ReferenceAttributeType type = (ReferenceAttributeType) so;
+        if (type.getReferencedObjectType() != null)
+            objekt.setTyp(gibTyp(type.getReferencedObjectType().getPid()));
+        objekt.setUndefiniertErlaubt(type.isUndefinedAllowed());
+        switch (type.getReferenceType()) {
+            case ASSOCIATION:
+                objekt.setReferenzierungsart(Referenzierungsart.ASSOZIATION);
+                break;
+            case AGGREGATION:
+                objekt.setReferenzierungsart(Referenzierungsart.AGGREGATION);
+                break;
+            case COMPOSITION:
+                objekt.setReferenzierungsart(Referenzierungsart.KOMPOSITION);
+                break;
+            default:
+                throw new IllegalStateException("Unbekannte Referenzierungsart: " + type.getReferenceType());
+        }
+    }
+
+    private boolean istGanzzahlAttributtyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.ganzzahlAttributTyp");
+    }
+
+    public GanzzahlAttributtyp gibGanzzahlAttributtyp(String pid) {
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeGanzzahlAttributtyp, this::initialisiereGanzzahlAttributtyp);
+    }
+
+    private void initialisiereGanzzahlAttributtyp(SystemObject so, GanzzahlAttributtyp objekt) {
+        initialisiereObjekt(so, objekt);
+
+        IntegerAttributeType type = (IntegerAttributeType) so;
+        switch (type.getByteCount()) {
+            case 1:
+                objekt.setAnzahlBytes(Datentypgroesse.BYTE);
+                break;
+            case 2:
+                objekt.setAnzahlBytes(Datentypgroesse.SHORT);
+                break;
+            case 4:
+                objekt.setAnzahlBytes(Datentypgroesse.INT);
+                break;
+            case 8:
+                objekt.setAnzahlBytes(Datentypgroesse.LONG);
+                break;
+            default:
+                throw new IllegalStateException("Unbekannte Datentypgröße: " + type.getByteCount());
+        }
+        IntegerValueRange range = type.getRange();
+        if (range != null)
+            objekt.setBereich(Wertebereich.erzeuge(range.getMinimum(), range.getMaximum(), range.getConversionFactor(), range.getUnit()));
+        type.getStates().forEach(e -> objekt.getZustaende().add(erzeugeZustand(e)));
+    }
+
+    private Wertezustand erzeugeZustand(IntegerValueState state) {
+        Wertezustand result = Wertezustand.erzeuge(state.getName(), state.getValue());
+        result.setKurzinfo(state.getInfo().getShortInfo());
+        result.setBeschreibung(state.getInfo().getDescription());
+        return result;
+    }
+
+    @FunctionalInterface
+    private interface Fabrikmethode<T extends Systemobjekt> {
+
+        T erzeuge(String pid);
+
+    }
+
+    @FunctionalInterface
+    private interface Initialisierungsstrategie<T extends Systemobjekt> {
+
+        void initialisiere(SystemObject so, T objekt);
+
     }
 
 }

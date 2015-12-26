@@ -22,6 +22,10 @@ public abstract class Systemobjekt {
     private String beschreibung;
     private Konfigurationsbereich konfigurationsbereich;
 
+    protected Systemobjekt(String pid) {
+        this.pid = pid;
+    }
+
     public static int compareToNameOderPid(Systemobjekt so1, Systemobjekt so2) {
         if (Objects.equals(so1, so2)) return 0;
 
@@ -41,10 +45,6 @@ public abstract class Systemobjekt {
 
     public String getPid() {
         return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
     }
 
     public String getNameOderPid() {

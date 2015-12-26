@@ -20,10 +20,8 @@ public class GanzzahlAttributtyp extends Attributtyp {
     private Datentypgroesse anzahlBytes;
     private Set<Wertezustand> zustaende = new LinkedHashSet<>();
 
-    public static GanzzahlAttributtyp erzeugeMitPid(String pid) {
-        GanzzahlAttributtyp result = new GanzzahlAttributtyp();
-        result.setPid(pid);
-        return result;
+    public GanzzahlAttributtyp(String pid) {
+        super(pid);
     }
 
     public Wertebereich getBereich() {

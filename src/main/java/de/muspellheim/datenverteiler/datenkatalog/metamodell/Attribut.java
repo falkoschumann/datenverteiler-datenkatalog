@@ -23,7 +23,7 @@ public final class Attribut extends Systemobjekt {
     private Attributtyp attributtyp;
 
     private Attribut() {
-        // value object
+        super(null);
     }
 
     public static Attribut erzeuge(String name, int position, Attributtyp typ) {
