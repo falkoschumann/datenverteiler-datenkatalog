@@ -120,7 +120,10 @@ public class HtmlGenerator {
         }
 
         String pfad = objekt.getKonfigurationsbereich().getZustaendiger().getPid() + "/" + objekt.getKonfigurationsbereich().getPid();
-        if (objekt instanceof Mengentyp) {
+        if (objekt instanceof Aspekt) {
+            context.put("aspekt", objekt);
+            generiereDatei("aspekt", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof Mengentyp) {
             context.put("mengentyp", objekt);
             generiereDatei("mengentyp", pfad, objekt.getPid() + ".html");
         } else if (objekt instanceof Typ) {

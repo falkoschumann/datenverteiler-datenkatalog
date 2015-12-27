@@ -49,6 +49,18 @@
         #end
     </ul>
     #end
+    #if( !$konfigurationsbereich.aspekte.empty )
+        <p><strong>Aspekte</strong></p>
+        <ul class="objekte">
+            #foreach( $objekt in $konfigurationsbereich.aspekte )
+                <li>
+                    <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
+                        <em>$objekt.nameOderPid</em>
+                    </a>
+                </li>
+            #end
+        </ul>
+    #end
     #if( !$konfigurationsbereich.attributlisten.empty )
     <p><strong>Attributlisten</strong></p>
     <ul class="objekte">

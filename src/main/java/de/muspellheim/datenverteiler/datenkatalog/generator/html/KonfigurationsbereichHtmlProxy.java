@@ -52,6 +52,16 @@ public class KonfigurationsbereichHtmlProxy extends Konfigurationsbereich {
         return so instanceof Attributgruppe;
     }
 
+    public SortedSet<Aspekt> getAspekte() {
+        SortedSet<Aspekt> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
+        getModell().stream().filter(this::istAspekt).forEach(asp -> result.add((Aspekt) asp));
+        return result;
+    }
+
+    private boolean istAspekt(Systemobjekt so) {
+        return so instanceof Aspekt;
+    }
+
     public SortedSet<Attributliste> getAttributlisten() {
         SortedSet<Attributliste> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
         getModell().stream().filter(this::istAttributliste).forEach(atl -> result.add((Attributliste) atl));
