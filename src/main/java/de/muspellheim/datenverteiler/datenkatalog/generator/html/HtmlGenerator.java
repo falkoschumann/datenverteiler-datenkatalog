@@ -26,6 +26,8 @@ import java.text.NumberFormat;
 public class HtmlGenerator {
 
     // TODO Kopfzeile für rechten Frame erweitern: Verwendung, Baum, Index, Hilfe
+    // TODO Konfiguration parametrierbar machen
+    // TODO Als Mojo ausführbar machen
 
     private String source = "/generator/html/";
     private String target = "target/datenkatalog/html/";
