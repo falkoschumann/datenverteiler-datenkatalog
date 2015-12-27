@@ -18,7 +18,7 @@
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.typen )
             <li>
-                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
                     <strong>$objekt.nameOderPid</strong>
                 </a>
             </li>
@@ -30,7 +30,7 @@
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.mengen )
             <li>
-                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
                     $objekt.nameOderPid
                 </a>
             </li>
@@ -42,7 +42,7 @@
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.attributgruppen )
             <li>
-                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
                     <em>$objekt.nameOderPid</em>
                 </a>
             </li>
@@ -54,7 +54,7 @@
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.attributlisten )
             <li>
-                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
                     $objekt.nameOderPid
                 </a>
             </li>
@@ -66,7 +66,7 @@
     <ul class="objekte">
         #foreach( $objekt in $konfigurationsbereich.attributtypen )
             <li>
-                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html" target="objektFrame">
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
                     $objekt.nameOderPid
                 </a>
             </li>

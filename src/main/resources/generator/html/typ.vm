@@ -23,25 +23,25 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${typ.konfigurationsBereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${typ.konfigurationsBereich.zustaendiger.pid}/${typ.konfigurationsBereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${typ.konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${typ.konfigurationsbereich.zustaendiger.pid}/${typ.konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${typ.konfigurationsBereich.zustaendiger.pid}/${typ.konfigurationsBereich.pid}/${typ.pid}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${typ.konfigurationsBereich.zustaendiger.pid}/${typ.konfigurationsBereich.pid}/${typ.pid}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${typ.konfigurationsbereich.zustaendiger.pid}/${typ.konfigurationsbereich.pid}/${typ.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${typ.konfigurationsbereich.zustaendiger.pid}/${typ.konfigurationsbereich.pid}/${typ.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${typ.konfigurationsBereich.zustaendiger.nameOderPid} / ${typ.konfigurationsBereich.nameOderPid}</p>
+    <p>${typ.konfigurationsbereich.zustaendiger.nameOderPid} / ${typ.konfigurationsbereich.nameOderPid}</p>
     <h1>Typ ${typ.nameOderPid} (${typ.pid})</h1>
     <p><strong>Alle direkten Supertypen</strong></p>
     #if( !$typ.superTypen.empty )
     <p>
     #foreach( $superTyp in $typ.superTypen )
-    <a href="${superTyp.konfigurationsBereich.zustaendiger.pid}/${superTyp.konfigurationsBereich.pid}/${superTyp.pid}.html" target="objektFrame">${superTyp.nameOderPid}</a>#if( $velocityHasNext ), #end
+    <a href="${superTyp.konfigurationsbereich.zustaendiger.pid}/${superTyp.konfigurationsbereich.pid}/${superTyp.pid}.html" target="objektFrame">${superTyp.nameOderPid}</a>#if( $velocityHasNext ), #end
     #end
     </p>
     #end
@@ -49,7 +49,7 @@
     <p><strong>Bekannte direkte Subtypen</strong></p>
     <p>
     #foreach( $subTyp in $typ.subTypen )
-        <a href="${subTyp.konfigurationsBereich.zustaendiger.pid}/${subTyp.konfigurationsBereich.pid}/${subTyp.pid}.html" target="objektFrame">${subTyp.nameOderPid}</a>#if( $velocityHasNext ), #end
+        <a href="${subTyp.konfigurationsbereich.zustaendiger.pid}/${subTyp.konfigurationsbereich.pid}/${subTyp.pid}.html" target="objektFrame">${subTyp.nameOderPid}</a>#if( $velocityHasNext ), #end
     #end
     #end
     </p>
@@ -68,17 +68,17 @@
                 <th>Beschreibung</th>
             </tr>
                 #set( $row = 1 )
-                #foreach( $mengenVerwendung in $typ.mengen )
+                #foreach( $mengenverwendung in $typ.mengen )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenVerwendung.mengenTyp.konfigurationsBereich.zustaendiger.pid}/${mengenVerwendung.mengenTyp.konfigurationsBereich.pid}/${mengenVerwendung.mengenTyp.pid}.html">${mengenVerwendung.mengenName}</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${mengenverwendung.mengentyp.konfigurationsbereich.zustaendiger.pid}/${mengenverwendung.mengentyp.konfigurationsbereich.pid}/${mengenverwendung.mengentyp.pid}.html">${mengenverwendung.mengenname}</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
-                        #if( ${mengenVerwendung.erforderlich} )
+                        #if( ${mengenverwendung.erforderlich} )
                             ja
                         #else
                             nein
                         #end
                     </td>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${mengenVerwendung.mengenTyp.kurzinfo}</td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${mengenverwendung.mengentyp.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
                 #end
@@ -98,7 +98,7 @@
                     #set( $row = 1 )
                     #foreach( $attributgruppe in $typ.attributgruppen )
                     <tr>
-                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html">${attributgruppe.nameOderPid}</a></td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsbereich.zustaendiger.pid}/${attributgruppe.konfigurationsbereich.pid}/${attributgruppe.pid}.html">${attributgruppe.nameOderPid}</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )

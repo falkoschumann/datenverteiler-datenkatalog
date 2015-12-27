@@ -27,6 +27,7 @@ public class HtmlGenerator {
 
     // TODO Kopfzeile für rechten Frame erweitern: Verwendung, Baum, Index, Hilfe
     // TODO Proxyobjekte anlegen für Sortierung und Spezialisierung
+    // TODO Aspekt generieren
 
     private String source = "/generator/html/";
     private String target = "target/datenkatalog/html/";

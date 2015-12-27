@@ -23,19 +23,19 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${attributtyp.konfigurationsBereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${attributtyp.konfigurationsBereich.zustaendiger.pid}/${attributtyp.konfigurationsBereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${attributtyp.konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${attributtyp.konfigurationsbereich.zustaendiger.pid}/${attributtyp.konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${attributtyp.konfigurationsBereich.zustaendiger.pid}/${attributtyp.konfigurationsBereich.pid}/${attributtyp.pid}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${attributtyp.konfigurationsBereich.zustaendiger.pid}/${attributtyp.konfigurationsBereich.pid}/${attributtyp.pid}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${attributtyp.konfigurationsbereich.zustaendiger.pid}/${attributtyp.konfigurationsbereich.pid}/${attributtyp.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${attributtyp.konfigurationsbereich.zustaendiger.pid}/${attributtyp.konfigurationsbereich.pid}/${attributtyp.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${attributtyp.konfigurationsBereich.zustaendiger.nameOderPid} / ${attributtyp.konfigurationsBereich.nameOderPid}</p>
+    <p>${attributtyp.konfigurationsbereich.zustaendiger.nameOderPid} / ${attributtyp.konfigurationsbereich.nameOderPid}</p>
     <h1>Attributtyp ${attributtyp.nameOderPid} (${attributtyp.pid})</h1>
     <p>${attributtyp.kurzinfo}</p>
     #if( !$attributtyp.beschreibung.empty )

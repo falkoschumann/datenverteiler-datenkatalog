@@ -6,7 +6,7 @@
                 &nbsp;&nbsp;&nbsp;
             #end
         #end
-        #if( $attribut.attributTyp.class.simpleName == "AttributListenDefinition" )
+        #if( $attribut.attributtyp.class.simpleName == "AttributListenDefinition" )
             &loz;
         #else
             &bull;
@@ -14,18 +14,18 @@
         ${attribut.name}
     </td>
     <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
-        <a href="${attribut.attributTyp.konfigurationsBereich.zustaendiger.pid}/${attribut.attributTyp.konfigurationsBereich.pid}/${attribut.attributTyp.pid}.html">
-        #if( $attribut.attributTyp.class.simpleName == "AttributListenDefinition" )
+        <a href="${attribut.attributtyp.konfigurationsbereich.zustaendiger.pid}/${attribut.attributtyp.konfigurationsbereich.pid}/${attribut.attributtyp.pid}.html">
+        #if( $attribut.attributtyp.class.simpleName == "AttributListenDefinition" )
             Attributliste
-        #elseif( $attribut.attributTyp.class.simpleName == "GanzzahlAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName == "GanzzahlAttributTyp" )
             Ganzzahl
-        #elseif( $attribut.attributTyp.class.simpleName == "KommazahlAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName == "KommazahlAttributTyp" )
             Kommazahl
-        #elseif( $attribut.attributTyp.class.simpleName == "ZeichenkettenAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName == "ZeichenkettenAttributTyp" )
             Zeichenkette
-        #elseif( $attribut.attributTyp.class.simpleName == "ZeitstempelAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName == "ZeitstempelAttributTyp" )
             Zeitstempel
-        #elseif( $attribut.attributTyp.class.simpleName == "ObjektReferenzAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName == "ObjektReferenzAttributTyp" )
             Objektreferenz
         #end
         </a>
@@ -44,13 +44,13 @@
         #if( $attribut.kurzinfo && !$attribut.kurzinfo.empty )
             ${attribut.kurzinfo}
         #else
-            <span class="inherited">${attribut.attributTyp.kurzinfo}</span>
+            <span class="inherited">${attribut.attributtyp.kurzinfo}</span>
         #end
     </td>
 </tr>
     #set( $row = $row + 1 )
-    #if( $attribut.attributTyp.class.simpleName == "AttributListenDefinition" )
-        #set( $attributmenge = $attribut.attributTyp )
+    #if( $attribut.attributtyp.class.simpleName == "AttributListenDefinition" )
+        #set( $attributmenge = $attribut.attributtyp )
         #set( $level = $level + 1 )
         #parse( "/generator/html/attributmenge.vm" )
         #set( $level = $level - 1 )

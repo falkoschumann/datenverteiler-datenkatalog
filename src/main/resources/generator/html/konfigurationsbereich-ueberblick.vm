@@ -53,7 +53,7 @@
                 #set( $row = 1 )
                 #foreach( $typ in $konfigurationsbereich.typen )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.konfigurationsBereich.zustaendiger.pid}/${typ.konfigurationsBereich.pid}/${typ.pid}.html">$typ.nameOderPid</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.konfigurationsbereich.zustaendiger.pid}/${typ.konfigurationsbereich.pid}/${typ.pid}.html">$typ.nameOderPid</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
@@ -74,7 +74,7 @@
                 #set( $row = 1 )
                 #foreach( $menge in $konfigurationsbereich.mengen )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.konfigurationsBereich.zustaendiger.pid}/${menge.konfigurationsBereich.pid}/${menge.pid}.html">$menge.nameOderPid</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.konfigurationsbereich.zustaendiger.pid}/${menge.konfigurationsbereich.pid}/${menge.pid}.html">$menge.nameOderPid</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
@@ -95,7 +95,7 @@
                     #set( $row = 1 )
                     #foreach( $attributgruppe in $konfigurationsbereich.attributgruppen )
                     <tr>
-                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsBereich.zustaendiger.pid}/${attributgruppe.konfigurationsBereich.pid}/${attributgruppe.pid}.html">$attributgruppe.nameOderPid</a></td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsbereich.zustaendiger.pid}/${attributgruppe.konfigurationsbereich.pid}/${attributgruppe.pid}.html">$attributgruppe.nameOderPid</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )
@@ -116,7 +116,7 @@
                     #set( $row = 1 )
                     #foreach( $attributliste in $konfigurationsbereich.attributlisten )
                     <tr>
-                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.konfigurationsBereich.zustaendiger.pid}/${attributliste.konfigurationsBereich.pid}/${attributliste.pid}.html">$attributliste.nameOderPid</a></td>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/${attributliste.pid}.html">$attributliste.nameOderPid</a></td>
                         <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributliste.kurzinfo}</td>
                     </tr>
                         #set( $row = $row + 1 )
@@ -138,7 +138,7 @@
                     #foreach( $attributtyp in $konfigurationsbereich.attributtypen )
                         #if( $attributtyp.class.simpleName != "AttributListenDefinition" )
                         <tr>
-                            <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributtyp.konfigurationsBereich.zustaendiger.pid}/${attributtyp.konfigurationsBereich.pid}/${attributtyp.pid}.html">$attributtyp.nameOderPid</a></td>
+                            <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributtyp.konfigurationsbereich.zustaendiger.pid}/${attributtyp.konfigurationsbereich.pid}/${attributtyp.pid}.html">$attributtyp.nameOderPid</a></td>
                             <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributtyp.kurzinfo}</td>
                         </tr>
                         #set( $row = $row + 1 )

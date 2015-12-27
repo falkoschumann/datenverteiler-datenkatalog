@@ -23,19 +23,19 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${attributliste.konfigurationsBereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${attributliste.konfigurationsBereich.zustaendiger.pid}/${attributliste.konfigurationsBereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${attributliste.konfigurationsBereich.zustaendiger.pid}/${attributliste.konfigurationsBereich.pid}/${attributliste.pid}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${attributliste.konfigurationsBereich.zustaendiger.pid}/${attributliste.konfigurationsBereich.pid}/${attributliste.pid}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/${attributliste.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/${attributliste.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${attributliste.konfigurationsBereich.zustaendiger.nameOderPid} / ${attributliste.konfigurationsBereich.nameOderPid}</p>
+    <p>${attributliste.konfigurationsbereich.zustaendiger.nameOderPid} / ${attributliste.konfigurationsbereich.nameOderPid}</p>
     <h1>Attributliste ${attributliste.nameOderPid} (${attributliste.pid})</h1>
     <p>${attributliste.kurzinfo}</p>
     #if( !$attributliste.beschreibung.empty )

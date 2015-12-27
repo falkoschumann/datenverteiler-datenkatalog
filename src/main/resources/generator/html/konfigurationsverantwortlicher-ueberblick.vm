@@ -49,7 +49,7 @@
                 <th>Beschreibung</th>
             </tr>
             #set( $row = 1 )
-            #foreach( $konfigurationsbereich in $konfigurationsbereiche )
+            #foreach( $konfigurationsbereich in $konfigurationsverantwortlicher.konfigurationsbereiche )
             <tr>
                 <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.nameOderPid}</a></td>
                 <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${konfigurationsbereich.kurzinfo}</td>

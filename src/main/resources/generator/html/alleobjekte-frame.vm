@@ -15,7 +15,7 @@
     <ul class="objekte">
         #foreach( $objekt in $metamodell.objekte )
             <li>
-                <a href="${objekt.konfigurationsBereich.zustaendiger.pid}/${objekt.konfigurationsBereich.pid}/${objekt.pid}.html"
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html"
                    target="objektFrame">
                     #if ( ${objekt.class.simpleName} == "Typ" )<strong>#end
                     #if ( ${objekt.class.simpleName} == "Attributgruppe" )<em>#end

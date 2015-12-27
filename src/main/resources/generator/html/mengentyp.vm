@@ -23,19 +23,19 @@
 <div class="header">
     <ul>
         <li><a href="ueberblick.html">Überblick</a></li>
-        <li><a href="${mengentyp.konfigurationsBereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
-        <li><a href="${mengentyp.konfigurationsBereich.zustaendiger.pid}/${mengentyp.konfigurationsBereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li><a href="${mengentyp.konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${mengentyp.konfigurationsbereich.zustaendiger.pid}/${mengentyp.konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
         <li class="active">Objekt</li>
     </ul>
 </div>
 <div class="subheader">
     <ul>
-        <li><a href="index.html?${mengentyp.konfigurationsBereich.zustaendiger.pid}/${mengentyp.konfigurationsBereich.pid}/${mengentyp.pid}.html" target="_top">Mit Frames</a></li>
-        <li><a href="${mengentyp.konfigurationsBereich.zustaendiger.pid}/${mengentyp.konfigurationsBereich.pid}/${mengentyp.pid}.html" target="_top">Ohne Frames</a></li>
+        <li><a href="index.html?${mengentyp.konfigurationsbereich.zustaendiger.pid}/${mengentyp.konfigurationsbereich.pid}/${mengentyp.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${mengentyp.konfigurationsbereich.zustaendiger.pid}/${mengentyp.konfigurationsbereich.pid}/${mengentyp.pid}.html" target="_top">Ohne Frames</a></li>
     </ul>
 </div>
 <div class="content">
-    <p>${mengentyp.konfigurationsBereich.zustaendiger.nameOderPid} / ${mengentyp.konfigurationsBereich.nameOderPid}</p>
+    <p>${mengentyp.konfigurationsbereich.zustaendiger.nameOderPid} / ${mengentyp.konfigurationsbereich.nameOderPid}</p>
     <h1>Menge ${mengentyp.nameOderPid} (${mengentyp.pid})</h1>
     <p>${mengentyp.kurzinfo}</p>
     #if( !$mengentyp.beschreibung.empty )
@@ -76,7 +76,7 @@
                 #set( $row = 1 )
                 #foreach( $typ in $mengentyp.objektTypen )
                 <tr>
-                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.konfigurationsBereich.zustaendiger.pid}/${typ.konfigurationsBereich.pid}/${typ.pid}.html">${typ.name}</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.konfigurationsbereich.zustaendiger.pid}/${typ.konfigurationsbereich.pid}/${typ.pid}.html">${typ.name}</a></td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
