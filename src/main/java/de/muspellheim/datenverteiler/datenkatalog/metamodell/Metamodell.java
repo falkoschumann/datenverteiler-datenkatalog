@@ -124,7 +124,7 @@ public class Metamodell {
     }
 
     protected boolean istTyp(SystemObject systemObject) {
-        return systemObject.isOfType("typ.typ") && !systemObject.isOfType("typ.mengenTyp");
+        return systemObject.isOfType("typ.typ");
     }
 
     public Typ gibTyp(String pid) {
@@ -161,11 +161,15 @@ public class Metamodell {
     }
 
     protected DynamischerTyp gibDynamischerTyp(String pid) {
-        return gibObjekt(model.getObject(pid), this::erzeugeDynamischerTyp, this::initialisiereTyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeDynamischerTyp, this::initialisiereDynamischerTyp);
     }
 
     protected DynamischerTyp erzeugeDynamischerTyp(String pid) {
         return new DynamischerTyp(pid);
+    }
+
+    protected void initialisiereDynamischerTyp(SystemObject so, DynamischerTyp objekt) {
+        initialisiereTyp(so, objekt);
     }
 
     protected boolean istMengenTyp(SystemObject systemObject) {
@@ -181,7 +185,7 @@ public class Metamodell {
     }
 
     protected void initialisiereMengentyp(SystemObject so, Mengentyp objekt) {
-        initialisiereObjekt(so, objekt);
+        initialisiereTyp(so, objekt);
 
         ObjectSetType objectSetType = (ObjectSetType) so;
         objectSetType.getObjectTypes().forEach(t -> objekt.getObjektTypen().add(gibTyp(t.getPid())));
@@ -313,12 +317,21 @@ public class Metamodell {
         throw new IllegalStateException("Unbekannter Attributtyp: " + attributeType);
     }
 
+    protected void initialisiereAttributtyp(SystemObject so, Systemobjekt objekt) {
+        initialisiereObjekt(so, objekt);
+    }
+
     protected boolean istAttributliste(SystemObject systemObject) {
         return systemObject.isOfType("typ.attributListenDefinition");
     }
 
     public Attributliste gibAttributliste(String pid) {
-        return gibObjekt(model.getObject(pid), this::erzeugeAttributliste, this::initialisiereAttributmenge);
+        return gibObjekt(model.getObject(pid), this::erzeugeAttributliste, this::initialisiereAttributliste);
+    }
+
+    protected void initialisiereAttributliste(SystemObject so, Attributliste objekt) {
+        initialisiereAttributmenge(so, objekt);
+        initialisiereAttributtyp(so, objekt);
     }
 
     protected Attributliste erzeugeAttributliste(String pid) {
@@ -338,7 +351,7 @@ public class Metamodell {
     }
 
     protected void initialisiereZeichenkettenAttributtyp(SystemObject so, ZeichenkettenAttributtyp objekt) {
-        initialisiereObjekt(so, objekt);
+        initialisiereAttributtyp(so, objekt);
 
         StringAttributeType type = (StringAttributeType) so;
         objekt.setLaenge(type.getMaxLength());
@@ -358,7 +371,7 @@ public class Metamodell {
     }
 
     protected void initialisiereZeitstempelAttributtyp(SystemObject so, ZeitstempelAttributtyp objekt) {
-        initialisiereObjekt(so, objekt);
+        initialisiereAttributtyp(so, objekt);
 
         TimeAttributeType type = (TimeAttributeType) so;
         objekt.setRelativ(type.isRelative());
@@ -387,7 +400,7 @@ public class Metamodell {
     }
 
     protected void initialisiereKommazahlAttributtyp(SystemObject so, KommazahlAttributtyp objekt) {
-        initialisiereObjekt(so, objekt);
+        initialisiereAttributtyp(so, objekt);
 
         DoubleAttributeType type = (DoubleAttributeType) so;
         objekt.setEinheit(type.getUnit());
@@ -417,7 +430,7 @@ public class Metamodell {
     }
 
     protected void initialisiereObjektreferenzAttributtyp(SystemObject so, ObjektreferenzAttributtyp objekt) {
-        initialisiereObjekt(so, objekt);
+        initialisiereAttributtyp(so, objekt);
 
         ReferenceAttributeType type = (ReferenceAttributeType) so;
         if (type.getReferencedObjectType() != null)
@@ -451,7 +464,7 @@ public class Metamodell {
     }
 
     protected void initialisiereGanzzahlAttributtyp(SystemObject so, GanzzahlAttributtyp objekt) {
-        initialisiereObjekt(so, objekt);
+        initialisiereAttributtyp(so, objekt);
 
         IntegerAttributeType type = (IntegerAttributeType) so;
         switch (type.getByteCount()) {
