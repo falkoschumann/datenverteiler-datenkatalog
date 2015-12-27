@@ -27,7 +27,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Before
     public void setUp() {
-        metamodell = new Metamodell(new MetamodellFabrik(), getModel());
+        metamodell = new Metamodell(getModel());
     }
 
     @Test

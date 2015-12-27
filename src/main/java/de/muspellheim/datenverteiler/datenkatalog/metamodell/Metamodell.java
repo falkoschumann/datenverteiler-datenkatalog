@@ -28,21 +28,15 @@ public class Metamodell {
 
     private final Map<String, Systemobjekt> objekte = new LinkedHashMap<>();
 
-    private final MetamodellFabrik fabrik;
     private final DataModel model;
 
 
-    public Metamodell(MetamodellFabrik fabrik, DataModel model) {
-        this.fabrik = fabrik;
+    public Metamodell(DataModel model) {
         this.model = model;
     }
 
     protected DataModel getModel() {
         return model;
-    }
-
-    protected MetamodellFabrik getFabrik() {
-        return fabrik;
     }
 
     protected boolean istObjekt(SystemObject so) {
@@ -96,7 +90,11 @@ public class Metamodell {
     }
 
     public Konfigurationsbereich gibKonfigurationsbereich(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsbereich, this::initialisiereKonfigurationsbereich);
+        return gibObjekt(model.getObject(pid), this::erzeugeKonfigurationsbereich, this::initialisiereKonfigurationsbereich);
+    }
+
+    protected Konfigurationsbereich erzeugeKonfigurationsbereich(String pid) {
+        return new Konfigurationsbereich(pid);
     }
 
     protected void initialisiereKonfigurationsbereich(SystemObject object, Konfigurationsbereich result) {
@@ -114,7 +112,11 @@ public class Metamodell {
     }
 
     public Konfigurationsverantwortlicher gibKonfigurationsverantwortlicher(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsverantwortlicher, this::initialisiereKonfigurationsverantwortlicher);
+        return gibObjekt(model.getObject(pid), this::erzeugeKonfigurationsverantwortlicher, this::initialisiereKonfigurationsverantwortlicher);
+    }
+
+    protected Konfigurationsverantwortlicher erzeugeKonfigurationsverantwortlicher(String pid) {
+        return new Konfigurationsverantwortlicher(pid);
     }
 
     protected void initialisiereKonfigurationsverantwortlicher(SystemObject so, Konfigurationsverantwortlicher objekt) {
@@ -132,7 +134,11 @@ public class Metamodell {
         if (istMengenTyp(so))
             return gibMengentyp(pid);
 
-        return gibObjekt(so, fabrik::erzeugeTyp, this::initialisiereTyp);
+        return gibObjekt(so, this::erzeugeTyp, this::initialisiereTyp);
+    }
+
+    protected Typ erzeugeTyp(String pid) {
+        return new Typ(pid);
     }
 
     protected void initialisiereTyp(SystemObject so, Typ objekt) {
@@ -155,7 +161,11 @@ public class Metamodell {
     }
 
     protected DynamischerTyp gibDynamischerTyp(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeDynamischerTyp, this::initialisiereTyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeDynamischerTyp, this::initialisiereTyp);
+    }
+
+    protected DynamischerTyp erzeugeDynamischerTyp(String pid) {
+        return new DynamischerTyp(pid);
     }
 
     protected boolean istMengenTyp(SystemObject systemObject) {
@@ -163,7 +173,11 @@ public class Metamodell {
     }
 
     protected Mengentyp gibMengentyp(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeMengentyp, this::initialisiereMengentyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeMengentyp, this::initialisiereMengentyp);
+    }
+
+    protected Mengentyp erzeugeMengentyp(String pid) {
+        return new Mengentyp(pid);
     }
 
     protected void initialisiereMengentyp(SystemObject so, Mengentyp objekt) {
@@ -196,7 +210,11 @@ public class Metamodell {
     }
 
     public Attributgruppe gibAttributgruppe(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributgruppe, this::initialisiereAttributgruppe);
+        return gibObjekt(model.getObject(pid), this::erzeugeAttributgruppe, this::initialisiereAttributgruppe);
+    }
+
+    protected Attributgruppe erzeugeAttributgruppe(String pid) {
+        return new Attributgruppe(pid);
     }
 
     protected void initialisiereAttributgruppe(SystemObject so, Attributgruppe objekt) {
@@ -215,7 +233,11 @@ public class Metamodell {
     }
 
     protected Attributgruppenverwendung gibAttributgruppenverwendung(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributgruppenverwendung, this::initialisiereAttributgruppenverwendung);
+        return gibObjekt(model.getObject(pid), this::erzeugeAttributgruppenverwendung, this::initialisiereAttributgruppenverwendung);
+    }
+
+    protected Attributgruppenverwendung erzeugeAttributgruppenverwendung(String pid) {
+        return new Attributgruppenverwendung(pid);
     }
 
     protected void initialisiereAttributgruppenverwendung(SystemObject so, Attributgruppenverwendung objekt) {
@@ -259,7 +281,11 @@ public class Metamodell {
     }
 
     public Aspekt gibAspekt(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeAspekt, this::initialisiereAspekt);
+        return gibObjekt(model.getObject(pid), this::erzeugeAspekt, this::initialisiereAspekt);
+    }
+
+    protected Aspekt erzeugeAspekt(String pid) {
+        return new Aspekt(pid);
     }
 
     protected void initialisiereAspekt(SystemObject so, Systemobjekt objekt) {
@@ -292,7 +318,11 @@ public class Metamodell {
     }
 
     public Attributliste gibAttributliste(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributliste, this::initialisiereAttributmenge);
+        return gibObjekt(model.getObject(pid), this::erzeugeAttributliste, this::initialisiereAttributmenge);
+    }
+
+    protected Attributliste erzeugeAttributliste(String pid) {
+        return new Attributliste(pid);
     }
 
     protected boolean istZeichenketteAttributtyp(SystemObject systemObject) {
@@ -300,7 +330,11 @@ public class Metamodell {
     }
 
     protected ZeichenkettenAttributtyp gibZeichenkettenAttributtyp(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeZeichenkettenAttributtyp, this::initialisiereZeichenkettenAttributtyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeZeichenkettenAttributtyp, this::initialisiereZeichenkettenAttributtyp);
+    }
+
+    protected ZeichenkettenAttributtyp erzeugeZeichenkettenAttributtyp(String pid) {
+        return new ZeichenkettenAttributtyp(pid);
     }
 
     protected void initialisiereZeichenkettenAttributtyp(SystemObject so, ZeichenkettenAttributtyp objekt) {
@@ -316,7 +350,11 @@ public class Metamodell {
     }
 
     protected ZeitstempelAttributtyp gibZeitstempelAttributtyp(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeZeitstempelAttributtyp, this::initialisiereZeitstempelAttributtyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeZeitstempelAttributtyp, this::initialisiereZeitstempelAttributtyp);
+    }
+
+    protected ZeitstempelAttributtyp erzeugeZeitstempelAttributtyp(String pid) {
+        return new ZeitstempelAttributtyp(pid);
     }
 
     protected void initialisiereZeitstempelAttributtyp(SystemObject so, ZeitstempelAttributtyp objekt) {
@@ -341,7 +379,11 @@ public class Metamodell {
     }
 
     protected KommazahlAttributtyp gibKommazahlAttributtyp(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeKommazahlAttributtyp, this::initialisiereKommazahlAttributtyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeKommazahlAttributtyp, this::initialisiereKommazahlAttributtyp);
+    }
+
+    protected KommazahlAttributtyp erzeugeKommazahlAttributtyp(String pid) {
+        return new KommazahlAttributtyp(pid);
     }
 
     protected void initialisiereKommazahlAttributtyp(SystemObject so, KommazahlAttributtyp objekt) {
@@ -367,7 +409,11 @@ public class Metamodell {
     }
 
     protected ObjektreferenzAttributtyp gibObjektreferenzAttributtyp(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeObjektreferenzAttributtyp, this::initialisiereObjektreferenzAttributtyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeObjektreferenzAttributtyp, this::initialisiereObjektreferenzAttributtyp);
+    }
+
+    protected ObjektreferenzAttributtyp erzeugeObjektreferenzAttributtyp(String pid) {
+        return new ObjektreferenzAttributtyp(pid);
     }
 
     protected void initialisiereObjektreferenzAttributtyp(SystemObject so, ObjektreferenzAttributtyp objekt) {
@@ -397,7 +443,11 @@ public class Metamodell {
     }
 
     protected GanzzahlAttributtyp gibGanzzahlAttributtyp(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeGanzzahlAttributtyp, this::initialisiereGanzzahlAttributtyp);
+        return gibObjekt(model.getObject(pid), this::erzeugeGanzzahlAttributtyp, this::initialisiereGanzzahlAttributtyp);
+    }
+
+    protected GanzzahlAttributtyp erzeugeGanzzahlAttributtyp(String pid) {
+        return new GanzzahlAttributtyp(pid);
     }
 
     protected void initialisiereGanzzahlAttributtyp(SystemObject so, GanzzahlAttributtyp objekt) {
