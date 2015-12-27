@@ -10,6 +10,7 @@ import de.bsvrz.dav.daf.main.config.*;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,28 @@ public class Metamodell {
         this.model = model;
     }
 
+    private boolean istObjekt(SystemObject so) {
+        return istKonfigurationsbereich(so) ||
+                istKonfigurationsverantwortlicher(so) ||
+                istTyp(so) ||
+                istAttributgruppe(so) ||
+                istAspekt(so) ||
+                istAttributliste(so) ||
+                istAttributTyp(so);
+    }
+
+    public Systemobjekt gibObjekt(String pid) {
+        SystemObject so = model.getObject(pid);
+        if (istKonfigurationsbereich(so)) return gibKonfigurationsbereich(pid);
+        if (istKonfigurationsverantwortlicher(so)) return gibKonfigurationsverantwortlicher(pid);
+        if (istTyp(so)) return gibTyp(pid);
+        if (istAttributgruppe(so)) return gibAttributgruppe(pid);
+        if (istAspekt(so)) return gibAspekt(pid);
+        if (istAttributliste(so)) return gibAttributliste(pid);
+        if (istAttributTyp(so)) return gibAttributtyp(pid);
+        throw new NoSuchElementException("Es gibt kein Objekt mit der PID " + pid + ".");
+    }
+
     private <T extends Systemobjekt> T gibObjekt(SystemObject so, Fabrikmethode<T> fabrikmethode, Initialisierungsstrategie<T> initalisierungsstrategie) {
         if (objekte.containsKey(so.getPid()))
             return (T) objekte.get(so.getPid());
@@ -54,33 +77,32 @@ public class Metamodell {
             objekt.setKonfigurationsbereich(gibKonfigurationsbereich(so.getConfigurationArea().getPid()));
     }
 
-    public Set<Konfigurationsbereich> getKonfigurationsbereiche() {
+    public Set<Konfigurationsbereich> gibKonfigurationsbereiche() {
         return model.getType("typ.konfigurationsBereich").getElements().stream().
                 map(k -> gibKonfigurationsbereich(k.getPid())).
                 collect(Collectors.toSet());
+    }
+
+    private boolean istKonfigurationsbereich(SystemObject systemObject) {
+        return systemObject.isOfType("typ.konfigurationsBereich");
     }
 
     public Konfigurationsbereich gibKonfigurationsbereich(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsbereich, this::initialisiereKonfigurationsbereich);
     }
 
-    protected void initialisiereKonfigurationsbereich(SystemObject object, Konfigurationsbereich result) {
+    private void initialisiereKonfigurationsbereich(SystemObject object, Konfigurationsbereich result) {
         initialisiereObjekt(object, result);
 
         ConfigurationArea area = (ConfigurationArea) object;
         result.setZustaendiger(gibKonfigurationsverantwortlicher(area.getConfigurationAuthority().getPid()));
-        area.getCurrentObjects().stream().filter(this::istTyp).forEach(e -> result.getModell().add(gibTyp(e.getPid())));
-        area.getCurrentObjects().stream().filter(this::istMengenTyp).forEach(e -> result.getModell().add(gibMengentyp(e.getPid())));
-        area.getCurrentObjects().stream().filter(this::istAttributgruppe).forEach(e -> result.getModell().add(gibAttributgruppe(e.getPid())));
-        area.getCurrentObjects().stream().filter(this::istAttributliste).forEach(e -> result.getModell().add(gibAttributliste(e.getPid())));
-        area.getCurrentObjects().stream().filter(this::istAttributTyp).forEach(e -> result.getModell().add(gibAttributtyp(e.getPid())));
-        area.getCurrentObjects().stream().filter(this::istAspekt).forEach(e -> result.getModell().add(gibAspekt(e.getPid())));
+        area.getCurrentObjects().stream().
+                filter(this::istObjekt).
+                forEach(e -> result.getModell().add(gibObjekt(e.getPid())));
     }
 
-    public Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
-        return model.getType("typ.konfigurationsVerantwortlicher").getElements().stream().
-                map(k -> gibKonfigurationsverantwortlicher(k.getPid())).
-                collect(Collectors.toSet());
+    private boolean istKonfigurationsverantwortlicher(SystemObject systemObject) {
+        return systemObject.isOfType("typ.konfigurationsVerantwortlicher");
     }
 
     public Konfigurationsverantwortlicher gibKonfigurationsverantwortlicher(String pid) {
@@ -93,9 +115,9 @@ public class Metamodell {
 
     public Typ gibTyp(String pid) {
         SystemObject so = model.getObject(pid);
-        if (so instanceof DynamicObjectType)
+        if (istDynamischerTyp(so))
             return gibDynamischerTyp(pid);
-        if (so instanceof ObjectSetType)
+        if (istMengenTyp(so))
             return gibMengentyp(pid);
 
         return gibObjekt(so, fabrik::erzeugeTyp, this::initialisiereTyp);
@@ -116,7 +138,11 @@ public class Metamodell {
         return Mengenverwendung.erzeuge(objectSetUse.getObjectSetName(), gibMengentyp(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
     }
 
-    public DynamischerTyp gibDynamischerTyp(String pid) {
+    private boolean istDynamischerTyp(SystemObject systemObject) {
+        return systemObject.isOfType("typ.dynamischerTyp");
+    }
+
+    private DynamischerTyp gibDynamischerTyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeDynamischerTyp, this::initialisiereTyp);
     }
 
@@ -166,7 +192,7 @@ public class Metamodell {
 
         AttributeGroup atg = (AttributeGroup) so;
         atg.getAspects().forEach(e -> objekt.getAspekte().add(gibAspekt(e.getPid())));
-        atg.getAttributeGroupUsages().forEach(e -> objekt.getAttributgruppenverwendungen().add(getAttributgruppenverwendung(e.getPid())));
+        atg.getAttributeGroupUsages().forEach(e -> objekt.getAttributgruppenverwendungen().add(gibAttributgruppenverwendung(e.getPid())));
     }
 
     private <T extends Systemobjekt & Attributmenge> void initialisiereAttributmenge(SystemObject so, T objekt) {
@@ -176,7 +202,7 @@ public class Metamodell {
         co.getObjectSet("Attribute").getElements().stream().forEach(e -> objekt.getAttribute().add(gibAttribut(e.getId())));
     }
 
-    private Attributgruppenverwendung getAttributgruppenverwendung(String pid) {
+    private Attributgruppenverwendung gibAttributgruppenverwendung(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributgruppenverwendung, this::initialisiereAttributgruppenverwendung);
     }
 
@@ -211,7 +237,7 @@ public class Metamodell {
         }
     }
 
-    Attribut gibAttribut(long id) {
+    private Attribut gibAttribut(long id) {
         Attribute attribute = (Attribute) model.getObject(id);
         return Attribut.erzeuge(attribute.getName(), attribute.getPosition(), attribute.getMaxCount(), attribute.isCountVariable(), gibAttributtyp(attribute.getAttributeType().getPid()));
     }
@@ -257,7 +283,7 @@ public class Metamodell {
         return systemObject.isOfType("typ.zeichenketteAttributTyp");
     }
 
-    public ZeichenkettenAttributtyp gibZeichenkettenAttributtyp(String pid) {
+    private ZeichenkettenAttributtyp gibZeichenkettenAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeZeichenkettenAttributtyp, this::initialisiereZeichenkettenAttributtyp);
     }
 
@@ -273,7 +299,7 @@ public class Metamodell {
         return systemObject.isOfType("typ.zeitstempelAttributTyp");
     }
 
-    public ZeitstempelAttributtyp gibZeitstempelAttributtyp(String pid) {
+    private ZeitstempelAttributtyp gibZeitstempelAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeZeitstempelAttributtyp, this::initialisiereZeitstempelAttributtyp);
     }
 
@@ -298,7 +324,7 @@ public class Metamodell {
         return systemObject.isOfType("typ.kommazahlAttributTyp");
     }
 
-    public KommazahlAttributtyp gibKommazahlAttributtyp(String pid) {
+    private KommazahlAttributtyp gibKommazahlAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeKommazahlAttributtyp, this::initialisiereKommazahlAttributtyp);
     }
 
@@ -324,7 +350,7 @@ public class Metamodell {
         return systemObject.isOfType("typ.objektReferenzAttributTyp");
     }
 
-    public ObjektreferenzAttributtyp gibObjektreferenzAttributtyp(String pid) {
+    private ObjektreferenzAttributtyp gibObjektreferenzAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeObjektreferenzAttributtyp, this::initialisiereObjektreferenzAttributtyp);
     }
 
@@ -354,7 +380,7 @@ public class Metamodell {
         return systemObject.isOfType("typ.ganzzahlAttributTyp");
     }
 
-    public GanzzahlAttributtyp gibGanzzahlAttributtyp(String pid) {
+    private GanzzahlAttributtyp gibGanzzahlAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeGanzzahlAttributtyp, this::initialisiereGanzzahlAttributtyp);
     }
 
