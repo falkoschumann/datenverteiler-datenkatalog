@@ -16,11 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.NumberFormat;
-import java.util.Collection;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 /**
  * Der Generator erzeugt eine HTML-Dokumentation des Datenkatalogs nach dem Vorbild von JavaDoc.
@@ -42,7 +38,7 @@ public class HtmlGenerator {
         initialisiereVelocity();
 
         ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
-        Metamodell metamodell = new Metamodell(new MetamodellFabrik(), model);
+        MetamodellHtmlProxy metamodell = new MetamodellHtmlProxy(model);
         try {
             new HtmlGenerator().generiere(metamodell);
         } finally {
@@ -60,7 +56,7 @@ public class HtmlGenerator {
         }
     }
 
-    public void generiere(Metamodell metamodell) throws IOException {
+    public void generiere(MetamodellHtmlProxy metamodell) throws IOException {
         context = erzeugeContext(metamodell);
 
         Files.createDirectories(Paths.get(target));
@@ -74,24 +70,11 @@ public class HtmlGenerator {
         generiereObjekte();
     }
 
-    private VelocityContext erzeugeContext(Metamodell metamodell) {
+    private VelocityContext erzeugeContext(MetamodellHtmlProxy metamodell) {
         VelocityContext result = new VelocityContext();
-
         result.put(NumberFormat.class.getSimpleName(), NumberFormat.class);
-
         result.put("projekt", "Datenkatalog");
-        result.put("konfigurationsverantwortliche", metamodell.gibKonfigurationsverantwortliche());
-        result.put("konfigurationsbereiche", metamodell.gibKonfigurationsbereiche());
-
-        verantwortlichkeiten = new TreeMap<>(Systemobjekt::compareToNameOderPid);
-        metamodell.gibKonfigurationsverantwortliche().forEach(kv -> verantwortlichkeiten.put(kv, new TreeSet<>(Systemobjekt::compareToNameOderPid)));
-        metamodell.gibKonfigurationsbereiche().forEach(kb -> verantwortlichkeiten.get(kb.getZustaendiger()).add(kb));
-        result.put("verantwortlichkeiten", verantwortlichkeiten);
-
-        Set<Systemobjekt> objekte = new TreeSet<>(Systemobjekt::compareToNameOderPid);
-        objekte.addAll(metamodell.gibKonfigurationsbereiche().stream().map(Konfigurationsbereich::getModell).flatMap(Collection::stream).collect(Collectors.toSet()));
-        result.put("objekte", objekte);
-
+        result.put("metamodell", metamodell);
         return result;
     }
 
