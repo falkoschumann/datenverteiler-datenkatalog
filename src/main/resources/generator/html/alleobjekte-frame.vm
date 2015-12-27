@@ -17,11 +17,11 @@
             <li>
                 <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html"
                    target="objektFrame">
-                    #if ( ${objekt.class.simpleName} == "Typ" )<strong>#end
-                    #if ( ${objekt.class.simpleName} == "Attributgruppe" )<em>#end
+                    #if ( $objekt.class.simpleName.startsWith("Typ") )<strong>#end
+                    #if ( $objekt.class.simpleName.startsWith("Attributgruppe") )<em>#end
                     $objekt.nameOderPid
-                    #if ( ${objekt.class.simpleName} == "Typ" )</strong>#end
-                        #if ( ${objekt.class.simpleName} == "Attributgruppe" )</em>#end
+                    #if ( $objekt.class.simpleName.startsWith("Typ") )</strong>#end
+                        #if ( $objekt.class.simpleName.startsWith("Attributgruppe") )</em>#end
                 </a>
             </li>
         #end

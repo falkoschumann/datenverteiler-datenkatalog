@@ -6,7 +6,7 @@
                 &nbsp;&nbsp;&nbsp;
             #end
         #end
-        #if( $attribut.attributtyp.class.simpleName == "AttributListenDefinition" )
+        #if( $attribut.attributtyp.class.simpleName.startsWith("Attributliste") )
             &loz;
         #else
             &bull;
@@ -15,17 +15,17 @@
     </td>
     <td class="#if ($row % 2 == 0) rowColor #else altColor #end">
         <a href="${attribut.attributtyp.konfigurationsbereich.zustaendiger.pid}/${attribut.attributtyp.konfigurationsbereich.pid}/${attribut.attributtyp.pid}.html">
-        #if( $attribut.attributtyp.class.simpleName == "AttributListenDefinition" )
+        #if( $attribut.attributtyp.class.simpleName.startsWith("Attributliste") )
             Attributliste
-        #elseif( $attribut.attributtyp.class.simpleName == "GanzzahlAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName.startsWith("GanzzahlAttributtyp") )
             Ganzzahl
-        #elseif( $attribut.attributtyp.class.simpleName == "KommazahlAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName.startsWith("KommazahlAttributtyp") )
             Kommazahl
-        #elseif( $attribut.attributtyp.class.simpleName == "ZeichenkettenAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName.startsWith("ZeichenkettenAttributtyp") )
             Zeichenkette
-        #elseif( $attribut.attributtyp.class.simpleName == "ZeitstempelAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName.startsWith("ZeitstempelAttributtyp") )
             Zeitstempel
-        #elseif( $attribut.attributtyp.class.simpleName == "ObjektReferenzAttributTyp" )
+        #elseif( $attribut.attributtyp.class.simpleName.startsWith("ObjektreferenzAttributtyp") )
             Objektreferenz
         #end
         </a>
@@ -49,7 +49,7 @@
     </td>
 </tr>
     #set( $row = $row + 1 )
-    #if( $attribut.attributtyp.class.simpleName == "AttributListenDefinition" )
+    #if( $attribut.attributtyp.class.simpleName.startsWith("Attributliste") )
         #set( $attributmenge = $attribut.attributtyp )
         #set( $level = $level + 1 )
         #parse( "/generator/html/attributmenge.vm" )

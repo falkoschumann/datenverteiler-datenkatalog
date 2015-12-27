@@ -7,13 +7,9 @@ package de.muspellheim.datenverteiler.datenkatalog.generator.html;
 
 import de.bsvrz.dav.daf.main.config.DataModel;
 import de.bsvrz.dav.daf.main.config.SystemObject;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Konfigurationsbereich;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Konfigurationsverantwortlicher;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Systemobjekt;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.*;
 
 import java.util.Collection;
-import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -37,8 +33,8 @@ public class MetamodellHtmlProxy extends Metamodell {
     }
 
     @Override
-    public Set<Konfigurationsbereich> getKonfigurationsbereiche() {
-        TreeSet<Konfigurationsbereich> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
+    public SortedSet<Konfigurationsbereich> getKonfigurationsbereiche() {
+        SortedSet<Konfigurationsbereich> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
         result.addAll(super.getKonfigurationsbereiche());
         return result;
     }
@@ -48,8 +44,8 @@ public class MetamodellHtmlProxy extends Metamodell {
         return new KonfigurationsbereichHtmlProxy(pid);
     }
 
-    public Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
-        Set<Konfigurationsverantwortlicher> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
+    public SortedSet<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
+        SortedSet<Konfigurationsverantwortlicher> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
         getKonfigurationsbereiche().forEach(kb -> result.add(kb.getZustaendiger()));
         return result;
     }
@@ -65,6 +61,12 @@ public class MetamodellHtmlProxy extends Metamodell {
 
         KonfigurationsverantwortlicherHtmlProxy zustaendiger = (KonfigurationsverantwortlicherHtmlProxy) result.getZustaendiger();
         zustaendiger.getKonfigurationsbereiche().add(result);
+    }
+
+    @Override
+    protected Typ erzeugeTyp(String pid) {
+        // TODO Wie soll Vererbung durch Mengentyp und DynamischerTyp umgegangen werden?
+        return new TypHtmlProxy(pid);
     }
 
 }

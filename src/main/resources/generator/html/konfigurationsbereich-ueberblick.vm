@@ -157,7 +157,7 @@
                 </tr>
                     #set( $row = 1 )
                     #foreach( $attributtyp in $konfigurationsbereich.attributtypen )
-                        #if( $attributtyp.class.simpleName != "AttributListenDefinition" )
+                        #if( !$attributtyp.class.simpleName.startsWith("Attributliste") )
                         <tr>
                             <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributtyp.konfigurationsbereich.zustaendiger.pid}/${attributtyp.konfigurationsbereich.pid}/${attributtyp.pid}.html">$attributtyp.nameOderPid</a></td>
                             <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributtyp.kurzinfo}</td>
