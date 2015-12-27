@@ -20,49 +20,45 @@ public class SystemObjektTest {
 
     @Test
     public void testGetNameOderPid() {
-        Systemobjekt nameUndPid = new TestingSystemObjekt();
+        Systemobjekt nameUndPid = new TestingSystemObjekt("obj.foo");
         nameUndPid.setName("Foo");
-        nameUndPid.setPid("obj.foo");
         assertEquals("Foo", nameUndPid.getNameOderPid());
 
-        Systemobjekt name = new TestingSystemObjekt();
+        Systemobjekt name = new TestingSystemObjekt(null);
         name.setName("Foo");
         assertEquals("Foo", name.getNameOderPid());
 
-        Systemobjekt pid = new TestingSystemObjekt();
-        pid.setPid("obj.foo");
+        Systemobjekt pid = new TestingSystemObjekt("obj.foo");
         assertEquals("obj.foo", pid.getNameOderPid());
 
-        Systemobjekt nichts = new TestingSystemObjekt();
+        Systemobjekt nichts = new TestingSystemObjekt(null);
         assertEquals("", nichts.getNameOderPid());
     }
 
     @Test
     public void testToString() {
-        Systemobjekt nameUndPid = new TestingSystemObjekt();
+        Systemobjekt nameUndPid = new TestingSystemObjekt("obj.foo");
         nameUndPid.setName("Foo");
-        nameUndPid.setPid("obj.foo");
         assertEquals("TestingSystemObjekt Foo (obj.foo)", nameUndPid.toString());
 
-        Systemobjekt name = new TestingSystemObjekt();
+        Systemobjekt name = new TestingSystemObjekt(null);
         name.setName("Foo");
         assertEquals("TestingSystemObjekt Foo", name.toString());
 
-        Systemobjekt pid = new TestingSystemObjekt();
-        pid.setPid("obj.foo");
+        Systemobjekt pid = new TestingSystemObjekt("obj.foo");
         assertEquals("TestingSystemObjekt (obj.foo)", pid.toString());
 
-        Systemobjekt nichts = new TestingSystemObjekt();
+        Systemobjekt nichts = new TestingSystemObjekt(null);
         assertEquals("TestingSystemObjekt", nichts.toString());
     }
 
     @Test
     public void testCompareToNameOderPid() {
-        Typ mqTyp = Typ.erzeugeMitPid("typ.messQuerschnitt");
+        Typ mqTyp = new Typ("typ.messQuerschnitt");
         mqTyp.setName("MessQuerschnitt");
-        Attributgruppe mqAtg = Attributgruppe.erzeugeMitPid("atg.messQuerschnitt");
+        Attributgruppe mqAtg = new Attributgruppe("atg.messQuerschnitt");
         mqAtg.setName("MessQuerschnitt");
-        Typ fsTyp = Typ.erzeugeMitPid("typ.fahrStreifen");
+        Typ fsTyp = new Typ("typ.fahrStreifen");
         fsTyp.setName("FahrStreifen");
 
         assertTrue(Systemobjekt.compareToNameOderPid(mqTyp, mqTyp) == 0);
@@ -71,6 +67,11 @@ public class SystemObjektTest {
     }
 
     private class TestingSystemObjekt extends Systemobjekt {
+
+        TestingSystemObjekt(String pid) {
+            super(pid);
+        }
+
     }
 
 }

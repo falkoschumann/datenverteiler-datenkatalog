@@ -14,10 +14,8 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  */
 public class Konfigurationsverantwortlicher extends Systemobjekt {
 
-    public static Konfigurationsverantwortlicher erzeugeMitPid(String pid) {
-        Konfigurationsverantwortlicher result = new Konfigurationsverantwortlicher();
-        result.setPid(pid);
-        return result;
+    public Konfigurationsverantwortlicher(String pid) {
+        super(pid);
     }
 
 }

@@ -16,10 +16,8 @@ public class ZeitstempelAttributtyp extends Attributtyp {
     private boolean relativ;
     private Zeitaufloesung genauigkeit = Zeitaufloesung.MILLISEKUNDEN;
 
-    public static ZeitstempelAttributtyp erzeugeMitPid(String pid) {
-        ZeitstempelAttributtyp result = new ZeitstempelAttributtyp();
-        result.setPid(pid);
-        return result;
+    public ZeitstempelAttributtyp(String pid) {
+        super(pid);
     }
 
     /**

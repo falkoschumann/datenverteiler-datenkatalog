@@ -21,10 +21,8 @@ public class Typ extends Systemobjekt {
     private final Set<Typ> supertypen = new LinkedHashSet<>();
     private final Set<Typ> subtypen = new LinkedHashSet<>();
 
-    public static Typ erzeugeMitPid(String pid) {
-        Typ result = new Typ();
-        result.setPid(pid);
-        return result;
+    public Typ(String pid) {
+        super(pid);
     }
 
     /**

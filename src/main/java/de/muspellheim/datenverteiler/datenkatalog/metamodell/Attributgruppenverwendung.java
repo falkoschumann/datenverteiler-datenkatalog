@@ -18,10 +18,8 @@ public class Attributgruppenverwendung extends Systemobjekt {
     private boolean VerwendungExplizitVorgegeben;
     private Datensatzverwendung datensatzverwendung;
 
-    public static Attributgruppenverwendung erzeugeMitPid(String pid) {
-        Attributgruppenverwendung result = new Attributgruppenverwendung();
-        result.setPid(pid);
-        return result;
+    protected Attributgruppenverwendung(String pid) {
+        super(pid);
     }
 
     public Attributgruppe getAttributgruppe() {

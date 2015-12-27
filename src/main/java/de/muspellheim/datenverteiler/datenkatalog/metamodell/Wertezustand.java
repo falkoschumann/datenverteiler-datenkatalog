@@ -20,7 +20,7 @@ public final class Wertezustand extends Systemobjekt {
     private long wert;
 
     private Wertezustand() {
-        // value object
+        super(null);
     }
 
     public static Wertezustand erzeuge(String name, long wert) {

@@ -21,10 +21,8 @@ public class Attributliste extends Attributtyp implements Attributmenge {
 
     private final Set<Attribut> attribute = new LinkedHashSet<>();
 
-    public static Attributliste erzeugeMitPid(String pid) {
-        Attributliste result = new Attributliste();
-        result.setPid(pid);
-        return result;
+    public Attributliste(String pid) {
+        super(pid);
     }
 
     /**
@@ -33,6 +31,5 @@ public class Attributliste extends Attributtyp implements Attributmenge {
     public Set<Attribut> getAttribute() {
         return attribute;
     }
-
 
 }

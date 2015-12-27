@@ -16,10 +16,8 @@ public class KommazahlAttributtyp extends Attributtyp {
     private String einheit;
     private Fliesskommaaufloesung genauigkeit;
 
-    public static KommazahlAttributtyp erzeugeMitPid(String pid) {
-        KommazahlAttributtyp result = new KommazahlAttributtyp();
-        result.setPid(pid);
-        return result;
+    public KommazahlAttributtyp(String pid) {
+        super(pid);
     }
 
     public String getEinheit() {

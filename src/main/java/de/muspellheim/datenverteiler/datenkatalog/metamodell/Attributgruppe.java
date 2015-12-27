@@ -25,10 +25,8 @@ public class Attributgruppe extends Systemobjekt implements Attributmenge {
     private Set<Aspekt> aspekte = new LinkedHashSet<>();
     private Set<Attributgruppenverwendung> attributgruppenverwendungen = new LinkedHashSet<>();
 
-    public static Attributgruppe erzeugeMitPid(String pid) {
-        Attributgruppe result = new Attributgruppe();
-        result.setPid(pid);
-        return result;
+    public Attributgruppe(String pid) {
+        super(pid);
     }
 
     /**

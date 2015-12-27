@@ -20,10 +20,8 @@ public class Konfigurationsbereich extends Systemobjekt {
     private Konfigurationsverantwortlicher zustaendiger;
     private final Set<Systemobjekt> modell = new LinkedHashSet<>();
 
-    public static Konfigurationsbereich erzeugeMitPid(String pid) {
-        Konfigurationsbereich result = new Konfigurationsbereich();
-        result.setPid(pid);
-        return result;
+    public Konfigurationsbereich(String pid) {
+        super(pid);
     }
 
     /**

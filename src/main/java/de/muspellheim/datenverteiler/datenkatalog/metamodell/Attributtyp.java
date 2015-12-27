@@ -18,6 +18,8 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  */
 public abstract class Attributtyp extends Systemobjekt {
 
-    // tagging interface
+    protected Attributtyp(String pid) {
+        super(pid);
+    }
 
 }
