@@ -36,6 +36,12 @@ public final class Mengenverwendung extends Systemobjekt {
         return result;
     }
 
+    public static int compareToMengenname(Mengenverwendung m1, Mengenverwendung m2) {
+        if (Objects.equals(m1, m2)) return 0;
+
+        return m1.getMengenname().compareToIgnoreCase(m2.getMengenname());
+    }
+
     /**
      * Persistenter Name der Menge.
      * <p>
