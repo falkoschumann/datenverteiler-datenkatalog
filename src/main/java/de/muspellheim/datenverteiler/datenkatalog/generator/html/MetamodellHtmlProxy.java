@@ -43,6 +43,11 @@ public class MetamodellHtmlProxy extends Metamodell {
         return result;
     }
 
+    @Override
+    protected Konfigurationsbereich erzeugeKonfigurationsbereich(String pid) {
+        return new KonfigurationsbereichHtmlProxy(pid);
+    }
+
     public Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
         Set<Konfigurationsverantwortlicher> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
         getKonfigurationsbereiche().forEach(kb -> result.add(kb.getZustaendiger()));
