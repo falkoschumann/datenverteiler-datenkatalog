@@ -37,7 +37,15 @@ public class Metamodell {
         this.model = model;
     }
 
-    private boolean istObjekt(SystemObject so) {
+    protected DataModel getModel() {
+        return model;
+    }
+
+    protected MetamodellFabrik getFabrik() {
+        return fabrik;
+    }
+
+    protected boolean istObjekt(SystemObject so) {
         return istKonfigurationsbereich(so) ||
                 istKonfigurationsverantwortlicher(so) ||
                 istTyp(so) ||
@@ -59,7 +67,7 @@ public class Metamodell {
         throw new NoSuchElementException("Es gibt kein Objekt mit der PID " + pid + ".");
     }
 
-    private <T extends Systemobjekt> T gibObjekt(SystemObject so, Fabrikmethode<T> fabrikmethode, Initialisierungsstrategie<T> initalisierungsstrategie) {
+    protected <T extends Systemobjekt> T gibObjekt(SystemObject so, Fabrikmethode<T> fabrikmethode, Initialisierungsstrategie<T> initalisierungsstrategie) {
         if (objekte.containsKey(so.getPid()))
             return (T) objekte.get(so.getPid());
 
@@ -69,7 +77,7 @@ public class Metamodell {
         return result;
     }
 
-    private void initialisiereObjekt(SystemObject so, Systemobjekt objekt) {
+    protected void initialisiereObjekt(SystemObject so, Systemobjekt objekt) {
         objekt.setName(so.getName());
         objekt.setKurzinfo(so.getInfo().getShortInfo().trim());
         objekt.setBeschreibung(so.getInfo().getDescription().trim());
@@ -83,7 +91,7 @@ public class Metamodell {
                 collect(Collectors.toSet());
     }
 
-    private boolean istKonfigurationsbereich(SystemObject systemObject) {
+    protected boolean istKonfigurationsbereich(SystemObject systemObject) {
         return systemObject.isOfType("typ.konfigurationsBereich");
     }
 
@@ -91,7 +99,7 @@ public class Metamodell {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsbereich, this::initialisiereKonfigurationsbereich);
     }
 
-    private void initialisiereKonfigurationsbereich(SystemObject object, Konfigurationsbereich result) {
+    protected void initialisiereKonfigurationsbereich(SystemObject object, Konfigurationsbereich result) {
         initialisiereObjekt(object, result);
 
         ConfigurationArea area = (ConfigurationArea) object;
@@ -101,15 +109,19 @@ public class Metamodell {
                 forEach(e -> result.getModell().add(gibObjekt(e.getPid())));
     }
 
-    private boolean istKonfigurationsverantwortlicher(SystemObject systemObject) {
+    protected boolean istKonfigurationsverantwortlicher(SystemObject systemObject) {
         return systemObject.isOfType("typ.konfigurationsVerantwortlicher");
     }
 
     public Konfigurationsverantwortlicher gibKonfigurationsverantwortlicher(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsverantwortlicher, this::initialisiereObjekt);
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeKonfigurationsverantwortlicher, this::initialisiereKonfigurationsverantwortlicher);
     }
 
-    private boolean istTyp(SystemObject systemObject) {
+    protected void initialisiereKonfigurationsverantwortlicher(SystemObject so, Konfigurationsverantwortlicher objekt) {
+        initialisiereObjekt(so, objekt);
+    }
+
+    protected boolean istTyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.typ") && !systemObject.isOfType("typ.mengenTyp");
     }
 
@@ -123,7 +135,7 @@ public class Metamodell {
         return gibObjekt(so, fabrik::erzeugeTyp, this::initialisiereTyp);
     }
 
-    private void initialisiereTyp(SystemObject so, Typ objekt) {
+    protected void initialisiereTyp(SystemObject so, Typ objekt) {
         initialisiereObjekt(so, objekt);
 
         SystemObjectType type = (SystemObjectType) so;
@@ -133,28 +145,28 @@ public class Metamodell {
         type.getDirectAttributeGroups().forEach(e -> objekt.getAttributgruppen().add(gibAttributgruppe(e.getPid())));
     }
 
-    private Mengenverwendung gibMengenverwendung(long id) {
+    protected Mengenverwendung gibMengenverwendung(long id) {
         ObjectSetUse objectSetUse = (ObjectSetUse) model.getObject(id);
         return Mengenverwendung.erzeuge(objectSetUse.getObjectSetName(), gibMengentyp(objectSetUse.getObjectSetType().getPid()), objectSetUse.isRequired());
     }
 
-    private boolean istDynamischerTyp(SystemObject systemObject) {
+    protected boolean istDynamischerTyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.dynamischerTyp");
     }
 
-    private DynamischerTyp gibDynamischerTyp(String pid) {
+    protected DynamischerTyp gibDynamischerTyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeDynamischerTyp, this::initialisiereTyp);
     }
 
-    private boolean istMengenTyp(SystemObject systemObject) {
+    protected boolean istMengenTyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.mengenTyp");
     }
 
-    public Mengentyp gibMengentyp(String pid) {
+    protected Mengentyp gibMengentyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeMengentyp, this::initialisiereMengentyp);
     }
 
-    private void initialisiereMengentyp(SystemObject so, Mengentyp objekt) {
+    protected void initialisiereMengentyp(SystemObject so, Mengentyp objekt) {
         initialisiereObjekt(so, objekt);
 
         ObjectSetType objectSetType = (ObjectSetType) so;
@@ -179,7 +191,7 @@ public class Metamodell {
         }
     }
 
-    private boolean istAttributgruppe(SystemObject systemObject) {
+    protected boolean istAttributgruppe(SystemObject systemObject) {
         return systemObject.isOfType("typ.attributgruppe");
     }
 
@@ -187,7 +199,7 @@ public class Metamodell {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributgruppe, this::initialisiereAttributgruppe);
     }
 
-    private void initialisiereAttributgruppe(SystemObject so, Attributgruppe objekt) {
+    protected void initialisiereAttributgruppe(SystemObject so, Attributgruppe objekt) {
         initialisiereAttributmenge(so, objekt);
 
         AttributeGroup atg = (AttributeGroup) so;
@@ -195,18 +207,18 @@ public class Metamodell {
         atg.getAttributeGroupUsages().forEach(e -> objekt.getAttributgruppenverwendungen().add(gibAttributgruppenverwendung(e.getPid())));
     }
 
-    private <T extends Systemobjekt & Attributmenge> void initialisiereAttributmenge(SystemObject so, T objekt) {
+    protected <T extends Systemobjekt & Attributmenge> void initialisiereAttributmenge(SystemObject so, T objekt) {
         initialisiereObjekt(so, objekt);
 
         ConfigurationObject co = (ConfigurationObject) so;
         co.getObjectSet("Attribute").getElements().stream().forEach(e -> objekt.getAttribute().add(gibAttribut(e.getId())));
     }
 
-    private Attributgruppenverwendung gibAttributgruppenverwendung(String pid) {
+    protected Attributgruppenverwendung gibAttributgruppenverwendung(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributgruppenverwendung, this::initialisiereAttributgruppenverwendung);
     }
 
-    private void initialisiereAttributgruppenverwendung(SystemObject so, Attributgruppenverwendung objekt) {
+    protected void initialisiereAttributgruppenverwendung(SystemObject so, Attributgruppenverwendung objekt) {
         initialisiereObjekt(so, objekt);
 
         AttributeGroupUsage usage = (AttributeGroupUsage) so;
@@ -216,7 +228,7 @@ public class Metamodell {
         objekt.setDatensatzverwendung(datensatzVerwendung(usage.getUsage()));
     }
 
-    private Datensatzverwendung datensatzVerwendung(AttributeGroupUsage.Usage usage) {
+    protected Datensatzverwendung datensatzVerwendung(AttributeGroupUsage.Usage usage) {
         switch (usage.getId()) {
             case 1:
                 return Datensatzverwendung.KONFIGURIERENDER_DATENSATZ_NOTWENDIG;
@@ -237,20 +249,24 @@ public class Metamodell {
         }
     }
 
-    private Attribut gibAttribut(long id) {
+    protected Attribut gibAttribut(long id) {
         Attribute attribute = (Attribute) model.getObject(id);
         return Attribut.erzeuge(attribute.getName(), attribute.getPosition(), attribute.getMaxCount(), attribute.isCountVariable(), gibAttributtyp(attribute.getAttributeType().getPid()));
     }
 
-    private boolean istAspekt(SystemObject systemObject) {
+    protected boolean istAspekt(SystemObject systemObject) {
         return systemObject.isOfType("typ.aspekt");
     }
 
     public Aspekt gibAspekt(String pid) {
-        return gibObjekt(model.getObject(pid), fabrik::erzeugeAspekt, this::initialisiereObjekt);
+        return gibObjekt(model.getObject(pid), fabrik::erzeugeAspekt, this::initialisiereAspekt);
     }
 
-    private boolean istAttributTyp(SystemObject systemObject) {
+    protected void initialisiereAspekt(SystemObject so, Systemobjekt objekt) {
+        initialisiereObjekt(so, objekt);
+    }
+
+    protected boolean istAttributTyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.attributTyp");
     }
 
@@ -271,7 +287,7 @@ public class Metamodell {
         throw new IllegalStateException("Unbekannter Attributtyp: " + attributeType);
     }
 
-    private boolean istAttributliste(SystemObject systemObject) {
+    protected boolean istAttributliste(SystemObject systemObject) {
         return systemObject.isOfType("typ.attributListenDefinition");
     }
 
@@ -279,15 +295,15 @@ public class Metamodell {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeAttributliste, this::initialisiereAttributmenge);
     }
 
-    private boolean istZeichenketteAttributtyp(SystemObject systemObject) {
+    protected boolean istZeichenketteAttributtyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.zeichenketteAttributTyp");
     }
 
-    private ZeichenkettenAttributtyp gibZeichenkettenAttributtyp(String pid) {
+    protected ZeichenkettenAttributtyp gibZeichenkettenAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeZeichenkettenAttributtyp, this::initialisiereZeichenkettenAttributtyp);
     }
 
-    private void initialisiereZeichenkettenAttributtyp(SystemObject so, ZeichenkettenAttributtyp objekt) {
+    protected void initialisiereZeichenkettenAttributtyp(SystemObject so, ZeichenkettenAttributtyp objekt) {
         initialisiereObjekt(so, objekt);
 
         StringAttributeType type = (StringAttributeType) so;
@@ -295,15 +311,15 @@ public class Metamodell {
         objekt.setKodierung(Zeichenkodierung.of(type.getEncodingName()));
     }
 
-    private boolean istZeitstempelAttributtyp(SystemObject systemObject) {
+    protected boolean istZeitstempelAttributtyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.zeitstempelAttributTyp");
     }
 
-    private ZeitstempelAttributtyp gibZeitstempelAttributtyp(String pid) {
+    protected ZeitstempelAttributtyp gibZeitstempelAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeZeitstempelAttributtyp, this::initialisiereZeitstempelAttributtyp);
     }
 
-    private void initialisiereZeitstempelAttributtyp(SystemObject so, ZeitstempelAttributtyp objekt) {
+    protected void initialisiereZeitstempelAttributtyp(SystemObject so, ZeitstempelAttributtyp objekt) {
         initialisiereObjekt(so, objekt);
 
         TimeAttributeType type = (TimeAttributeType) so;
@@ -320,15 +336,15 @@ public class Metamodell {
         }
     }
 
-    private boolean istKommazahlAttributtyp(SystemObject systemObject) {
+    protected boolean istKommazahlAttributtyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.kommazahlAttributTyp");
     }
 
-    private KommazahlAttributtyp gibKommazahlAttributtyp(String pid) {
+    protected KommazahlAttributtyp gibKommazahlAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeKommazahlAttributtyp, this::initialisiereKommazahlAttributtyp);
     }
 
-    private void initialisiereKommazahlAttributtyp(SystemObject so, KommazahlAttributtyp objekt) {
+    protected void initialisiereKommazahlAttributtyp(SystemObject so, KommazahlAttributtyp objekt) {
         initialisiereObjekt(so, objekt);
 
         DoubleAttributeType type = (DoubleAttributeType) so;
@@ -346,15 +362,15 @@ public class Metamodell {
 
     }
 
-    private boolean istObjektreferenzAttributtyp(SystemObject systemObject) {
+    protected boolean istObjektreferenzAttributtyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.objektReferenzAttributTyp");
     }
 
-    private ObjektreferenzAttributtyp gibObjektreferenzAttributtyp(String pid) {
+    protected ObjektreferenzAttributtyp gibObjektreferenzAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeObjektreferenzAttributtyp, this::initialisiereObjektreferenzAttributtyp);
     }
 
-    private void initialisiereObjektreferenzAttributtyp(SystemObject so, ObjektreferenzAttributtyp objekt) {
+    protected void initialisiereObjektreferenzAttributtyp(SystemObject so, ObjektreferenzAttributtyp objekt) {
         initialisiereObjekt(so, objekt);
 
         ReferenceAttributeType type = (ReferenceAttributeType) so;
@@ -376,15 +392,15 @@ public class Metamodell {
         }
     }
 
-    private boolean istGanzzahlAttributtyp(SystemObject systemObject) {
+    protected boolean istGanzzahlAttributtyp(SystemObject systemObject) {
         return systemObject.isOfType("typ.ganzzahlAttributTyp");
     }
 
-    private GanzzahlAttributtyp gibGanzzahlAttributtyp(String pid) {
+    protected GanzzahlAttributtyp gibGanzzahlAttributtyp(String pid) {
         return gibObjekt(model.getObject(pid), fabrik::erzeugeGanzzahlAttributtyp, this::initialisiereGanzzahlAttributtyp);
     }
 
-    private void initialisiereGanzzahlAttributtyp(SystemObject so, GanzzahlAttributtyp objekt) {
+    protected void initialisiereGanzzahlAttributtyp(SystemObject so, GanzzahlAttributtyp objekt) {
         initialisiereObjekt(so, objekt);
 
         IntegerAttributeType type = (IntegerAttributeType) so;
@@ -410,7 +426,7 @@ public class Metamodell {
         type.getStates().forEach(e -> objekt.getZustaende().add(erzeugeZustand(e)));
     }
 
-    private Wertezustand erzeugeZustand(IntegerValueState state) {
+    protected Wertezustand erzeugeZustand(IntegerValueState state) {
         Wertezustand result = Wertezustand.erzeuge(state.getName(), state.getValue());
         result.setKurzinfo(state.getInfo().getShortInfo());
         result.setBeschreibung(state.getInfo().getDescription());
@@ -418,14 +434,14 @@ public class Metamodell {
     }
 
     @FunctionalInterface
-    private interface Fabrikmethode<T extends Systemobjekt> {
+    protected interface Fabrikmethode<T extends Systemobjekt> {
 
         T erzeuge(String pid);
 
     }
 
     @FunctionalInterface
-    private interface Initialisierungsstrategie<T extends Systemobjekt> {
+    protected interface Initialisierungsstrategie<T extends Systemobjekt> {
 
         void initialisiere(SystemObject so, T objekt);
 
