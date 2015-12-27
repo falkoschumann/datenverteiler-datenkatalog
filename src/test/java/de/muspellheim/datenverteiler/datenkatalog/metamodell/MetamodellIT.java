@@ -32,7 +32,7 @@ public class MetamodellIT extends AbstractDatenkatalogIT {
 
     @Test
     public void testGetKonfigurationsbereiche() {
-        Set<Konfigurationsbereich> konfigurationsbereiche = metamodell.gibKonfigurationsbereiche();
+        Set<Konfigurationsbereich> konfigurationsbereiche = metamodell.getKonfigurationsbereiche();
         assertFalse(konfigurationsbereiche.isEmpty());
     }
 

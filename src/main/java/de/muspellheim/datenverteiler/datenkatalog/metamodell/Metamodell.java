@@ -79,7 +79,7 @@ public class Metamodell {
             objekt.setKonfigurationsbereich(gibKonfigurationsbereich(so.getConfigurationArea().getPid()));
     }
 
-    public Set<Konfigurationsbereich> gibKonfigurationsbereiche() {
+    public Set<Konfigurationsbereich> getKonfigurationsbereiche() {
         return model.getType("typ.konfigurationsBereich").getElements().stream().
                 map(k -> gibKonfigurationsbereich(k.getPid())).
                 collect(Collectors.toSet());
