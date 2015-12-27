@@ -16,7 +16,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.text.NumberFormat;
-import java.util.Set;
 
 /**
  * Der Generator erzeugt eine HTML-Dokumentation des Datenkatalogs nach dem Vorbild von JavaDoc.
@@ -32,6 +31,7 @@ public class HtmlGenerator {
     private String source = "/generator/html/";
     private String target = "target/datenkatalog/html/";
 
+    private MetamodellHtmlProxy metamodell;
     private VelocityContext context;
 
     public static void main(String args[]) throws IOException {
@@ -57,6 +57,7 @@ public class HtmlGenerator {
     }
 
     public void generiere(MetamodellHtmlProxy metamodell) throws IOException {
+        this.metamodell = metamodell;
         context = erzeugeContext(metamodell);
 
         Files.createDirectories(Paths.get(target));
@@ -65,8 +66,6 @@ public class HtmlGenerator {
         generiereDatei("ueberblick");
         generiereDatei("ueberblick-frame");
         generiereDatei("alleobjekte-frame");
-        generiereKonfigurationsbereiche();
-        generiereKonfigurationsverantwortliche();
         generiereObjekte();
     }
 
@@ -84,11 +83,13 @@ public class HtmlGenerator {
     }
 
     private void generiereDatei(String name) throws IOException {
-        generiereDatei(name, name);
+        generiereDatei(name, "", name + ".html");
     }
 
-    private void generiereDatei(String template, String zieldateiname) throws IOException {
-        Path datei = Paths.get(target, zieldateiname + ".html");
+    private void generiereDatei(String template, String zielpfadname, String zieldateiname) throws IOException {
+        Path pfad = Paths.get(target, zielpfadname);
+        Files.createDirectories(pfad);
+        Path datei = pfad.resolve(zieldateiname);
         System.out.println("Generiere " + datei + " ...");
         OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
@@ -100,80 +101,67 @@ public class HtmlGenerator {
         }
     }
 
-    private void generiereKonfigurationsverantwortliche() throws IOException {
-        Set<Systemobjekt> konfigurationsverantwortliche = (Set<Systemobjekt>) context.get("konfigurationsverantwortliche");
-        for (Systemobjekt e : konfigurationsverantwortliche) {
-            generiereKonfigurationsverantwortlicherUeberblick((Konfigurationsverantwortlicher) e);
+    private void generiereObjekte() throws IOException {
+        for (Systemobjekt e : metamodell.getObjekte())
+            generiereObjekt(e);
+    }
+
+    private void generiereObjekt(Systemobjekt objekt) throws IOException {
+        if (objekt instanceof Konfigurationsbereich) {
+            context.put("konfigurationsbereich", objekt);
+            generiereKonfigurationsbereichUeberblick((Konfigurationsbereich) objekt);
+            generiereKonfigurationsbereichFrame((Konfigurationsbereich) objekt);
+            return;
+        } else if (objekt instanceof Konfigurationsverantwortlicher) {
+            context.put("konfigurationsverantwortlicher", objekt);
+            generiereKonfigurationsverantwortlicherUeberblick((Konfigurationsverantwortlicher) objekt);
+            return;
         }
-    }
 
-    private void generiereKonfigurationsverantwortlicherUeberblick(Konfigurationsverantwortlicher konfigurationsVerantwortlicher) throws IOException {
-        context.put("konfigurationsverantwortlicher", konfigurationsVerantwortlicher);
-        context.put("konfigurationsbereiche", verantwortlichkeiten.get(konfigurationsVerantwortlicher));
-
-        String pfad = konfigurationsVerantwortlicher.getPid();
-        Files.createDirectories(Paths.get(target, pfad));
-        generiereDatei("konfigurationsverantwortlicher-ueberblick", pfad + "/konfigurationsverantwortlicher-ueberblick");
-    }
-
-    private void generiereKonfigurationsbereiche() throws IOException {
-        Set<Systemobjekt> konfigurationsbereiche = (Set<Systemobjekt>) context.get("konfigurationsbereiche");
-        for (Systemobjekt e : konfigurationsbereiche) {
-            context.put("konfigurationsbereich", e);
-            generiereKonfigurationsbereichUeberblick((Konfigurationsbereich) e);
-            generiereKonfigurationsbereichFrame((Konfigurationsbereich) e);
+        String pfad = objekt.getKonfigurationsbereich().getZustaendiger().getPid() + "/" + objekt.getKonfigurationsbereich().getPid();
+        if (objekt instanceof Mengentyp) {
+            context.put("mengentyp", objekt);
+            generiereDatei("mengentyp", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof Typ) {
+            context.put("typ", objekt);
+            generiereDatei("typ", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof Attributgruppe) {
+            context.put("attributgruppe", objekt);
+            generiereDatei("attributgruppe", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof Attributliste) {
+            context.put("attributliste", objekt);
+            generiereDatei("attributliste", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof ZeichenkettenAttributtyp) {
+            context.put("attributtyp", objekt);
+            generiereDatei("zeichenkette", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof ZeitstempelAttributtyp) {
+            context.put("attributtyp", objekt);
+            generiereDatei("zeitstempel", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof KommazahlAttributtyp) {
+            context.put("attributtyp", objekt);
+            generiereDatei("kommazahl", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof ObjektreferenzAttributtyp) {
+            context.put("attributtyp", objekt);
+            generiereDatei("objektreferenz", pfad, objekt.getPid() + ".html");
+        } else if (objekt instanceof GanzzahlAttributtyp) {
+            context.put("attributtyp", objekt);
+            generiereDatei("ganzzahl", pfad, objekt.getPid() + ".html");
         }
     }
 
     private void generiereKonfigurationsbereichUeberblick(Konfigurationsbereich konfigurationsBereich) throws IOException {
         String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid();
-        Files.createDirectories(Paths.get(target, pfad));
-        generiereDatei("konfigurationsbereich-ueberblick", pfad + "/konfigurationsbereich-ueberblick");
+        generiereDatei("konfigurationsbereich-ueberblick", pfad, "konfigurationsbereich-ueberblick.html");
     }
 
     private void generiereKonfigurationsbereichFrame(Konfigurationsbereich konfigurationsBereich) throws IOException {
         String pfad = konfigurationsBereich.getZustaendiger().getPid() + "/" + konfigurationsBereich.getPid();
-        Files.createDirectories(Paths.get(target, pfad));
-        generiereDatei("konfigurationsbereich-frame", pfad + "/konfigurationsbereich-frame");
+        generiereDatei("konfigurationsbereich-frame", pfad, "konfigurationsbereich-frame.html");
     }
 
-    private void generiereObjekte() throws IOException {
-        Set<Systemobjekt> objekte = (Set<Systemobjekt>) context.get("objekte");
-        for (Systemobjekt e : objekte)
-            generiereObjekt(e);
-    }
-
-    private void generiereObjekt(Systemobjekt systemObjekt) throws IOException {
-        String pfad = systemObjekt.getKonfigurationsbereich().getZustaendiger().getPid() + "/" + systemObjekt.getKonfigurationsbereich().getPid();
-        Files.createDirectories(Paths.get(target, pfad));
-        if (systemObjekt instanceof Mengentyp) {
-            context.put("mengentyp", systemObjekt);
-            generiereDatei("mengentyp", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof Typ) {
-            context.put("typ", systemObjekt);
-            generiereDatei("typ", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof Attributgruppe) {
-            context.put("attributgruppe", systemObjekt);
-            generiereDatei("attributgruppe", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof Attributliste) {
-            context.put("attributliste", systemObjekt);
-            generiereDatei("attributliste", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof ZeichenkettenAttributtyp) {
-            context.put("attributtyp", systemObjekt);
-            generiereDatei("zeichenkette", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof ZeitstempelAttributtyp) {
-            context.put("attributtyp", systemObjekt);
-            generiereDatei("zeitstempel", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof KommazahlAttributtyp) {
-            context.put("attributtyp", systemObjekt);
-            generiereDatei("kommazahl", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof ObjektreferenzAttributtyp) {
-            context.put("attributtyp", systemObjekt);
-            generiereDatei("objektreferenz", pfad + "/" + systemObjekt.getPid());
-        } else if (systemObjekt instanceof GanzzahlAttributtyp) {
-            context.put("attributtyp", systemObjekt);
-            generiereDatei("ganzzahl", pfad + "/" + systemObjekt.getPid());
-        }
+    private void generiereKonfigurationsverantwortlicherUeberblick(Konfigurationsverantwortlicher konfigurationsVerantwortlicher) throws IOException {
+        String pfad = konfigurationsVerantwortlicher.getPid();
+        generiereDatei("konfigurationsverantwortlicher-ueberblick", pfad, "konfigurationsverantwortlicher-ueberblick.html");
     }
 
 }

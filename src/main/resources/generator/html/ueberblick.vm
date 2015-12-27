@@ -44,13 +44,16 @@
                 <th>Konfigurationsbereiche</th>
             </tr>
                 #set( $row = 1 )
-                #foreach( $konfigurationsverantwortlicher in $verantwortlichkeiten.keySet() )
+                #foreach( $konfigurationsverantwortlicher in $metamodell.konfigurationsverantwortliche )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsverantwortlicher.pid}/konfigurationsverantwortlicher-ueberblick.html">${konfigurationsverantwortlicher.nameOderPid}</a></td>
                     <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
-                    #foreach( $konfigurationsbereich in $verantwortlichkeiten.get($konfigurationsverantwortlicher) )
-                        <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.nameOderPid}</a>#if( $velocityHasNext )<br>#end
-                    #end
+                        <a href="${konfigurationsverantwortlicher.pid}/konfigurationsverantwortlicher-ueberblick.html">${konfigurationsverantwortlicher.nameOderPid}</a>
+                    </td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                        #foreach( $konfigurationsbereich in $konfigurationsverantwortlicher.konfigurationsbereiche )
+                            <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.nameOderPid}</a>#if( $velocityHasNext )
+                            <br>#end
+                        #end
                     </td>
                 </tr>
                     #set( $row = $row + 1 )
@@ -67,9 +70,11 @@
                 <th>Beschreibung</th>
             </tr>
                 #set( $row = 1 )
-                #foreach( $konfigurationsverantwortlicher in $konfigurationsverantwortliche )
+                #foreach( $konfigurationsverantwortlicher in $metamodell.konfigurationsverantwortliche )
                 <tr>
-                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsverantwortlicher.pid}/konfigurationsverantwortlicher-ueberblick.html">${konfigurationsverantwortlicher.nameOderPid}</a></td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                        <a href="${konfigurationsverantwortlicher.pid}/konfigurationsverantwortlicher-ueberblick.html">${konfigurationsverantwortlicher.nameOderPid}</a>
+                    </td>
                     <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${konfigurationsverantwortlicher.kurzinfo}</td>
                 </tr>
                     #set( $row = $row + 1 )
@@ -85,14 +90,16 @@
                 <th>Konfigurationsbereich</th>
                 <th>Beschreibung</th>
             </tr>
-            #set( $row = 1 )
-            #foreach( $konfigurationsbereich in $konfigurationsbereiche )
-            <tr>
-                <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.nameOderPid}</a></td>
-                <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${konfigurationsbereich.kurzinfo}</td>
-            </tr>
-            #set( $row = $row + 1 )
-            #end
+                #set( $row = 1 )
+                #foreach( $konfigurationsbereich in $metamodell.konfigurationsbereiche )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                        <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.nameOderPid}</a>
+                    </td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${konfigurationsbereich.kurzinfo}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
             </tbody>
         </table>
     </div>

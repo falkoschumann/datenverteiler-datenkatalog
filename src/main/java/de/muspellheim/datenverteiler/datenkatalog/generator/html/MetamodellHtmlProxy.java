@@ -32,13 +32,20 @@ public class MetamodellHtmlProxy extends Metamodell {
 
     public SortedSet<Systemobjekt> getObjekte() {
         SortedSet<Systemobjekt> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
-        result.addAll(gibKonfigurationsbereiche().stream().map(Konfigurationsbereich::getModell).flatMap(Collection::stream).collect(Collectors.toSet()));
+        result.addAll(getKonfigurationsbereiche().stream().map(Konfigurationsbereich::getModell).flatMap(Collection::stream).collect(Collectors.toSet()));
+        return result;
+    }
+
+    @Override
+    public Set<Konfigurationsbereich> getKonfigurationsbereiche() {
+        TreeSet<Konfigurationsbereich> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
+        result.addAll(super.getKonfigurationsbereiche());
         return result;
     }
 
     public Set<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
         Set<Konfigurationsverantwortlicher> result = new TreeSet<>(Systemobjekt::compareToNameOderPid);
-        gibKonfigurationsbereiche().forEach(kb -> result.add(kb.getZustaendiger()));
+        getKonfigurationsbereiche().forEach(kb -> result.add(kb.getZustaendiger()));
         return result;
     }
 
@@ -51,7 +58,6 @@ public class MetamodellHtmlProxy extends Metamodell {
     protected void initialisiereKonfigurationsbereich(SystemObject object, Konfigurationsbereich result) {
         super.initialisiereKonfigurationsbereich(object, result);
 
-        // TODO Ist das hier ein Stackoverflow??
         KonfigurationsverantwortlicherHtmlProxy zustaendiger = (KonfigurationsverantwortlicherHtmlProxy) result.getZustaendiger();
         zustaendiger.getKonfigurationsbereiche().add(result);
     }
