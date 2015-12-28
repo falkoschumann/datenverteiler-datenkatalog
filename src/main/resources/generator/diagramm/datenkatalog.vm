@@ -25,6 +25,11 @@ digraph {
     $typ.name -> $objekttyp.name [label=$mengenverwendung.mengenname arrowhead=vee color=red fontcolor=red]
 #end
 #end
+#foreach( $attributgruppe in $typ.attributgruppen )
+#foreach( $referenz in $attributgruppe.referenzen )
+    $typ.name ->#if( $referenz.attributtyp.typ ) $referenz.attributtyp.typ.name #else Systemobjekt #end[label=$referenz.name arrowhead=vee color=blue fontcolor=blue]
+#end
+#end
 #end
 
 }

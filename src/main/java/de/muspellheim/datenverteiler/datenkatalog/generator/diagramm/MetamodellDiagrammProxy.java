@@ -6,6 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 
 import de.bsvrz.dav.daf.main.config.DataModel;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.Attributgruppe;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Konfigurationsbereich;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
 
@@ -24,6 +25,11 @@ public class MetamodellDiagrammProxy extends Metamodell {
     @Override
     protected Konfigurationsbereich erzeugeKonfigurationsbereich(String pid) {
         return new KonfigurationsbereichDiagrammProxy(pid);
+    }
+
+    @Override
+    protected Attributgruppe erzeugeAttributgruppe(String pid) {
+        return new AttributgruppeDiagrammProxy(pid);
     }
 
 }
