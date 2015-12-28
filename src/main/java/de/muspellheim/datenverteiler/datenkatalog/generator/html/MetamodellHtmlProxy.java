@@ -40,8 +40,8 @@ public class MetamodellHtmlProxy extends Metamodell {
     }
 
     @Override
-    protected Konfigurationsbereich erzeugeKonfigurationsbereich(String pid) {
-        return new KonfigurationsbereichHtmlProxy(pid);
+    protected Konfigurationsbereich erzeugeKonfigurationsbereich(SystemObject so) {
+        return new KonfigurationsbereichHtmlProxy(so.getPid());
     }
 
     public SortedSet<Konfigurationsverantwortlicher> getKonfigurationsverantwortliche() {
@@ -51,8 +51,8 @@ public class MetamodellHtmlProxy extends Metamodell {
     }
 
     @Override
-    protected Konfigurationsverantwortlicher erzeugeKonfigurationsverantwortlicher(String pid) {
-        return new KonfigurationsverantwortlicherHtmlProxy(pid);
+    protected Konfigurationsverantwortlicher erzeugeKonfigurationsverantwortlicher(SystemObject so) {
+        return new KonfigurationsverantwortlicherHtmlProxy(so.getPid());
     }
 
     @Override
@@ -64,9 +64,9 @@ public class MetamodellHtmlProxy extends Metamodell {
     }
 
     @Override
-    protected Typ erzeugeTyp(String pid) {
+    protected Typ erzeugeTyp(SystemObject so) {
         // TODO Wie soll Vererbung durch Mengentyp und DynamischerTyp umgegangen werden?
-        return new TypHtmlProxy(pid);
+        return new TypHtmlProxy(so.getPid());
     }
 
 }
