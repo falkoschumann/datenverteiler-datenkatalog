@@ -22,12 +22,12 @@ graph {
 #end
 #foreach( $mengenverwendung in $typ.mengen )
 #foreach( $objekttyp in $mengenverwendung.mengentyp.objektTypen )
-    $typ.name -- $objekttyp.name [label=$mengenverwendung.mengenname#if( $mengenverwendung.mengentyp.referenzierungsart == "Aggregation" ) dir=both arrowtail=odiamond#elseif( $mengenverwendung.mengentyp.referenzierungsart == "Komposition" ) dir=both arrowtail=diamond#else dir=forward#end arrowhead=vee color=red fontcolor=red]
+    $typ.name -- $objekttyp.name [label=$mengenverwendung.mengenname#if( $mengenverwendung.mengentyp.referenzierungsart == "Aggregation" ) dir=both arrowtail=odiamond#elseif( $mengenverwendung.mengentyp.referenzierungsart == "Komposition" ) dir=both arrowtail=diamond#else dir=forward#end arrowhead=vee#if( !$mengenverwendung.erforderlich ) style=dashed#end color=red fontcolor=red]
 #end
 #end
 #foreach( $attributgruppe in $typ.attributgruppen )
 #foreach( $referenz in $attributgruppe.referenzen )
-    $typ.name --#if( $referenz.attributtyp.typ ) $referenz.attributtyp.typ.name #else Systemobjekt #end[label=$referenz.name#if( $referenz.attributtyp.referenzierungsart == "Aggregation" ) dir=both arrowtail=odiamond#elseif( $referenz.attributtyp.referenzierungsart == "Komposition" ) dir=both arrowtail=diamond#else dir=forward#end arrowhead=vee color=blue fontcolor=blue]
+    $typ.name --#if( $referenz.attributtyp.typ ) $referenz.attributtyp.typ.name #else Systemobjekt #end[label=$referenz.name#if( $referenz.attributtyp.referenzierungsart == "Aggregation" ) dir=both arrowtail=odiamond#elseif( $referenz.attributtyp.referenzierungsart == "Komposition" ) dir=both arrowtail=diamond#else dir=forward#end arrowhead=vee#if( $referenz.attributtyp.undefiniertErlaubt ) style=dashed#end color=blue fontcolor=blue]
 #end
 #end
 #end
