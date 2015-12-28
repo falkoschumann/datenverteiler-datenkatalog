@@ -5,9 +5,7 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.generator.java;
 
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Attributgruppe;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Attributliste;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.Systemobjekt;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.*;
 
 /**
  * Utility-Klasse für das Generieren von Java-Klassen.
@@ -68,8 +66,10 @@ public final class Java {
                 replaceAll("Ü", "Ue").
                 replaceAll("ü", "ue").
                 replaceAll("ß", "ss");
-        if (!Character.isJavaIdentifierStart(name.codePointAt(0)))
-            throw new IllegalArgumentException("Verbotenes Startzeichen für Java-Bezeichner: " + name);
+        if (!Character.isJavaIdentifierStart(result.codePointAt(0))) {
+            result = "_" + result;
+            // TODO throw new IllegalArgumentException("Verbotenes Startzeichen für Java-Bezeichner: " + name);
+        }
         for (int i = 0; i < result.length(); i++) {
             if (!Character.isJavaIdentifierPart(result.codePointAt(i))) {
                 result = result.substring(0, i) +
@@ -77,7 +77,70 @@ public final class Java {
                         result.substring(i + 2);
             }
         }
+        result = result.substring(0, 1).toLowerCase() + result.substring(1);
         return result;
+    }
+
+    public static String getter(Attribut attribut) {
+        // TODO att.jaNein als boolean behandeln
+        String result = bezeichner(attribut.getName());
+        result = result.substring(0, 1).toUpperCase() + result.substring(1);
+        result = "get" + result;
+        return result;
+    }
+
+    public static String setter(Attribut attribut) {
+        String result = bezeichner(attribut.getName());
+        result = result.substring(0, 1).toUpperCase() + result.substring(1);
+        result = "set" + result;
+        return result;
+    }
+
+    public static String typ(Attributtyp attributtyp) {
+        // TODO att.jaNein als boolean behandeln
+        if (attributtyp instanceof ZeichenkettenAttributtyp) {
+            return "String";
+        }
+        if (attributtyp instanceof ZeitstempelAttributtyp) {
+            ZeitstempelAttributtyp zeitstempel = (ZeitstempelAttributtyp) attributtyp;
+            if (zeitstempel.isRelativ())
+                return "Duration";
+            return "LocalDateTime";
+        }
+        if (attributtyp instanceof KommazahlAttributtyp) {
+            KommazahlAttributtyp kommazahl = (KommazahlAttributtyp) attributtyp;
+            switch (kommazahl.getGenauigkeit()) {
+                case FLOAT:
+                    return "float";
+                case DOUBLE:
+                    return "double";
+                default:
+                    throw new IllegalStateException("Unbekannte Fließkommaauflösung: " + kommazahl.getGenauigkeit());
+            }
+
+        }
+        if (attributtyp instanceof ObjektreferenzAttributtyp) {
+            return "SystemObject";
+        }
+        if (attributtyp instanceof GanzzahlAttributtyp) {
+            GanzzahlAttributtyp ganzzahl = (GanzzahlAttributtyp) attributtyp;
+            switch (ganzzahl.getAnzahlBytes()) {
+                case BYTE:
+                    return "byte";
+                case SHORT:
+                    return "short";
+                case INT:
+                    return "int";
+                case LONG:
+                    return "long";
+                default:
+                    throw new IllegalStateException("Unbekannte Datentypgröße: " + ganzzahl.getAnzahlBytes());
+            }
+        }
+        if (attributtyp instanceof Attributliste) {
+            return klasse(attributtyp);
+        }
+        throw new IllegalArgumentException("Unbekannter Attributtyp: " + attributtyp);
     }
 
 }

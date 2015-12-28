@@ -1,0 +1,6 @@
+#foreach( $attribut in $attributmenge.attribute )
+#if( $attribut.attributtyp.class.simpleName.startsWith("Attributliste") )
+import ${paketpraefix}.${Java.paket($attribut.attributtyp)}.${Java.typ($attribut.attributtyp)};
+#end
+#end
+import de.bsvrz.dav.daf.main.config.SystemObject;

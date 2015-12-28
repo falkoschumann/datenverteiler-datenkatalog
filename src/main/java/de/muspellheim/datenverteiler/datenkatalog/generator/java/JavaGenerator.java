@@ -14,10 +14,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Ein Generator für Java-Klassen zum Zugriff auf den Datenkatalogs.
@@ -66,33 +62,22 @@ public class JavaGenerator {
         context = erzeugeContext(metamodell);
 
         Files.createDirectories(Paths.get(TARGET));
-        generiereObjekte();
+        generiereObjekte(metamodell);
     }
 
     private VelocityContext erzeugeContext(Metamodell metamodell) {
         VelocityContext result = new VelocityContext();
-
         result.put(PROP_JAVA, Java.class);
         result.put(PROP_DATEIKOPF, "/*\n" +
                 " * Copyright (c) 2015 Falko Schumann\n" +
                 " * Released under the terms of the MIT License.\n" +
                 " */\n\n");
         result.put(PROP_PAKETPRAEFIX, "de.muspellheim.datenverteiler.datenkatalog");
-
-        List<Systemobjekt> objekte = new ArrayList<>();
-        objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(Konfigurationsbereich::getModell).flatMap(Collection::stream).collect(Collectors.toSet()));
-        objekte.sort(Systemobjekt::compareToNameOderPid);
-        result.put(PROP_OBJEKTE, objekte);
-
         return result;
     }
 
     private void generiereDatei(String template, String zieldateiname) throws IOException {
         Path datei = Paths.get(TARGET, zieldateiname + ".java");
-        if (Files.exists(datei)) {
-            System.err.println("Warnung: Die Datei existierte bereits: " + datei);
-            return;
-        }
         System.out.println("Generiere " + datei + " ...");
         OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
@@ -104,10 +89,10 @@ public class JavaGenerator {
         }
     }
 
-    private void generiereObjekte() throws IOException {
-        List<Systemobjekt> objekte = (List<Systemobjekt>) context.get(PROP_OBJEKTE);
-        for (Systemobjekt e : objekte)
-            generiereObjekt(e);
+    private void generiereObjekte(Metamodell metamodell) throws IOException {
+        for (Konfigurationsbereich kb : metamodell.getKonfigurationsbereiche())
+            for (Systemobjekt so : kb.getModell())
+                generiereObjekt(so);
     }
 
     private void generiereObjekt(Systemobjekt systemObjekt) throws IOException {

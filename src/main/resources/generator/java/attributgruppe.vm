@@ -1,22 +1,17 @@
 ${dateikopf}package ${paketpraefix}.${Java.paket($attributgruppe)};
+#set( $attributmenge = $attributgruppe )
 
-import de.bsvrz.dav.daf.main.config.*;
+#parse( "/generator/java/attributmenge-imports.vm" )
 import de.muspellheim.datenverteiler.datenkatalog.bind.*;
 
-import java.util.Objects;
+import java.time.*;
+import java.util.*;
 
 /**
- * ${attributgruppe.kurzinfo}
-#if( !$attributgruppe.beschreibung.isEmpty() )
- * <p>${attributgruppe.beschreibung}</p>
+ * ${attributmenge.kurzinfo}
+#if( !$attributmenge.beschreibung.empty )
+ * <p>${attributmenge.beschreibung}</p>
 #end
  */
 @AttributgruppenDefinition(pid = "${attributgruppe.pid}")
-public class ${Java.klasse($attributgruppe)} {
-
-    @Override
-    public String toString() {
-        return "${Java.klasse($attributgruppe)}{}";
-    }
-
-}
+#parse( "/generator/java/attributmenge-klasse.vm" )

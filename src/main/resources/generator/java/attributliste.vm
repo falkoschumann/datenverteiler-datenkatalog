@@ -1,22 +1,17 @@
 ${dateikopf}package ${paketpraefix}.${Java.paket($attributliste)};
+#set( $attributmenge = $attributliste )
 
-import de.bsvrz.dav.daf.main.config.*;
+#parse( "/generator/java/attributmenge-imports.vm" )
 import de.muspellheim.datenverteiler.datenkatalog.bind.*;
 
-import java.util.Objects;
+import java.time.*;
+import java.util.*;
 
 /**
  * ${attributliste.kurzinfo}
-#if( !$attributliste.beschreibung.isEmpty() )
+#if( !$attributliste.beschreibung.empty )
  * <p>${attributliste.beschreibung}</p>
 #end
  */
 @AttributlistenDefinition
-public class ${Java.klasse($attributliste)} {
-
-    @Override
-    public String toString() {
-        return "${Java.klasse($attributliste)}{}";
-    }
-
-}
+#parse( "/generator/java/attributmenge-klasse.vm" )

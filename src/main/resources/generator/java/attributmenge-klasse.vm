@@ -1,0 +1,64 @@
+public class ${Java.klasse($attributmenge)} {
+
+#foreach( $attribut in $attributmenge.attribute )
+    private ${Java.typ($attribut.attributtyp)} ${Java.bezeichner($attribut.name)}#if( $attribut.attributtyp.class.simpleName.startsWith("Attributliste") ) = new ${Java.typ($attribut.attributtyp)}()#end;
+#end
+#foreach( $attribut in $attributmenge.attribute )
+
+#if( $attribut.kurzinfo && !$attribut.kurzinfo.empty )
+    /**
+     * ${attribut.kurzinfo}
+#if( !$attribut.beschreibung.empty )
+     * <p>${attribut.beschreibung}</p>
+#end
+     */
+#end
+    public ${Java.typ($attribut.attributtyp)} ${Java.getter($attribut)}() {
+        return ${Java.bezeichner($attribut.name)};
+    }
+
+#if( $attribut.kurzinfo && !$attribut.kurzinfo.empty )
+    /**
+     * ${attribut.kurzinfo}
+#if( !$attribut.beschreibung.empty )
+     * <p>${attribut.beschreibung}</p>
+#end
+     */
+#end
+    public void ${Java.setter($attribut)}() {
+        this.${Java.bezeichner($attribut.name)} = ${Java.bezeichner($attribut.name)};
+    }
+#end
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ${Java.klasse($attributmenge)} that = (${Java.klasse($attributmenge)}) o;
+        return
+#foreach( $attribut in $attributmenge.attribute )
+                Objects.equals(${Java.bezeichner($attribut.name)}, that.${Java.bezeichner($attribut.name)})#if( $velocityHasNext ) &&#else;#end
+
+#end
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+#foreach( $attribut in $attributmenge.attribute )
+            ${Java.bezeichner($attribut.name)}#if( $velocityHasNext ),#end
+
+#end
+        );
+    }
+
+    @Override
+    public String toString() {
+        return "${Java.klasse($attributmenge)}{" +
+#foreach( $attribut in $attributmenge.attribute )
+                "${Java.bezeichner($attribut.name)}=" + ${Java.bezeichner($attribut.name)} +
+#end
+                "}";
+    }
+
+}
