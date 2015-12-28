@@ -8,21 +8,21 @@ digraph {
     node [fillcolor=yellow shape=rect style=filled fontname="Arial bold" fontsize=14]
     edge [fontname=Arial fontsize=12]
 
-#foreach( $typ in $konfigurationsbereich.getTypen() )
+#foreach( $typ in $konfigurationsbereich.typen )
 #if( $typ.class.simpleName == "DynamischerTyp" )
-    $typ.getName() [fillcolor=green]
+    $typ.name [fillcolor=green]
 #end
 #end
 
-#foreach( $typ in $konfigurationsbereich.getTypen() )
-#foreach( $superTyp in $typ.getSuperTypen() )
-#if( $konfigurationsbereich.getTypen().contains($superTyp) )
-    $superTyp.getName() -> $typ.getName() [dir=back arrowtail=onormal]
+#foreach( $typ in $konfigurationsbereich.typen )
+#foreach( $supertyp in $typ.supertypen )
+#if( $konfigurationsbereich.typen.contains($supertyp) )
+    $supertyp.name -> $typ.name [dir=back arrowtail=onormal]
 #end
 #end
-#foreach( $mengenVerwendung in $typ.getMengen() )
-#foreach( $objektTyp in $mengenVerwendung.getMengenTyp().getObjektTypen() )
-    $typ.getName() -> $objektTyp.getName() [label=$mengenVerwendung.getMengenName() arrowhead=vee color=red fontcolor=red]
+#foreach( $mengenverwendung in $typ.mengen )
+#foreach( $objekttyp in $mengenverwendung.mengentyp.objektTypen )
+    $typ.name -> $objekttyp.name [label=$mengenverwendung.mengenname arrowhead=vee color=red fontcolor=red]
 #end
 #end
 #end

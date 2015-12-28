@@ -6,7 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.KonfigurationsBereich;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.Konfigurationsbereich;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -43,28 +43,28 @@ public final class DiagrammGenerator {
 
     public static void main(String args[]) throws IOException {
         ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
-        Metamodell metamodell = new Metamodell(model);
+        Metamodell metamodell = new MetamodellDiagrammProxy(model);
         try {
-            new DiagrammGenerator().generiere(metamodell.getKonfigurationsbereich("kb.tmVerkehrGlobal"));
+            new DiagrammGenerator().generiere(metamodell.gibKonfigurationsbereich("kb.tmVerkehrGlobal"));
         } finally {
             model.close();
         }
     }
 
-    public void generiere(KonfigurationsBereich bereich) throws IOException {
+    public void generiere(Konfigurationsbereich bereich) throws IOException {
         VelocityContext context = erzeugeContext(bereich);
         Files.createDirectories(Paths.get(TARGET));
         generiereDiagramm(bereich, context);
     }
 
-    private VelocityContext erzeugeContext(KonfigurationsBereich bereich) {
+    private VelocityContext erzeugeContext(Konfigurationsbereich bereich) {
         VelocityContext context = new VelocityContext();
         context.put("diagrammtitel", bereich.getName());
         context.put("konfigurationsbereich", bereich);
         return context;
     }
 
-    private void generiereDiagramm(KonfigurationsBereich bereich, VelocityContext context) throws IOException {
+    private void generiereDiagramm(Konfigurationsbereich bereich, VelocityContext context) throws IOException {
         OutputStream out = Files.newOutputStream(Paths.get(TARGET, bereich.getPid() + ".dot"));
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
