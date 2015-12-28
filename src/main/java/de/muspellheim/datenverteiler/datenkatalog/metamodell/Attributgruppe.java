@@ -5,6 +5,9 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * Objekte von diesem Typ repräsentieren Attributgruppen.
  * <p>Ein Datensatz ist immer einer Attributgruppe und einem Aspekt zugeordnet. Die Attributgruppe beschreibt den Aufbau
@@ -15,12 +18,36 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class Attributgruppe extends SystemObjekt {
+public class Attributgruppe extends Systemobjekt implements Attributmenge {
 
-    public static Attributgruppe erzeugeMitPid(String pid) {
-        Attributgruppe result = new Attributgruppe();
-        result.setPid(pid);
-        return result;
+    private final Set<Attribut> attribute = new LinkedHashSet<>();
+
+    private Set<Aspekt> aspekte = new LinkedHashSet<>();
+    private Set<Attributgruppenverwendung> attributgruppenverwendungen = new LinkedHashSet<>();
+
+    public Attributgruppe(String pid) {
+        super(pid);
+    }
+
+    /**
+     * Menge der Attribute.
+     */
+    public Set<Attribut> getAttribute() {
+        return attribute;
+    }
+
+    /**
+     * Mögliche Aspekte, unter denen die Attributgruppe verwendet werden kann.
+     */
+    public Set<Aspekt> getAspekte() {
+        return aspekte;
+    }
+
+    /**
+     * Attributgruppenverwendungen dieser Attributgruppe.
+     */
+    public Set<Attributgruppenverwendung> getAttributgruppenverwendungen() {
+        return attributgruppenverwendungen;
     }
 
 }

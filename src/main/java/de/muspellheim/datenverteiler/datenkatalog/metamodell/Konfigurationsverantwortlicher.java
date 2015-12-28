@@ -12,12 +12,10 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class KonfigurationsVerantwortlicher extends SystemObjekt {
+public class Konfigurationsverantwortlicher extends Systemobjekt {
 
-    public static KonfigurationsVerantwortlicher erzeugeMitPid(String pid) {
-        KonfigurationsVerantwortlicher result = new KonfigurationsVerantwortlicher();
-        result.setPid(pid);
-        return result;
+    public Konfigurationsverantwortlicher(String pid) {
+        super(pid);
     }
 
 }

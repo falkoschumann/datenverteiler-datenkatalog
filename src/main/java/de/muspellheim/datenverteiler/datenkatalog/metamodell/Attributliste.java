@@ -5,6 +5,9 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * Fasst Attribute in einer Liste zusammen.
  * <p>Attributlisten definieren eine Folge von Attributen die in anderen Attributlisten oder Attributgruppen
@@ -14,12 +17,19 @@ package de.muspellheim.datenverteiler.datenkatalog.metamodell;
  * @author Falko Schumann
  * @since 3.2
  */
-public class AttributListenDefinition extends SystemObjekt {
+public class Attributliste extends Attributtyp implements Attributmenge {
 
-    public static AttributListenDefinition erzeugeMitPid(String pid) {
-        AttributListenDefinition result = new AttributListenDefinition();
-        result.setPid(pid);
-        return result;
+    private final Set<Attribut> attribute = new LinkedHashSet<>();
+
+    public Attributliste(String pid) {
+        super(pid);
+    }
+
+    /**
+     * Menge der Attribute.
+     */
+    public Set<Attribut> getAttribute() {
+        return attribute;
     }
 
 }
