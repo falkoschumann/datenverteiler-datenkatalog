@@ -45,7 +45,9 @@ public final class DiagrammGenerator {
         ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
         Metamodell metamodell = new MetamodellDiagrammProxy(model);
         try {
-            new DiagrammGenerator().generiere(metamodell.gibKonfigurationsbereich("kb.tmVerkehrGlobal"));
+            DiagrammGenerator generator = new DiagrammGenerator();
+            generator.generiere(metamodell.gibKonfigurationsbereich("kb.tmVerkehrGlobal"));
+            generator.generiere(metamodell.gibKonfigurationsbereich("kb.metaModellGlobal"));
         } finally {
             model.close();
         }
