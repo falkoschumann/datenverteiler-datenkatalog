@@ -6,6 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.html;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
+import de.bsvrz.sys.funclib.commandLineArgs.ArgumentList;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.*;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
@@ -29,25 +30,36 @@ public class HtmlGenerator {
     // TODO Konfiguration parametrierbar machen
     // TODO Als Mojo ausführbar machen
 
-    private String source = "/generator/html/";
-    private String target = "target/datenkatalog/html/";
+    private String templates = "/generator/html/";
+    private String zielverzeichnis;
+    private File konfiguration;
 
     private MetamodellHtmlProxy metamodell;
     private VelocityContext context;
 
+    /**
+     * Main-Methode des HTML-Generators.
+     * <p>Die folgenden Aufrufargumente werden unterstützt:</p>
+     * <ul>
+     * <li><code>-zielverzeichnis=html/</code> (optional) gibt das Zielverzeichnis für die generierten HTML-Dateien an.</li>
+     * <li><code>-konfiguration</code> gibt die Verwaltungsdatendatei der Konfiguration an, für die die HTML-Dokumentation generiert werden soll.</li>
+     * </ul>
+     */
     public static void main(String args[]) throws IOException {
+        ArgumentList argumentList = new ArgumentList(args);
+        final String zielverzeichnis = argumentList.fetchArgument("-zielverzeichnis=html/").asString();
+        final File konfiguration = argumentList.fetchArgument("-konfiguration").asExistingFile();
+        argumentList.ensureAllArgumentsUsed();
+
         initialisiereVelocity();
 
-        ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
-        MetamodellHtmlProxy metamodell = new MetamodellHtmlProxy(model);
-        try {
-            new HtmlGenerator().generiere(metamodell);
-        } finally {
-            model.close();
-        }
+        HtmlGenerator generator = new HtmlGenerator();
+        generator.setZielverzeichnis(zielverzeichnis);
+        generator.setKonfiguration(konfiguration);
+        generator.generiere();
     }
 
-    private static void initialisiereVelocity() {
+    public static void initialisiereVelocity() {
         Velocity.setProperty("resource.loader", "class");
         Velocity.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         try {
@@ -57,11 +69,44 @@ public class HtmlGenerator {
         }
     }
 
+    public String getTemplates() {
+        return templates;
+    }
+
+    public void setTemplates(String templates) {
+        this.templates = templates;
+    }
+
+    public String getZielverzeichnis() {
+        return zielverzeichnis;
+    }
+
+    public void setZielverzeichnis(String zielverzeichnis) {
+        this.zielverzeichnis = zielverzeichnis;
+    }
+
+    public File getKonfiguration() {
+        return konfiguration;
+    }
+
+    public void setKonfiguration(File konfiguration) {
+        this.konfiguration = konfiguration;
+    }
+
+    public void generiere() throws IOException {
+        ConfigDataModel model = new ConfigDataModel(konfiguration);
+        try {
+            generiere(new MetamodellHtmlProxy(model));
+        } finally {
+            model.close();
+        }
+    }
+
     public void generiere(MetamodellHtmlProxy metamodell) throws IOException {
         this.metamodell = metamodell;
         context = erzeugeContext(metamodell);
 
-        Files.createDirectories(Paths.get(target));
+        Files.createDirectories(Paths.get(zielverzeichnis));
         kopiereStatischeDateien();
 
         generiereDatei("ueberblick");
@@ -79,8 +124,8 @@ public class HtmlGenerator {
     }
 
     private void kopiereStatischeDateien() throws IOException {
-        Files.copy(getClass().getResourceAsStream(source + "stylesheet.css"), Paths.get(target, "stylesheet.css"), StandardCopyOption.REPLACE_EXISTING);
-        Files.copy(getClass().getResourceAsStream(source + "index.html"), Paths.get(target, "index.html"), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(getClass().getResourceAsStream(templates + "stylesheet.css"), Paths.get(zielverzeichnis, "stylesheet.css"), StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(getClass().getResourceAsStream(templates + "index.html"), Paths.get(zielverzeichnis, "index.html"), StandardCopyOption.REPLACE_EXISTING);
     }
 
     private void generiereDatei(String name) throws IOException {
@@ -88,14 +133,14 @@ public class HtmlGenerator {
     }
 
     private void generiereDatei(String template, String zielpfadname, String zieldateiname) throws IOException {
-        Path pfad = Paths.get(target, zielpfadname);
+        Path pfad = Paths.get(zielverzeichnis, zielpfadname);
         Files.createDirectories(pfad);
         Path datei = pfad.resolve(zieldateiname);
         System.out.println("Generiere " + datei + " ...");
         OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
-                Velocity.mergeTemplate(source + template + ".vm", "UTF-8", context, writer);
+                Velocity.mergeTemplate(templates + template + ".vm", "UTF-8", context, writer);
             } catch (Exception ex) {
                 throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + zieldateiname + ".html mit dem Template " + template + ".vm.", ex);
             }
