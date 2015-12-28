@@ -79,9 +79,9 @@ public class JavaGenerator {
                 " */\n\n");
         result.put(PROP_PAKETPRAEFIX, "de.muspellheim.datenverteiler.datenkatalog");
 
-        List<SystemObjekt> objekte = new ArrayList<>();
-        objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(KonfigurationsBereich::getAlleObjekte).flatMap(Collection::stream).collect(Collectors.toSet()));
-        objekte.sort(SystemObjekt::compareToNameOderPid);
+        List<Systemobjekt> objekte = new ArrayList<>();
+        objekte.addAll(metamodell.getKonfigurationsbereiche().stream().map(Konfigurationsbereich::getModell).flatMap(Collection::stream).collect(Collectors.toSet()));
+        objekte.sort(Systemobjekt::compareToNameOderPid);
         result.put(PROP_OBJEKTE, objekte);
 
         return result;
@@ -89,8 +89,10 @@ public class JavaGenerator {
 
     private void generiereDatei(String template, String zieldateiname) throws IOException {
         Path datei = Paths.get(TARGET, zieldateiname + ".java");
-        if (Files.exists(datei))
+        if (Files.exists(datei)) {
             System.err.println("Warnung: Die Datei existierte bereits: " + datei);
+            return;
+        }
         System.out.println("Generiere " + datei + " ...");
         OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
@@ -103,18 +105,20 @@ public class JavaGenerator {
     }
 
     private void generiereObjekte() throws IOException {
-        List<SystemObjekt> objekte = (List<SystemObjekt>) context.get(PROP_OBJEKTE);
-        for (SystemObjekt e : objekte)
+        List<Systemobjekt> objekte = (List<Systemobjekt>) context.get(PROP_OBJEKTE);
+        for (Systemobjekt e : objekte)
             generiereObjekt(e);
     }
 
-    private void generiereObjekt(SystemObjekt systemObjekt) throws IOException {
-        String pfad = context.get(PROP_PAKETPRAEFIX) + "/" + Java.paket(systemObjekt).replaceAll("\\.", "/");
-        Files.createDirectories(Paths.get(TARGET, pfad));
+    private void generiereObjekt(Systemobjekt systemObjekt) throws IOException {
         if (systemObjekt instanceof Attributgruppe) {
+            String pfad = context.get(PROP_PAKETPRAEFIX) + "/" + Java.paket(systemObjekt).replaceAll("\\.", "/");
+            Files.createDirectories(Paths.get(TARGET, pfad));
             context.put(PROP_ATTRIBUTGRUPPE, systemObjekt);
             generiereDatei(PROP_ATTRIBUTGRUPPE, pfad + "/" + Java.klasse(systemObjekt));
-        } else if (systemObjekt instanceof AttributListenDefinition) {
+        } else if (systemObjekt instanceof Attributliste) {
+            String pfad = context.get(PROP_PAKETPRAEFIX) + "/" + Java.paket(systemObjekt).replaceAll("\\.", "/");
+            Files.createDirectories(Paths.get(TARGET, pfad));
             context.put(PROP_ATTRIBUTLISTE, systemObjekt);
             generiereDatei(PROP_ATTRIBUTLISTE, pfad + "/" + Java.klasse(systemObjekt));
         }

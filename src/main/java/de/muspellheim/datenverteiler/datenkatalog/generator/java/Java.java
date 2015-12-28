@@ -5,7 +5,9 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.generator.java;
 
-import de.muspellheim.datenverteiler.datenkatalog.metamodell.SystemObjekt;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.Attributgruppe;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.Attributliste;
+import de.muspellheim.datenverteiler.datenkatalog.metamodell.Systemobjekt;
 
 /**
  * Utility-Klasse für das Generieren von Java-Klassen.
@@ -15,12 +17,12 @@ import de.muspellheim.datenverteiler.datenkatalog.metamodell.SystemObjekt;
  */
 public final class Java {
 
-    private static final boolean verwendePidAlsBezeicher;
+    private static final boolean verwendeNameAlsBezeichner;
 
     static {
         // TODO System-Property dokumentieren
-        verwendePidAlsBezeicher = "name".equals(System.getProperty("generator.java.klassenname", "name").toLowerCase());
-        if (verwendePidAlsBezeicher) {
+        verwendeNameAlsBezeichner = "name".equals(System.getProperty("generator.java.bezeichner", "name").toLowerCase());
+        if (verwendeNameAlsBezeichner) {
             System.out.println("Verwende den Namen der Objekte als Klassenbezeichner.");
         } else {
             System.out.println("Verwende die PID der Objekte als Klassenbezeichner.");
@@ -31,25 +33,29 @@ public final class Java {
         // utility class
     }
 
-    public static String paket(SystemObjekt systemObjekt) {
-        String kv = systemObjekt.getBereich().getZustaendiger().getPid();
+    public static String paket(Systemobjekt systemObjekt) {
+        String kv = systemObjekt.getKonfigurationsbereich().getZustaendiger().getPid();
         if (kv.startsWith("kv.")) kv = kv.substring(3);
         kv = bezeichner(kv).toLowerCase();
-        String kb = systemObjekt.getBereich().getPid();
+        String kb = systemObjekt.getKonfigurationsbereich().getPid();
         if (kb.startsWith("kb.")) kb = kb.substring(3);
         kb = bezeichner(kb).toLowerCase();
         return kv + "." + kb;
     }
 
-    public static String klasse(SystemObjekt systemObjekt) {
+    public static String klasse(Systemobjekt systemObjekt) {
         String result;
-        if (verwendePidAlsBezeicher) {
+        if (verwendeNameAlsBezeichner) {
             result = systemObjekt.getNameOderPid();
         } else {
             result = systemObjekt.getPid();
         }
         result = bezeichner(result);
         result = result.substring(0, 1).toUpperCase() + result.substring(1);
+        if (systemObjekt instanceof Attributgruppe)
+            result = "Atg" + result;
+        else if (systemObjekt instanceof Attributliste)
+            result = "Atl" + result;
         return result;
     }
 
