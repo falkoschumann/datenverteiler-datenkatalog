@@ -37,6 +37,9 @@ public final class DiagrammGenerator {
     private String templates = "/generator/diagramm/";
     private String zielverzeichnis;
     private File konfiguration;
+    private boolean zeigeVererbung = true;
+    private boolean zeigeMengen = true;
+    private boolean zeigeAttributgruppen = true;
 
     /**
      * Main-Methode des Diagrammgenerators.
@@ -50,6 +53,9 @@ public final class DiagrammGenerator {
         ArgumentList argumentList = new ArgumentList(args);
         final String zielverzeichnis = argumentList.fetchArgument("-zielverzeichnis=diagramm/").asString();
         final File konfiguration = argumentList.fetchArgument("-konfiguration").asExistingFile();
+        final boolean vererbung = argumentList.fetchArgument("-vererbung=ja").booleanValue();
+        final boolean mengen = argumentList.fetchArgument("-mengen=ja").booleanValue();
+        final boolean attributgruppen = argumentList.fetchArgument("-attributgruppen=ja").booleanValue();
         argumentList.ensureAllArgumentsUsed();
 
         initialisiereVelocity();
@@ -57,6 +63,9 @@ public final class DiagrammGenerator {
         DiagrammGenerator generator = new DiagrammGenerator();
         generator.setZielverzeichnis(zielverzeichnis);
         generator.setKonfiguration(konfiguration);
+        generator.setZeigeVererbung(vererbung);
+        generator.setZeigeMengen(mengen);
+        generator.setZeigeAttributgruppen(attributgruppen);
         generator.generiere();
     }
 
@@ -94,6 +103,30 @@ public final class DiagrammGenerator {
         this.konfiguration = konfiguration;
     }
 
+    public boolean isZeigeVererbung() {
+        return zeigeVererbung;
+    }
+
+    public void setZeigeVererbung(boolean zeigeVererbung) {
+        this.zeigeVererbung = zeigeVererbung;
+    }
+
+    public boolean isZeigeMengen() {
+        return zeigeMengen;
+    }
+
+    public void setZeigeMengen(boolean zeigeMengen) {
+        this.zeigeMengen = zeigeMengen;
+    }
+
+    public boolean isZeigeAttributgruppen() {
+        return zeigeAttributgruppen;
+    }
+
+    public void setZeigeAttributgruppen(boolean zeigeAttributgruppen) {
+        this.zeigeAttributgruppen = zeigeAttributgruppen;
+    }
+
     public void generiere() throws IOException {
         ConfigDataModel model = new ConfigDataModel(konfiguration);
         try {
@@ -115,6 +148,9 @@ public final class DiagrammGenerator {
         VelocityContext context = new VelocityContext();
         context.put("diagrammtitel", bereich.getName());
         context.put("konfigurationsbereich", bereich);
+        context.put("zeigeVererbung", zeigeVererbung);
+        context.put("zeigeMengen", zeigeMengen);
+        context.put("zeigeAttributgruppen", zeigeAttributgruppen);
         return context;
     }
 
