@@ -6,6 +6,7 @@
 package de.muspellheim.datenverteiler.datenkatalog.generator.diagramm;
 
 import de.bsvrz.puk.config.configFile.datamodel.ConfigDataModel;
+import de.bsvrz.sys.funclib.commandLineArgs.ArgumentList;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Konfigurationsbereich;
 import de.muspellheim.datenverteiler.datenkatalog.metamodell.Metamodell;
 import org.apache.velocity.VelocityContext;
@@ -13,6 +14,7 @@ import org.apache.velocity.app.Velocity;
 
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -27,7 +29,38 @@ import java.nio.file.Paths;
  */
 public final class DiagrammGenerator {
 
-    static {
+    // TODO Filter für Typen parametrieren
+    // TODO Vererbung parametrieren
+    // TODO Mengen parametrieren
+    // TODO Referenzen parametrieren
+
+    private String templates = "/generator/diagramm/";
+    private String zielverzeichnis;
+    private File konfiguration;
+
+    /**
+     * Main-Methode des Diagrammgenerators.
+     * <p>Die folgenden Aufrufargumente werden unterstützt:</p>
+     * <ul>
+     * <li><code>-zielverzeichnis=html/</code> (optional) gibt das Zielverzeichnis für die generierten Diagramme an.</li>
+     * <li><code>-konfiguration</code> gibt die Verwaltungsdatendatei der Konfiguration an, für die die Diagramme generiert werden soll.</li>
+     * </ul>
+     */
+    public static void main(String args[]) throws IOException {
+        ArgumentList argumentList = new ArgumentList(args);
+        final String zielverzeichnis = argumentList.fetchArgument("-zielverzeichnis=diagramm/").asString();
+        final File konfiguration = argumentList.fetchArgument("-konfiguration").asExistingFile();
+        argumentList.ensureAllArgumentsUsed();
+
+        initialisiereVelocity();
+
+        DiagrammGenerator generator = new DiagrammGenerator();
+        generator.setZielverzeichnis(zielverzeichnis);
+        generator.setKonfiguration(konfiguration);
+        generator.generiere();
+    }
+
+    public static void initialisiereVelocity() {
         Velocity.setProperty("resource.loader", "class");
         Velocity.setProperty("class.resource.loader.class", "org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         try {
@@ -37,17 +70,36 @@ public final class DiagrammGenerator {
         }
     }
 
-    private static final String SOURCE = "/generator/diagramm/";
-    private static final String TARGET = "target/datenkatalog/diagramm/";
-    private static final String TEMPLATE = "datenkatalog";
+    public String getTemplates() {
+        return templates;
+    }
 
-    public static void main(String args[]) throws IOException {
-        ConfigDataModel model = new ConfigDataModel(new File("src/test/konfiguration/verwaltungsdaten.xml"));
-        Metamodell metamodell = new MetamodellDiagrammProxy(model);
+    public void setTemplates(String templates) {
+        this.templates = templates;
+    }
+
+    public String getZielverzeichnis() {
+        return zielverzeichnis;
+    }
+
+    public void setZielverzeichnis(String zielverzeichnis) {
+        this.zielverzeichnis = zielverzeichnis;
+    }
+
+    public File getKonfiguration() {
+        return konfiguration;
+    }
+
+    public void setKonfiguration(File konfiguration) {
+        this.konfiguration = konfiguration;
+    }
+
+    public void generiere() throws IOException {
+        ConfigDataModel model = new ConfigDataModel(konfiguration);
         try {
-            DiagrammGenerator generator = new DiagrammGenerator();
-            generator.generiere(metamodell.gibKonfigurationsbereich("kb.tmVerkehrGlobal"));
-            generator.generiere(metamodell.gibKonfigurationsbereich("kb.metaModellGlobal"));
+            Metamodell metamodell = new MetamodellDiagrammProxy(model);
+            for (Konfigurationsbereich e : metamodell.getKonfigurationsbereiche())
+                generiere(e);
         } finally {
             model.close();
         }
@@ -55,7 +107,7 @@ public final class DiagrammGenerator {
 
     public void generiere(Konfigurationsbereich bereich) throws IOException {
         VelocityContext context = erzeugeContext(bereich);
-        Files.createDirectories(Paths.get(TARGET));
+        Files.createDirectories(Paths.get(zielverzeichnis));
         generiereDiagramm(bereich, context);
     }
 
@@ -67,12 +119,14 @@ public final class DiagrammGenerator {
     }
 
     private void generiereDiagramm(Konfigurationsbereich bereich, VelocityContext context) throws IOException {
-        OutputStream out = Files.newOutputStream(Paths.get(TARGET, bereich.getPid() + ".dot"));
+        Path datei = Paths.get(zielverzeichnis, bereich.getPid() + ".dot");
+        System.out.println("Generiere " + datei + " ...");
+        OutputStream out = Files.newOutputStream(datei);
         try (Writer writer = new OutputStreamWriter(out, "UTF-8")) {
             try {
-                Velocity.mergeTemplate(SOURCE + TEMPLATE + ".vm", "UTF-8", context, writer);
+                Velocity.mergeTemplate(templates + "datenkatalog" + ".vm", "UTF-8", context, writer);
             } catch (Exception ex) {
-                throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + bereich.getPid() + ".dot mit dem Template " + TEMPLATE + ".vm.", ex);
+                throw new IllegalStateException("Unreachable code. Fehler beim Erzeugen der Datei " + bereich.getPid() + ".dot mit dem Template " + "datenkatalog" + ".vm.", ex);
             }
         }
     }
