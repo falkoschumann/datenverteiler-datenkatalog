@@ -5,9 +5,8 @@
 
 package de.muspellheim.datenverteiler.datenkatalog.metamodell;
 
-import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Der Typ aller Typobjekte.
@@ -15,17 +14,15 @@ import java.util.TreeSet;
  * @author Falko Schumann
  * @since 3.2
  */
-public class Typ extends SystemObjekt {
+public class Typ extends Systemobjekt {
 
-    private final Set<Attributgruppe> attributgruppen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set<MengenVerwendung> mengen = new TreeSet<>((Comparator<MengenVerwendung>) (m1, m2) -> m1.getMengenName().compareToIgnoreCase(m2.getMengenName()));
-    private final Set<Typ> superTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
-    private final Set<Typ> subTypen = new TreeSet<>(SystemObjekt::compareToNameOderPid);
+    private final Set<Attributgruppe> attributgruppen = new LinkedHashSet<>();
+    private final Set<Mengenverwendung> mengen = new LinkedHashSet<>();
+    private final Set<Typ> supertypen = new LinkedHashSet<>();
+    private final Set<Typ> subtypen = new LinkedHashSet<>();
 
-    public static Typ erzeugeMitPid(String pid) {
-        Typ result = new Typ();
-        result.setPid(pid);
-        return result;
+    public Typ(String pid) {
+        super(pid);
     }
 
     /**
@@ -38,7 +35,7 @@ public class Typ extends SystemObjekt {
     /**
      * Führt die Mengen auf, die mit Objekten dieses Typs verwendet werden können oder müssen.
      */
-    public Set<MengenVerwendung> getMengen() {
+    public Set<Mengenverwendung> getMengen() {
         return mengen;
     }
 
@@ -49,12 +46,12 @@ public class Typ extends SystemObjekt {
      * verwendbaren Attributgruppen und Mengen von all seinen Supertypen.
      * </p>
      */
-    public Set<Typ> getSuperTypen() {
-        return superTypen;
+    public Set<Typ> getSupertypen() {
+        return supertypen;
     }
 
-    public Set<Typ> getSubTypen() {
-        return subTypen;
+    public Set<Typ> getSubtypen() {
+        return subtypen;
     }
 
 }

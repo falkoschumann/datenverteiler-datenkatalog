@@ -9,19 +9,24 @@ import java.util.Objects;
 
 /**
  * Basisklasse für alle Objekte des Metamodells.
+ * <p>Ein Systemobjekt ist ein Referenzobjekt, und wird über seine PID identifiziert.</p>
  *
  * @author Falko Schumann
  * @since 3.2
  */
-public abstract class SystemObjekt {
+public abstract class Systemobjekt {
 
     private String name;
     private String pid;
     private String kurzinfo;
     private String beschreibung;
-    private KonfigurationsBereich bereich;
+    private Konfigurationsbereich konfigurationsbereich;
 
-    public static int compareToNameOderPid(SystemObjekt so1, SystemObjekt so2) {
+    protected Systemobjekt(String pid) {
+        this.pid = pid;
+    }
+
+    public static int compareToNameOderPid(Systemobjekt so1, Systemobjekt so2) {
         if (Objects.equals(so1, so2)) return 0;
 
         int result = so1.getNameOderPid().compareToIgnoreCase(so2.getNameOderPid());
@@ -40,10 +45,6 @@ public abstract class SystemObjekt {
 
     public String getPid() {
         return pid;
-    }
-
-    public void setPid(String pid) {
-        this.pid = pid;
     }
 
     public String getNameOderPid() {
@@ -68,19 +69,19 @@ public abstract class SystemObjekt {
         this.beschreibung = beschreibung;
     }
 
-    public KonfigurationsBereich getBereich() {
-        return bereich;
+    public Konfigurationsbereich getKonfigurationsbereich() {
+        return konfigurationsbereich;
     }
 
-    public void setBereich(KonfigurationsBereich bereich) {
-        this.bereich = bereich;
+    public void setKonfigurationsbereich(Konfigurationsbereich konfigurationsbereich) {
+        this.konfigurationsbereich = konfigurationsbereich;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SystemObjekt)) return false;
-        SystemObjekt that = (SystemObjekt) o;
+        if (!(o instanceof Systemobjekt)) return false;
+        Systemobjekt that = (Systemobjekt) o;
         return Objects.equals(pid, that.pid);
     }
 
