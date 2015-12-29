@@ -1,0 +1,41 @@
+graph {
+
+    fontname="Arial bold" fontsize=18
+    label="$diagrammtitel\n\n"
+    labelloc=t
+
+    graph [ranksep=1 nodesep=1];
+    node [fillcolor=yellow shape=rect style=filled fontname="Arial bold" fontsize=14]
+    edge [fontname=Arial fontsize=12]
+
+#foreach( $typ in $konfigurationsbereich.typen )
+#if( $typ.class.simpleName == "DynamischerTyp" )
+    $typ.name [fillcolor=green]
+#end
+#end
+
+#foreach( $typ in $konfigurationsbereich.typen )
+#if( $zeigeVererbung )
+#foreach( $supertyp in $typ.supertypen )
+#if( $konfigurationsbereich.typen.contains($supertyp) )
+    $supertyp.name -- $typ.name [dir=back arrowtail=onormal]
+#end
+#end
+#end
+#if( $zeigeMengen )
+#foreach( $mengenverwendung in $typ.mengen )
+#foreach( $objekttyp in $mengenverwendung.mengentyp.objektTypen )
+    $typ.name -- $objekttyp.name [label=$mengenverwendung.mengenname#if( $mengenverwendung.mengentyp.referenzierungsart == "Aggregation" ) dir=both arrowtail=odiamond#elseif( $mengenverwendung.mengentyp.referenzierungsart == "Komposition" ) dir=both arrowtail=diamond#else dir=forward#end arrowhead=vee#if( !$mengenverwendung.erforderlich ) style=dashed#end color=red fontcolor=red]
+#end
+#end
+#end
+#if ( $zeigeAttributgruppen )
+#foreach( $attributgruppe in $typ.attributgruppen )
+#foreach( $referenz in $attributgruppe.referenzen )
+    $typ.name --#if( $referenz.attributtyp.typ ) $referenz.attributtyp.typ.name #else Systemobjekt #end[label=$referenz.name#if( $referenz.attributtyp.referenzierungsart == "Aggregation" ) dir=both arrowtail=odiamond#elseif( $referenz.attributtyp.referenzierungsart == "Komposition" ) dir=both arrowtail=diamond#else dir=forward#end arrowhead=vee#if( $referenz.attributtyp.undefiniertErlaubt ) style=dashed#end color=blue fontcolor=blue]
+#end
+#end
+#end
+#end
+
+}
