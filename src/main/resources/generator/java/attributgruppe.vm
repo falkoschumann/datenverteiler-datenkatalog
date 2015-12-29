@@ -1,0 +1,17 @@
+${dateikopf}package ${paketpraefix}.${Java.paket($attributgruppe)};
+#set( $attributmenge = $attributgruppe )
+
+#parse( "/generator/java/attributmenge-imports.vm" )
+import de.muspellheim.datenverteiler.datenkatalog.bind.*;
+
+import java.time.*;
+import java.util.*;
+
+/**
+ * ${attributmenge.kurzinfo}
+#if( !$attributmenge.beschreibung.empty )
+ * <p>${attributmenge.beschreibung}</p>
+#end
+ */
+@AttributgruppenDefinition(pid = "${attributgruppe.pid}")
+#parse( "/generator/java/attributmenge-klasse.vm" )

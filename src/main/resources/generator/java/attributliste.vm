@@ -1,0 +1,17 @@
+${dateikopf}package ${paketpraefix}.${Java.paket($attributliste)};
+#set( $attributmenge = $attributliste )
+
+#parse( "/generator/java/attributmenge-imports.vm" )
+import de.muspellheim.datenverteiler.datenkatalog.bind.*;
+
+import java.time.*;
+import java.util.*;
+
+/**
+ * ${attributliste.kurzinfo}
+#if( !$attributliste.beschreibung.empty )
+ * <p>${attributliste.beschreibung}</p>
+#end
+ */
+@AttributlistenDefinition
+#parse( "/generator/java/attributmenge-klasse.vm" )
