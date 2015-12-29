@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Überblick - ${projekt}</title>
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Überblick, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<script type="text/javascript">
+    <!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title = "Überblick (${projekt})";
+        }
+    }
+    catch (err) {
+    }
+    //-->
+</script>
+<div class="header">
+    <ul>
+        <li class="active">Überblick</li>
+        <li>Konfigurationsverantwortlicher</li>
+        <li>Konfigurationsbereich</li>
+        <li>Objekt</li>
+    </ul>
+</div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?ueberblick.html" target="_top">Mit Frames</a></li>
+        <li><a href="ueberblick.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
+<div class="content">
+    <h1>Überblick - ${projekt}</h1>
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Verantwortlichkeiten</span></caption>
+            <tbody>
+            <tr>
+                <th>Konfigurationsverantwortlicher</th>
+                <th>Konfigurationsbereiche</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $konfigurationsverantwortlicher in $metamodell.konfigurationsverantwortliche )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                        <a href="${konfigurationsverantwortlicher.pid}/konfigurationsverantwortlicher-ueberblick.html">${konfigurationsverantwortlicher.nameOderPid}</a>
+                    </td>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                        #foreach( $konfigurationsbereich in $konfigurationsverantwortlicher.konfigurationsbereiche )
+                            <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.nameOderPid}</a>#if( $velocityHasNext )
+                            <br>#end
+                        #end
+                    </td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Konfigurationsverantwortliche</span></caption>
+            <tbody>
+            <tr>
+                <th>Konfigurationsverantwortlicher</th>
+                <th>Beschreibung</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $konfigurationsverantwortlicher in $metamodell.konfigurationsverantwortliche )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                        <a href="${konfigurationsverantwortlicher.pid}/konfigurationsverantwortlicher-ueberblick.html">${konfigurationsverantwortlicher.nameOderPid}</a>
+                    </td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${konfigurationsverantwortlicher.kurzinfo}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Konfigurationsbereiche</span></caption>
+            <tbody>
+            <tr>
+                <th>Konfigurationsbereich</th>
+                <th>Beschreibung</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $konfigurationsbereich in $metamodell.konfigurationsbereiche )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end">
+                        <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">${konfigurationsbereich.nameOderPid}</a>
+                    </td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${konfigurationsbereich.kurzinfo}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

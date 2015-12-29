@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Menge ${mengentyp.nameOderPid}</title>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<script type="text/javascript">
+    <!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title = "${mengentyp.nameOderPid} (${projekt})";
+        }
+    }
+    catch (err) {
+    }
+    //-->
+</script>
+<div class="header">
+    <ul>
+        <li><a href="ueberblick.html">Überblick</a></li>
+        <li><a href="${mengentyp.konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${mengentyp.konfigurationsbereich.zustaendiger.pid}/${mengentyp.konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li class="active">Objekt</li>
+    </ul>
+</div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?${mengentyp.konfigurationsbereich.zustaendiger.pid}/${mengentyp.konfigurationsbereich.pid}/${mengentyp.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${mengentyp.konfigurationsbereich.zustaendiger.pid}/${mengentyp.konfigurationsbereich.pid}/${mengentyp.pid}.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
+<div class="content">
+    <p>${mengentyp.konfigurationsbereich.zustaendiger.nameOderPid} / ${mengentyp.konfigurationsbereich.nameOderPid}</p>
+    <h1>Menge ${mengentyp.nameOderPid} (${mengentyp.pid})</h1>
+    <p>${mengentyp.kurzinfo}</p>
+    #if( !$mengentyp.beschreibung.empty )
+    <p>${mengentyp.beschreibung}</p>
+    #end
+    <div class="eigenschaften">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Mengeneigenschaften</span></caption>
+            <tbody>
+            <tr>
+                <th>Minimale Anzahl</th>
+                <td class="altColor">${mengentyp.minimaleAnzahl}</td>
+            </tr>
+            <tr>
+                <th>Maximale Anzahl</th>
+                <td class="altColor">${mengentyp.maximaleAnzahl}</td>
+            </tr>
+            <tr>
+                <th>Änderbar</th>
+                <td class="altColor">${mengentyp.aenderbar}</td>
+            </tr>
+            <tr>
+                <th>Referenzierungsart</th>
+                <td class="altColor">${mengentyp.referenzierungsart}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    #if( !$mengentyp.typen.empty )
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Objekttypen</span></caption>
+            <tbody>
+            <tr>
+                <th>Typ</th>
+                <th>Beschreibung</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $typ in $mengentyp.objektTypen )
+                <tr>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.konfigurationsbereich.zustaendiger.pid}/${typ.konfigurationsbereich.pid}/${typ.pid}.html">${typ.name}</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.kurzinfo}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    #end
+</div>
+</body>
+</html>

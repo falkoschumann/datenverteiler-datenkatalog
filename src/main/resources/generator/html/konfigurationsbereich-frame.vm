@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>${konfigurationsbereich.nameOderPid}</title>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<div class="header">
+    <a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="objektFrame">${konfigurationsbereich.nameOderPid}</a>
+</div>
+<div class="content">
+    #if( !$konfigurationsbereich.typen.empty )
+    <p><strong>Typen</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.typen )
+            <li>
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    <strong>$objekt.nameOderPid</strong>
+                </a>
+            </li>
+        #end
+    </ul>
+    #end
+    #if( !$konfigurationsbereich.mengen.empty )
+    <p><strong>Mengen</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.mengen )
+            <li>
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    $objekt.nameOderPid
+                </a>
+            </li>
+        #end
+    </ul>
+    #end
+    #if( !$konfigurationsbereich.attributtypen.empty )
+    <p><strong>Attributgruppen</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.attributgruppen )
+            <li>
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    <em>$objekt.nameOderPid</em>
+                </a>
+            </li>
+        #end
+    </ul>
+    #end
+    #if( !$konfigurationsbereich.aspekte.empty )
+        <p><strong>Aspekte</strong></p>
+        <ul class="objekte">
+            #foreach( $objekt in $konfigurationsbereich.aspekte )
+                <li>
+                    <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
+                        <em>$objekt.nameOderPid</em>
+                    </a>
+                </li>
+            #end
+        </ul>
+    #end
+    #if( !$konfigurationsbereich.attributlisten.empty )
+    <p><strong>Attributlisten</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.attributlisten )
+            <li>
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    $objekt.nameOderPid
+                </a>
+            </li>
+        #end
+    </ul>
+    #end
+    #if( !$konfigurationsbereich.attributgruppen.empty )
+    <p><strong>Attributtypen</strong></p>
+    <ul class="objekte">
+        #foreach( $objekt in $konfigurationsbereich.attributtypen )
+            <li>
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html" target="objektFrame">
+                    $objekt.nameOderPid
+                </a>
+            </li>
+        #end
+    </ul>
+    #end
+</div>
+</body>
+</html>

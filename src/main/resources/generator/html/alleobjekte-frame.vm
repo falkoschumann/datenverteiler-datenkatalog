@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Alle Objekte</title>
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<div class="header">
+    Objekte
+</div>
+<div class="content">
+    <ul class="objekte">
+        #foreach( $objekt in $metamodell.objekte )
+            <li>
+                <a href="${objekt.konfigurationsbereich.zustaendiger.pid}/${objekt.konfigurationsbereich.pid}/${objekt.pid}.html"
+                   target="objektFrame">
+                    #if ( $objekt.class.simpleName.startsWith("Typ") )<strong>#end
+                    #if ( $objekt.class.simpleName.startsWith("Attributgruppe") )<em>#end
+                    $objekt.nameOderPid
+                    #if ( $objekt.class.simpleName.startsWith("Typ") )</strong>#end
+                        #if ( $objekt.class.simpleName.startsWith("Attributgruppe") )</em>#end
+                </a>
+            </li>
+        #end
+    </ul>
+</div>
+</body>
+</html>

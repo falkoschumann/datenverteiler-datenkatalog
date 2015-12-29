@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Konfigurationsbereich ${konfigurationsbereich.nameOderPid}</title>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<script type="text/javascript">
+    <!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title = "${konfigurationsbereich.nameOderPid} (${projekt})";
+        }
+    }
+    catch (err) {
+    }
+    //-->
+</script>
+<div class="header">
+    <ul>
+        <li><a href="ueberblick.html">Überblick</a></li>
+        <li><a href="${konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li class="active">Konfigurationsbereich</li>
+        <li>Objekt</li>
+    </ul>
+</div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="_top">Mit Frames</a></li>
+        <li><a href="${konfigurationsbereich.zustaendiger.pid}/${konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
+<div class="content">
+    <p>${konfigurationsbereich.zustaendiger.nameOderPid}</p>
+    <h1>Konfigurationsbereich ${konfigurationsbereich.nameOderPid} (${konfigurationsbereich.pid})</h1>
+    <p>${konfigurationsbereich.kurzinfo}</p>
+    #if( !$konfigurationsbereich.beschreibung.empty )
+    <p>${konfigurationsbereich.beschreibung}</p>
+    #end
+    #if( !$konfigurationsbereich.typen.empty )
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Typen</span></caption>
+            <tbody>
+            <tr>
+                <th>Typ</th>
+                <th>Beschreibung</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $typ in $konfigurationsbereich.typen )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${typ.konfigurationsbereich.zustaendiger.pid}/${typ.konfigurationsbereich.pid}/${typ.pid}.html">$typ.nameOderPid</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${typ.kurzinfo}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    #end
+    #if( !$konfigurationsbereich.mengen.empty )
+    <div class="ueberblick">
+        <table border="0" cellpadding="0" cellspacing="0">
+            <caption><span>Mengen</span></caption>
+            <tbody>
+            <tr>
+                <th>Menge</th>
+                <th>Beschreibung</th>
+            </tr>
+                #set( $row = 1 )
+                #foreach( $menge in $konfigurationsbereich.mengen )
+                <tr>
+                    <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${menge.konfigurationsbereich.zustaendiger.pid}/${menge.konfigurationsbereich.pid}/${menge.pid}.html">$menge.nameOderPid</a></td>
+                    <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${menge.kurzinfo}</td>
+                </tr>
+                    #set( $row = $row + 1 )
+                #end
+            </tbody>
+        </table>
+    </div>
+    #end
+    #if( !$konfigurationsbereich.attributgruppen.empty )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attributgruppen</span></caption>
+                <tbody>
+                <tr>
+                    <th>Attributgruppe</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $attributgruppe in $konfigurationsbereich.attributgruppen )
+                    <tr>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributgruppe.konfigurationsbereich.zustaendiger.pid}/${attributgruppe.konfigurationsbereich.pid}/${attributgruppe.pid}.html">$attributgruppe.nameOderPid</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributgruppe.kurzinfo}</td>
+                    </tr>
+                        #set( $row = $row + 1 )
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
+    #if( !$konfigurationsbereich.aspekte.empty )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Aspekte</span></caption>
+                <tbody>
+                <tr>
+                    <th>Aspekt</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $aspekt in $konfigurationsbereich.aspekte )
+                    <tr>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${aspekt.konfigurationsbereich.zustaendiger.pid}/${aspekt.konfigurationsbereich.pid}/${aspekt.pid}.html">$aspekt.nameOderPid</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${aspekt.kurzinfo}</td>
+                    </tr>
+                        #set( $row = $row + 1 )
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
+    #if( !$konfigurationsbereich.attributlisten.empty )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attributlisten</span></caption>
+                <tbody>
+                <tr>
+                    <th>Attributliste</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $attributliste in $konfigurationsbereich.attributlisten )
+                    <tr>
+                        <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/${attributliste.pid}.html">$attributliste.nameOderPid</a></td>
+                        <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributliste.kurzinfo}</td>
+                    </tr>
+                        #set( $row = $row + 1 )
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
+    #if( !$konfigurationsbereich.attributtypen.empty )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attributtypen</span></caption>
+                <tbody>
+                <tr>
+                    <th>Attributtyp</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #foreach( $attributtyp in $konfigurationsbereich.attributtypen )
+                        #if( !$attributtyp.class.simpleName.startsWith("Attributliste") )
+                        <tr>
+                            <td class="colFirst #if ($row % 2 == 0) rowColor #else altColor #end"><a href="${attributtyp.konfigurationsbereich.zustaendiger.pid}/${attributtyp.konfigurationsbereich.pid}/${attributtyp.pid}.html">$attributtyp.nameOderPid</a></td>
+                            <td class="#if ($row % 2 == 0) rowColor #else altColor #end block">${attributtyp.kurzinfo}</td>
+                        </tr>
+                        #set( $row = $row + 1 )
+                        #end
+                    #end
+                </tbody>
+            </table>
+        </div>
+    #end
+</div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #2e3436;
+    background-color: #fff;
+    font-family: "Lucida Grande", "Verdana", "Arial", sans-serif;
+    font-size: 14px;
+}
+
+.header {
+    padding: 8px 5px;
+    color: #fff;
+    background-color: #3465a4;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.header a {
+    color: #fff;
+}
+
+.header ul {
+    margin: 0;
+    padding: 0;
+}
+
+.header li {
+    display: inline-block;
+    font-weight: normal;
+}
+
+.header li.active {
+    padding: 6px 12px;
+    color: #2e3436;
+    background-color: #f57900;
+}
+
+.header li a:hover {
+    color: #f57900;
+}
+
+.subheader {
+    padding: 8px 5px;
+    background-color: #d3d7cf;
+    font-size: 13px;
+}
+
+.subheader ul {
+    margin: 0;
+    padding: 0;
+}
+
+.subheader li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.content {
+    padding: 5px;
+}
+
+.block {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-size: 16px;
+}
+
+ul.konfigurationsbereiche, ul.objekte {
+    padding: 0;
+}
+
+.konfigurationsbereiche li, .objekte li {
+    list-style: none;
+}
+
+.konfigurationsbereiche a, .objekte a {
+    font-size: 13px;
+    font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #204a87;
+}
+
+.ueberblick, .eigenschaften {
+    padding: 10px 20px;
+}
+
+.ueberblick .colFirst {
+    width: 33%;
+}
+
+.ueberblick a, .eigenschaften a {
+    font-weight: bold;
+}
+
+.ueberblick table {
+    width: 100%;
+}
+
+table {
+    border: 1px solid #babdb6;
+}
+
+caption {
+    text-align: left;
+}
+
+caption span {
+    display: inline-block;
+    padding: 6px 12px;
+    background-color: #f57900;
+    font-weight: bold;
+}
+
+th {
+    background-color: #babdb6;
+    font-weight: bold;
+}
+
+th, td {
+    padding: 4px 6px;
+    vertical-align: top;
+    text-align: left;
+}
+
+.rowColor {
+    background-color: #d3d7cf;
+}
+
+.altColor {
+    background-color: #eeeeec;
+}
+
+a {
+    color: #3465a4;
+    text-decoration: none;
+}
+
+.inherited {
+    font-style: italic;
+    color: #888a85;
+}

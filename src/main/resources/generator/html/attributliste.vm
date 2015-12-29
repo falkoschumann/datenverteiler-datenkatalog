@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <title>Menge ${attributliste.nameOderPid}</title>
+    <base href="../../">
+    <meta charset="UTF-8">
+    <meta name="date" content="2015-12-05"/>
+    <meta name="keywords" content="Typen, Mengen, Attributgruppen, Attributlisten, Attribute, Datenkatalog, NERZ, ERZ, VRZ, UZ, Verkehrsrechnerzentrale, Unterzentrale">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css" title="Style"/>
+</head>
+<body>
+<script type="text/javascript">
+    <!--
+    try {
+        if (location.href.indexOf('is-external=true') == -1) {
+            parent.document.title = "${attributliste.nameOderPid} (${projekt})";
+        }
+    }
+    catch (err) {
+    }
+    //-->
+</script>
+<div class="header">
+    <ul>
+        <li><a href="ueberblick.html">Überblick</a></li>
+        <li><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/konfigurationsverantwortlicher-ueberblick.html">Konfigurationsverantwortlicher</a></li>
+        <li><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/konfigurationsbereich-ueberblick.html">Konfigurationsbereich</a></li>
+        <li class="active">Objekt</li>
+    </ul>
+</div>
+<div class="subheader">
+    <ul>
+        <li><a href="index.html?${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/${attributliste.pid}.html" target="_top">Mit Frames</a></li>
+        <li><a href="${attributliste.konfigurationsbereich.zustaendiger.pid}/${attributliste.konfigurationsbereich.pid}/${attributliste.pid}.html" target="_top">Ohne Frames</a></li>
+    </ul>
+</div>
+<div class="content">
+    <p>${attributliste.konfigurationsbereich.zustaendiger.nameOderPid} / ${attributliste.konfigurationsbereich.nameOderPid}</p>
+    <h1>Attributliste ${attributliste.nameOderPid} (${attributliste.pid})</h1>
+    <p>${attributliste.kurzinfo}</p>
+    #if( !$attributliste.beschreibung.empty )
+    <p>${attributliste.beschreibung}</p>
+    #end
+    #if( !$attributliste.attribute.empty )
+        <div class="ueberblick">
+            <table border="0" cellpadding="0" cellspacing="0">
+                <caption><span>Attribute</span></caption>
+                <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Typ</th>
+                    <th>Anzahl</th>
+                    <th>Anzahl ist</th>
+                    <th>Beschreibung</th>
+                </tr>
+                    #set( $row = 1 )
+                    #set( $level = 1 )
+                    #set( $attributmenge = $attributliste )
+                    #parse( "/generator/html/attributmenge.vm" )
+                </tbody>
+            </table>
+        </div>
+    #end
+</div>
+</body>
+</html>
