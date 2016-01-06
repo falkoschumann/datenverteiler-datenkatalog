@@ -94,9 +94,11 @@ public class DatenverteilerImpl implements Datenverteiler {
         Empfaengeranmeldung anmeldung = Empfaengeranmeldung.of(objekte, datumTyp, aspekt);
         if (!empfaengerliste.containsKey(anmeldung)) {
             empfaengerliste.put(anmeldung, new Empfaenger<>(context, datumTyp));
+            empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
             dav.subscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
+        } else {
+            empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
         }
-        empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
     }
 
     @Override
