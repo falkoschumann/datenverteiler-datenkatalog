@@ -16,6 +16,14 @@
     </properties>
 
     <body>
+        <release version="3.1.1" date="2016-01-06" description="Bugfixes">
+            <action dev="falkoschumann" type="fix">
+        Beim Anmelden als Empfänger von Datensätzen, konnte es dazu kommen, dass
+    der erste Datensatz "verschluckt", also nicht an das angemeldete Objekt
+    weitergereicht wurde.
+            </action>
+        </release>
+
         <release version="3.1.0" date="2015-10-14" description="Kleine Verbesserung">
             <action dev="falkoschumann" type="add">
         Die Annotation @Ignorieren kann jetzt auch an Settern verwendet werden.
