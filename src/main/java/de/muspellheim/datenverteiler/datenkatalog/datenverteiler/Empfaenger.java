@@ -7,6 +7,7 @@ package de.muspellheim.datenverteiler.datenkatalog.datenverteiler;
 
 import de.bsvrz.dav.daf.main.ClientReceiverInterface;
 import de.bsvrz.dav.daf.main.ResultData;
+import de.bsvrz.sys.funclib.debug.Debug;
 import de.muspellheim.datenverteiler.datenkatalog.bind.Context;
 
 import java.time.Instant;
@@ -25,10 +26,12 @@ import java.util.function.Consumer;
  */
 public class Empfaenger<T> implements ClientReceiverInterface {
 
+    private static final Debug log = Debug.getLogger();
+
     private final List<Consumer<Datensatz<T>>> consumers = new CopyOnWriteArrayList<>();
 
     private final Context context;
-    private Class<T> datumTyp;
+    private final Class<T> datumTyp;
 
     /**
      * Initialisiert den Empfänger mit dem Kontext des Databindings und des Typs der Daten.
@@ -67,6 +70,8 @@ public class Empfaenger<T> implements ClientReceiverInterface {
     }
 
     private void veroeffentlicheDatensatz(Consumer<Datensatz<T>> c, ResultData rd) {
+        log.fine("Datensatz empfangen", rd);
+
         T datum = context.createUnmarshaller().unmarshal(rd.getData(), datumTyp);
         LocalDateTime zeitstempel = LocalDateTime.ofInstant(Instant.ofEpochMilli(rd.getDataTime()), ZoneId.systemDefault());
         Datensatz<T> datensatz = Datensatz.of(rd.getObject(), datum, rd.getDataDescription().getAspect(), zeitstempel);
