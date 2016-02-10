@@ -45,6 +45,11 @@ public class DatenverteilerImpl implements Datenverteiler {
         anmeldenAlsSender(objekte, datumTyp, aspekt, SenderRole.source());
     }
 
+    @Override
+    public void anmeldenAlsSender(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt) throws DatenverteilerException {
+        anmeldenAlsSender(objekte, datumTyp, aspekt, SenderRole.sender());
+    }
+
     private void anmeldenAlsSender(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt, SenderRole rolle) {
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
@@ -60,16 +65,11 @@ public class DatenverteilerImpl implements Datenverteiler {
     }
 
     private DataDescription getDataDescription(Class<?> datumTyp, Aspect asp) {
-        return new DataDescription(getAttributgruppe(datumTyp), asp);
+        return new DataDescription(getAttributeGroup(datumTyp), asp);
     }
 
-    private AttributeGroup getAttributgruppe(Class<?> datumTyp) {
+    private AttributeGroup getAttributeGroup(Class<?> datumTyp) {
         return dav.getDataModel().getAttributeGroup(datumTyp.getAnnotation(AttributgruppenDefinition.class).pid());
-    }
-
-    @Override
-    public void anmeldenAlsSender(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt) throws DatenverteilerException {
-        anmeldenAlsSender(objekte, datumTyp, aspekt, SenderRole.sender());
     }
 
     @Override
@@ -86,6 +86,11 @@ public class DatenverteilerImpl implements Datenverteiler {
     @Override
     public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
         anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.drain(), option);
+    }
+
+    @Override
+    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
+        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.receiver(), option);
     }
 
     private <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, ReceiverRole role, Empfaengeroption option) {
@@ -105,11 +110,6 @@ public class DatenverteilerImpl implements Datenverteiler {
         } else {
             empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
         }
-    }
-
-    @Override
-    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
-        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.receiver(), option);
     }
 
     private ReceiveOptions getReceiverOptions(Empfaengeroption option) {
@@ -184,7 +184,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekt, "objekt");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        Data data = objekt.getConfigurationData(getAttributgruppe(datumTyp));
+        Data data = objekt.getConfigurationData(getAttributeGroup(datumTyp));
         log.fine("Konfigurationsdaten abgerufen für " + objekt, data);
         return context.createUnmarshaller().unmarshal(data, datumTyp);
     }
