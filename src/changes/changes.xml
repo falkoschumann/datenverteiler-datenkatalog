@@ -16,6 +16,12 @@
     </properties>
 
     <body>
+        <release version="3.1.2" date="2016-05-10" description="Bugfixes">
+            <action dev="falkoschumann" type="fix">
+        Exportierte Packages in OSGi-Bundle-Manifest korrigiert.
+            </action>
+        </release>
+
         <release version="3.1.1" date="2016-01-06" description="Bugfixes">
             <action dev="falkoschumann" type="fix">
         Beim Anmelden als Empfänger von Datensätzen, konnte es dazu kommen, dass
