@@ -1,8 +1,4 @@
--exportcontents: \
-    de.muspell.datenverteiler.datenkatalog.bind, \
-    de.muspell.datenverteiler.datenkatalog.datenverteiler, \
-    de.muspell.datenverteiler.datenkatalog.flow, \
-    de.muspell.datenverteiler.datenkatalog.util
+-exportcontents: de.muspellheim.datenverteiler.datenkatalog.*
 -sources: true
 
 Bundle-Name: Funktionsbibliothek Datenkatalog
