@@ -9,6 +9,7 @@ import de.bsvrz.dav.daf.main.*;
 import de.bsvrz.dav.daf.main.config.Aspect;
 import de.bsvrz.dav.daf.main.config.AttributeGroup;
 import de.bsvrz.dav.daf.main.config.SystemObject;
+import de.bsvrz.sys.funclib.debug.Debug;
 import de.muspellheim.datenverteiler.datenkatalog.bind.AttributgruppenDefinition;
 import de.muspellheim.datenverteiler.datenkatalog.bind.Context;
 
@@ -26,6 +27,8 @@ import java.util.function.Consumer;
  */
 public class DatenverteilerImpl implements Datenverteiler {
 
+    private static final Debug log = Debug.getLogger();
+
     private final Map<Empfaengeranmeldung, Empfaenger> empfaengerliste = new LinkedHashMap<>();
     private final ClientSenderInterface sender = new Sender();
 
@@ -39,36 +42,34 @@ public class DatenverteilerImpl implements Datenverteiler {
 
     @Override
     public void anmeldenAlsQuelle(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt) throws DatenverteilerException {
+        anmeldenAlsSender(objekte, datumTyp, aspekt, SenderRole.source());
+    }
+
+    @Override
+    public void anmeldenAlsSender(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt) throws DatenverteilerException {
+        anmeldenAlsSender(objekte, datumTyp, aspekt, SenderRole.sender());
+    }
+
+    private void anmeldenAlsSender(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt, SenderRole rolle) {
         Objects.requireNonNull(objekte, "objekte");
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
+        DataDescription datenbeschreibung = getDataDescription(datumTyp, aspekt);
+        log.fine("Anmeldung als " + rolle + " für " + datenbeschreibung, objekte);
         try {
-            dav.subscribeSender(sender, objekte, getDataDescription(datumTyp, aspekt), SenderRole.source());
+            dav.subscribeSender(sender, objekte, datenbeschreibung, rolle);
         } catch (OneSubscriptionPerSendData ex) {
             throw new DatenverteilerException("Doppelte Anmeldung als Quelle.", ex);
         }
     }
 
     private DataDescription getDataDescription(Class<?> datumTyp, Aspect asp) {
-        return new DataDescription(getAttributgruppe(datumTyp), asp);
+        return new DataDescription(getAttributeGroup(datumTyp), asp);
     }
 
-    private AttributeGroup getAttributgruppe(Class<?> datumTyp) {
+    private AttributeGroup getAttributeGroup(Class<?> datumTyp) {
         return dav.getDataModel().getAttributeGroup(datumTyp.getAnnotation(AttributgruppenDefinition.class).pid());
-    }
-
-    @Override
-    public void anmeldenAlsSender(Collection<SystemObject> objekte, Class<?> datumTyp, Aspect aspekt) throws DatenverteilerException {
-        Objects.requireNonNull(objekte, "objekte");
-        Objects.requireNonNull(datumTyp, "datumTyp");
-        Objects.requireNonNull(aspekt, "aspekt");
-
-        try {
-            dav.subscribeSender(sender, objekte, getDataDescription(datumTyp, aspekt), SenderRole.sender());
-        } catch (OneSubscriptionPerSendData ex) {
-            throw new DatenverteilerException("Doppelte Anmeldung als Sender.", ex);
-        }
     }
 
     @Override
@@ -77,12 +78,19 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
         Objects.requireNonNull(aspekt, "aspekt");
 
-        dav.unsubscribeSender(sender, objekte, getDataDescription(datumTyp, aspekt));
+        DataDescription datenbeschreibung = getDataDescription(datumTyp, aspekt);
+        log.fine("Abmeldung als Sender für  " + datenbeschreibung, objekte);
+        dav.unsubscribeSender(sender, objekte, datenbeschreibung);
     }
 
     @Override
     public <T> void anmeldenAlsSenke(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
         anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.drain(), option);
+    }
+
+    @Override
+    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
+        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.receiver(), option);
     }
 
     private <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, ReceiverRole role, Empfaengeroption option) {
@@ -95,15 +103,13 @@ public class DatenverteilerImpl implements Datenverteiler {
         if (!empfaengerliste.containsKey(anmeldung)) {
             empfaengerliste.put(anmeldung, new Empfaenger<>(context, datumTyp));
             empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
-            dav.subscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt), getReceiverOptions(option), role);
+            DataDescription datenbeschreibung = getDataDescription(datumTyp, aspekt);
+            ReceiveOptions options = getReceiverOptions(option);
+            log.fine("Anmeldung als " + role + " für " + datenbeschreibung + " mit Option " + options, objekte);
+            dav.subscribeReceiver(empfaengerliste.get(anmeldung), objekte, datenbeschreibung, options, role);
         } else {
             empfaengerliste.get(anmeldung).connectConsumer(empfaenger);
         }
-    }
-
-    @Override
-    public <T> void anmeldenAlsEmpfaenger(Consumer<Datensatz<T>> empfaenger, Collection<SystemObject> objekte, Class<T> datumTyp, Aspect aspekt, Empfaengeroption option) {
-        anmeldenAlsEmpfaenger(empfaenger, objekte, datumTyp, aspekt, ReceiverRole.receiver(), option);
     }
 
     private ReceiveOptions getReceiverOptions(Empfaengeroption option) {
@@ -130,7 +136,9 @@ public class DatenverteilerImpl implements Datenverteiler {
         if (empfaengerliste.containsKey(anmeldung)) {
             empfaengerliste.get(anmeldung).disconnectConsumer(empfaenger);
             if (!empfaengerliste.get(anmeldung).hasConsumer()) {
-                dav.unsubscribeReceiver(empfaengerliste.get(anmeldung), objekte, getDataDescription(datumTyp, aspekt));
+                DataDescription datenbeschreibung = getDataDescription(datumTyp, aspekt);
+                log.fine("Abmeldung als Empfänger für " + datenbeschreibung, objekte);
+                dav.unsubscribeReceiver(empfaengerliste.get(anmeldung), objekte, datenbeschreibung);
                 empfaengerliste.remove(anmeldung);
             }
         }
@@ -160,6 +168,7 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datumTyp, "datumTyp");
 
         ResultData rd = dav.getData(objekt, getDataDescription(datumTyp, getParameterSoll()), 0);
+        log.fine("Parameter empfangen", rd);
         return unmarshal(rd, datumTyp);
     }
 
@@ -175,7 +184,8 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(objekt, "objekt");
         Objects.requireNonNull(datumTyp, "datumTyp");
 
-        Data data = objekt.getConfigurationData(getAttributgruppe(datumTyp));
+        Data data = objekt.getConfigurationData(getAttributeGroup(datumTyp));
+        log.fine("Konfigurationsdaten abgerufen für " + objekt, data);
         return context.createUnmarshaller().unmarshal(data, datumTyp);
     }
 
@@ -189,7 +199,9 @@ public class DatenverteilerImpl implements Datenverteiler {
         Objects.requireNonNull(datensaetze, "datensaetze");
 
         try {
-            dav.sendData(datensaetze.stream().map(this::marshal).toArray(ResultData[]::new));
+            ResultData[] results = datensaetze.stream().map(this::marshal).toArray(ResultData[]::new);
+            log.fine("Sende Datensätze", results);
+            dav.sendData(results);
         } catch (SendSubscriptionNotConfirmed ex) {
             throw new DatenverteilerException("Datensatz ist nicht zum Senden angemeldet.", ex);
         }
